@@ -1,0 +1,41 @@
+0 verbose cli /usr/local/bin/node /usr/local/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@11.11.0
+2 info using node@v24.14.1
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/ridloabelian/Documents/fwp.or.id/.npmrc
+5 silly config load:file:/Users/ridloabelian/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm exec create-vite --help
+8 verbose argv "exec" "--yes" "--" "create-vite" "--help"
+9 verbose logfile logs-max:10 dir:/Users/ridloabelian/Documents/fwp.or.id/.npm-cache/_logs/2026-04-07T03_48_54_740Z-
+10 verbose logfile /Users/ridloabelian/Documents/fwp.or.id/.npm-cache/_logs/2026-04-07T03_48_54_740Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+13 http fetch GET 200 https://registry.npmjs.org/create-vite 535ms (cache miss)
+14 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+15 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+16 silly idealTree buildDeps
+17 silly fetch manifest create-vite@9.0.4
+18 silly packumentCache full:https://registry.npmjs.org/create-vite cache-miss
+19 http fetch GET 200 https://registry.npmjs.org/create-vite 233ms (cache miss)
+20 silly packumentCache full:https://registry.npmjs.org/create-vite set size:undefined disposed:false
+21 silly placeDep ROOT create-vite@9.0.4 OK for:  want: 9.0.4
+22 silly reify moves {}
+23 silly audit bulk request { 'create-vite': [ '9.0.4' ] }
+24 http cache create-vite@https://registry.npmjs.org/create-vite/-/create-vite-9.0.4.tgz 0ms (cache hit)
+25 silly tarball no local data for create-vite@https://registry.npmjs.org/create-vite/-/create-vite-9.0.4.tgz. Extracting by manifest.
+26 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 434ms
+27 silly audit report {}
+28 http fetch GET 200 https://registry.npmjs.org/npm 1367ms
+29 http fetch GET 200 https://registry.npmjs.org/create-vite/-/create-vite-9.0.4.tgz 1484ms (cache miss)
+30 verbose cwd /Users/ridloabelian/Documents/fwp.or.id
+31 verbose os Darwin 24.3.0
+32 verbose node v24.14.1
+33 verbose npm  v11.11.0
+34 notice
+34 notice New [33mminor[39m version of npm available! [33m11.11.0[39m -> [34m11.12.1[39m
+34 notice Changelog: [34mhttps://github.com/npm/cli/releases/tag/v11.12.1[39m
+34 notice To update run: [4mnpm install -g npm@11.12.1[24m
+34 notice  { force: true, Symbol(proc-log.meta): true }
+35 verbose exit 0
+36 info ok
