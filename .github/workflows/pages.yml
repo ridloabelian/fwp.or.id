@@ -32,6 +32,6 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy ./dist --project-name fwp-or-id
+          command: pages deploy ./dist --project-name fwp-or-id --branch master
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
