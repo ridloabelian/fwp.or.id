@@ -1,6 +1,8 @@
+name = "fwp-or-id"
+pages_build_output_dir = "dist"
+
 [build]
   command = "npm run build"
-  output_directory = "dist"
 
 [[headers]]
   for = "/*"
