@@ -248,7 +248,7 @@ const LandingPage = () => {
             whileHover={{ y: -10, transition: { duration: 0.3 } }}
           >
              <h3 style={{ borderBottom: '2px solid var(--bg-offset)', paddingBottom: '16px' }}>Visi Bersama</h3>
-             <p><strong>"Menjadikan Wakaf sebagai pilar utama ketahanan ekonomi umat melalui pengelolaan yang produktif, transparan, dan inovatif."</strong></p>
+             <p><strong>&quot;Menjadikan Wakaf sebagai pilar utama ketahanan ekonomi umat melalui pengelolaan yang produktif, transparan, dan inovatif.&quot;</strong></p>
              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '16px' }}>
                <Building2 size={48} color="var(--primary-light)" />
                <Leaf size={48} color="var(--secondary-color)" />

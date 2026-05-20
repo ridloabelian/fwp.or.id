@@ -100,5 +100,3 @@ out/
 ehthumbs.db
 Thumbs.db
 
-# Firebase cache
-.firebase/
