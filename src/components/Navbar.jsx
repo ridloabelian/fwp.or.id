@@ -29,7 +29,7 @@ const Navbar = () => {
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link to="/" className="nav-brand">
             {/* FWP Logo Image */}
-            <img src="/logo.png" alt="FWP Logo" style={{ height: '40px', objectFit: 'contain' }} onError={(e) => { e.target.style.display = 'none'; }} />
+            <img src="/logo.png" alt="FWP Logo" style={{ height: '40px', objectFit: 'contain', borderRadius: '8px' }} onError={(e) => { e.target.style.display = 'none'; }} />
           </Link>
 
           <ul className="nav-links">
