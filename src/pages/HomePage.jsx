@@ -3,14 +3,11 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Users, Target, ChartBar, Building2, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
+import CountUp from 'react-countup';
+import SEO from '../components/SEO';
+import { homeStats, chartData } from '../data/stats';
+import { nazhirList } from '../data/nazhir';
 
-const chartData = [
-  { name: '2020', Capaian: 400 },
-  { name: '2021', Capaian: 800 },
-  { name: '2022', Capaian: 1200 },
-  { name: '2023', Capaian: 1800 },
-  { name: 'Kini', Capaian: 2300 }
-];
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
@@ -34,7 +31,10 @@ const itemScale = {
 const LandingPage = () => {
   return (
     <>
-      
+      <SEO 
+        title="Beranda" 
+        description="Portal resmi Forum Wakaf Produktif Indonesia. Mengorkestrasi gerakan Indonesia Berwakaf untuk memajukan ekosistem wakaf produktif secara nasional." 
+      />
       {/* Hero Section */}
       <section className="hero" id="beranda">
         <div className="container">
@@ -147,29 +147,36 @@ const LandingPage = () => {
           >
             {/* Top Stats Cards */}
             <div className="grid-3">
-              <motion.div className="text-center" variants={fadeInUp}>
-                <h3 style={{ fontSize: '3rem', color: 'var(--primary-color)', margin: 0 }}>
-                  Rp 2.3T+
-                </h3>
-                <p style={{ fontWeight: '600', margin: 0 }}>Potensi Wakaf Uang</p>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Terkumpul secara Nasional</span>
-              </motion.div>
-              
-              <motion.div className="text-center stat-item" variants={fadeInUp}>
-                <h3 style={{ fontSize: '3rem', color: 'var(--secondary-color)', margin: 0 }}>
-                  57.550 <span style={{ fontSize: '1.5rem' }}>Ha</span>
-                </h3>
-                <p style={{ fontWeight: '600', margin: 0 }}>Luas Tanah Wakaf</p>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Tersebar di 445.410 Lokasi</span>
-              </motion.div>
-
-              <motion.div className="text-center" variants={fadeInUp}>
-                <h3 style={{ fontSize: '3rem', color: 'var(--tertiary-color)', margin: 0 }}>
-                  1.821
-                </h3>
-                <p style={{ fontWeight: '600', margin: 0 }}>SDM Nazhir</p>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Miliki Sertifikasi Kompetensi</span>
-              </motion.div>
+              {homeStats.map((stat, idx) => {
+                const isDecimal = stat.number % 1 !== 0;
+                let color = 'var(--primary-color)';
+                if (idx === 1) color = 'var(--secondary-color)';
+                if (idx === 2) color = 'var(--tertiary-color)';
+                
+                return (
+                  <motion.div 
+                    key={idx} 
+                    className={`text-center ${idx === 1 ? 'stat-item' : ''}`} 
+                    variants={fadeInUp}
+                  >
+                    <h3 style={{ fontSize: '3rem', color: color, margin: 0 }}>
+                      <CountUp
+                        end={stat.number}
+                        duration={2.5}
+                        separator="."
+                        decimals={isDecimal ? 1 : 0}
+                        decimal=","
+                        prefix={stat.prefix || ''}
+                        suffix={stat.unit || ''}
+                        enableScrollSpy={true}
+                        scrollSpyOnce={true}
+                      />
+                    </h3>
+                    <p style={{ fontWeight: '600', margin: 0 }}>{stat.label}</p>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{stat.disclaimer}</span>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Recharts Graphical Visualization */}
@@ -330,15 +337,15 @@ const LandingPage = () => {
             viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
           >
-            {['Dompet Dhuafa', 'Sinergi Foundation', 'Wakaf Al-Azhar', 'Rumah Wakaf', 'Daarut Tauhiid', 'BSI Maslahat', 'Amal Produktif', 'Tazakka'].map((name, idx) => (
+            {nazhirList.map((nazhir) => (
               <motion.div 
-                key={idx} 
+                key={nazhir.id} 
                 className="glass-card" 
                 style={{ padding: '24px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 variants={itemScale}
                 whileHover={{ scale: 1.05, boxShadow: 'var(--shadow-lg)' }}
               >
-                <span style={{ fontWeight: '600', color: 'var(--text-muted)' }}>{name}</span>
+                <span style={{ fontWeight: '600', color: 'var(--text-muted)' }}>{nazhir.name}</span>
               </motion.div>
             ))}
           </motion.div>

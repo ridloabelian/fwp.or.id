@@ -12,6 +12,7 @@ import NazhirCenterPage from './pages/NazhirCenterPage';
 import SuccessStoriesPage from './pages/SuccessStoriesPage';
 import BusinessMatchingPage from './pages/BusinessMatchingPage';
 import TransparencyPage from './pages/TransparencyPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -35,6 +36,7 @@ function App() {
           <Route path="/inspirasi-studi-kasus" element={<SuccessStoriesPage />} />
           <Route path="/layanan-bisnis" element={<BusinessMatchingPage />} />
           <Route path="/transparansi" element={<TransparencyPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />

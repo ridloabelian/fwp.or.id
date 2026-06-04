@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Landmark, Target, Award, Globe, Building2, BookOpen } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -18,6 +19,10 @@ const staggerContainer = {
 const AboutPage = () => {
   return (
     <>
+      <SEO 
+        title="Tentang Kami" 
+        description="Profil, visi, misi, dan struktur organisasi FWP. Sinergi Forum Wakaf Produktif dengan Badan Wakaf Indonesia (BWI) dalam mentransformasi gerakan wakaf nasional." 
+      />
       <section className="section" style={{ paddingTop: '120px' }}>
         <div className="container text-center">
           <motion.h1 initial="hidden" animate="visible" variants={fadeInUp} style={{ fontSize: '3rem', color: 'var(--primary-color)' }}>

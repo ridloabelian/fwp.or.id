@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Leaf, MapPin, Landmark, HandCoins } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
+import { programsData } from '../data/programs';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -19,6 +21,10 @@ const staggerContainer = {
 const ProgramsPage = () => {
   return (
     <>
+      <SEO 
+        title="Program Strategis" 
+        description="4 program unggulan FWP: advokasi, inkubasi bisnis wakaf produktif, kota wakaf, dan sertifikasi nazhir nasional." 
+      />
       <section className="section" style={{ paddingTop: '120px' }}>
         <div className="container text-center">
           <motion.h1 initial="hidden" animate="visible" variants={fadeInUp} style={{ fontSize: '3rem', color: 'var(--primary-color)' }}>
@@ -33,55 +39,51 @@ const ProgramsPage = () => {
       <section className="section section-bg">
         <div className="container">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid-2">
-            
-            {/* Inkubasi */}
-            <motion.div variants={fadeInUp} className="glass-card" style={{ background: 'white' }}>
-              <div style={{ padding: '16px', background: 'rgba(139, 197, 63, 0.15)', color: 'var(--secondary-color)', display: 'inline-block', borderRadius: '12px', marginBottom: '24px' }}>
-                <Leaf size={32} />
-              </div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Inkubasi Wakaf Produktif</h3>
-              <p>Program pendampingan komprehensif dan stimulus pendanaan untuk mengelola aset wakaf (perkebunan, pertanian, dan UMKM) agar memiliki model kompetitif serta menjadi <em>Role Model</em> laboratorium wakaf produktif di daerah.</p>
-              <Link to="/layanan-bisnis" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--secondary-color)', fontWeight: 'bold', marginTop: '16px' }}>
-                Ajukan Proyek <ArrowRight size={16} />
-              </Link>
-            </motion.div>
+            {programsData.map((program) => {
+              const IconComponent = Icons[program.iconName];
+              const isCTAEmpty = program.ctaLink === '#';
 
-            {/* Kota Wakaf */}
-            <motion.div variants={fadeInUp} className="glass-card" style={{ background: 'white' }}>
-              <div style={{ padding: '16px', background: 'rgba(22, 174, 202, 0.15)', color: 'var(--tertiary-color)', display: 'inline-block', borderRadius: '12px', marginBottom: '24px' }}>
-                <MapPin size={32} />
-              </div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Pengembangan Kota Wakaf</h3>
-              <p>Pemberdayaan aset wakaf berbasis kewilayahan melalui 5 tatanan indikator utama: Literasi massif, Kolaborasi lintas tanah dan uang, Gerakan Wakaf Uang, Profesionalisme kompetensi Nazhir, dan replikasi Role Model.</p>
-              <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--tertiary-color)', fontWeight: 'bold', marginTop: '16px' }}>
-                Pelajari Modul <ArrowRight size={16} />
-              </a>
-            </motion.div>
-
-            {/* CWLS */}
-            <motion.div variants={fadeInUp} className="glass-card" style={{ background: 'white' }}>
-              <div style={{ padding: '16px', background: 'rgba(19, 44, 63, 0.1)', color: 'var(--primary-color)', display: 'inline-block', borderRadius: '12px', marginBottom: '24px' }}>
-                <Landmark size={32} />
-              </div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Instrumen Keuangan: CWLS</h3>
-              <p>Partisipasi di dalam instrumen inovatif pendanaan negara secara syariah, yaitu <em>Cash Waqf Linked Sukuk</em> (CWLS), baik secara ritel maupun korporasi/private placement, yang kupon imbal hasilnya dialokasikan untuk membiayai program kemaslahatan masyarakat.</p>
-              <a href="https://www.bwi.go.id/cwls/" target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--primary-color)', fontWeight: 'bold', marginTop: '16px' }}>
-                Informasi CWLS <ArrowRight size={16} />
-              </a>
-            </motion.div>
-
-            {/* APIF */}
-            <motion.div variants={fadeInUp} className="glass-card" style={{ background: 'white' }}>
-              <div style={{ padding: '16px', background: 'rgba(139, 197, 63, 0.1)', color: 'var(--secondary-color)', display: 'inline-block', borderRadius: '12px', marginBottom: '24px' }}>
-                <HandCoins size={32} />
-              </div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Fasilitasi APIF-ISDB</h3>
-              <p>Akses pembiayaan internasional melalui fasilitas <em>Awqaf Properties Investment Fund</em> (APIF) dari Islamic Development Bank (IsDB) untuk merevitalisasi dan mengembangkan aset properti strategis komersial berbasis wakaf.</p>
-              <Link to="/layanan-bisnis" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--secondary-color)', fontWeight: 'bold', marginTop: '16px' }}>
-                Fasilitasi Proyek <ArrowRight size={16} />
-              </Link>
-            </motion.div>
-
+              return (
+                <motion.div 
+                  key={program.id} 
+                  variants={fadeInUp} 
+                  className="glass-card" 
+                  style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+                >
+                  <div>
+                    <div style={{ padding: '16px', background: program.bgColor, color: program.themeColor, display: 'inline-block', borderRadius: '12px', marginBottom: '24px' }}>
+                      {IconComponent && <IconComponent size={32} />}
+                    </div>
+                    <h3 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>{program.title}</h3>
+                    <p>{program.description}</p>
+                  </div>
+                  
+                  <div style={{ marginTop: '24px' }}>
+                    {isCTAEmpty ? (
+                      <span className="btn-disabled" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontWeight: 'bold' }}>
+                        {program.ctaText} <span className="badge-soon">Segera</span>
+                      </span>
+                    ) : program.isExternal ? (
+                      <a 
+                        href={program.ctaLink} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: program.themeColor, fontWeight: 'bold' }}
+                      >
+                        {program.ctaText} <Icons.ArrowRight size={16} />
+                      </a>
+                    ) : (
+                      <Link 
+                        to={program.ctaLink} 
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: program.themeColor, fontWeight: 'bold' }}
+                      >
+                        {program.ctaText} <Icons.ArrowRight size={16} />
+                      </Link>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>

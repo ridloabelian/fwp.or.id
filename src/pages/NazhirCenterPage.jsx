@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, ShieldCheck, ListChecks, Award, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
+import { nazhirList } from '../data/nazhir';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -12,13 +14,26 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
+    transition: {
+      staggerChildren: 0.15
+    }
   }
 };
 
 const NazhirCenterPage = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredNazhirs = nazhirList.filter(nazhir => 
+    nazhir.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    nazhir.city.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
+      <SEO 
+        title="Pusat Nazhir" 
+        description="Standar kompetensi SKKNI, implementasi Waqf Core Principles, dan direktori lembaga nazhir resmi nasional." 
+      />
       <section className="section" style={{ paddingTop: '120px' }}>
         <div className="container text-center">
           <motion.h1 initial="hidden" animate="visible" variants={fadeInUp} style={{ fontSize: '3rem', color: 'var(--primary-color)' }}>
@@ -67,15 +82,22 @@ const NazhirCenterPage = () => {
                 </motion.li>
               ))}
             </motion.ul>
-            <motion.button variants={fadeInUp} className="btn btn-outline" style={{ marginTop: '32px', display: 'inline-flex', gap: '8px' }}>
+            <motion.a 
+              variants={fadeInUp} 
+              href="mailto:sekretariat@fwp.or.id?subject=Pendaftaran Sertifikasi Nazhir" 
+              className="btn btn-outline" 
+              style={{ marginTop: '32px', display: 'inline-flex', gap: '8px', alignItems: 'center' }}
+            >
               <Award size={18} /> Daftar Sertifikasi
-            </motion.button>
+            </motion.a>
           </motion.div>
           
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="glass-card" style={{ background: 'var(--primary-light)', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '400px' }}>
              <h3 style={{ borderBottom: '2px solid rgba(255,255,255,0.2)', paddingBottom: '16px', color: 'white' }}>Modul Kompetensi Tersedia</h3>
              <p>Akses pustaka e-learning SKKNI langsung melalui platform portal edukasi terafiliasi kami.</p>
-             <button className="btn btn-secondary" style={{ marginTop: 'auto', alignSelf: 'flex-start' }}>Akses E-Learning</button>
+             <button className="btn btn-secondary btn-disabled" style={{ marginTop: 'auto', alignSelf: 'flex-start', pointerEvents: 'none' }} disabled={true}>
+               Akses E-Learning <span className="badge-soon">Segera</span>
+             </button>
           </motion.div>
         </div>
       </section>
@@ -89,18 +111,30 @@ const NazhirCenterPage = () => {
           </motion.p>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} style={{ maxWidth: '500px', margin: '0 auto 40px', display: 'flex', gap: '8px' }}>
-             <input type="text" placeholder="Cari berdasarkan nama lembaga atau kota..." style={{ flex: 1, padding: '12px 16px', borderRadius: '8px', border: '1px solid #ccc' }} />
+             <input 
+               type="text" 
+               placeholder="Cari berdasarkan nama lembaga atau kota..." 
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)}
+               style={{ flex: 1, padding: '12px 16px', borderRadius: '8px', border: '1px solid #ccc' }} 
+             />
              <button className="btn btn-primary" style={{ padding: '12px 20px' }}><Search size={20} /></button>
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid-4" style={{ gap: '16px' }}>
-            {['Dompet Dhuafa', 'Sinergi Foundation', 'Wakaf Al-Azhar', 'Rumah Wakaf', 'Daarut Tauhiid', 'BSI Maslahat', 'Amal Produktif', 'Tazakka'].map((name, idx) => (
-              <motion.div key={idx} className="glass-card" style={{ padding: '24px', background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
-                <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>{name}</span>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>Terverifikasi BWI</span>
+            {filteredNazhirs.map((nazhir) => (
+              <motion.div key={nazhir.id} className="glass-card" style={{ padding: '24px', background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
+                <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>{nazhir.name}</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>{nazhir.status}</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{nazhir.city}</span>
               </motion.div>
             ))}
           </motion.div>
+          {filteredNazhirs.length === 0 && (
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ marginTop: '20px', color: 'var(--text-muted)' }}>
+              Tidak menemukan Lembaga Nazhir dengan kriteria pencarian tersebut.
+            </motion.p>
+          )}
         </div>
       </section>
     </>

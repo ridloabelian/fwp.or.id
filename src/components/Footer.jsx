@@ -1,5 +1,7 @@
+import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { navLinks } from '../data/navigation';
 
 const Footer = () => {
   return (
@@ -20,10 +22,11 @@ const Footer = () => {
         <div>
           <h3>Tautan Cepat</h3>
           <ul className="footer-links">
-            <li><Link to="/">Beranda</Link></li>
-            <li><Link to="/tentang-kami">Tentang Kami</Link></li>
-            <li><Link to="/program">Program & Kegiatan</Link></li>
-            <li><Link to="/pusat-nazhir">Daftar Lembaga Nazhir</Link></li>
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <Link to={link.path}>{link.label}</Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -36,7 +39,7 @@ const Footer = () => {
             </li>
             <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <Mail size={18} color="var(--secondary-color)" />
-              <span>halo@fwp.or.id</span>
+              <span>info@fwp.or.id</span>
             </li>
             <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <Phone size={18} color="var(--secondary-color)" />
@@ -48,7 +51,7 @@ const Footer = () => {
         <div>
           <h3>Mari Berkolaborasi</h3>
           <p>Dukung pertumbuhan ekonomi umat melalui wakaf produktif bersama Lembaga Nazhir terpercaya di seluruh Indonesia.</p>
-          <a href="mailto:halo@fwp.or.id" className="btn btn-secondary" style={{ marginTop: '16px' }}>Kirim Pesan</a>
+          <a href="mailto:info@fwp.or.id" className="btn btn-secondary" style={{ marginTop: '16px' }}>Kirim Pesan</a>
         </div>
       </div>
       

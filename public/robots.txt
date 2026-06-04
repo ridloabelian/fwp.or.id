@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fwp.or.id/sitemap.xml
