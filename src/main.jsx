@@ -6,11 +6,11 @@ import './index.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <ErrorBoundary>
-    <HelmetProvider>
-      <BrowserRouter>
+  <HelmetProvider>
+    <BrowserRouter>
+      <ErrorBoundary>
         <App />
-      </BrowserRouter>
-    </HelmetProvider>
-  </ErrorBoundary>,
+      </ErrorBoundary>
+    </BrowserRouter>
+  </HelmetProvider>,
 )
