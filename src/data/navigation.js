@@ -6,5 +6,6 @@ export const navLinks = [
   { id: 'stories', path: '/inspirasi-studi-kasus', label: 'Inspirasi' },
   { id: 'business', path: '/layanan-bisnis', label: 'Kemitraan Strategis' },
   { id: 'transparency', path: '/transparansi', label: 'Transparansi' },
-  { id: 'summit', path: '/waqf-leaders-summit', label: 'WLS 2026' }
+  { id: 'summit', path: '/waqf-leaders-summit', label: 'WLS 2026' },
+  { id: 'event', path: '/wls2026', label: 'Daftar Event' }
 ];

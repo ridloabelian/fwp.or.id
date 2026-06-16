@@ -12,6 +12,7 @@ import NazhirCenterPage from './pages/NazhirCenterPage';
 import SuccessStoriesPage from './pages/SuccessStoriesPage';
 import BusinessMatchingPage from './pages/BusinessMatchingPage';
 import TransparencyPage from './pages/TransparencyPage';
+import EventLandingPage from './pages/EventLandingPage';
 import SummitPage from './pages/SummitPage';
 import NotFoundPage from './pages/NotFoundPage';
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/layanan-bisnis" element={<BusinessMatchingPage />} />
           <Route path="/transparansi" element={<TransparencyPage />} />
           <Route path="/waqf-leaders-summit" element={<SummitPage />} />
+          <Route path="/wls2026" element={<EventLandingPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
