@@ -1093,13 +1093,56 @@ html {
   margin-bottom: 16px;
 }
 
+/* Milestones Grid */
+.milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.milestone-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.milestone-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Leadership Grid */
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.leader-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Contact Section */
+.contact-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .grid-2,
   .leadership-grid,
   .divisions-grid,
   .programs-grid,
-  .partners-grid {
+  .partners-grid,
+  .milestones-grid {
     grid-template-columns: 1fr;
   }
   
