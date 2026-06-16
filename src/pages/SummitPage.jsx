@@ -254,9 +254,14 @@ const SummitPage = () => {
                     <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', marginBottom: '4px' }}>
                       {speaker.name}
                     </div>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '8px' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
                       {speaker.title}
                     </div>
+                    {speaker.role && (
+                      <div style={{ fontSize: '0.8rem', color: 'var(--secondary-color)', fontStyle: 'italic', marginBottom: '8px' }}>
+                        {speaker.role}
+                      </div>
+                    )}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CategoryIcon category={speaker.category} />
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{speaker.category}</span>
@@ -268,7 +273,7 @@ const SummitPage = () => {
             </div>
           </motion.div>
 
-          {/* In Progress / Negotiating */}
+          {/* Pending Speakers */}
           <motion.div
             initial="hidden" animate="visible"
             variants={staggerContainer} style={{ marginBottom: '48px' }}
@@ -277,7 +282,7 @@ const SummitPage = () => {
               fontSize: '1.2rem', marginBottom: '20px', display: 'flex',
               alignItems: 'center', gap: '8px', color: 'var(--primary-color)'
             }}>
-              <TrendingUp size={20} style={{ color: '#2563eb' }} />
+              <Clock size={20} style={{ color: '#f59e0b' }} />
               Dalam Proses Konfirmasi
             </h3>
             <div style={{
@@ -287,11 +292,11 @@ const SummitPage = () => {
               {summitSpeakers.pending.map((speaker) => (
                 <motion.div key={speaker.id} variants={itemScale} className="glass-card" style={{
                   padding: '20px', display: 'flex', alignItems: 'flex-start', gap: '12px',
-                  borderLeft: '4px solid #2563eb'
+                  borderLeft: '4px solid #f59e0b'
                 }}>
                   <div style={{
                     width: '48px', height: '48px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     color: 'white', fontWeight: 700, fontSize: '1.1rem', flexShrink: 0
                   }}>
@@ -301,13 +306,18 @@ const SummitPage = () => {
                     <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', marginBottom: '4px' }}>
                       {speaker.name}
                     </div>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '8px' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
                       {speaker.title}
                     </div>
+                    {speaker.role && (
+                      <div style={{ fontSize: '0.8rem', color: 'var(--secondary-color)', fontStyle: 'italic', marginBottom: '8px' }}>
+                        {speaker.role}
+                      </div>
+                    )}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CategoryIcon category={speaker.category} />
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{speaker.category}</span>
-                      <StatusBadge status="negotiating" />
+                      <StatusBadge status={speaker.status} />
                     </div>
                   </div>
                 </motion.div>
@@ -315,7 +325,7 @@ const SummitPage = () => {
             </div>
           </motion.div>
 
-          {/* Not Yet Sent */}
+          {/* Pending Speakers */}
           <motion.div
             initial="hidden" animate="visible"
             variants={staggerContainer} style={{ marginBottom: '48px' }}
@@ -324,21 +334,21 @@ const SummitPage = () => {
               fontSize: '1.2rem', marginBottom: '20px', display: 'flex',
               alignItems: 'center', gap: '8px', color: 'var(--primary-color)'
             }}>
-              <XCircle size={20} style={{ color: '#dc2626' }} />
-              Surat Undangan Belum Dikirim
+              <Clock size={20} style={{ color: '#f59e0b' }} />
+              Dalam Proses Konfirmasi
             </h3>
             <div style={{
               display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
               gap: '16px'
             }}>
-              {summitSpeakers.notSent.map((speaker) => (
+              {summitSpeakers.pending.map((speaker) => (
                 <motion.div key={speaker.id} variants={itemScale} className="glass-card" style={{
                   padding: '20px', display: 'flex', alignItems: 'flex-start', gap: '12px',
-                  borderLeft: '4px solid #dc2626', opacity: 0.85
+                  borderLeft: '4px solid #f59e0b'
                 }}>
                   <div style={{
                     width: '48px', height: '48px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #dc2626, #ef4444)',
+                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     color: 'white', fontWeight: 700, fontSize: '1.1rem', flexShrink: 0
                   }}>
@@ -348,9 +358,14 @@ const SummitPage = () => {
                     <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', marginBottom: '4px' }}>
                       {speaker.name}
                     </div>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '8px' }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
                       {speaker.title}
                     </div>
+                    {speaker.role && (
+                      <div style={{ fontSize: '0.8rem', color: 'var(--secondary-color)', fontStyle: 'italic', marginBottom: '8px' }}>
+                        {speaker.role}
+                      </div>
+                    )}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CategoryIcon category={speaker.category} />
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{speaker.category}</span>
