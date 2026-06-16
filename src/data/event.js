@@ -1,6 +1,7 @@
 export const eventData = {
   hero: {
     tagline: 'Tumbuh Bersama',
+    subTagline: 'Wadah Sinergi & Kolaborasi Lembaga Nazhir Nasional',
     title: 'Waqf Leaders Summit 2026',
     subtitle: 'Forum strategis yang diinisiasi oleh Forum Wakaf Produktif untuk menyatukan visi dari berbagai stakeholder dan mengeskalasi dampak nyata wakaf produktif bagi masyarakat.',
     date: '22–23 Juli 2026',

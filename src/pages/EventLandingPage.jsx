@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { eventData } from '../data/event';
 import { 
   Calendar, MapPin, Clock, Users, CheckCircle, 
-  ChevronDown, ChevronUp, Phone, Mail, Globe, 
-  Star, Award, Gift, Ticket, ArrowRight, Sparkles
+  ChevronDown, ChevronUp, Phone, Mail, Globe,
+  Sparkles, Download
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -108,10 +108,16 @@ export default function EventLandingPage() {
             <motion.div variants={fadeInUp} style={{ 
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: 'rgba(255,255,255,0.15)', padding: '8px 20px', borderRadius: '50px',
-              marginBottom: '24px', backdropFilter: 'blur(10px)'
+              marginBottom: '12px', backdropFilter: 'blur(10px)'
             }}>
               <Sparkles size={18} />
               <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{eventData.hero.tagline}</span>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} style={{ 
+              fontSize: '1.1rem', opacity: 0.85, marginBottom: '24px', fontStyle: 'italic'
+            }}>
+              {eventData.hero.subTagline}
             </motion.div>
 
             <motion.h1 variants={fadeInUp} style={{ 
@@ -416,6 +422,12 @@ export default function EventLandingPage() {
               }}>
                 <Mail size={16} /> {eventData.sponsorship.contact.email}
               </a>
+              <a href="mailto:fwpsekretariat@gmail.com?subject=Proposal Sponsorship WLS 2026" style={{ 
+                display: 'flex', alignItems: 'center', gap: '8px', color: 'white', textDecoration: 'none',
+                background: 'rgba(255,255,255,0.3)', padding: '10px 20px', borderRadius: '50px', fontWeight: 600
+              }}>
+                <Download size={16} /> Unduh Proposal
+              </a>
             </div>
           </motion.div>
         </div>
@@ -480,6 +492,23 @@ export default function EventLandingPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Sticky CTA for Mobile */}
+      <div className="sticky-cta" style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0,
+        background: 'white', padding: '12px 20px', boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
+        display: 'flex', gap: '12px', zIndex: 1000, justifyContent: 'center'
+      }}>
+        <a href="#registrasi" className="btn btn-primary" style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+          Daftar Sekarang
+        </a>
+        <a href="mailto:fwpsekretariat@gmail.com?subject=Proposal Sponsorship WLS 2026" className="btn btn-outline" style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+          Download Proposal
+        </a>
+      </div>
+
+      {/* Spacer for sticky CTA */}
+      <div style={{ height: '70px' }}></div>
     </div>
   );
 }
