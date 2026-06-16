@@ -18,6 +18,11 @@ const staggerContainer = {
 };
 
 export default function AboutPage() {
+  // Safety check for data
+  if (!aboutData || !aboutData.hero) {
+    return <div style={{ padding: '100px', textAlign: 'center' }}>Loading...</div>;
+  }
+
   return (
     <div className="about-page">
       {/* Hero Section */}
@@ -29,9 +34,9 @@ export default function AboutPage() {
             variants={fadeInUp}
             className="hero-content"
           >
-            <h1>{aboutData.hero.title}</h1>
-            <p className="hero-subtitle">{aboutData.hero.subtitle}</p>
-            <p className="hero-description">{aboutData.hero.description}</p>
+            <h1>{aboutData.hero?.title || 'Forum Wakaf Produktif'}</h1>
+            <p className="hero-subtitle">{aboutData.hero?.subtitle || ''}</p>
+            <p className="hero-description">{aboutData.hero?.description || ''}</p>
           </motion.div>
         </div>
       </section>
@@ -42,24 +47,22 @@ export default function AboutPage() {
           <div className="grid-2">
             <motion.div
               initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+              animate="visible"
               variants={fadeInUp}
               className="vision-card"
             >
-              <h2>{aboutData.vision.title}</h2>
-              <p>{aboutData.vision.content}</p>
+              <h2>{aboutData.vision?.title || 'Visi'}</h2>
+              <p>{aboutData.vision?.content || ''}</p>
             </motion.div>
             <motion.div
               initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+              animate="visible"
               variants={fadeInUp}
               className="mission-card"
             >
-              <h2>{aboutData.mission.title}</h2>
+              <h2>{aboutData.mission?.title || 'Misi'}</h2>
               <ul>
-                {aboutData.mission.items.map((item, index) => (
+                {(aboutData.mission?.items || []).map((item, index) => (
                   <li key={index}>{item}</li>
                 ))}
               </ul>
@@ -73,13 +76,12 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={fadeInUp}
           >
-            <h2 className="section-title">{aboutData.history.title}</h2>
+            <h2 className="section-title">{aboutData.history?.title || 'Sejarah'}</h2>
             <div className="history-content">
-              {aboutData.history.content.split('\n\n').map((paragraph, index) => (
+              {(aboutData.history?.content || '').split('\n\n').map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
@@ -92,17 +94,16 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={fadeInUp}
             className="legal-card"
           >
             <Award className="legal-icon" />
-            <h2>{aboutData.legal.title}</h2>
+            <h2>{aboutData.legal?.title || 'Legal Formal'}</h2>
             <div className="legal-details">
-              <p className="sk-number">{aboutData.legal.skNumber}</p>
-              <p className="legal-desc">{aboutData.legal.description}</p>
-              <p className="legal-issuer">Diterbitkan oleh: {aboutData.legal.issuedBy}</p>
+              <p className="sk-number">{aboutData.legal?.skNumber || ''}</p>
+              <p className="legal-desc">{aboutData.legal?.description || ''}</p>
+              <p className="legal-issuer">Diterbitkan oleh: {aboutData.legal?.issuedBy || ''}</p>
             </div>
           </motion.div>
         </div>
@@ -113,15 +114,14 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={staggerContainer}
           >
-            <h2 className="section-title">{aboutData.leadership.title}</h2>
-            <p className="section-note">{aboutData.leadership.note}</p>
+            <h2 className="section-title">{aboutData.leadership?.title || 'Pengurus'}</h2>
+            <p className="section-note">{aboutData.leadership?.note || ''}</p>
             
             <div className="leadership-grid">
-              {aboutData.leadership.members.map((member, index) => (
+              {(aboutData.leadership?.members || []).map((member, index) => (
                 <motion.div
                   key={index}
                   variants={fadeInUp}
@@ -132,21 +132,21 @@ export default function AboutPage() {
                       <Users size={48} />
                     </div>
                   </div>
-                  <h3>{member.name}</h3>
-                  <p className="leader-position">{member.position}</p>
+                  <h3>{member?.name || ''}</h3>
+                  <p className="leader-position">{member?.position || ''}</p>
                 </motion.div>
               ))}
             </div>
 
             <div className="divisions-grid">
-              {aboutData.leadership.divisions.map((division, index) => (
+              {(aboutData.leadership?.divisions || []).map((division, index) => (
                 <motion.div
                   key={index}
                   variants={fadeInUp}
                   className="division-card"
                 >
-                  <h4>{division.name}</h4>
-                  <p>{division.description}</p>
+                  <h4>{division?.name || ''}</h4>
+                  <p>{division?.description || ''}</p>
                 </motion.div>
               ))}
             </div>
@@ -159,24 +159,23 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={staggerContainer}
           >
             <h2 className="section-title">Milestone FWP</h2>
             <div className="timeline">
-              {milestones.map((milestone, index) => (
+              {(milestones || []).map((milestone, index) => (
                 <motion.div
                   key={index}
                   variants={fadeInUp}
                   className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
                 >
                   <div className="timeline-content">
-                    <span className="timeline-year">{milestone.year}</span>
-                    <h4>{milestone.title}</h4>
-                    <p>{milestone.description}</p>
-                    <span className={`timeline-category ${milestone.category}`}>
-                      {milestone.category}
+                    <span className="timeline-year">{milestone?.year || ''}</span>
+                    <h4>{milestone?.title || ''}</h4>
+                    <p>{milestone?.description || ''}</p>
+                    <span className={`timeline-category ${milestone?.category || ''}`}>
+                      {milestone?.category || ''}
                     </span>
                   </div>
                 </motion.div>
@@ -191,15 +190,14 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={staggerContainer}
           >
             <h2 className="section-title">Anggota Forum Wakaf Produktif</h2>
-            <p className="members-count">Total: {members.length} Anggota</p>
+            <p className="members-count">Total: {(members || []).length} Anggota</p>
             
             <div className="region-stats">
-              {Object.entries(regionStats).map(([region, count]) => (
+              {Object.entries(regionStats || {}).map(([region, count]) => (
                 <div key={region} className="region-stat">
                   <MapPin size={16} />
                   <span>{region}</span>
@@ -220,13 +218,13 @@ export default function AboutPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {members.map((member) => (
-                    <tr key={member.no}>
-                      <td>{member.no}</td>
-                      <td>{member.name}</td>
-                      <td>{member.yayasan}</td>
-                      <td>{member.stbpn}</td>
-                      <td>{member.region}</td>
+                  {(members || []).map((member) => (
+                    <tr key={member?.no || 0}>
+                      <td>{member?.no || ''}</td>
+                      <td>{member?.name || ''}</td>
+                      <td>{member?.yayasan || ''}</td>
+                      <td>{member?.stbpn || ''}</td>
+                      <td>{member?.region || ''}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -241,36 +239,35 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={staggerContainer}
           >
             <h2 className="section-title">Katalog Program Nazhir</h2>
             <div className="programs-grid">
-              {programs.map((program) => (
+              {(programs || []).map((program) => (
                 <motion.div
-                  key={program.id}
+                  key={program?.id || 0}
                   variants={fadeInUp}
                   className="program-card"
                 >
-                  <h3>{program.name}</h3>
-                  <p className="program-pic">PIC: {program.pic}</p>
-                  <p className="program-desc">{program.description}</p>
+                  <h3>{program?.name || ''}</h3>
+                  <p className="program-pic">PIC: {program?.pic || ''}</p>
+                  <p className="program-desc">{program?.description || ''}</p>
                   <div className="program-highlight">
-                    <strong>Program Unggulan:</strong> {program.program}
+                    <strong>Program Unggulan:</strong> {program?.program || ''}
                   </div>
-                  <p className="program-detail">{program.programDetail}</p>
+                  <p className="program-detail">{program?.programDetail || ''}</p>
                   <div className="program-contact">
-                    {program.contact && (
+                    {program?.contact && (
                       <p><Phone size={14} /> {program.contact}</p>
                     )}
-                    {program.account && (
+                    {program?.account && (
                       <p><BookOpen size={14} /> {program.account}</p>
                     )}
-                    {program.socialMedia && (
+                    {program?.socialMedia && (
                       <p><Globe size={14} /> {program.socialMedia}</p>
                     )}
-                    {program.website && (
+                    {program?.website && (
                       <p><Globe size={14} /> {program.website}</p>
                     )}
                   </div>
@@ -286,21 +283,20 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={staggerContainer}
           >
-            <h2 className="section-title">{aboutData.partners.title}</h2>
+            <h2 className="section-title">{aboutData.partners?.title || 'Mitra'}</h2>
             <div className="partners-grid">
-              {aboutData.partners.categories.map((category, index) => (
+              {(aboutData.partners?.categories || []).map((category, index) => (
                 <motion.div
                   key={index}
                   variants={fadeInUp}
                   className="partner-category"
                 >
-                  <h4>{category.name}</h4>
+                  <h4>{category?.name || ''}</h4>
                   <ul>
-                    {category.partners.map((partner, pIndex) => (
+                    {(category?.partners || []).map((partner, pIndex) => (
                       <li key={pIndex}>{partner}</li>
                     ))}
                   </ul>
@@ -316,16 +312,15 @@ export default function AboutPage() {
         <div className="container">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={fadeInUp}
             className="contact-card"
           >
             <h2>Hubungi Kami</h2>
             <div className="contact-details">
-              <p><Phone size={18} /> {aboutData.contact.phone}</p>
-              <p><Mail size={18} /> {aboutData.contact.email}</p>
-              <p><Instagram size={18} /> @{aboutData.contact.instagram}</p>
+              <p><Phone size={18} /> {aboutData.contact?.phone || ''}</p>
+              <p><Mail size={18} /> {aboutData.contact?.email || ''}</p>
+              <p><Globe size={18} /> @{aboutData.contact?.instagram || ''}</p>
             </div>
           </motion.div>
         </div>
