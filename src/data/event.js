@@ -190,5 +190,6 @@ export const eventData = {
     email: 'fwpsekretariat@gmail.com',
     instagram: '@forumwakafproduktif',
     website: 'fwp.or.id',
+    address: 'Komplek Masjid Agung Al Azhar, Jl. Sisingamangaraja, Kebayoran Baru, Jakarta Selatan',
   },
 };

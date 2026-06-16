@@ -98,6 +98,7 @@ Dibentuk sejak 2018 oleh Badan Wakaf Indonesia bersama lembaga Nazhir Wakaf dan 
     phone: '0813 8966 7055',
     email: 'fwpsekretariat@gmail.com',
     instagram: 'forumwakafproduktif',
+    address: 'Komplek Masjid Agung Al Azhar, Jl. Sisingamangaraja, Kebayoran Baru, Jakarta Selatan',
   },
 };
 

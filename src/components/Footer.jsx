@@ -35,15 +35,15 @@ const Footer = () => {
           <ul className="footer-links">
             <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <MapPin size={18} color="var(--secondary-color)" />
-              <span>Gedung BWI Jakarta, Indonesia</span>
+              <span>Komplek Masjid Agung Al Azhar<br />Jl. Sisingamangaraja, Kebayoran Baru<br />Jakarta Selatan</span>
             </li>
             <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <Mail size={18} color="var(--secondary-color)" />
-              <span>info@fwp.or.id</span>
+              <span>fwpsekretariat@gmail.com</span>
             </li>
             <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <Phone size={18} color="var(--secondary-color)" />
-              <span>+62 811 2233 4455</span>
+              <span>0813 8966 7055</span>
             </li>
           </ul>
         </div>
@@ -51,7 +51,7 @@ const Footer = () => {
         <div>
           <h3>Mari Berkolaborasi</h3>
           <p>Dukung pertumbuhan ekonomi umat melalui wakaf produktif bersama Lembaga Nazhir terpercaya di seluruh Indonesia.</p>
-          <a href="mailto:info@fwp.or.id" className="btn btn-secondary" style={{ marginTop: '16px' }}>Kirim Pesan</a>
+          <a href="mailto:fwpsekretariat@gmail.com" className="btn btn-secondary" style={{ marginTop: '16px' }}>Kirim Pesan</a>
         </div>
       </div>
       
