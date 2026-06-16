@@ -1,7 +1,7 @@
 export const homeStats = [
   { 
     label: 'Potensi Wakaf Uang', 
-    number: 2.3, 
+    number: 4.2, 
     unit: 'T+', 
     prefix: 'Rp ', 
     source: 'Badan Wakaf Indonesia', 
@@ -10,16 +10,16 @@ export const homeStats = [
   },
   { 
     label: 'Luas Tanah Wakaf', 
-    number: 57550, 
+    number: 445.410, 
     unit: ' Ha', 
     source: 'BPN & BWI', 
     lastUpdated: '2024',
-    disclaimer: 'Tersebar di 445.410 Lokasi'
+    disclaimer: 'Tersebar di Seluruh Indonesia'
   },
   { 
     label: 'SDM Nazhir', 
-    number: 1821, 
-    unit: '', 
+    number: 2500, 
+    unit: '+', 
     source: 'Kementerian Agama & BWI', 
     lastUpdated: '2024',
     disclaimer: 'Miliki Sertifikasi Kompetensi'
@@ -27,9 +27,10 @@ export const homeStats = [
 ];
 
 export const chartData = [
-  { name: '2020', Capaian: 400 },
-  { name: '2021', Capaian: 800 },
-  { name: '2022', Capaian: 1200 },
-  { name: '2023', Capaian: 1800 },
-  { name: 'Kini', Capaian: 2300 }
+  { name: '2020', Capaian: 450 },
+  { name: '2021', Capaian: 890 },
+  { name: '2022', Capaian: 1400 },
+  { name: '2023', Capaian: 2100 },
+  { name: '2024', Capaian: 2800 },
+  { name: 'Kini', Capaian: 4200 }
 ];

@@ -325,58 +325,6 @@ const SummitPage = () => {
             </div>
           </motion.div>
 
-          {/* Pending Speakers */}
-          <motion.div
-            initial="hidden" animate="visible"
-            variants={staggerContainer} style={{ marginBottom: '48px' }}
-          >
-            <h3 style={{
-              fontSize: '1.2rem', marginBottom: '20px', display: 'flex',
-              alignItems: 'center', gap: '8px', color: 'var(--primary-color)'
-            }}>
-              <Clock size={20} style={{ color: '#f59e0b' }} />
-              Dalam Proses Konfirmasi
-            </h3>
-            <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '16px'
-            }}>
-              {summitSpeakers.pending.map((speaker) => (
-                <motion.div key={speaker.id} variants={itemScale} className="glass-card" style={{
-                  padding: '20px', display: 'flex', alignItems: 'flex-start', gap: '12px',
-                  borderLeft: '4px solid #f59e0b'
-                }}>
-                  <div style={{
-                    width: '48px', height: '48px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'white', fontWeight: 700, fontSize: '1.1rem', flexShrink: 0
-                  }}>
-                    {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', marginBottom: '4px' }}>
-                      {speaker.name}
-                    </div>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
-                      {speaker.title}
-                    </div>
-                    {speaker.role && (
-                      <div style={{ fontSize: '0.8rem', color: 'var(--secondary-color)', fontStyle: 'italic', marginBottom: '8px' }}>
-                        {speaker.role}
-                      </div>
-                    )}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <CategoryIcon category={speaker.category} />
-                      <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{speaker.category}</span>
-                      <StatusBadge status={speaker.status} />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
           {/* Proposed Speakers */}
           <motion.div
             initial="hidden" animate="visible"
