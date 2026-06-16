@@ -20,7 +20,7 @@ export const summitDetails = {
   theme: 'Transformasi Wakaf Nasional Menuju Indonesia Emas 2045',
 };
 
-// Speakers data from spreadsheet
+// Speakers data from spreadsheet + new additions from final rundown
 export const summitSpeakers = {
   confirmed: [
     {
@@ -50,6 +50,133 @@ export const summitSpeakers = {
       title: 'Dosen Sekolah Bisnis dan Manajemen Institut Teknologi Bandung',
       status: 'confirmed',
       category: 'Akademisi',
+    },
+    // New confirmed from final rundown
+    {
+      id: 16,
+      name: 'Prof. Alla Asmara',
+      title: 'Akademisi',
+      status: 'confirmed',
+      category: 'Akademisi',
+    },
+    {
+      id: 17,
+      name: 'Hidayat Nur Wahid',
+      title: 'Pemerintah',
+      status: 'confirmed',
+      category: 'Pemerintah',
+    },
+    {
+      id: 18,
+      name: 'Herri Setiawan',
+      title: 'Praktisi',
+      status: 'confirmed',
+      category: 'Praktisi',
+    },
+    {
+      id: 19,
+      name: 'Tatang Astarudin',
+      title: 'Badan Wakaf Indonesia',
+      status: 'confirmed',
+      category: 'Pemerintah',
+    },
+    {
+      id: 20,
+      name: 'Cholidin / Rahmat Hidayat',
+      title: 'Forum Wakaf Produktif',
+      status: 'confirmed',
+      category: 'FWP',
+    },
+    {
+      id: 21,
+      name: 'Prof. Nurul Huda',
+      title: 'Akademisi',
+      status: 'confirmed',
+      category: 'Akademisi',
+    },
+    {
+      id: 22,
+      name: 'Prof. Waryono',
+      title: 'Kementerian Agama',
+      status: 'confirmed',
+      category: 'Pemerintah',
+    },
+    {
+      id: 23,
+      name: 'Ketua Komisi 8 DPR RI',
+      title: 'Legislator',
+      status: 'confirmed',
+      category: 'Pemerintah',
+    },
+    {
+      id: 24,
+      name: 'Prof. Abu Rohmat',
+      title: 'Kementerian Agama',
+      status: 'confirmed',
+      category: 'Pemerintah',
+    },
+    {
+      id: 25,
+      name: 'Nur Hasan Murtiaji',
+      title: 'Republika, Mosaic',
+      status: 'confirmed',
+      category: 'Media',
+    },
+    {
+      id: 26,
+      name: 'Farid Gaban',
+      title: 'Ekspedisi Indonesia Baru',
+      status: 'confirmed',
+      category: 'Praktisi',
+    },
+    {
+      id: 27,
+      name: 'Dr. Daniar',
+      title: 'Trubus Iman',
+      status: 'confirmed',
+      category: 'Praktisi',
+    },
+    {
+      id: 28,
+      name: 'Aa\' Gym',
+      title: 'Pimpinan Daarut Tauhid',
+      status: 'confirmed',
+      category: 'Ulama',
+    },
+    {
+      id: 29,
+      name: 'Ust. Budi Ashari',
+      title: 'Ulama',
+      status: 'confirmed',
+      category: 'Ulama',
+    },
+    {
+      id: 30,
+      name: 'Pidi Baiq',
+      title: 'Entertainer',
+      status: 'confirmed',
+      category: 'Hiburan',
+    },
+    {
+      id: 31,
+      name: 'Paragon',
+      title: 'Entertainer',
+      status: 'confirmed',
+      category: 'Hiburan',
+    },
+    {
+      id: 32,
+      name: 'Pak Hendra (Al-Hilal)',
+      title: 'Entertainer',
+      status: 'confirmed',
+      category: 'Hiburan',
+    },
+    {
+      id: 33,
+      name: 'Ust. Abu Syauqi',
+      title: 'Pimpinan Rumah Zakat',
+      status: 'confirmed',
+      category: 'Ulama',
     },
   ],
   pending: [
@@ -102,6 +229,63 @@ export const summitSpeakers = {
       status: 'negotiating',
       category: 'Ulama',
     },
+    // New pending from final rundown
+    {
+      id: 34,
+      name: 'Prof. Bambang Brojonegoro',
+      title: 'Ex-Kepala Bappenas, Penasehat Khusus Presiden',
+      status: 'pending',
+      category: 'Pemerintah',
+    },
+    {
+      id: 35,
+      name: 'Menteri BAPPENAS',
+      title: 'Kementerian Perencanaan Pembangunan Nasional',
+      status: 'pending',
+      category: 'Pemerintah',
+    },
+    {
+      id: 36,
+      name: 'Gubernur Jawa Barat',
+      title: 'Pemerintah Daerah',
+      status: 'pending',
+      category: 'Pemerintah',
+    },
+    {
+      id: 37,
+      name: 'Deni Lubis',
+      title: 'Moderator',
+      status: 'pending',
+      category: 'Media',
+    },
+    {
+      id: 38,
+      name: 'Prima Hadi Putra',
+      title: 'Moderator',
+      status: 'pending',
+      category: 'Media',
+    },
+    {
+      id: 39,
+      name: 'Yesi Mariska Indira',
+      title: 'Moderator',
+      status: 'pending',
+      category: 'Media',
+    },
+    {
+      id: 40,
+      name: 'Meyda Sefira',
+      title: 'Moderator',
+      status: 'pending',
+      category: 'Media',
+    },
+    {
+      id: 41,
+      name: 'Pak Ali (BWI)',
+      title: 'Badan Wakaf Indonesia',
+      status: 'pending',
+      category: 'Pemerintah',
+    },
   ],
   notSent: [
     {
@@ -137,7 +321,6 @@ export const summitSpeakers = {
     { name: 'Juragan 99', title: 'Content Creator & Entrepreneur', category: 'Influencer' },
     { name: 'Kyai Hendra', title: 'Pimpinan LAZISWAF Al Hilal', category: 'Ulama' },
     { name: 'Bank Jabar Syariah', title: 'Representative', category: 'Industri' },
-    { name: "Aa' Gym", title: 'Pimpinan Daarut Tauhid', category: 'Ulama' },
     { name: 'Abu Syauqi', title: 'Pimpinan Rumah Zakat', category: 'Ulama' },
     { name: 'Pak Erwin', title: 'Gubernur/Wakil Jawa Barat', category: 'Pemerintah' },
     { name: 'Pak Farhan', title: 'Walikota Bandung', category: 'Pemerintah' },
@@ -145,7 +328,7 @@ export const summitSpeakers = {
   ],
 };
 
-// Rundown Day 1
+// Rundown Day 1 - Updated with final agenda
 export const rundownDay1 = [
   {
     time: '07.30 – 08.30',
@@ -159,76 +342,83 @@ export const rundownDay1 = [
     type: 'opening',
   },
   {
-    time: '09.00 – 09.30',
+    time: '09.00 – 09.15',
     activity: 'Sambutan Ketua FWP',
     detail: 'Bp. Rayan Asa Luminaries',
     type: 'speech',
   },
   {
-    time: '09.30 – 10.00',
-    activity: 'Keynote Speech: Kebijakan Wakaf Nasional',
-    detail: 'Menteri Agama / Kepala BWI (TBC)',
+    time: '09.15 – 09.30',
+    activity: 'Sambutan Ketua BWI',
+    detail: 'Prof. Dr. Phil. H. Kamaruddin Amin (TBC)',
+    type: 'speech',
+  },
+  {
+    time: '09.30 – 09.45',
+    activity: 'Sambutan Gubernur Jawa Barat',
+    detail: 'Gubernur Jawa Barat (TBC)',
+    type: 'speech',
+  },
+  {
+    time: '09.45 – 10.00',
+    activity: 'Sambutan Kemenag',
+    detail: 'Menteri Agama / Perwakilan (TBC)',
+    type: 'speech',
+  },
+  {
+    time: '10.00 – 11.00',
+    activity: 'Keynote Speech: Kontribusi Wakaf dalam Ketahanan Pangan dan Energi 2030',
+    detail: '1. Prof. Bambang Brojonegoro (Ex-Kepala Bappenas, Penasehat Khusus Presiden)\n2. Menteri BAPPENAS (TBC)',
     type: 'keynote',
   },
   {
-    time: '10.00 – 10.30',
+    time: '11.00 – 11.15',
     activity: 'Coffee Break & Networking',
     type: 'break',
   },
   {
-    time: '10.30 – 12.00',
-    activity: 'Leaders Talk: Masa Depan Perwakafan Indonesia',
-    detail: 'Panel: BWI, BPKH, Kemenkeu, BI, OJK (TBC)',
+    time: '11.15 – 12.30',
+    activity: 'Leaders Talk 1: Masa Depan Perwakafan Indonesia',
+    detail: '1. Prof. Alla Asmara (Akademisi)\n2. Hidayat Nur Wahid (Pemerintah)\n3. Herri Setiawan (Praktisi)\n4. Tatang Astarudin (BWI)\nModerator: Deni Lubis',
     type: 'panel',
   },
   {
-    time: '12.00 – 13.00',
+    time: '12.30 – 13.30',
     activity: 'Shalat Jumat & Makan Siang',
     type: 'break',
   },
   {
-    time: '13.00 – 14.00',
-    activity: 'Launching Unit Manajemen Investasi FWP',
-    detail: 'Bp. Ali Bastoni, Kepala UMI FWP',
-    type: 'launching',
+    time: '13.30 – 14.45',
+    activity: 'Leaders Talk 2: Revisi UU Wakaf',
+    detail: '1. Cholidin/Rahmat Hidayat (FWP)\n2. Prof. Nurul Huda (Akademisi)\n3. Prof. Waryono (Kemenag)\n4. Ketua Komisi 8 DPR RI (Legislator)\nModerator: Prima Hadi Putra',
+    type: 'panel',
   },
   {
-    time: '14.00 – 15.30',
-    activity: 'Capacity Building: Pengelolaan Aset Wakaf Produktif',
-    detail: 'Workshop interaktif untuk Nazhir',
-    type: 'workshop',
+    time: '14.45 – 15.00',
+    activity: 'Hiburan',
+    detail: '1. Pidi Baiq\n2. (dll)',
+    type: 'entertainment',
   },
   {
-    time: '15.30 – 16.00',
+    time: '15.00 – 16.15',
+    activity: 'Talkshow: Wakaf sebagai Instrumen Penyelamat Lingkungan',
+    detail: '1. Prof. Abu Rohmat (Kemenag) atau Pak Ali (BWI)\n2. Nur Hasan Murtiaji (Republika, Mosaic) atau Farid Gaban (Ekspedisi Indonesia Baru)\n3. Dr. Daniar (Trubus Iman)\n4. Rizky Wisnoentoro (UIII)\nModerator: Yesi Mariska Indira',
+    type: 'talkshow',
+  },
+  {
+    time: '16.15 – 16.30',
     activity: 'Coffee Break',
     type: 'break',
   },
   {
-    time: '16.00 – 17.30',
-    activity: 'Program Pitching: Kolaborasi Wakaf Produktif',
-    detail: 'Presentasi lembaga wakaf kepada investor & mitra',
-    type: 'pitching',
-  },
-  {
-    time: '17.30 – 18.00',
-    activity: 'Penyerahan Tanda Keanggotaan FWP',
-    detail: 'Anggota lama & ekspos anggota baru',
-    type: 'ceremony',
-  },
-  {
-    time: '18.00 – 19.00',
-    activity: 'ISHO & Makan Malam',
-    type: 'break',
-  },
-  {
-    time: '19.00 – 21.00',
-    activity: 'Gala Dinner & Waqf Awards Night',
-    detail: 'Penghargaan kategori Leaders & Kelembagaan',
+    time: '16.30 – 18.00',
+    activity: 'Gala Dinner / Waqf Leaders Night',
+    detail: '1. Paragon\n2. Pak Hendra (Al-Hilal)\n3. Ust. Abu Syauqi\nModerator: Meyda Sefira',
     type: 'gala',
   },
 ];
 
-// Rundown Day 2
+// Rundown Day 2 - Updated with final agenda
 export const rundownDay2 = [
   {
     time: '07.00 – 08.00',
@@ -237,37 +427,49 @@ export const rundownDay2 = [
   },
   {
     time: '08.00 – 09.30',
-    activity: 'Breakout Session: Wilayah Wakaf Produktif',
-    detail: 'Pembentukan FWP Wilayah (kota wakaf priority)',
-    type: 'breakout',
+    activity: 'Pembahasan Unit Manajemen Investasi',
+    detail: 'Bp. Ali Bastoni, Kepala UMI FWP',
+    type: 'presentation',
   },
   {
     time: '09.30 – 10.30',
-    activity: 'Business Matching: Nazhir × Investor × Mitra',
-    detail: 'Mini Expo & one-on-one meeting',
-    type: 'business',
+    activity: 'Grand Seminar: Nazhir, Kompetensi dan Akuntabilitas',
+    detail: 'Ibu Nila Armelia Windasari, S.A., M.B.A, Ph.D. (SBM ITB)',
+    type: 'seminar',
   },
   {
     time: '10.30 – 11.00',
-    activity: 'Coffee Break & Kunjungan Booth',
+    activity: 'Coffee Break & Networking',
     type: 'break',
   },
   {
     time: '11.00 – 12.00',
-    activity: 'Closing Ceremony & Komitmen Bersama',
-    detail: 'Deklarasi Waqf Leaders 2026',
-    type: 'closing',
+    activity: 'Pitching Program',
+    detail: '2-3 program wakaf produktif\nModerator: Ali Bastoni',
+    type: 'pitching',
   },
   {
     time: '12.00 – 13.00',
-    activity: 'Makan Siang & Networking',
+    activity: 'Makan Siang',
     type: 'break',
   },
   {
-    time: '13.00 – 15.00',
-    activity: 'City Tour: Kunjungan ke Proyek Wakaf Bandung',
-    detail: 'Optional – bagi peserta yang berminat',
-    type: 'tour',
+    time: '13.00 – 14.00',
+    activity: 'Closing Inspiration: Refleksi Wakaf untuk Peradaban Manusia',
+    detail: '1. Aa\' Gym\n2. Ust. Budi Ashari',
+    type: 'closing',
+  },
+  {
+    time: '14.00 – 14.30',
+    activity: 'Highlight Hasil Summit dan Sambutan Penutup',
+    detail: 'Bp. Rayan Asa Luminaries',
+    type: 'closing',
+  },
+  {
+    time: '14.30 – 15.00',
+    activity: 'Closing Ceremony',
+    detail: 'Menteri Agama / Perwakilan (TBC)',
+    type: 'ceremony',
   },
 ];
 
@@ -348,7 +550,7 @@ export const miniExpoParticipants = [
 // Event statistics for display
 export const eventStats = [
   { label: 'Hari', value: '2', suffix: '' },
-  { label: 'Pembicara', value: '15+', suffix: '' },
+  { label: 'Pembicara', value: '25+', suffix: '' },
   { label: 'Peserta Target', value: '200', suffix: '+' },
   { label: 'Nazhir', value: '50+', suffix: '' },
   { label: 'Investor & Mitra', value: '30+', suffix: '' },
