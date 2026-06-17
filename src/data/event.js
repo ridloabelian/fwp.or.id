@@ -46,7 +46,7 @@ export const eventData = {
       { name: 'Pak Hendra (Al-Hilal)', role: 'Entertainer', session: 'Gala Dinner' },
       { name: 'Ust. Abu Syauqi', role: 'Rumah Zakat', session: 'Gala Dinner' },
       { name: 'Meyda Sefira', role: 'Moderator', session: 'Moderator Gala Dinner' },
-      { name: 'Aa\' Gym', role: 'Daarut Tauhid', session: 'Closing Inspiration' },
+      { name: "Aa' Gym", role: 'Daarut Tauhid', session: 'Closing Inspiration' },
       { name: 'Ust. Budi Ashari', role: 'Ulama', session: 'Closing Inspiration' },
     ],
   },

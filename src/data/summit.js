@@ -268,7 +268,7 @@ export const summitSpeakers = {
     },
     {
       id: 31,
-      name: 'Aa\' Gym',
+      name: "Aa' Gym",
       title: 'Pimpinan Daarut Tauhid',
       status: 'pending',
       category: 'Ulama',
@@ -415,7 +415,7 @@ export const rundownDay2 = [
   {
     time: '13.00 – 14.00',
     activity: 'Closing Inspiration: Refleksi Wakaf untuk Peradaban Manusia',
-    detail: '1. Aa\' Gym\n2. Ust. Budi Ashari',
+    detail: "1. Aa' Gym\n2. Ust. Budi Ashari",
     type: 'closing',
   },
   {
