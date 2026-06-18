@@ -211,11 +211,11 @@ export const summitSpeakers = {
       role: 'Talkshow: Wakaf dan Perannya Dalam Keberlanjutan Lingkungan',
     },
     {
-      id: 25,
-      name: 'Dr. H. Daniar, M.A.',
-      title: 'Pimpinan Pondok Pesantren Trubus Iman',
+      id: 24,
+      name: 'Farid Gaban',
+      title: 'Jurnalis Senior & Pendiri Ekspedisi Indonesia Baru',
       status: 'pending',
-      category: 'Akademisi',
+      category: 'Media',
       role: 'Talkshow: Wakaf dan Perannya Dalam Keberlanjutan Lingkungan',
     },
     {

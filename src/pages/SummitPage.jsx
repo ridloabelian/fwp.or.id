@@ -22,11 +22,6 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
 
-const fadeInUpFast = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
-};
-
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {

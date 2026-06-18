@@ -58,11 +58,6 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
 };
 
-const rotateIn = {
-  hidden: { opacity: 0, rotate: -10, scale: 0.8 },
-  visible: { opacity: 1, rotate: 0, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
-};
-
 // Status badge component
 const StatusBadge = ({ status }) => {
   const styles = {
@@ -1220,6 +1215,95 @@ export default function ProposalPage() {
           {sponsorshipPackages.map((pkg, index) => (
             <SponsorshipCard key={index} pkg={pkg} index={index} />
           ))}
+        </motion.div>
+      </section>
+
+      {/* Mini Expo Section */}
+      <section style={{
+        padding: '4rem 1rem',
+        maxWidth: 1200,
+        margin: '0 auto',
+      }}>
+        <SectionHeader
+          icon={Building2}
+          title="Peserta Mini Expo"
+          subtitle="Daftar mitra kolaborasi dan calon eksibitor Mini Expo WLS 2026"
+        />
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(285px, 1fr))',
+            gap: '1.5rem',
+          }}
+        >
+          {miniExpoParticipants.map((participant, index) => {
+            const badgeColors = {
+              'Sponsor Platinum': { bg: '#e0e7ff', text: '#3730a3' },
+              'Potential Sponsor': { bg: '#fef3c7', text: '#92400e' },
+              'Exhibitor': { bg: '#e0f2fe', text: '#0369a1' }
+            };
+            const badge = badgeColors[participant.type] || { bg: '#f1f5f9', text: '#475569' };
+            return (
+              <motion.div
+                key={index}
+                variants={itemScale}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: 16,
+                  padding: '1.5rem',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '1.25rem',
+                  border: '1px solid #f1f5f9',
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                    <span style={{
+                      backgroundColor: badge.bg,
+                      color: badge.text,
+                      padding: '0.25rem 0.75rem',
+                      borderRadius: 9999,
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                    }}>
+                      {participant.type}
+                    </span>
+                  </div>
+                  <h4 style={{
+                    fontSize: '1.1rem',
+                    fontWeight: 700,
+                    color: '#1a1a2e',
+                    margin: '0 0 0.5rem 0',
+                    lineHeight: '1.4',
+                  }}>
+                    {participant.name}
+                  </h4>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: '#64748b',
+                  fontSize: '0.85rem',
+                  borderTop: '1px solid #f1f5f9',
+                  paddingTop: '0.75rem',
+                }}>
+                  <Briefcase size={16} color="#1B5E20" />
+                  <span>{participant.category}</span>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </section>
 

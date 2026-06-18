@@ -4,7 +4,7 @@ import { eventData } from '../data/event';
 import { 
   Calendar, MapPin, Clock, Users, CheckCircle, 
   ChevronDown, ChevronUp, Phone, Mail, Globe,
-  Sparkles, Download
+  Sparkles, Download, Star
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -23,35 +23,35 @@ const itemScale = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } }
 };
 
+// TimeBox Helper Component
+const TimeBox = ({ value, label }) => (
+  <div style={{ textAlign: 'center', padding: '12px 16px', background: 'rgba(255,255,255,0.1)', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
+    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'white', lineHeight: 1 }}>{String(value).padStart(2, '0')}</div>
+    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>{label}</div>
+  </div>
+);
+
+const calculateTimeLeft = (targetDate) => {
+  const difference = new Date(targetDate) - new Date();
+  if (difference > 0) {
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
+  }
+  return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+};
+
 // Countdown Timer Component
 const CountdownTimer = ({ targetDate }) => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(targetDate));
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
-      const difference = new Date(targetDate) - new Date();
-      if (difference > 0) {
-        return {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-        };
-      }
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    };
-
-    setTimeLeft(calculateTimeLeft());
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft(targetDate)), 1000);
     return () => clearInterval(timer);
   }, [targetDate]);
-
-  const TimeBox = ({ value, label }) => (
-    <div style={{ textAlign: 'center', padding: '12px 16px', background: 'rgba(255,255,255,0.1)', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
-      <div style={{ fontSize: '2rem', fontWeight: 700, color: 'white', lineHeight: 1 }}>{String(value).padStart(2, '0')}</div>
-      <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>{label}</div>
-    </div>
-  );
 
   return (
     <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
