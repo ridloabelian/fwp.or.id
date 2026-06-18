@@ -9,7 +9,7 @@ export const eventData = {
     countdown: '2026-07-22T08:00:00',
   },
   theme: {
-    theme: 'Scaling-Up the Impact of Waqf Toward Sustainable Wellbeing',
+    title: 'Scaling-Up the Impact of Waqf Toward Sustainable Wellbeing',
     description: 'Waqf Leaders Summit 2026 menghadirkan para pemimpin, regulator, akademisi, dan praktisi wakaf untuk merumuskan strategi transformasi wakaf produktif Indonesia.',
   },
   speakers: {
