@@ -150,12 +150,12 @@ export default function EventLandingPage() {
 
             <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
               <a href="#registrasi" className="btn" style={{ 
-                background: 'var(--secondary-color)', color: 'white', fontSize: '1.1rem', padding: '14px 32px'
+                background: 'var(--secondary-color)', color: 'white', fontSize: '1.1rem', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none', display: 'inline-block', fontWeight: 700
               }}>
                 Daftar Sekarang
               </a>
-              <Link to="/waqf-leaders-summit" className="btn btn-outline" style={{ 
-                borderColor: 'white', color: 'white', fontSize: '1.1rem', padding: '14px 32px'
+              <Link to="/waqf-leaders-summit" className="btn" style={{ 
+                border: '2px solid white', color: 'white', fontSize: '1.1rem', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none', display: 'inline-block', fontWeight: 700
               }}>
                 Info Lengkap
               </Link>
@@ -306,7 +306,7 @@ export default function EventLandingPage() {
                     </li>
                   ))}
                 </ul>
-                <a href="#" className="btn" style={{ width: '100%', display: 'block' }}>
+                <a href="#" className="btn" style={{ width: '100%', display: 'block', borderRadius: '12px', padding: '12px 24px', background: 'var(--primary-color)', color: 'white', textDecoration: 'none', fontWeight: 700, textAlign: 'center' }}>
                   Daftar {category.name}
                 </a>
               </motion.div>
@@ -338,7 +338,7 @@ export default function EventLandingPage() {
                   {pkg.savings && (
                     <p style={{ color: '#16a34a', fontSize: '0.85rem', fontWeight: 600, marginBottom: '12px' }}>{pkg.savings}</p>
                   )}
-                  <a href="#" className="btn btn-outline" style={{ width: '100%', display: 'block' }}>
+                  <a href="#" className="btn" style={{ width: '100%', display: 'block', borderRadius: '12px', padding: '12px 24px', border: '2px solid var(--primary-color)', color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 700, textAlign: 'center' }}>
                     Pilih Paket
                   </a>
                 </motion.div>
@@ -499,10 +499,10 @@ export default function EventLandingPage() {
         background: 'white', padding: '12px 20px', boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
         display: 'flex', gap: '12px', zIndex: 1000, justifyContent: 'center'
       }}>
-        <a href="#registrasi" className="btn btn-primary" style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+        <a href="#registrasi" className="btn" style={{ flex: 1, maxWidth: '200px', textAlign: 'center', borderRadius: '12px', padding: '12px 24px', background: 'var(--primary-color)', color: 'white', textDecoration: 'none', fontWeight: 700 }}>
           Daftar Sekarang
         </a>
-        <a href="mailto:fwpsekretariat@gmail.com?subject=Proposal Sponsorship WLS 2026" className="btn btn-outline" style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+        <a href="mailto:fwpsekretariat@gmail.com?subject=Proposal Sponsorship WLS 2026" className="btn" style={{ flex: 1, maxWidth: '200px', textAlign: 'center', borderRadius: '12px', padding: '12px 24px', border: '2px solid var(--primary-color)', color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 700 }}>
           Download Proposal
         </a>
       </div>
