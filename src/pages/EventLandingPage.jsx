@@ -94,7 +94,7 @@ const FAQItem = ({ question, answer }) => {
 
 export default function EventLandingPage() {
   return (
-    <div className="page-transition">
+    <div style={{ minHeight: '100vh' }}>
       {/* ===== HERO SECTION ===== */}
       <section style={{ 
         background: 'linear-gradient(135deg, var(--primary-color) 0%, #1a3a5c 50%, var(--tertiary-color) 100%)',
