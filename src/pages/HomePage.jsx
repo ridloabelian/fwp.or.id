@@ -315,7 +315,7 @@ const LandingPage = () => {
               >
                 <span style={{ 
                   fontSize: '0.85rem', 
-                  color: 'var(--secondary-color)', 
+                  color: 'var(--secondary-dark)', 
                   fontWeight: 'bold',
                   display: 'block',
                   marginBottom: '8px'
@@ -440,7 +440,7 @@ const LandingPage = () => {
                   <Users size={40} color="var(--primary-color)" />
                 </div>
                 <h3 style={{ fontSize: '1.2rem', marginBottom: '4px' }}>{member?.name || ''}</h3>
-                <p style={{ color: 'var(--secondary-color)', fontWeight: 'bold', margin: 0 }}>{member?.position || ''}</p>
+                <p style={{ color: 'var(--secondary-dark)', fontWeight: 'bold', margin: 0 }}>{member?.position || ''}</p>
               </motion.div>
             ))}
           </motion.div>

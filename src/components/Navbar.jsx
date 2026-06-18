@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../data/navigation';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -34,6 +35,25 @@ const Navbar = () => {
 
           <ul className="nav-links">
             {navLinks.map((link) => {
+              if (link.dropdown) {
+                const isChildActive = link.dropdown.some(child => location.pathname === child.path);
+                return (
+                  <li key={link.id} className="dropdown">
+                    <span className={`dropdown-toggle ${isChildActive ? 'active' : ''}`}>
+                      {link.label} <ChevronDown size={14} style={{ marginLeft: 4 }} />
+                    </span>
+                    <ul className="dropdown-menu">
+                      {link.dropdown.map(child => (
+                        <li key={child.id}>
+                          <Link to={child.path} className={location.pathname === child.path ? 'active' : ''}>
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              }
               const isActive = location.pathname === link.path;
               return (
                 <li key={link.id}>
@@ -60,11 +80,52 @@ const Navbar = () => {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          style={{ position: 'fixed', top: '80px', left: 0, right: 0, background: 'rgba(255, 255, 255, 0.98)', borderBottom: '1px solid #eee', padding: '20px', zIndex: 999, boxShadow: 'var(--shadow-lg)', display: 'flex', flexDirection: 'column', gap: '16px' }}
+          style={{ position: 'fixed', top: '80px', left: 0, right: 0, background: 'rgba(255, 255, 255, 0.98)', borderBottom: '1px solid #eee', padding: '20px', zIndex: 999, boxShadow: 'var(--shadow-lg)', display: 'flex', flexDirection: 'column', gap: '16px', maxHeight: 'calc(100vh - 80px)', overflowY: 'auto' }}
         >
           {navLinks.map((link, index) => {
-            const isActive = location.pathname === link.path;
             const isLast = index === navLinks.length - 1;
+            
+            if (link.dropdown) {
+              const isChildActive = link.dropdown.some(child => location.pathname === child.path);
+              return (
+                <div key={link.id} style={{ display: 'flex', flexDirection: 'column', borderBottom: isLast ? 'none' : '1px solid #f0f0f0' }}>
+                  <button 
+                    onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                    style={{
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      background: 'none', border: 'none', width: '100%', padding: '10px 0',
+                      fontSize: '1.1rem', fontWeight: isChildActive ? 700 : 500,
+                      color: isChildActive ? 'var(--primary-color)' : 'var(--text-main)',
+                      cursor: 'pointer', textAlign: 'left'
+                    }}
+                  >
+                    <span>{link.label}</span>
+                    {mobileDropdownOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                  </button>
+                  {mobileDropdownOpen && (
+                    <div style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '8px', borderLeft: '2px solid var(--secondary-color)', marginTop: '4px', marginBottom: '12px' }}>
+                      {link.dropdown.map(child => (
+                        <Link 
+                          key={child.id}
+                          to={child.path}
+                          onClick={() => { setMobileOpen(false); setMobileDropdownOpen(false); }}
+                          style={{
+                            fontSize: '1rem',
+                            fontWeight: location.pathname === child.path ? 700 : 500,
+                            color: location.pathname === child.path ? 'var(--primary-color)' : 'var(--text-muted)',
+                            padding: '8px 0'
+                          }}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            const isActive = location.pathname === link.path;
             return (
               <Link 
                 key={link.id}

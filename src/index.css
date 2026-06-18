@@ -3,6 +3,7 @@
   --primary-light: #2c4d66;
   --secondary-color: #8bc53f;   /* Green from logo */
   --secondary-light: #a4db5a;
+  --secondary-dark: #2d5a0c;    /* High-contrast Dark Green for light backgrounds */
   --tertiary-color: #16aeca;    /* Cyan Blue from logo */
   --bg-color: #f8fafc;
   --bg-offset: #eef2f6;
@@ -218,6 +219,92 @@ button {
 
 .nav-links a:hover {
   color: var(--primary-color);
+}
+
+/* Dropdown Navigation Menu */
+.nav-links li.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 1.05rem;
+  padding-bottom: 4px;
+  position: relative;
+  transition: var(--transition-normal);
+}
+
+.dropdown-toggle::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--secondary-color);
+  transition: var(--transition-normal);
+}
+
+.dropdown-toggle:hover::after, .dropdown-toggle.active::after {
+  width: 100%;
+}
+
+.dropdown-toggle:hover, .dropdown-toggle.active {
+  color: var(--primary-color);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: white;
+  box-shadow: var(--shadow-lg);
+  border-radius: 12px;
+  padding: 12px 0;
+  min-width: 200px;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1002;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-links li.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-menu li {
+  width: 100%;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--text-main) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  text-decoration: none;
+  transition: var(--transition-normal);
+  white-space: nowrap;
+}
+
+.dropdown-menu a::after {
+  display: none !important;
+}
+
+.dropdown-menu a:hover, .dropdown-menu a.active {
+  background-color: var(--bg-offset);
+  color: var(--primary-color) !important;
 }
 
 /* Hero Section */
@@ -655,7 +742,7 @@ html {
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--secondary-color);
+  color: var(--secondary-dark);
   font-weight: bold;
 }
 
@@ -689,7 +776,7 @@ html {
 .legal-icon {
   width: 64px;
   height: 64px;
-  color: var(--secondary-color);
+  color: var(--secondary-dark);
   margin-bottom: 20px;
 }
 
@@ -706,7 +793,7 @@ html {
 }
 
 .legal-issuer {
-  color: var(--secondary-color);
+  color: var(--secondary-dark);
   font-weight: 600;
 }
 
@@ -757,7 +844,7 @@ html {
 }
 
 .leader-position {
-  color: var(--secondary-color);
+  color: var(--secondary-dark);
   font-weight: 600;
 }
 

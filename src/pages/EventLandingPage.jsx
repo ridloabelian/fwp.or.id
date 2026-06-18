@@ -150,7 +150,7 @@ export default function EventLandingPage() {
 
             <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
               <a href="#registrasi" className="btn" style={{ 
-                background: 'var(--secondary-color)', color: 'white', fontSize: '1.1rem', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none', display: 'inline-block', fontWeight: 700
+                background: 'var(--secondary-color)', color: 'var(--primary-color)', fontSize: '1.1rem', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none', display: 'inline-block', fontWeight: 700
               }}>
                 Daftar Sekarang
               </a>
@@ -171,7 +171,7 @@ export default function EventLandingPage() {
             initial="hidden" animate="visible" variants={staggerContainer}
             style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}
           >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-color)', fontWeight: 600, marginBottom: '12px' }}>
+            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
               TEMA UTAMA
             </motion.div>
             <motion.h2 variants={fadeInUp} style={{ marginBottom: '16px' }}>
@@ -191,7 +191,7 @@ export default function EventLandingPage() {
             initial="hidden" animate="visible" variants={staggerContainer}
             style={{ textAlign: 'center', marginBottom: '48px' }}
           >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-color)', fontWeight: 600, marginBottom: '12px' }}>
+            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
               NARASUMBER
             </motion.div>
             <motion.h2 variants={fadeInUp}>Pembicara & Panelis</motion.h2>
@@ -219,7 +219,7 @@ export default function EventLandingPage() {
                   <div>
                     <h4 style={{ margin: '0 0 4px', fontSize: '1rem' }}>{speaker.name}</h4>
                     <p style={{ margin: '0 0 4px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{speaker.role}</p>
-                    <p style={{ margin: 0, color: 'var(--secondary-color)', fontSize: '0.8rem', fontStyle: 'italic' }}>{speaker.session}</p>
+                    <p style={{ margin: 0, color: 'var(--secondary-dark)', fontSize: '0.8rem', fontStyle: 'italic' }}>{speaker.session}</p>
                   </div>
                 </motion.div>
               ))}
@@ -245,7 +245,7 @@ export default function EventLandingPage() {
                   <div>
                     <h4 style={{ margin: '0 0 4px', fontSize: '1rem' }}>{speaker.name}</h4>
                     <p style={{ margin: '0 0 4px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{speaker.role}</p>
-                    <p style={{ margin: 0, color: 'var(--secondary-color)', fontSize: '0.8rem', fontStyle: 'italic' }}>{speaker.session}</p>
+                    <p style={{ margin: 0, color: 'var(--secondary-dark)', fontSize: '0.8rem', fontStyle: 'italic' }}>{speaker.session}</p>
                   </div>
                 </motion.div>
               ))}
@@ -261,7 +261,7 @@ export default function EventLandingPage() {
             initial="hidden" animate="visible" variants={staggerContainer}
             style={{ textAlign: 'center', marginBottom: '48px' }}
           >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-color)', fontWeight: 600, marginBottom: '12px' }}>
+            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
               REGISTRASI
             </motion.div>
             <motion.h2 variants={fadeInUp}>Pilih Kategori Peserta</motion.h2>
@@ -280,7 +280,7 @@ export default function EventLandingPage() {
               }}>
                 {category.id === 'member' && (
                   <div style={{
-                    position: 'absolute', top: '16px', right: '-35px', background: 'var(--secondary-color)', color: 'white',
+                    position: 'absolute', top: '16px', right: '-35px', background: 'var(--secondary-color)', color: 'var(--primary-color)',
                     padding: '4px 40px', transform: 'rotate(45deg)', fontSize: '0.75rem', fontWeight: 700
                   }}>
                     BEST VALUE
@@ -297,7 +297,7 @@ export default function EventLandingPage() {
                 <div style={{ marginBottom: '20px' }}>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>{category.originalPrice}</span>
                   <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--primary-color)' }}>{category.price}</div>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--secondary-color)' }}>per orang</span>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--secondary-dark)' }}>per orang</span>
                 </div>
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', textAlign: 'left' }}>
                   {category.benefits.map((benefit, i) => (
@@ -329,7 +329,7 @@ export default function EventLandingPage() {
                   <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--primary-color)', marginBottom: '8px' }}>{pkg.price}</div>
                   {pkg.discount !== '0%' && (
                     <div style={{ 
-                      display: 'inline-block', background: 'var(--secondary-color)', color: 'white',
+                      display: 'inline-block', background: 'var(--secondary-color)', color: 'var(--primary-color)',
                       padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 600, marginBottom: '8px'
                     }}>
                       Diskon {pkg.discount}
@@ -355,7 +355,7 @@ export default function EventLandingPage() {
             initial="hidden" animate="visible" variants={staggerContainer}
             style={{ textAlign: 'center', marginBottom: '48px' }}
           >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-color)', fontWeight: 600, marginBottom: '12px' }}>
+            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
               SPONSORSHIP
             </motion.div>
             <motion.h2 variants={fadeInUp}>Jadi Sponsor WLS 2026</motion.h2>
@@ -440,7 +440,7 @@ export default function EventLandingPage() {
             initial="hidden" animate="visible" variants={staggerContainer}
             style={{ textAlign: 'center', marginBottom: '48px' }}
           >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-color)', fontWeight: 600, marginBottom: '12px' }}>
+            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
               FAQ
             </motion.div>
             <motion.h2 variants={fadeInUp}>Pertanyaan Umum</motion.h2>
@@ -464,7 +464,7 @@ export default function EventLandingPage() {
             initial="hidden" animate="visible" variants={staggerContainer}
             style={{ textAlign: 'center', marginBottom: '48px' }}
           >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-color)', fontWeight: 600, marginBottom: '12px' }}>
+            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
               KONTAK
             </motion.div>
             <motion.h2 variants={fadeInUp}>Hubungi Kami</motion.h2>
