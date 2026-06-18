@@ -214,7 +214,7 @@ export default function EventLandingPage() {
                     width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #16a34a, #22c55e)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, flexShrink: 0
                   }}>
-                    {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                    {speaker.name ? speaker.name.split(' ').filter(n => n).map(n => n[0]).join('').substring(0, 2) : '?'}
                   </div>
                   <div>
                     <h4 style={{ margin: '0 0 4px', fontSize: '1rem' }}>{speaker.name}</h4>
@@ -240,7 +240,7 @@ export default function EventLandingPage() {
                     width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #f59e0b, #d97706)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, flexShrink: 0
                   }}>
-                    {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                    {speaker.name ? speaker.name.split(' ').filter(n => n).map(n => n[0]).join('').substring(0, 2) : '?'}
                   </div>
                   <div>
                     <h4 style={{ margin: '0 0 4px', fontSize: '1rem' }}>{speaker.name}</h4>
