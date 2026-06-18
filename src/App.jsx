@@ -14,6 +14,7 @@ import BusinessMatchingPage from './pages/BusinessMatchingPage';
 import TransparencyPage from './pages/TransparencyPage';
 import EventLandingPage from './pages/EventLandingPage';
 import SummitPage from './pages/SummitPage';
+import ProposalPage from './pages/ProposalPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 const ScrollToTop = () => {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/transparansi" element={<TransparencyPage />} />
           <Route path="/waqf-leaders-summit" element={<SummitPage />} />
           <Route path="/wls2026" element={<EventLandingPage />} />
+          <Route path="/proposal-wls2026" element={<ProposalPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
