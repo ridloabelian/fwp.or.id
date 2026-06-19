@@ -100,3 +100,9 @@ out/
 ehthumbs.db
 Thumbs.db
 
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.envrc

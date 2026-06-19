@@ -26,10 +26,13 @@ const ScrollToTop = () => {
 }
 
 function App() {
+  const { pathname } = useLocation();
+  const isStandalonePage = pathname === '/wls2026';
+
   return (
     <>
       <ScrollToTop />
-      <Navbar />
+      {!isStandalonePage && <Navbar />}
       <main style={{ minHeight: '100vh' }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -45,7 +48,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Footer />
+      {!isStandalonePage && <Footer />}
     </>
   );
 }

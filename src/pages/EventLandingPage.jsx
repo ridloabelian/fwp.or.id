@@ -1,514 +1,911 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { eventData } from '../data/event';
-import { 
-  Calendar, MapPin, Clock, Users, CheckCircle, 
-  ChevronDown, ChevronUp, Phone, Mail, Globe,
-  Sparkles, Download, Star
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import CountUp from 'react-countup';
+import {
+  Calendar, MapPin, Film, ArrowRight, Check, Plus, Minus,
+  Phone, Mail, Globe
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
+import {
+  summitSpeakers, summitCommittee, rundownDay1, rundownDay2,
+  sponsorshipPackages, miniExpoParticipants
+} from '../data/summit';
 
+/* ─── Design tokens ─── */
+const C = {
+  navy: '#112e3f',
+  navyDark: '#0c2230',
+  navyMid: '#1b465f',
+  navyDeep: '#0a1d28',
+  green: '#8bc53f',
+  cyan: '#16aeca',
+  gold: '#c9a227',
+  goldLight: '#e8cf78',
+  goldGrad: 'linear-gradient(135deg, #c9a227, #e6c862)',
+  textDark: '#1e293b',
+  textMuted: '#475569',
+  textLight: '#64748b',
+  textSubtle: '#94a3b8',
+  border: '#eef1f4',
+  bgLight: '#f7f9fb',
+  bgLighter: '#f1f6f9',
+};
+
+const catStyles = {
+  Pemerintah: { color: '#b91c1c', bg: '#fee2e2', grad: 'linear-gradient(135deg,#dc2626,#991b1b)' },
+  Akademisi: { color: '#0369a1', bg: '#e0f2fe', grad: 'linear-gradient(135deg,#16aeca,#0e7490)' },
+  Praktisi: { color: '#047857', bg: '#dcfce7', grad: 'linear-gradient(135deg,#8bc53f,#15803d)' },
+  FWP: { color: '#112e3f', bg: '#e2eef3', grad: 'linear-gradient(135deg,#112e3f,#1f5f7a)' },
+  Ulama: { color: '#6d28d9', bg: '#ede9fe', grad: 'linear-gradient(135deg,#7c3aed,#5b21b6)' },
+  Hiburan: { color: '#be185d', bg: '#fce7f3', grad: 'linear-gradient(135deg,#ec4899,#be185d)' },
+  Media: { color: '#b45309', bg: '#fef3c7', grad: 'linear-gradient(135deg,#c9a227,#b45309)' },
+};
+
+const typeColors = {
+  registration: '#16aeca', opening: '#8bc53f', speech: '#7c3aed', keynote: '#dc2626',
+  break: '#94a3b8', panel: '#16aeca', talkshow: '#8b5cf6', entertainment: '#ec4899',
+  gala: '#c9a227', presentation: '#8bc53f', seminar: '#0e7490', pitching: '#84cc16',
+  closing: '#112e3f', ceremony: '#c9a227',
+};
+
+const tagMap = {
+  'Sponsor Platinum': { bg: '#dcfce7', color: '#15803d' },
+  'Potential Sponsor': { bg: '#f1f5f9', color: '#64748b' },
+  Exhibitor: { bg: '#e0f2fe', color: '#0369a1' },
+};
+
+const WA_LINK = 'https://wa.me/6281389667055?text=' + encodeURIComponent('Halo, saya ingin mendaftar Waqf Leaders Summit 2026.');
+
+/* ─── Helpers ─── */
+function getInitials(name) {
+  let clean = name;
+  ['Bp.', 'Ibu', 'Prof.', 'Dr.', 'Drs.', 'H.', 'KH.', 'Ust.', 'Hj.', 'Ir.', 'Phil.', 'Pak'].forEach(t => {
+    clean = clean.replace(new RegExp('\\b' + t.replace(/\./g, '\\.') + '\\s*', 'gi'), '');
+  });
+  clean = clean.replace(/,.*$/, '').replace(/\(.*?\)/g, '').trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (!parts.length) return '??';
+  return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+}
+
+/* ─── Framer Motion variants ─── */
 const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
-
-const staggerContainer = {
+const stagger = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
+};
+const heroRise = {
+  hidden: { y: 36 },
+  visible: i => ({ y: 0, transition: { duration: 0.9, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] } }),
 };
 
-const itemScale = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } }
-};
+/* ─── FAQ data ─── */
+const faqData = [
+  { q: 'Apa itu Waqf Leaders Summit 2026?', a: 'Forum strategis dua hari yang diinisiasi Forum Wakaf Produktif untuk menyatukan visi para pemimpin wakaf, akademisi, regulator, dan praktisi dalam mengeskalasi dampak wakaf produktif bagi masyarakat.' },
+  { q: 'Kapan dan di mana acara berlangsung?', a: 'Rabu–Kamis, 22–23 Juli 2026 di Hotel Holiday Inn, Jl. Dr. Djunjunan No.96, Pasteur, Sukajadi, Kota Bandung, Jawa Barat.' },
+  { q: 'Siapa saja yang dapat menghadiri?', a: 'Nazhir, pengelola lembaga wakaf, akademisi, regulator, investor, mitra strategis, serta masyarakat umum yang tertarik pada pengembangan wakaf produktif.' },
+  { q: 'Bagaimana cara mendaftar?', a: 'Pilih paket registrasi yang sesuai pada bagian Registrasi, lalu klik "Daftar via WhatsApp" untuk diarahkan ke tim sekretariat kami.' },
+  { q: 'Apakah tersedia harga khusus anggota FWP?', a: 'Ya. Lembaga anggota FWP memperoleh harga khusus Rp 2.500.000 (dari Rp 3.000.000), serta tersedia paket 3 orang yang lebih hemat.' },
+  { q: 'Apa saja yang termasuk dalam tiket?', a: 'Akses penuh dua hari acara, seminar kit, sertifikat, makan siang & coffee break, serta akses ke Mini Expo dan sesi networking.' },
+];
 
-// TimeBox Helper Component
-const TimeBox = ({ value, label }) => (
-  <div style={{ textAlign: 'center', padding: '12px 16px', background: 'rgba(255,255,255,0.1)', borderRadius: '12px', backdropFilter: 'blur(10px)' }}>
-    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'white', lineHeight: 1 }}>{String(value).padStart(2, '0')}</div>
-    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>{label}</div>
-  </div>
-);
+/* ─── Sponsor card styling ─── */
+const sponsorCardStyles = [
+  { color: '#e2e8f0', priceColor: '#fff', glow: 'rgba(226,232,240,.3)', cardBg: 'linear-gradient(170deg,rgba(255,255,255,.09),rgba(255,255,255,.03))', border: 'rgba(226,232,240,.4)' },
+  { color: '#c9a227', priceColor: '#e8cf78', glow: 'rgba(201,162,39,.4)', cardBg: 'linear-gradient(170deg,rgba(201,162,39,.1),rgba(255,255,255,.02))', border: 'rgba(201,162,39,.35)' },
+  { color: '#94a3b8', priceColor: '#cbd5e1', glow: 'rgba(148,163,184,.3)', cardBg: 'linear-gradient(170deg,rgba(148,163,184,.1),rgba(255,255,255,.02))', border: 'rgba(148,163,184,.3)' },
+  { color: '#cd7f32', priceColor: '#e0a86a', glow: 'rgba(205,127,50,.3)', cardBg: 'linear-gradient(170deg,rgba(205,127,50,.1),rgba(255,255,255,.02))', border: 'rgba(205,127,50,.3)' },
+];
 
-const calculateTimeLeft = (targetDate) => {
-  const difference = new Date(targetDate) - new Date();
-  if (difference > 0) {
-    return {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
+/* ─── Sub-components ─── */
+
+function CountdownTimer() {
+  const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
+  useEffect(() => {
+    const target = new Date('2026-07-22T08:00:00+07:00').getTime();
+    const tick = () => {
+      const diff = Math.max(0, target - Date.now());
+      setTime({
+        d: Math.floor(diff / 86400000),
+        h: Math.floor((diff % 86400000) / 3600000),
+        m: Math.floor((diff % 3600000) / 60000),
+        s: Math.floor((diff % 60000) / 1000),
+      });
     };
-  }
-  return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-};
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
 
-// Countdown Timer Component
-const CountdownTimer = ({ targetDate }) => {
-  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(targetDate));
+  const pad = n => String(n).padStart(2, '0');
+  const boxes = [
+    { val: time.d, label: 'Hari' },
+    { val: time.h, label: 'Jam' },
+    { val: time.m, label: 'Menit' },
+    { val: time.s, label: 'Detik', accent: true },
+  ];
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(10px, 2vw, 20px)' }}>
+      {boxes.map((b, i) => (
+        <div key={i} style={{
+          minWidth: 'clamp(64px, 14vw, 96px)', padding: '16px 8px', borderRadius: 16,
+          background: b.accent ? 'rgba(201,162,39,.16)' : 'rgba(255,255,255,.07)',
+          border: b.accent ? '1px solid rgba(201,162,39,.4)' : '1px solid rgba(255,255,255,.14)',
+          textAlign: 'center',
+        }}>
+          <div style={{
+            fontSize: 'clamp(28px, 6vw, 46px)', fontWeight: 800, lineHeight: 1,
+            color: b.accent ? C.goldLight : '#fff',
+          }}>{pad(b.val)}</div>
+          <div style={{
+            marginTop: 8, fontSize: 11, fontWeight: 600, letterSpacing: '.16em',
+            color: b.accent ? '#d9c283' : '#8fb6c6', textTransform: 'uppercase',
+          }}>{b.label}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FAQItem({ q, a }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ border: `1px solid ${C.border}`, borderRadius: 16, overflow: 'hidden', background: '#fff' }}>
+      <button onClick={() => setOpen(!open)} style={{
+        width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        gap: 18, padding: '20px 24px', background: 'none', border: 'none', cursor: 'pointer',
+        textAlign: 'left', fontFamily: 'inherit',
+      }}>
+        <span style={{ fontSize: 'clamp(15px, 1.8vw, 17px)', fontWeight: 700, color: C.navy }}>{q}</span>
+        <span style={{
+          flex: 'none', width: 28, height: 28, borderRadius: 8,
+          background: open ? '#e0f2fe' : C.bgLighter,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: C.cyan, transition: 'transform .3s ease, background .3s ease',
+          transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+        }}>
+          {open ? <Minus size={14} /> : <Plus size={14} />}
+        </span>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div style={{ padding: '0 24px 22px', fontSize: 15, lineHeight: 1.7, color: C.textMuted }}>{a}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function StatItem({ target, suffix, label, color }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-10% 0px' });
+  return (
+    <motion.div ref={ref} variants={fadeInUp} style={{ textAlign: 'center' }}>
+      <div style={{
+        fontFamily: "'Playfair Display', serif",
+        fontSize: 'clamp(40px, 6vw, 68px)', fontWeight: 800, lineHeight: 1, color,
+      }}>
+        {inView ? <CountUp end={target} duration={1.4} /> : '0'}{suffix}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 'clamp(12px, 1.4vw, 14px)', fontWeight: 600, color: '#8fb6c6', letterSpacing: '.04em' }}>{label}</div>
+    </motion.div>
+  );
+}
+
+/* ─── Section wrapper for scroll-reveal ─── */
+function Reveal({ children, style, className }) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-8% 0px' }}
+      variants={fadeInUp}
+      style={style}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ─── Main component ─── */
+export default function EventLandingPage() {
+  const [activeDay, setActiveDay] = useState(1);
+  const [scrolled, setScrolled] = useState(false);
+  const [showFloat, setShowFloat] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft(targetDate)), 1000);
-    return () => clearInterval(timer);
-  }, [targetDate]);
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      setScrolled(y > 20);
+      setShowFloat(y > 700);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const rundown = activeDay === 1 ? rundownDay1 : rundownDay2;
+  const confirmed = summitSpeakers.confirmed;
+  const pending = summitSpeakers.pending;
+
+  const tabStyle = active => ({
+    padding: '11px 24px', borderRadius: 999, border: 'none', cursor: 'pointer',
+    fontFamily: 'inherit', fontSize: 14, fontWeight: 700,
+    transition: 'all .25s ease',
+    background: active ? `linear-gradient(135deg,${C.navy},#1f5f7a)` : 'transparent',
+    color: active ? '#fff' : C.textLight,
+    boxShadow: active ? '0 6px 16px rgba(17,46,63,.2)' : 'none',
+  });
 
   return (
-    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-      <TimeBox value={timeLeft.days} label="HARI" />
-      <TimeBox value={timeLeft.hours} label="JAM" />
-      <TimeBox value={timeLeft.minutes} label="MENIT" />
-      <TimeBox value={timeLeft.seconds} label="DETIK" />
-    </div>
-  );
-};
+    <div style={{ overflowX: 'hidden', background: '#fff' }}>
+      <SEO
+        title="WLS 2026 - Waqf Leaders Summit"
+        description="Waqf Leaders Summit 2026: Forum strategis untuk mengeskalasi dampak wakaf produktif. 22-23 Juli 2026, Holiday Inn Pasteur, Bandung."
+      />
 
-// FAQ Accordion Component
-const FAQItem = ({ question, answer }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div style={{ borderBottom: '1px solid var(--border-color)', padding: '16px 0' }}>
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        style={{ 
-          width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
-          fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', padding: '0'
-        }}
-      >
-        {question}
-        {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-      </button>
-      {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0, height: 0 }} 
-          animate={{ opacity: 1, height: 'auto' }}
-          style={{ marginTop: '12px', color: 'var(--text-muted)', lineHeight: 1.6 }}
-        >
-          {answer}
+      {/* ═══ NAVBAR ═══ */}
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24,
+        padding: scrolled ? '10px clamp(20px, 5vw, 64px)' : '14px clamp(20px, 5vw, 64px)',
+        background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(12px)',
+        borderBottom: `1px solid ${C.border}`,
+        boxShadow: scrolled ? '0 6px 24px rgba(17,46,63,.08)' : 'none',
+        transition: 'box-shadow .3s ease, padding .3s ease',
+      }}>
+        <a href="#hero" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', flex: 'none' }}>
+          <img src="/logo.png" alt="Forum Wakaf Produktif" style={{ height: 42, width: 'auto' }} />
+        </a>
+        <div className="wls-navlinks" style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
+          {['Tentang', 'Agenda', 'Narasumber', 'Sponsorship', 'Expo'].map(l => (
+            <a key={l} href={`#${l.toLowerCase()}`} style={{ fontSize: 14, fontWeight: 600, color: '#334155', textDecoration: 'none', letterSpacing: '.01em' }}>{l}</a>
+          ))}
+        </div>
+        <a href="#registrasi" style={{
+          flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
+          padding: '11px 22px', borderRadius: 999, background: C.goldGrad,
+          color: '#15212b', fontSize: 14, fontWeight: 700, textDecoration: 'none',
+          boxShadow: '0 6px 18px rgba(201,162,39,.32)', letterSpacing: '.01em',
+        }}>Daftar Sekarang</a>
+      </nav>
+
+      {/* ═══ HERO ═══ */}
+      <header id="hero" style={{
+        position: 'relative', minHeight: '100vh',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '120px clamp(20px, 5vw, 64px) 80px',
+        background: 'radial-gradient(120% 90% at 80% 0%, #1b465f 0%, #112e3f 45%, #0c2230 100%)',
+        overflow: 'hidden',
+      }}>
+        <div aria-hidden="true" style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+          {[
+            { top: '12%', left: '8%', size: 34, r: 6, bg: C.green, o: .55, a: 'wlsFloat', d: '9s' },
+            { top: '22%', left: '16%', size: 22, r: 4, bg: C.cyan, o: .5, a: 'wlsFloatAlt', d: '11s', dl: '.5s' },
+            { top: '64%', left: '6%', size: 46, r: 8, bg: '#1f5f7a', o: .6, a: 'wlsFloat', d: '13s', dl: '1s' },
+            { top: '78%', left: '18%', size: 18, r: 4, bg: C.gold, o: .5, a: 'wlsFloatAlt', d: '8s', dl: '.3s' },
+            { top: '16%', right: '10%', size: 40, r: 7, bg: C.cyan, o: .45, a: 'wlsFloatAlt', d: '12s', dl: '.8s' },
+            { top: '30%', right: '20%', size: 24, r: 5, bg: C.green, o: .5, a: 'wlsFloat', d: '10s', dl: '1.4s' },
+            { top: '70%', right: '8%', size: 50, r: 9, bg: C.gold, o: .4, a: 'wlsFloat', d: '14s', dl: '.2s' },
+            { top: '58%', right: '22%', size: 16, r: 4, bg: C.cyan, o: .55, a: 'wlsFloatAlt', d: '9s', dl: '1.1s' },
+            { top: '44%', left: '4%', size: 14, r: 3, bg: C.gold, o: .45, a: 'wlsFloat', d: '7s', dl: '.6s' },
+            { top: '86%', right: '30%', size: 28, r: 6, bg: C.green, o: .35, a: 'wlsFloatAlt', d: '12s', dl: '.9s' },
+          ].map((sq, i) => (
+            <div key={i} style={{
+              position: 'absolute', top: sq.top, left: sq.left, right: sq.right,
+              width: sq.size, height: sq.size, borderRadius: sq.r,
+              background: sq.bg, opacity: sq.o,
+              animation: `${sq.a} ${sq.d} ease-in-out infinite ${sq.dl || '0s'}`,
+            }} />
+          ))}
+        </div>
+        <div aria-hidden="true" style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: 160,
+          background: 'linear-gradient(to bottom, transparent, rgba(8,28,40,.6))',
+        }} />
+
+        <motion.div initial="hidden" animate="visible" variants={stagger} style={{
+          position: 'relative', zIndex: 2, maxWidth: 920, textAlign: 'center', color: '#fff',
+        }}>
+          <motion.div custom={0} variants={heroRise} style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            padding: '8px 18px', borderRadius: 999,
+            background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.16)',
+            backdropFilter: 'blur(6px)', fontSize: 13, fontWeight: 600, letterSpacing: '.04em',
+            marginBottom: 28,
+          }}>
+            <span style={{
+              width: 8, height: 8, borderRadius: '50%', background: C.green,
+              animation: 'wlsPulse 2s ease-in-out infinite',
+            }} />
+            22–23 JULI 2026 · HOLIDAY INN PASTEUR, BANDUNG
+          </motion.div>
+
+          <motion.p custom={1} variants={heroRise} style={{
+            margin: '0 0 6px', fontSize: 'clamp(13px, 1.6vw, 16px)', fontWeight: 700,
+            letterSpacing: '.42em', color: '#7fd0e3', textTransform: 'uppercase',
+          }}>Waqf Leaders Summit</motion.p>
+
+          <motion.h1 custom={2} variants={heroRise} style={{
+            margin: 0, fontFamily: "'Playfair Display', serif",
+            fontSize: 'clamp(58px, 12vw, 150px)', fontWeight: 800,
+            lineHeight: .9, letterSpacing: '-.02em', color: '#fff',
+          }}>2026</motion.h1>
+
+          <motion.img custom={3} variants={heroRise}
+            src="/tumbuh-bersama-gold.png" alt="Tumbuh Bersama"
+            style={{ width: 'clamp(280px, 46vw, 520px)', height: 'auto', display: 'block', margin: '14px auto 4px' }}
+          />
+
+          <motion.p custom={4} variants={heroRise} style={{
+            maxWidth: 680, margin: '18px auto 0',
+            fontFamily: "'Playfair Display', serif", fontStyle: 'italic',
+            fontSize: 'clamp(17px, 2.4vw, 24px)', lineHeight: 1.5,
+            color: 'rgba(255,255,255,.85)',
+          }}>&ldquo;Scaling-Up the Impact of Waqf Toward Sustainable Wellbeing&rdquo;</motion.p>
+
+          <motion.div custom={5} variants={heroRise} style={{ margin: '38px 0 0' }}>
+            <CountdownTimer />
+          </motion.div>
+
+          <motion.div custom={6} variants={heroRise} style={{
+            display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 14, marginTop: 38,
+          }}>
+            <a href="#registrasi" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 9,
+              padding: '15px 32px', borderRadius: 999, background: C.goldGrad,
+              color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
+              boxShadow: '0 12px 30px rgba(201,162,39,.35)',
+            }}>Daftar Sekarang <ArrowRight size={16} /></a>
+            <a href="#agenda" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 9,
+              padding: '15px 32px', borderRadius: 999,
+              background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.28)',
+              color: '#fff', fontSize: 15, fontWeight: 700, textDecoration: 'none',
+            }}>Lihat Agenda</a>
+          </motion.div>
         </motion.div>
-      )}
-    </div>
-  );
-};
 
-export default function EventLandingPage() {
-  return (
-    <div style={{ minHeight: '100vh' }}>
-      {/* ===== HERO SECTION ===== */}
-      <section style={{ 
-        background: 'linear-gradient(135deg, var(--primary-color) 0%, #1a3a5c 50%, var(--tertiary-color) 100%)',
-        color: 'white', padding: '80px 0 60px', position: 'relative', overflow: 'hidden'
+        <div aria-hidden="true" style={{
+          position: 'absolute', bottom: 26, left: '50%', transform: 'translateX(-50%)',
+          width: 26, height: 42, border: '2px solid rgba(255,255,255,.3)', borderRadius: 14,
+          display: 'flex', justifyContent: 'center', paddingTop: 8, zIndex: 2,
+        }}>
+          <span style={{ width: 5, height: 9, borderRadius: 3, background: '#fff', animation: 'wlsScrollDot 1.8s ease-in-out infinite' }} />
+        </div>
+      </header>
+
+      {/* ═══ TRUST STRIP ═══ */}
+      <div style={{
+        background: C.navyDark, borderTop: '1px solid rgba(255,255,255,.06)',
+        overflow: 'hidden', whiteSpace: 'nowrap', padding: '16px 0',
       }}>
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <motion.div
-            initial="hidden" animate="visible" variants={staggerContainer}
-            style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}
-          >
-            <motion.div variants={fadeInUp} style={{ 
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              background: 'rgba(255,255,255,0.15)', padding: '8px 20px', borderRadius: '50px',
-              marginBottom: '12px', backdropFilter: 'blur(10px)'
+        <div style={{ display: 'inline-flex', gap: 56, animation: 'wlsMarquee 32s linear infinite', willChange: 'transform' }}>
+          {[0, 1].map(set => (
+            <span key={set} style={{
+              display: 'inline-flex', gap: 56, alignItems: 'center',
+              fontSize: 14, fontWeight: 600, letterSpacing: '.12em', color: '#6f93a4', textTransform: 'uppercase',
             }}>
-              <Sparkles size={18} />
-              <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{eventData.hero.tagline}</span>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} style={{ 
-              fontSize: '1.1rem', opacity: 0.85, marginBottom: '24px', fontStyle: 'italic'
-            }}>
-              {eventData.hero.subTagline}
-            </motion.div>
-
-            <motion.h1 variants={fadeInUp} style={{ 
-              fontSize: '3.5rem', fontWeight: 800, marginBottom: '16px', lineHeight: 1.1,
-              textShadow: '0 2px 20px rgba(0,0,0,0.2)'
-            }}>
-              {eventData.hero.title}
-            </motion.h1>
-
-            <motion.p variants={fadeInUp} style={{ 
-              fontSize: '1.2rem', opacity: 0.9, marginBottom: '32px', lineHeight: 1.6 
-            }}>
-              {eventData.hero.subtitle}
-            </motion.p>
-
-            <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '40px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', padding: '10px 20px', borderRadius: '50px' }}>
-                <Calendar size={18} />
-                <span>{eventData.hero.date}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.1)', padding: '10px 20px', borderRadius: '50px' }}>
-                <MapPin size={18} />
-                <span>{eventData.hero.venue}</span>
-              </div>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} style={{ marginBottom: '40px' }}>
-              <CountdownTimer targetDate={eventData.hero.countdown} />
-            </motion.div>
-
-            <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-              <a href="#registrasi" className="btn" style={{ 
-                background: 'var(--secondary-color)', color: 'var(--primary-color)', fontSize: '1.1rem', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none', display: 'inline-block', fontWeight: 700
-              }}>
-                Daftar Sekarang
-              </a>
-              <Link to="/waqf-leaders-summit" className="btn" style={{ 
-                border: '2px solid white', color: 'white', fontSize: '1.1rem', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none', display: 'inline-block', fontWeight: 700
-              }}>
-                Info Lengkap
-              </Link>
-            </motion.div>
-          </motion.div>
+              <span>Forum Wakaf Produktif</span><span style={{ color: C.gold }}>•</span>
+              <span>57 Lembaga Nazhir</span><span style={{ color: C.green }}>•</span>
+              <span>Tumbuh Bersama</span><span style={{ color: C.cyan }}>•</span>
+              <span>Scaling-Up The Impact of Waqf</span><span style={{ color: C.gold }}>•</span>
+              <span>Indonesia Emas 2045</span><span style={{ color: C.green }}>•</span>
+            </span>
+          ))}
         </div>
-      </section>
-
-      {/* ===== THEME SECTION ===== */}
-      <section className="section" style={{ background: 'var(--bg-offset)' }}>
-        <div className="container">
-          <motion.div
-            initial="hidden" animate="visible" variants={staggerContainer}
-            style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}
-          >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
-              TEMA UTAMA
-            </motion.div>
-            <motion.h2 variants={fadeInUp} style={{ marginBottom: '16px' }}>
-              {eventData.theme.title}
-            </motion.h2>
-            <motion.p variants={fadeInUp} style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.7 }}>
-              {eventData.theme.description}
-            </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== SPEAKERS SECTION ===== */}
-      <section className="section" id="pembicara">
-        <div className="container">
-          <motion.div
-            initial="hidden" animate="visible" variants={staggerContainer}
-            style={{ textAlign: 'center', marginBottom: '48px' }}
-          >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
-              NARASUMBER
-            </motion.div>
-            <motion.h2 variants={fadeInUp}>Pembicara & Panelis</motion.h2>
-            <motion.p variants={fadeInUp} style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-              32 pemimpin, regulator, akademisi, dan praktisi wakaf terkemuka Indonesia
-            </motion.p>
-          </motion.div>
-
-          {/* Confirmed Speakers */}
-          <motion.div variants={staggerContainer} initial="hidden" animate="visible" style={{ marginBottom: '48px' }}>
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: '#16a34a' }}>
-              <CheckCircle size={20} /> Sudah Konfirmasi Hadir
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-              {eventData.speakers.confirmed.map((speaker, index) => (
-                <motion.div key={index} variants={itemScale} className="glass-card" style={{
-                  padding: '20px', borderLeft: '4px solid #16a34a', display: 'flex', alignItems: 'flex-start', gap: '12px'
-                }}>
-                  <div style={{
-                    width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #16a34a, #22c55e)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, flexShrink: 0
-                  }}>
-                    {speaker.name ? speaker.name.split(' ').filter(n => n).map(n => n[0]).join('').substring(0, 2) : '?'}
-                  </div>
-                  <div>
-                    <h4 style={{ margin: '0 0 4px', fontSize: '1rem' }}>{speaker.name}</h4>
-                    <p style={{ margin: '0 0 4px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{speaker.role}</p>
-                    <p style={{ margin: 0, color: 'var(--secondary-dark)', fontSize: '0.8rem', fontStyle: 'italic' }}>{speaker.session}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Pending Speakers */}
-          <motion.div variants={staggerContainer} initial="hidden" animate="visible">
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: '#f59e0b' }}>
-              <Clock size={20} /> Dalam Proses Konfirmasi
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-              {eventData.speakers.pending.map((speaker, index) => (
-                <motion.div key={index} variants={itemScale} className="glass-card" style={{
-                  padding: '20px', borderLeft: '4px solid #f59e0b', display: 'flex', alignItems: 'flex-start', gap: '12px'
-                }}>
-                  <div style={{
-                    width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, flexShrink: 0
-                  }}>
-                    {speaker.name ? speaker.name.split(' ').filter(n => n).map(n => n[0]).join('').substring(0, 2) : '?'}
-                  </div>
-                  <div>
-                    <h4 style={{ margin: '0 0 4px', fontSize: '1rem' }}>{speaker.name}</h4>
-                    <p style={{ margin: '0 0 4px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{speaker.role}</p>
-                    <p style={{ margin: 0, color: 'var(--secondary-dark)', fontSize: '0.8rem', fontStyle: 'italic' }}>{speaker.session}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== REGISTRATION SECTION ===== */}
-      <section className="section" id="registrasi" style={{ background: 'var(--bg-offset)' }}>
-        <div className="container">
-          <motion.div
-            initial="hidden" animate="visible" variants={staggerContainer}
-            style={{ textAlign: 'center', marginBottom: '48px' }}
-          >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
-              REGISTRASI
-            </motion.div>
-            <motion.h2 variants={fadeInUp}>Pilih Kategori Peserta</motion.h2>
-            <motion.p variants={fadeInUp} style={{ color: 'var(--text-muted)' }}>
-              Pilih kategori yang sesuai dengan status Anda
-            </motion.p>
-          </motion.div>
-
-          <motion.div 
-            variants={staggerContainer} initial="hidden" animate="visible"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '48px' }}
-          >
-            {eventData.registration.categories.map((category) => (
-              <motion.div key={category.id} variants={itemScale} className="glass-card" style={{
-                padding: '32px', textAlign: 'center', position: 'relative', overflow: 'hidden'
-              }}>
-                {category.id === 'member' && (
-                  <div style={{
-                    position: 'absolute', top: '16px', right: '-35px', background: 'var(--secondary-color)', color: 'var(--primary-color)',
-                    padding: '4px 40px', transform: 'rotate(45deg)', fontSize: '0.75rem', fontWeight: 700
-                  }}>
-                    BEST VALUE
-                  </div>
-                )}
-                <div style={{ 
-                  width: '64px', height: '64px', borderRadius: '50%', background: 'var(--bg-offset)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px'
-                }}>
-                  <Users size={32} color="var(--primary-color)" />
-                </div>
-                <h3 style={{ marginBottom: '8px' }}>{category.name}</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>{category.description}</p>
-                <div style={{ marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>{category.originalPrice}</span>
-                  <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--primary-color)' }}>{category.price}</div>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--secondary-dark)' }}>per orang</span>
-                </div>
-                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', textAlign: 'left' }}>
-                  {category.benefits.map((benefit, i) => (
-                    <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 0', fontSize: '0.9rem' }}>
-                      <CheckCircle size={16} color="#16a34a" /> {benefit}
-                    </li>
-                  ))}
-                </ul>
-                <a href="#" className="btn" style={{ width: '100%', display: 'block', borderRadius: '12px', padding: '12px 24px', background: 'var(--primary-color)', color: 'white', textDecoration: 'none', fontWeight: 700, textAlign: 'center' }}>
-                  Daftar {category.name}
-                </a>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Package Deals */}
-          <motion.div variants={staggerContainer} initial="hidden" animate="visible">
-            <h3 style={{ textAlign: 'center', marginBottom: '24px' }}>Paket Spesial</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-              {eventData.registration.packages.map((pkg) => (
-                <motion.div key={pkg.id} variants={itemScale} className="glass-card" style={{
-                  padding: '24px', textAlign: 'center', border: pkg.id === 'package3' ? '2px solid var(--secondary-color)' : '1px solid var(--border-color)'
-                }}>
-                  <h4 style={{ marginBottom: '8px' }}>{pkg.name}</h4>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '12px' }}>{pkg.description}</p>
-                  {pkg.originalPrice && (
-                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>{pkg.originalPrice}</span>
-                  )}
-                  <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--primary-color)', marginBottom: '8px' }}>{pkg.price}</div>
-                  {pkg.discount !== '0%' && (
-                    <div style={{ 
-                      display: 'inline-block', background: 'var(--secondary-color)', color: 'var(--primary-color)',
-                      padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 600, marginBottom: '8px'
-                    }}>
-                      Diskon {pkg.discount}
-                    </div>
-                  )}
-                  {pkg.savings && (
-                    <p style={{ color: '#16a34a', fontSize: '0.85rem', fontWeight: 600, marginBottom: '12px' }}>{pkg.savings}</p>
-                  )}
-                  <a href="#" className="btn" style={{ width: '100%', display: 'block', borderRadius: '12px', padding: '12px 24px', border: '2px solid var(--primary-color)', color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 700, textAlign: 'center' }}>
-                    Pilih Paket
-                  </a>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== SPONSORSHIP SECTION ===== */}
-      <section className="section" id="sponsorship">
-        <div className="container">
-          <motion.div
-            initial="hidden" animate="visible" variants={staggerContainer}
-            style={{ textAlign: 'center', marginBottom: '48px' }}
-          >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
-              SPONSORSHIP
-            </motion.div>
-            <motion.h2 variants={fadeInUp}>Jadi Sponsor WLS 2026</motion.h2>
-            <motion.p variants={fadeInUp} style={{ color: 'var(--text-muted)' }}>
-              Dukung event strategis nasional dan dapatkan exposure maksimal untuk brand Anda
-            </motion.p>
-          </motion.div>
-
-          <motion.div 
-            variants={staggerContainer} initial="hidden" animate="visible"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginBottom: '40px' }}
-          >
-            {eventData.sponsorship.tiers.map((tier, index) => (
-              <motion.div key={tier.id} variants={itemScale} className="glass-card" style={{
-                padding: '28px', position: 'relative', overflow: 'hidden',
-                border: index === 0 ? '2px solid #fbbf24' : '1px solid var(--border-color)'
-              }}>
-                {index === 0 && (
-                  <div style={{
-                    position: 'absolute', top: '12px', right: '-30px', background: '#fbbf24', color: 'var(--primary-color)',
-                    padding: '4px 35px', transform: 'rotate(45deg)', fontSize: '0.7rem', fontWeight: 700
-                  }}>
-                    MOST POPULAR
-                  </div>
-                )}
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                  <Star size={32} color={index === 0 ? '#fbbf24' : 'var(--primary-color)'} style={{ marginBottom: '8px' }} />
-                  <h3 style={{ marginBottom: '4px' }}>{tier.name}</h3>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--primary-color)' }}>{tier.price}</div>
-                </div>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {tier.benefits.map((benefit, i) => (
-                    <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', padding: '5px 0', fontSize: '0.85rem' }}>
-                      <CheckCircle size={14} color="#16a34a" style={{ marginTop: '3px', flexShrink: 0 }} />
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div 
-            variants={fadeInUp} initial="hidden" animate="visible"
-            className="glass-card" style={{ 
-              padding: '32px', textAlign: 'center', maxWidth: '600px', margin: '0 auto',
-              background: 'linear-gradient(135deg, var(--primary-color), var(--tertiary-color))', color: 'white'
-            }}
-          >
-            <h3 style={{ marginBottom: '12px', color: 'white' }}>Tertarik Menjadi Sponsor?</h3>
-            <p style={{ marginBottom: '20px', opacity: 0.9 }}>
-              Hubungi PIC Sponsorship kami untuk proposal lengkap dan penawaran khusus
-            </p>
-            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href={`tel:${eventData.sponsorship.contact.phone}`} style={{ 
-                display: 'flex', alignItems: 'center', gap: '8px', color: 'white', textDecoration: 'none',
-                background: 'rgba(255,255,255,0.2)', padding: '10px 20px', borderRadius: '50px'
-              }}>
-                <Phone size={16} /> {eventData.sponsorship.contact.phone}
-              </a>
-              <a href={`mailto:${eventData.sponsorship.contact.email}`} style={{ 
-                display: 'flex', alignItems: 'center', gap: '8px', color: 'white', textDecoration: 'none',
-                background: 'rgba(255,255,255,0.2)', padding: '10px 20px', borderRadius: '50px'
-              }}>
-                <Mail size={16} /> {eventData.sponsorship.contact.email}
-              </a>
-              <a href="mailto:fwpsekretariat@gmail.com?subject=Proposal Sponsorship WLS 2026" style={{ 
-                display: 'flex', alignItems: 'center', gap: '8px', color: 'white', textDecoration: 'none',
-                background: 'rgba(255,255,255,0.3)', padding: '10px 20px', borderRadius: '50px', fontWeight: 600
-              }}>
-                <Download size={16} /> Unduh Proposal
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== FAQ SECTION ===== */}
-      <section className="section" style={{ background: 'var(--bg-offset)' }}>
-        <div className="container">
-          <motion.div
-            initial="hidden" animate="visible" variants={staggerContainer}
-            style={{ textAlign: 'center', marginBottom: '48px' }}
-          >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
-              FAQ
-            </motion.div>
-            <motion.h2 variants={fadeInUp}>Pertanyaan Umum</motion.h2>
-          </motion.div>
-
-          <motion.div 
-            variants={fadeInUp} initial="hidden" animate="visible"
-            style={{ maxWidth: '700px', margin: '0 auto' }}
-          >
-            {eventData.faq.map((item, index) => (
-              <FAQItem key={index} question={item.question} answer={item.answer} />
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== CONTACT SECTION ===== */}
-      <section className="section">
-        <div className="container">
-          <motion.div
-            initial="hidden" animate="visible" variants={staggerContainer}
-            style={{ textAlign: 'center', marginBottom: '48px' }}
-          >
-            <motion.div variants={fadeInUp} style={{ color: 'var(--secondary-dark)', fontWeight: 600, marginBottom: '12px' }}>
-              KONTAK
-            </motion.div>
-            <motion.h2 variants={fadeInUp}>Hubungi Kami</motion.h2>
-          </motion.div>
-
-          <motion.div 
-            variants={staggerContainer} initial="hidden" animate="visible"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', maxWidth: '800px', margin: '0 auto' }}
-          >
-            <motion.div variants={itemScale} className="glass-card" style={{ padding: '24px', textAlign: 'center' }}>
-              <Phone size={28} color="var(--primary-color)" style={{ marginBottom: '12px' }} />
-              <h4 style={{ marginBottom: '4px' }}>Telepon</h4>
-              <p style={{ color: 'var(--text-muted)', margin: 0 }}>{eventData.contact.phone}</p>
-            </motion.div>
-            <motion.div variants={itemScale} className="glass-card" style={{ padding: '24px', textAlign: 'center' }}>
-              <Mail size={28} color="var(--primary-color)" style={{ marginBottom: '12px' }} />
-              <h4 style={{ marginBottom: '4px' }}>Email</h4>
-              <p style={{ color: 'var(--text-muted)', margin: 0 }}>{eventData.contact.email}</p>
-            </motion.div>
-            <motion.div variants={itemScale} className="glass-card" style={{ padding: '24px', textAlign: 'center' }}>
-              <Globe size={28} color="var(--primary-color)" style={{ marginBottom: '12px' }} />
-              <h4 style={{ marginBottom: '4px' }}>Instagram</h4>
-              <p style={{ color: 'var(--text-muted)', margin: 0 }}>{eventData.contact.instagram}</p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Sticky CTA for Mobile */}
-      <div className="sticky-cta" style={{
-        position: 'fixed', bottom: 0, left: 0, right: 0,
-        background: 'white', padding: '12px 20px', boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
-        display: 'flex', gap: '12px', zIndex: 1000, justifyContent: 'center'
-      }}>
-        <a href="#registrasi" className="btn" style={{ flex: 1, maxWidth: '200px', textAlign: 'center', borderRadius: '12px', padding: '12px 24px', background: 'var(--primary-color)', color: 'white', textDecoration: 'none', fontWeight: 700 }}>
-          Daftar Sekarang
-        </a>
-        <a href="mailto:fwpsekretariat@gmail.com?subject=Proposal Sponsorship WLS 2026" className="btn" style={{ flex: 1, maxWidth: '200px', textAlign: 'center', borderRadius: '12px', padding: '12px 24px', border: '2px solid var(--primary-color)', color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 700 }}>
-          Download Proposal
-        </a>
       </div>
 
-      {/* Spacer for sticky CTA */}
-      <div style={{ height: '70px' }}></div>
+      {/* ═══ TENTANG ═══ */}
+      <section id="tentang" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: '#fff' }}>
+        <div className="wls-about-grid" style={{
+          maxWidth: 1180, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.15fr .85fr',
+          gap: 'clamp(36px, 5vw, 80px)', alignItems: 'center',
+        }}>
+          <Reveal>
+            <p style={{ margin: '0 0 16px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Tentang Summit</p>
+            <h2 style={{ margin: '0 0 24px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, lineHeight: 1.1, color: C.navy, letterSpacing: '-.01em' }}>
+              Menyatukan Visi Para Pemimpin Wakaf Nasional
+            </h2>
+            <p style={{ margin: '0 0 20px', fontSize: 'clamp(15px, 1.7vw, 18px)', lineHeight: 1.75, color: C.textMuted }}>
+              Forum strategis yang diinisiasi oleh <strong style={{ color: C.navy }}>Forum Wakaf Produktif</strong> untuk menyatukan visi dari berbagai <em>stakeholder</em> dan mengeskalasi dampak nyata wakaf produktif bagi masyarakat &mdash; menuju kesejahteraan yang berkelanjutan.
+            </p>
+            <p style={{ margin: 0, fontSize: 'clamp(15px, 1.7vw, 18px)', lineHeight: 1.75, color: C.textMuted }}>
+              Selama dua hari, para nazhir, akademisi, regulator, dan praktisi berkumpul untuk merumuskan masa depan perwakafan Indonesia.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 32 }}>
+              {[
+                { label: 'Leaders Talk', color: C.green },
+                { label: 'Grand Seminar', color: C.cyan },
+                { label: 'Gala Dinner', color: C.gold },
+                { label: 'Mini Expo', color: '#1f5f7a' },
+              ].map(tag => (
+                <div key={tag.label} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  padding: '10px 16px', borderRadius: 12, background: C.bgLighter,
+                  fontSize: 14, fontWeight: 600, color: C.navy,
+                }}>
+                  <span style={{ width: 9, height: 9, borderRadius: 2, background: tag.color }} />
+                  {tag.label}
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div style={{
+              borderRadius: 22, overflow: 'hidden',
+              background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`,
+              color: '#fff', padding: 'clamp(28px, 3.5vw, 42px)',
+              boxShadow: '0 30px 60px rgba(17,46,63,.22)',
+            }}>
+              <p style={{ margin: '0 0 22px', fontSize: 12, fontWeight: 700, letterSpacing: '.2em', color: '#7fd0e3', textTransform: 'uppercase' }}>Detail Acara</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
+                {[
+                  { icon: <Calendar size={20} />, iconBg: 'rgba(139,197,63,.18)', label: 'Tanggal', value: <>Rabu &ndash; Kamis<br />22 &ndash; 23 Juli 2026</> },
+                  { icon: <MapPin size={20} />, iconBg: 'rgba(22,174,202,.18)', label: 'Lokasi', value: 'Hotel Holiday Inn', sub: 'Jl. Dr. Djunjunan No.96, Pasteur, Sukajadi, Kota Bandung' },
+                  { icon: <Film size={20} />, iconBg: 'rgba(201,162,39,.18)', label: 'Penyelenggara', value: 'Forum Wakaf Produktif' },
+                ].map((item, i) => (
+                  <div key={i}>
+                    {i > 0 && <div style={{ height: 1, background: 'rgba(255,255,255,.1)', marginBottom: 22 }} />}
+                    <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                      <span style={{
+                        flex: 'none', width: 44, height: 44, borderRadius: 12, background: item.iconBg,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff',
+                      }}>{item.icon}</span>
+                      <div>
+                        <div style={{ fontSize: 12, letterSpacing: '.12em', color: '#8fb6c6', textTransform: 'uppercase', marginBottom: 4 }}>{item.label}</div>
+                        <div style={{ fontSize: 17, fontWeight: 700 }}>{item.value}</div>
+                        {item.sub && <div style={{ fontSize: 14, color: 'rgba(255,255,255,.7)', marginTop: 2 }}>{item.sub}</div>}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <a href="#registrasi" style={{
+                display: 'block', textAlign: 'center', marginTop: 30, padding: 14, borderRadius: 12,
+                background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
+              }}>Amankan Kursi Anda</a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══ STATS ═══ */}
+      <section style={{ padding: 'clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px)', background: `linear-gradient(135deg, ${C.navy}, ${C.navyDark})` }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <motion.div className="wls-stats-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-8%' }} variants={stagger}
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 'clamp(16px, 2.5vw, 32px)' }}>
+            {[
+              { target: 2, suffix: '', label: 'Hari', color: '#fff' },
+              { target: 25, suffix: '+', label: 'Narasumber', color: C.green },
+              { target: 200, suffix: '+', label: 'Peserta Target', color: C.cyan },
+              { target: 50, suffix: '+', label: 'Lembaga Nazhir', color: '#fff' },
+              { target: 30, suffix: '+', label: 'Investor & Mitra', color: C.goldLight },
+              { target: 10, suffix: '+', label: 'Booth Expo', color: C.green },
+            ].map((s, i) => <StatItem key={i} {...s} />)}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ AGENDA ═══ */}
+      <section id="agenda" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: C.bgLight }}>
+        <div style={{ maxWidth: 980, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 40 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Rundown Acara</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Agenda 2 Hari</h2>
+            <p style={{ margin: 0, fontSize: 16, color: C.textLight }}>Susunan acara lengkap Waqf Leaders Summit 2026.</p>
+          </Reveal>
+
+          <Reveal style={{ textAlign: 'center', marginBottom: 40 }}>
+            <div style={{ display: 'inline-flex', gap: 6, padding: 6, borderRadius: 999, background: '#e8edf1' }}>
+              <button onClick={() => setActiveDay(1)} style={tabStyle(activeDay === 1)}>Hari 1 · 22 Juli</button>
+              <button onClick={() => setActiveDay(2)} style={tabStyle(activeDay === 2)}>Hari 2 · 23 Juli</button>
+            </div>
+          </Reveal>
+
+          <div>
+            {rundown.map((item, i) => (
+              <Reveal key={`${activeDay}-${i}`}>
+                <div className="wls-agenda-row" style={{
+                  display: 'grid', gridTemplateColumns: '130px 1fr', gap: 'clamp(14px, 2.5vw, 28px)',
+                  padding: '18px 0', borderBottom: '1px solid #e6ebef', alignItems: 'start',
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: C.navy, paddingTop: 2, whiteSpace: 'nowrap' }}>{item.time}</div>
+                  <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+                    <span style={{
+                      flex: 'none', width: 12, height: 12, borderRadius: 3, marginTop: 5,
+                      background: typeColors[item.type] || '#94a3b8',
+                    }} />
+                    <div>
+                      <div style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', fontWeight: 700, color: C.textDark, lineHeight: 1.4 }}>{item.activity}</div>
+                      {item.detail && (
+                        <div style={{ marginTop: 6, fontSize: 14, color: C.textLight, lineHeight: 1.6, whiteSpace: 'pre-line' }}>{item.detail}</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ NARASUMBER ═══ */}
+      <section id="narasumber" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: '#fff' }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 52 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Narasumber</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Para Pembicara Utama</h2>
+            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Pemimpin, akademisi, dan praktisi terdepan di bidang perwakafan nasional.</p>
+          </Reveal>
+
+          <motion.div className="wls-speaker-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(18px, 2.5vw, 28px)' }}>
+            {confirmed.map((sp, i) => {
+              const cat = catStyles[sp.category] || catStyles.FWP;
+              return (
+                <motion.div key={sp.id || i} variants={fadeInUp} className="wls-card" style={{
+                  border: `1px solid ${C.border}`, borderRadius: 20, padding: 28, background: '#fff',
+                  boxShadow: '0 8px 30px rgba(17,46,63,.05)', transition: 'transform .35s ease, box-shadow .35s ease, border-color .35s ease',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
+                    <div style={{
+                      flex: 'none', width: 60, height: 60, borderRadius: 16, background: cat.grad,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '.02em',
+                    }}>{getInitials(sp.name)}</div>
+                    <span style={{
+                      padding: '5px 12px', borderRadius: 999, fontSize: 11, fontWeight: 700, letterSpacing: '.04em',
+                      background: cat.bg, color: cat.color,
+                    }}>{sp.category}</span>
+                  </div>
+                  <div style={{ fontSize: 17, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 6 }}>{sp.name}</div>
+                  <div style={{ fontSize: 13.5, color: C.textLight, lineHeight: 1.5, marginBottom: 14, minHeight: 40 }}>{sp.title}</div>
+                  <div style={{ paddingTop: 14, borderTop: '1px dashed #e6ebef', fontSize: 13, color: '#1f5f7a', fontWeight: 600, lineHeight: 1.5 }}>{sp.role}</div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+          <Reveal style={{ marginTop: 56, padding: 'clamp(28px, 4vw, 44px)', borderRadius: 24, background: C.bgLight, border: `1px solid ${C.border}` }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap', marginBottom: 24 }}>
+              <h3 style={{ margin: 0, fontSize: 'clamp(20px, 2.6vw, 26px)', fontWeight: 800, color: C.navy }}>Dan 25+ Tokoh Lainnya</h3>
+              <span style={{ fontSize: 14, color: C.textSubtle }}>Menanti konfirmasi kehadiran</span>
+            </div>
+            <div className="wls-pending-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px 28px' }}>
+              {pending.map((sp, i) => {
+                const cat = catStyles[sp.category] || catStyles.FWP;
+                return (
+                  <div key={sp.id || i} style={{
+                    display: 'flex', gap: 14, alignItems: 'center', padding: '12px 0',
+                    borderBottom: '1px solid #e8edf1',
+                  }}>
+                    <div style={{
+                      flex: 'none', width: 42, height: 42, borderRadius: 11, background: cat.grad,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#fff', fontSize: 14, fontWeight: 700,
+                    }}>{getInitials(sp.name)}</div>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontSize: 14.5, fontWeight: 700, color: C.textDark, lineHeight: 1.3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.name}</div>
+                      <div style={{ fontSize: 12.5, color: C.textSubtle, lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.title}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══ SPONSORSHIP ═══ */}
+      <section id="sponsorship" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: `linear-gradient(180deg, ${C.navyDark}, ${C.navy})` }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 52 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.goldLight, textTransform: 'uppercase' }}>Sponsorship</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: '#fff', letterSpacing: '-.01em' }}>Jadi Bagian dari Gerakan</h2>
+            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: '#8fb6c6' }}>Empat paket kemitraan untuk memperkuat dampak dan visibilitas brand Anda.</p>
+          </Reveal>
+
+          <motion.div className="wls-sponsor-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'clamp(16px, 2vw, 24px)', alignItems: 'stretch' }}>
+            {sponsorshipPackages.map((pkg, i) => {
+              const s = sponsorCardStyles[i];
+              return (
+                <motion.div key={pkg.tier} variants={fadeInUp} style={{
+                  position: 'relative', display: 'flex', flexDirection: 'column',
+                  borderRadius: 22, padding: '30px 26px',
+                  background: s.cardBg, border: `1px solid ${s.border}`,
+                }}>
+                  {pkg.confirmed && (
+                    <span style={{
+                      position: 'absolute', top: 18, right: 18,
+                      padding: '5px 11px', borderRadius: 999, fontSize: 10.5, fontWeight: 800, letterSpacing: '.05em',
+                      background: C.green, color: '#15212b',
+                    }}>TERISI · BSI</span>
+                  )}
+                  <div style={{
+                    width: 46, height: 46, borderRadius: 12, background: s.color, marginBottom: 18,
+                    boxShadow: `0 8px 22px ${s.glow}`,
+                  }} />
+                  <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '.02em' }}>{pkg.tier}</div>
+                  <div style={{
+                    margin: '8px 0 20px', fontSize: 'clamp(20px, 2.4vw, 26px)', fontWeight: 800,
+                    color: s.priceColor, fontFamily: "'Playfair Display', serif",
+                  }}>{pkg.price}</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 11, flex: 1 }}>
+                    {pkg.benefits.map((b, j) => (
+                      <div key={j} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', fontSize: 13, color: 'rgba(255,255,255,.78)', lineHeight: 1.5 }}>
+                        <Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}
+                      </div>
+                    ))}
+                  </div>
+                  <a href="#registrasi" style={{
+                    display: 'block', textAlign: 'center', marginTop: 24, padding: 12, borderRadius: 11,
+                    background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.18)',
+                    color: '#fff', fontSize: 14, fontWeight: 700, textDecoration: 'none',
+                  }}>Pilih Paket</a>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ MINI EXPO ═══ */}
+      <section id="expo" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: '#fff' }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 48 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Mini Expo</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Exhibitor &amp; Mitra</h2>
+            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Perbankan syariah, lembaga wakaf, hingga fintech berkumpul dalam satu ruang.</p>
+          </Reveal>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16 }}>
+            {miniExpoParticipants.map((ex, i) => {
+              const tag = tagMap[ex.type] || tagMap['Potential Sponsor'];
+              return (
+                <motion.div key={i} variants={fadeInUp} className="wls-card" style={{
+                  border: `1px solid ${C.border}`, borderRadius: 16, padding: 22, background: '#fff',
+                  transition: 'border-color .3s ease, transform .3s ease, box-shadow .3s ease',
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10, marginBottom: 14 }}>
+                    <div style={{
+                      width: 40, height: 40, borderRadius: 11, background: `linear-gradient(135deg, ${C.navy}, #1f5f7a)`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#fff', fontSize: 14, fontWeight: 800,
+                    }}>{getInitials(ex.name)}</div>
+                    <span style={{
+                      padding: '4px 10px', borderRadius: 999, fontSize: 10.5, fontWeight: 700,
+                      background: tag.bg, color: tag.color,
+                    }}>{ex.type}</span>
+                  </div>
+                  <div style={{ fontSize: 15.5, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 4 }}>{ex.name}</div>
+                  <div style={{ fontSize: 13, color: C.textSubtle }}>{ex.category}</div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ REGISTRASI ═══ */}
+      <section id="registrasi" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: C.bgLight }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 52 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Registrasi</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Amankan Kursi Anda</h2>
+            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Kuota terbatas. Daftar sekarang untuk pengalaman dua hari penuh wawasan.</p>
+          </Reveal>
+
+          <motion.div className="wls-reg-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
+
+            {/* Single */}
+            <motion.div variants={fadeInUp} style={{
+              display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
+              background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Single</div>
+              <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 4.000.000</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 3.500.000</div>
+              <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Peserta umum / non-anggota</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
+                {['Akses penuh 2 hari', 'Seminar kit & sertifikat', 'Makan siang & coffee break', 'Akses Mini Expo'].map(b => (
+                  <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
+                ))}
+              </div>
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
+                background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
+              }}>Daftar via WhatsApp</a>
+            </motion.div>
+
+            {/* Anggota FWP - Featured */}
+            <motion.div variants={fadeInUp} className="wls-reg-featured" style={{
+              display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
+              background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`, color: '#fff',
+              boxShadow: '0 24px 50px rgba(17,46,63,.28)', position: 'relative', transform: 'translateY(-8px)',
+            }}>
+              <span style={{
+                position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)',
+                padding: '6px 16px', borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: '.05em',
+                background: C.goldGrad, color: '#15212b', whiteSpace: 'nowrap',
+              }}>PALING POPULER</span>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Anggota FWP</div>
+              <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Khusus lembaga anggota FWP</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
+                {['Semua benefit Single', 'Harga khusus anggota', 'Prioritas seating', 'Networking dinner'].map(b => (
+                  <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
+                ))}
+              </div>
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
+                background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
+              }}>Daftar via WhatsApp</a>
+            </motion.div>
+
+            {/* Paket 3 Orang */}
+            <motion.div variants={fadeInUp} style={{
+              display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
+              background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Paket 3 Orang</div>
+              <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle }}>Hemat 20%</div>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 6.000.000</div>
+              <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Ketua + Sekretaris + Bendahara</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
+                {['3 tiket akses penuh', 'Hemat Rp 1.500.000', 'Ideal untuk satu lembaga', 'Networking dinner'].map(b => (
+                  <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
+                ))}
+              </div>
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
+                background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
+              }}>Daftar via WhatsApp</a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ FAQ ═══ */}
+      <section style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: '#fff' }}>
+        <div style={{ maxWidth: 820, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 44 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>FAQ</p>
+            <h2 style={{ margin: 0, fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Pertanyaan Umum</h2>
+          </Reveal>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {faqData.map((f, i) => <FAQItem key={i} q={f.q} a={f.a} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ PANITIA ═══ */}
+      <section style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: C.bgLight }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 48 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Panitia Pelaksana</p>
+            <h2 style={{ margin: 0, fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Di Balik Layar</h2>
+          </Reveal>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 16 }}>
+            {summitCommittee.map((c, i) => (
+              <motion.div key={i} variants={fadeInUp} style={{
+                border: `1px solid ${C.border}`, borderRadius: 16, padding: 20, background: '#fff',
+                display: 'flex', gap: 14, alignItems: 'center',
+              }}>
+                <div style={{
+                  flex: 'none', width: 46, height: 46, borderRadius: 12,
+                  background: 'linear-gradient(135deg, #1f5f7a, #16aeca)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#fff', fontSize: 15, fontWeight: 800,
+                }}>{getInitials(c.name)}</div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: C.navy, lineHeight: 1.3 }}>{c.name}</div>
+                  <div style={{ fontSize: 12.5, color: C.cyan, fontWeight: 600, margin: '2px 0' }}>{c.position}</div>
+                  <div style={{ fontSize: 12, color: C.textSubtle }}>{c.organization}</div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ CTA BANNER ═══ */}
+      <section style={{ padding: 'clamp(60px, 8vw, 110px) clamp(20px, 5vw, 64px)', background: 'radial-gradient(120% 120% at 50% 0%, #1b465f, #0c2230)' }}>
+        <Reveal style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center', color: '#fff' }}>
+          <img src="/tumbuh-bersama-gold.png" alt="Tumbuh Bersama" style={{ width: 'clamp(220px, 38vw, 380px)', height: 'auto', margin: '0 auto 26px', display: 'block' }} />
+          <h2 style={{ margin: '0 0 18px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 46px)', fontWeight: 700, lineHeight: 1.15, color: '#fff' }}>Mari Tumbuh Bersama di WLS 2026</h2>
+          <p style={{ margin: '0 auto 32px', maxWidth: 540, fontSize: 17, lineHeight: 1.7, color: 'rgba(255,255,255,.8)' }}>Bergabunglah dengan para pemimpin wakaf untuk mengeskalasi dampak nyata bagi peradaban.</p>
+          <a href="#registrasi" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 9,
+            padding: '16px 38px', borderRadius: 999, background: C.goldGrad,
+            color: '#15212b', fontSize: 16, fontWeight: 700, textDecoration: 'none',
+            boxShadow: '0 14px 34px rgba(201,162,39,.36)',
+          }}>Daftar Sekarang <ArrowRight size={16} /></a>
+        </Reveal>
+      </section>
+
+      {/* ═══ FOOTER ═══ */}
+      <footer style={{ background: C.navyDeep, color: '#cbd5e1', padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 64px) 36px' }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <div className="wls-footer-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 'clamp(32px, 5vw, 64px)' }}>
+            <div>
+              <img src="/logo.png" alt="Forum Wakaf Produktif" style={{ height: 56, width: 'auto', background: '#fff', padding: '10px 14px', borderRadius: 12, display: 'block', marginBottom: 20 }} />
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: C.textSubtle, maxWidth: 320 }}>Waqf Leaders Summit 2026 &mdash; forum strategis untuk mengeskalasi dampak wakaf produktif menuju Indonesia Emas 2045.</p>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.12em', color: '#fff', textTransform: 'uppercase', marginBottom: 18 }}>Navigasi</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 14 }}>
+                {[
+                  { href: '#tentang', label: 'Tentang Summit' },
+                  { href: '#agenda', label: 'Agenda' },
+                  { href: '#narasumber', label: 'Narasumber' },
+                  { href: '#sponsorship', label: 'Sponsorship' },
+                  { href: '#registrasi', label: 'Registrasi' },
+                ].map(l => (
+                  <a key={l.href} href={l.href} style={{ color: C.textSubtle, textDecoration: 'none' }}>{l.label}</a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.12em', color: '#fff', textTransform: 'uppercase', marginBottom: 18 }}>Kontak</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 14, color: C.textSubtle }}>
+                <a href="https://wa.me/6281389667055" target="_blank" rel="noopener noreferrer" style={{ color: C.textSubtle, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Phone size={14} /> 0813 8966 7055
+                </a>
+                <a href="mailto:fwpsekretariat@gmail.com" style={{ color: C.textSubtle, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Mail size={14} /> fwpsekretariat@gmail.com
+                </a>
+                <a href="https://instagram.com/forumwakafproduktif" target="_blank" rel="noopener noreferrer" style={{ color: C.textSubtle, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Globe size={14} /> @forumwakafproduktif
+                </a>
+                <a href="https://fwp.or.id" target="_blank" rel="noopener noreferrer" style={{ color: C.textSubtle, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Globe size={14} /> fwp.or.id
+                </a>
+              </div>
+            </div>
+          </div>
+          <div style={{
+            marginTop: 44, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,.08)',
+            display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 12,
+            fontSize: 13, color: C.textLight,
+          }}>
+            <span>&copy; 2026 Forum Wakaf Produktif. Seluruh hak cipta dilindungi.</span>
+            <span>fwp.or.id/wls2026</span>
+          </div>
+        </div>
+      </footer>
+
+      {/* ═══ FLOATING CTA ═══ */}
+      <a href="#registrasi" style={{
+        position: 'fixed', bottom: 24, right: 24, zIndex: 90,
+        display: 'inline-flex', alignItems: 'center', gap: 8,
+        padding: '14px 24px', borderRadius: 999, background: C.goldGrad,
+        color: '#15212b', fontSize: 14, fontWeight: 700, textDecoration: 'none',
+        boxShadow: '0 12px 30px rgba(201,162,39,.4)',
+        opacity: showFloat ? 1 : 0, transform: showFloat ? 'translateY(0)' : 'translateY(20px)',
+        pointerEvents: showFloat ? 'auto' : 'none',
+        transition: 'opacity .4s ease, transform .4s ease',
+      }}>Daftar <ArrowRight size={14} /></a>
     </div>
   );
 }
