@@ -31,6 +31,56 @@ const C = {
   bgLighter: '#f1f6f9',
 };
 
+/* ─── CSS Keyframes (injected via style tag) ─── */
+const GlobalStyles = () => (
+  <style>{`
+    @keyframes wlsFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
+    }
+    @keyframes wlsFloatAlt {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(15px) rotate(-2deg); }
+    }
+    @keyframes wlsPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    @keyframes wlsScrollDot {
+      0% { transform: translateY(0); opacity: 1; }
+      80% { transform: translateY(12px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 0; }
+    }
+    @keyframes wlsMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .wls-card:hover {
+      transform: translateY(-6px) !important;
+      box-shadow: 0 20px 50px rgba(17,46,63,.12) !important;
+      border-color: #d4dde4 !important;
+    }
+    .wls-navlinks a:hover { color: #112e3f !important; }
+    .wls-navlinks a { transition: color .2s ease; }
+    @media (max-width: 768px) {
+      .wls-about-grid { grid-template-columns: 1fr !important; }
+      .wls-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .wls-speaker-grid { grid-template-columns: 1fr !important; }
+      .wls-pending-grid { grid-template-columns: 1fr !important; }
+      .wls-sponsor-grid { grid-template-columns: 1fr !important; }
+      .wls-reg-grid { grid-template-columns: 1fr !important; }
+      .wls-expo-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .wls-committee-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .wls-footer-grid { grid-template-columns: 1fr !important; }
+      .wls-agenda-row { grid-template-columns: 1fr !important; gap: 8px !important; }
+    }
+    @media (max-width: 480px) {
+      .wls-expo-grid { grid-template-columns: 1fr !important; }
+      .wls-committee-grid { grid-template-columns: 1fr !important; }
+    }
+  `}</style>
+);
+
 const catStyles = {
   Pemerintah: { color: '#b91c1c', bg: '#fee2e2', grad: 'linear-gradient(135deg,#dc2626,#991b1b)' },
   Akademisi: { color: '#0369a1', bg: '#e0f2fe', grad: 'linear-gradient(135deg,#16aeca,#0e7490)' },
@@ -252,6 +302,7 @@ export default function EventLandingPage() {
 
   return (
     <div style={{ overflowX: 'hidden', background: '#fff' }}>
+      <GlobalStyles />
       <SEO
         title="WLS 2026 - Waqf Leaders Summit"
         description="Waqf Leaders Summit 2026: Forum strategis untuk mengeskalasi dampak wakaf produktif. 22-23 Juli 2026, Holiday Inn Pasteur, Bandung."
@@ -389,7 +440,7 @@ export default function EventLandingPage() {
       </header>
 
       {/* ═══ TRUST STRIP ═══ */}
-      <div style={{
+      <div className="wls-trust-strip" style={{
         background: C.navyDark, borderTop: '1px solid rgba(255,255,255,.06)',
         overflow: 'hidden', whiteSpace: 'nowrap', padding: '16px 0',
       }}>
@@ -674,7 +725,7 @@ export default function EventLandingPage() {
             <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Perbankan syariah, lembaga wakaf, hingga fintech berkumpul dalam satu ruang.</p>
           </Reveal>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
+          <motion.div className="wls-expo-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
             style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16 }}>
             {miniExpoParticipants.map((ex, i) => {
               const tag = tagMap[ex.type] || tagMap['Potential Sponsor'];
@@ -805,7 +856,7 @@ export default function EventLandingPage() {
             <h2 style={{ margin: 0, fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Di Balik Layar</h2>
           </Reveal>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
+          <motion.div className="wls-committee-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
             style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 16 }}>
             {summitCommittee.map((c, i) => (
               <motion.div key={i} variants={fadeInUp} style={{
