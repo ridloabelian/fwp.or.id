@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Calendar, MapPin, Film, ArrowRight, Check, Plus, Minus,
@@ -55,27 +55,83 @@ const GlobalStyles = () => (
       100% { transform: translateX(-50%); }
     }
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(28px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
     @keyframes countUp {
       from { opacity: 0; transform: scale(0.5); }
       to { opacity: 1; transform: scale(1); }
     }
-    .wls-animate {
-      opacity: 0;
-      animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
     }
-    .wls-animate-delay-1 { animation-delay: 0.06s; }
-    .wls-animate-delay-2 { animation-delay: 0.12s; }
-    .wls-animate-delay-3 { animation-delay: 0.18s; }
-    .wls-animate-delay-4 { animation-delay: 0.24s; }
-    .wls-animate-delay-5 { animation-delay: 0.30s; }
-    .wls-animate-delay-6 { animation-delay: 0.36s; }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    /* Scroll reveal - initial state */
+    .wls-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .wls-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .wls-reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .wls-reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .wls-reveal-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .wls-reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .wls-reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .wls-reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    /* Stagger delays */
+    .wls-delay-1 { transition-delay: 0.06s; }
+    .wls-delay-2 { transition-delay: 0.12s; }
+    .wls-delay-3 { transition-delay: 0.18s; }
+    .wls-delay-4 { transition-delay: 0.24s; }
+    .wls-delay-5 { transition-delay: 0.30s; }
+    .wls-delay-6 { transition-delay: 0.36s; }
+    .wls-delay-7 { transition-delay: 0.42s; }
+    .wls-delay-8 { transition-delay: 0.48s; }
+    /* Card hover */
+    .wls-card {
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
     .wls-card:hover {
       transform: translateY(-6px) !important;
       box-shadow: 0 20px 50px rgba(17,46,63,.12) !important;
@@ -83,6 +139,7 @@ const GlobalStyles = () => (
     }
     .wls-navlinks a:hover { color: #112e3f !important; }
     .wls-navlinks a { transition: color .2s ease; }
+    /* FAQ */
     .wls-faq-content {
       max-height: 0;
       overflow: hidden;
@@ -100,6 +157,11 @@ const GlobalStyles = () => (
       transform: rotate(180deg);
       background: #e0f2fe;
     }
+    /* Stats count animation */
+    .wls-count {
+      animation: countUp 0.6s ease-out forwards;
+    }
+    /* Mobile */
     @media (max-width: 768px) {
       .wls-about-grid { grid-template-columns: 1fr !important; }
       .wls-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
@@ -115,6 +177,14 @@ const GlobalStyles = () => (
     @media (max-width: 480px) {
       .wls-expo-grid { grid-template-columns: 1fr !important; }
       .wls-committee-grid { grid-template-columns: 1fr !important; }
+    }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .wls-reveal, .wls-reveal-left, .wls-reveal-right, .wls-reveal-scale {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
     }
   `}</style>
 );
@@ -156,7 +226,7 @@ function getInitials(name) {
   return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
 }
 
-/* ─── Framer Motion variants (Hero only - safe, no useInView) ─── */
+/* ─── Framer Motion variants (Hero only - mount animation) ─── */
 const heroStagger = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
@@ -261,28 +331,72 @@ function FAQItem({ q, a }) {
   );
 }
 
-function StatItem({ target, suffix, label, color, delay }) {
+/* ─── Scroll Reveal Hook ─── */
+function useScrollReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el); // Only animate once
+        }
+      },
+      { threshold: 0.08, rootMargin: '-5% 0px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return [ref, visible];
+}
+
+/* ─── Reveal Wrapper ─── */
+function Reveal({ children, style, className = '', variant = 'up', delay = 0 }) {
+  const [ref, visible] = useScrollReveal();
+  const baseClass = {
+    up: 'wls-reveal',
+    left: 'wls-reveal-left',
+    right: 'wls-reveal-right',
+    scale: 'wls-reveal-scale',
+  }[variant] || 'wls-reveal';
+  const delayClass = delay > 0 ? `wls-delay-${Math.min(delay, 8)}` : '';
+
   return (
-    <div className={`wls-animate wls-animate-delay-${delay}`} style={{ textAlign: 'center' }}>
-      <div style={{
-        fontFamily: "'Playfair Display', serif",
-        fontSize: 'clamp(40px, 6vw, 68px)', fontWeight: 800, lineHeight: 1, color,
-        animation: 'countUp 0.6s ease-out forwards',
-        animationDelay: `${delay * 0.1}s`,
-      }}>
-        {target}{suffix}
-      </div>
-      <div style={{ marginTop: 10, fontSize: 'clamp(12px, 1.4vw, 14px)', fontWeight: 600, color: '#8fb6c6', letterSpacing: '.04em' }}>{label}</div>
+    <div
+      ref={ref}
+      className={`${baseClass} ${delayClass} ${visible ? 'visible' : ''} ${className}`}
+      style={style}
+    >
+      {children}
     </div>
   );
 }
 
-/* ─── Section wrapper with CSS animation (no useInView) ─── */
-function Reveal({ children, style, className, delay = 0 }) {
-  const delayClass = delay > 0 ? `wls-animate-delay-${Math.min(delay, 6)}` : '';
+/* ─── Stat Item with Count Animation ─── */
+function StatItem({ target, suffix, label, color, delay }) {
+  const [ref, visible] = useScrollReveal();
+  const delayClass = delay > 0 ? `wls-delay-${Math.min(delay, 8)}` : '';
+
   return (
-    <div className={`wls-animate ${delayClass} ${className || ''}`} style={style}>
-      {children}
+    <div
+      ref={ref}
+      className={`wls-reveal ${delayClass} ${visible ? 'visible' : ''}`}
+      style={{ textAlign: 'center' }}
+    >
+      <div className={visible ? 'wls-count' : ''} style={{
+        fontFamily: "'Playfair Display', serif",
+        fontSize: 'clamp(40px, 6vw, 68px)', fontWeight: 800, lineHeight: 1, color,
+      }}>
+        {target}{suffix}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 'clamp(12px, 1.4vw, 14px)', fontWeight: 600, color: '#8fb6c6', letterSpacing: '.04em' }}>{label}</div>
     </div>
   );
 }
@@ -351,7 +465,7 @@ export default function EventLandingPage() {
         }}>Daftar Sekarang</a>
       </nav>
 
-      {/* ═══ HERO (Framer Motion - safe, initial mount only) ═══ */}
+      {/* ═══ HERO (Framer Motion - mount only) ═══ */}
       <header id="hero" style={{
         position: 'relative', minHeight: '100vh',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -483,7 +597,7 @@ export default function EventLandingPage() {
           maxWidth: 1180, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.15fr .85fr',
           gap: 'clamp(36px, 5vw, 80px)', alignItems: 'center',
         }}>
-          <Reveal>
+          <Reveal variant="left">
             <p style={{ margin: '0 0 16px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Tentang Summit</p>
             <h2 style={{ margin: '0 0 24px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, lineHeight: 1.1, color: C.navy, letterSpacing: '-.01em' }}>
               Menyatukan Visi Para Pemimpin Wakaf Nasional
@@ -513,7 +627,7 @@ export default function EventLandingPage() {
             </div>
           </Reveal>
 
-          <Reveal delay={1}>
+          <Reveal variant="right" delay={2}>
             <div style={{
               borderRadius: 22, overflow: 'hidden',
               background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`,
@@ -586,7 +700,7 @@ export default function EventLandingPage() {
 
           <div>
             {rundown.map((item, i) => (
-              <Reveal key={`${activeDay}-${i}`} delay={(i % 3) + 1}>
+              <Reveal key={`${activeDay}-${i}`} delay={(i % 4) + 1}>
                 <div className="wls-agenda-row" style={{
                   display: 'grid', gridTemplateColumns: '130px 1fr', gap: 'clamp(14px, 2.5vw, 28px)',
                   padding: '18px 0', borderBottom: '1px solid #e6ebef', alignItems: 'start',
@@ -624,25 +738,27 @@ export default function EventLandingPage() {
             {confirmed.map((sp, i) => {
               const cat = catStyles[sp.category] || catStyles.FWP;
               return (
-                <div key={sp.id || i} className={`wls-card wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
-                  border: `1px solid ${C.border}`, borderRadius: 20, padding: 28, background: '#fff',
-                  boxShadow: '0 8px 30px rgba(17,46,63,.05)', transition: 'transform .35s ease, box-shadow .35s ease, border-color .35s ease',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
-                    <div style={{
-                      flex: 'none', width: 60, height: 60, borderRadius: 16, background: cat.grad,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '.02em',
-                    }}>{getInitials(sp.name)}</div>
-                    <span style={{
-                      padding: '5px 12px', borderRadius: 999, fontSize: 11, fontWeight: 700, letterSpacing: '.04em',
-                      background: cat.bg, color: cat.color,
-                    }}>{sp.category}</span>
+                <Reveal key={sp.id || i} delay={(i % 6) + 1} variant="scale">
+                  <div className="wls-card" style={{
+                    border: `1px solid ${C.border}`, borderRadius: 20, padding: 28, background: '#fff',
+                    boxShadow: '0 8px 30px rgba(17,46,63,.05)',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
+                      <div style={{
+                        flex: 'none', width: 60, height: 60, borderRadius: 16, background: cat.grad,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '.02em',
+                      }}>{getInitials(sp.name)}</div>
+                      <span style={{
+                        padding: '5px 12px', borderRadius: 999, fontSize: 11, fontWeight: 700, letterSpacing: '.04em',
+                        background: cat.bg, color: cat.color,
+                      }}>{sp.category}</span>
+                    </div>
+                    <div style={{ fontSize: 17, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 6 }}>{sp.name}</div>
+                    <div style={{ fontSize: 13.5, color: C.textLight, lineHeight: 1.5, marginBottom: 14, minHeight: 40 }}>{sp.title}</div>
+                    <div style={{ paddingTop: 14, borderTop: '1px dashed #e6ebef', fontSize: 13, color: '#1f5f7a', fontWeight: 600, lineHeight: 1.5 }}>{sp.role}</div>
                   </div>
-                  <div style={{ fontSize: 17, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 6 }}>{sp.name}</div>
-                  <div style={{ fontSize: 13.5, color: C.textLight, lineHeight: 1.5, marginBottom: 14, minHeight: 40 }}>{sp.title}</div>
-                  <div style={{ paddingTop: 14, borderTop: '1px dashed #e6ebef', fontSize: 13, color: '#1f5f7a', fontWeight: 600, lineHeight: 1.5 }}>{sp.role}</div>
-                </div>
+                </Reveal>
               );
             })}
           </div>
@@ -656,20 +772,22 @@ export default function EventLandingPage() {
               {pending.map((sp, i) => {
                 const cat = catStyles[sp.category] || catStyles.FWP;
                 return (
-                  <div key={sp.id || i} className={`wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
-                    display: 'flex', gap: 14, alignItems: 'center', padding: '12px 0',
-                    borderBottom: '1px solid #e8edf1',
-                  }}>
+                  <Reveal key={sp.id || i} delay={(i % 6) + 1}>
                     <div style={{
-                      flex: 'none', width: 42, height: 42, borderRadius: 11, background: cat.grad,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', fontSize: 14, fontWeight: 700,
-                    }}>{getInitials(sp.name)}</div>
-                    <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: 14.5, fontWeight: 700, color: C.textDark, lineHeight: 1.3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.name}</div>
-                      <div style={{ fontSize: 12.5, color: C.textSubtle, lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.title}</div>
+                      display: 'flex', gap: 14, alignItems: 'center', padding: '12px 0',
+                      borderBottom: '1px solid #e8edf1',
+                    }}>
+                      <div style={{
+                        flex: 'none', width: 42, height: 42, borderRadius: 11, background: cat.grad,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#fff', fontSize: 14, fontWeight: 700,
+                      }}>{getInitials(sp.name)}</div>
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ fontSize: 14.5, fontWeight: 700, color: C.textDark, lineHeight: 1.3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.name}</div>
+                        <div style={{ fontSize: 12.5, color: C.textSubtle, lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.title}</div>
+                      </div>
                     </div>
-                  </div>
+                  </Reveal>
                 );
               })}
             </div>
@@ -690,40 +808,42 @@ export default function EventLandingPage() {
             {sponsorshipPackages.map((pkg, i) => {
               const s = sponsorCardStyles[i];
               return (
-                <div key={pkg.tier} className={`wls-animate wls-animate-delay-${(i % 4) + 1}`} style={{
-                  position: 'relative', display: 'flex', flexDirection: 'column',
-                  borderRadius: 22, padding: '30px 26px',
-                  background: s.cardBg, border: `1px solid ${s.border}`,
-                }}>
-                  {pkg.confirmed && (
-                    <span style={{
-                      position: 'absolute', top: 18, right: 18,
-                      padding: '5px 11px', borderRadius: 999, fontSize: 10.5, fontWeight: 800, letterSpacing: '.05em',
-                      background: C.green, color: '#15212b',
-                    }}>TERISI · BSI</span>
-                  )}
+                <Reveal key={pkg.tier} delay={(i % 4) + 1} variant="scale">
                   <div style={{
-                    width: 46, height: 46, borderRadius: 12, background: s.color, marginBottom: 18,
-                    boxShadow: `0 8px 22px ${s.glow}`,
-                  }} />
-                  <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '.02em' }}>{pkg.tier}</div>
-                  <div style={{
-                    margin: '8px 0 20px', fontSize: 'clamp(20px, 2.4vw, 26px)', fontWeight: 800,
-                    color: s.priceColor, fontFamily: "'Playfair Display', serif",
-                  }}>{pkg.price}</div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 11, flex: 1 }}>
-                    {pkg.benefits.map((b, j) => (
-                      <div key={j} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', fontSize: 13, color: 'rgba(255,255,255,.78)', lineHeight: 1.5 }}>
-                        <Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}
-                      </div>
-                    ))}
+                    position: 'relative', display: 'flex', flexDirection: 'column',
+                    borderRadius: 22, padding: '30px 26px',
+                    background: s.cardBg, border: `1px solid ${s.border}`,
+                  }}>
+                    {pkg.confirmed && (
+                      <span style={{
+                        position: 'absolute', top: 18, right: 18,
+                        padding: '5px 11px', borderRadius: 999, fontSize: 10.5, fontWeight: 800, letterSpacing: '.05em',
+                        background: C.green, color: '#15212b',
+                      }}>TERISI · BSI</span>
+                    )}
+                    <div style={{
+                      width: 46, height: 46, borderRadius: 12, background: s.color, marginBottom: 18,
+                      boxShadow: `0 8px 22px ${s.glow}`,
+                    }} />
+                    <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '.02em' }}>{pkg.tier}</div>
+                    <div style={{
+                      margin: '8px 0 20px', fontSize: 'clamp(20px, 2.4vw, 26px)', fontWeight: 800,
+                      color: s.priceColor, fontFamily: "'Playfair Display', serif",
+                    }}>{pkg.price}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 11, flex: 1 }}>
+                      {pkg.benefits.map((b, j) => (
+                        <div key={j} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', fontSize: 13, color: 'rgba(255,255,255,.78)', lineHeight: 1.5 }}>
+                          <Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}
+                        </div>
+                      ))}
+                    </div>
+                    <a href="#registrasi" style={{
+                      display: 'block', textAlign: 'center', marginTop: 24, padding: 12, borderRadius: 11,
+                      background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.18)',
+                      color: '#fff', fontSize: 14, fontWeight: 700, textDecoration: 'none',
+                    }}>Pilih Paket</a>
                   </div>
-                  <a href="#registrasi" style={{
-                    display: 'block', textAlign: 'center', marginTop: 24, padding: 12, borderRadius: 11,
-                    background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.18)',
-                    color: '#fff', fontSize: 14, fontWeight: 700, textDecoration: 'none',
-                  }}>Pilih Paket</a>
-                </div>
+                </Reveal>
               );
             })}
           </div>
@@ -743,24 +863,25 @@ export default function EventLandingPage() {
             {miniExpoParticipants.map((ex, i) => {
               const tag = tagMap[ex.type] || tagMap['Potential Sponsor'];
               return (
-                <div key={i} className={`wls-card wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
-                  border: `1px solid ${C.border}`, borderRadius: 16, padding: 22, background: '#fff',
-                  transition: 'border-color .3s ease, transform .3s ease, box-shadow .3s ease',
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10, marginBottom: 14 }}>
-                    <div style={{
-                      width: 40, height: 40, borderRadius: 11, background: `linear-gradient(135deg, ${C.navy}, #1f5f7a)`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', fontSize: 14, fontWeight: 800,
-                    }}>{getInitials(ex.name)}</div>
-                    <span style={{
-                      padding: '4px 10px', borderRadius: 999, fontSize: 10.5, fontWeight: 700,
-                      background: tag.bg, color: tag.color,
-                    }}>{ex.type}</span>
+                <Reveal key={i} delay={(i % 6) + 1} variant="scale">
+                  <div className="wls-card" style={{
+                    border: `1px solid ${C.border}`, borderRadius: 16, padding: 22, background: '#fff',
+                  }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10, marginBottom: 14 }}>
+                      <div style={{
+                        width: 40, height: 40, borderRadius: 11, background: `linear-gradient(135deg, ${C.navy}, #1f5f7a)`,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#fff', fontSize: 14, fontWeight: 800,
+                      }}>{getInitials(ex.name)}</div>
+                      <span style={{
+                        padding: '4px 10px', borderRadius: 999, fontSize: 10.5, fontWeight: 700,
+                        background: tag.bg, color: tag.color,
+                      }}>{ex.type}</span>
+                    </div>
+                    <div style={{ fontSize: 15.5, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 4 }}>{ex.name}</div>
+                    <div style={{ fontSize: 13, color: C.textSubtle }}>{ex.category}</div>
                   </div>
-                  <div style={{ fontSize: 15.5, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 4 }}>{ex.name}</div>
-                  <div style={{ fontSize: 13, color: C.textSubtle }}>{ex.category}</div>
-                </div>
+                </Reveal>
               );
             })}
           </div>
@@ -779,70 +900,76 @@ export default function EventLandingPage() {
           <div className="wls-reg-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
 
             {/* Single */}
-            <div className="wls-animate wls-animate-delay-1" style={{
-              display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
-              background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
-            }}>
-              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Single</div>
-              <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 4.000.000</div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 3.500.000</div>
-              <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Peserta umum / non-anggota</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                {['Akses penuh 2 hari', 'Seminar kit & sertifikat', 'Makan siang & coffee break', 'Akses Mini Expo'].map(b => (
-                  <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
-                ))}
+            <Reveal delay={1} variant="scale">
+              <div style={{
+                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
+                background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
+              }}>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Single</div>
+                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 4.000.000</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 3.500.000</div>
+                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Peserta umum / non-anggota</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
+                  {['Akses penuh 2 hari', 'Seminar kit & sertifikat', 'Makan siang & coffee break', 'Akses Mini Expo'].map(b => (
+                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
+                  ))}
+                </div>
+                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
+                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
+                }}>Daftar via WhatsApp</a>
               </div>
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
-                display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
-              }}>Daftar via WhatsApp</a>
-            </div>
+            </Reveal>
 
             {/* Anggota FWP - Featured */}
-            <div className="wls-animate wls-animate-delay-2 wls-reg-featured" style={{
-              display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
-              background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`, color: '#fff',
-              boxShadow: '0 24px 50px rgba(17,46,63,.28)', position: 'relative', transform: 'translateY(-8px)',
-            }}>
-              <span style={{
-                position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)',
-                padding: '6px 16px', borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: '.05em',
-                background: C.goldGrad, color: '#15212b', whiteSpace: 'nowrap',
-              }}>PALING POPULER</span>
-              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Anggota FWP</div>
-              <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
-              <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Khusus lembaga anggota FWP</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
-                {['Semua benefit Single', 'Harga khusus anggota', 'Prioritas seating', 'Networking dinner'].map(b => (
-                  <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
-                ))}
+            <Reveal delay={2} variant="scale">
+              <div className="wls-reg-featured" style={{
+                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
+                background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`, color: '#fff',
+                boxShadow: '0 24px 50px rgba(17,46,63,.28)', position: 'relative', transform: 'translateY(-8px)',
+              }}>
+                <span style={{
+                  position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)',
+                  padding: '6px 16px', borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: '.05em',
+                  background: C.goldGrad, color: '#15212b', whiteSpace: 'nowrap',
+                }}>PALING POPULER</span>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Anggota FWP</div>
+                <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
+                <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Khusus lembaga anggota FWP</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
+                  {['Semua benefit Single', 'Harga khusus anggota', 'Prioritas seating', 'Networking dinner'].map(b => (
+                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
+                  ))}
+                </div>
+                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
+                  background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
+                }}>Daftar via WhatsApp</a>
               </div>
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
-                display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
-              }}>Daftar via WhatsApp</a>
-            </div>
+            </Reveal>
 
             {/* Paket 3 Orang */}
-            <div className="wls-animate wls-animate-delay-3" style={{
-              display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
-              background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
-            }}>
-              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Paket 3 Orang</div>
-              <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle }}>Hemat 20%</div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 6.000.000</div>
-              <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Ketua + Sekretaris + Bendahara</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                {['3 tiket akses penuh', 'Hemat Rp 1.500.000', 'Ideal untuk satu lembaga', 'Networking dinner'].map(b => (
-                  <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
-                ))}
+            <Reveal delay={3} variant="scale">
+              <div style={{
+                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
+                background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
+              }}>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Paket 3 Orang</div>
+                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle }}>Hemat 20%</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 6.000.000</div>
+                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Ketua + Sekretaris + Bendahara</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
+                  {['3 tiket akses penuh', 'Hemat Rp 1.500.000', 'Ideal untuk satu lembaga', 'Networking dinner'].map(b => (
+                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
+                  ))}
+                </div>
+                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
+                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
+                }}>Daftar via WhatsApp</a>
               </div>
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
-                display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
-              }}>Daftar via WhatsApp</a>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -870,22 +997,24 @@ export default function EventLandingPage() {
 
           <div className="wls-committee-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 16 }}>
             {summitCommittee.map((c, i) => (
-              <div key={i} className={`wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
-                border: `1px solid ${C.border}`, borderRadius: 16, padding: 20, background: '#fff',
-                display: 'flex', gap: 14, alignItems: 'center',
-              }}>
+              <Reveal key={i} delay={(i % 6) + 1}>
                 <div style={{
-                  flex: 'none', width: 46, height: 46, borderRadius: 12,
-                  background: 'linear-gradient(135deg, #1f5f7a, #16aeca)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#fff', fontSize: 15, fontWeight: 800,
-                }}>{getInitials(c.name)}</div>
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: C.navy, lineHeight: 1.3 }}>{c.name}</div>
-                  <div style={{ fontSize: 12.5, color: C.cyan, fontWeight: 600, margin: '2px 0' }}>{c.position}</div>
-                  <div style={{ fontSize: 12, color: C.textSubtle }}>{c.organization}</div>
+                  border: `1px solid ${C.border}`, borderRadius: 16, padding: 20, background: '#fff',
+                  display: 'flex', gap: 14, alignItems: 'center',
+                }}>
+                  <div style={{
+                    flex: 'none', width: 46, height: 46, borderRadius: 12,
+                    background: 'linear-gradient(135deg, #1f5f7a, #16aeca)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#fff', fontSize: 15, fontWeight: 800,
+                  }}>{getInitials(c.name)}</div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: C.navy, lineHeight: 1.3 }}>{c.name}</div>
+                    <div style={{ fontSize: 12.5, color: C.cyan, fontWeight: 600, margin: '2px 0' }}>{c.position}</div>
+                    <div style={{ fontSize: 12, color: C.textSubtle }}>{c.organization}</div>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
