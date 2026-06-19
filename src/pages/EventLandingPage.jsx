@@ -242,7 +242,7 @@ function StatItem({ target, suffix, label, color }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px' });
   return (
-    <motion.div ref={ref} variants={fadeInUp} style={{ textAlign: 'center' }}>
+    <div ref={ref} style={{ textAlign: 'center' }}>
       <div style={{
         fontFamily: "'Playfair Display', serif",
         fontSize: 'clamp(40px, 6vw, 68px)', fontWeight: 800, lineHeight: 1, color,
@@ -250,7 +250,7 @@ function StatItem({ target, suffix, label, color }) {
         {inView ? <CountUp end={target} duration={1.4} /> : '0'}{suffix}
       </div>
       <div style={{ marginTop: 10, fontSize: 'clamp(12px, 1.4vw, 14px)', fontWeight: 600, color: '#8fb6c6', letterSpacing: '.04em' }}>{label}</div>
-    </motion.div>
+    </div>
   );
 }
 
