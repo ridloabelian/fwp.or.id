@@ -1260,3 +1260,51 @@ html {
     font-size: 1.2rem;
   }
 }
+
+/* ═══ WLS 2026 Landing Page ═══ */
+@keyframes wlsFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-22px) rotate(8deg); }
+}
+@keyframes wlsFloatAlt {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(18px) rotate(-10deg); }
+}
+@keyframes wlsScrollDot {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(14px); opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes wlsMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes wlsPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.55); opacity: 0.45; }
+}
+
+.wls-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(17,46,63,.12);
+  border-color: #16aeca !important;
+}
+
+@media (max-width: 992px) {
+  .wls-about-grid { grid-template-columns: 1fr !important; }
+  .wls-stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .wls-speaker-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .wls-sponsor-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .wls-reg-grid { grid-template-columns: 1fr !important; }
+  .wls-footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+}
+
+@media (max-width: 768px) {
+  .wls-navlinks { display: none !important; }
+  .wls-stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .wls-speaker-grid { grid-template-columns: 1fr !important; }
+  .wls-sponsor-grid { grid-template-columns: 1fr !important; }
+  .wls-pending-grid { grid-template-columns: 1fr !important; }
+  .wls-agenda-row { grid-template-columns: 100px 1fr !important; }
+  .wls-reg-featured { transform: none !important; }
+}
