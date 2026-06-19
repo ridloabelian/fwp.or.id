@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import CountUp from 'react-countup';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import {
   Calendar, MapPin, Film, ArrowRight, Check, Plus, Minus,
   Phone, Mail, Globe
@@ -31,7 +30,7 @@ const C = {
   bgLighter: '#f1f6f9',
 };
 
-/* ─── CSS Keyframes (injected via style tag) ─── */
+/* ─── CSS Keyframes & Animation Classes ─── */
 const GlobalStyles = () => (
   <style>{`
     @keyframes wlsFloat {
@@ -55,6 +54,28 @@ const GlobalStyles = () => (
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .wls-animate {
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .wls-animate-delay-1 { animation-delay: 0.06s; }
+    .wls-animate-delay-2 { animation-delay: 0.12s; }
+    .wls-animate-delay-3 { animation-delay: 0.18s; }
+    .wls-animate-delay-4 { animation-delay: 0.24s; }
+    .wls-animate-delay-5 { animation-delay: 0.30s; }
+    .wls-animate-delay-6 { animation-delay: 0.36s; }
     .wls-card:hover {
       transform: translateY(-6px) !important;
       box-shadow: 0 20px 50px rgba(17,46,63,.12) !important;
@@ -62,6 +83,23 @@ const GlobalStyles = () => (
     }
     .wls-navlinks a:hover { color: #112e3f !important; }
     .wls-navlinks a { transition: color .2s ease; }
+    .wls-faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .wls-faq-content.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+    .wls-faq-icon {
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .wls-faq-icon.open {
+      transform: rotate(180deg);
+      background: #e0f2fe;
+    }
     @media (max-width: 768px) {
       .wls-about-grid { grid-template-columns: 1fr !important; }
       .wls-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
@@ -118,18 +156,14 @@ function getInitials(name) {
   return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
 }
 
-/* ─── Framer Motion variants ─── */
-const fadeInUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-};
-const stagger = {
+/* ─── Framer Motion variants (Hero only - safe, no useInView) ─── */
+const heroStagger = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 const heroRise = {
-  hidden: { y: 36 },
-  visible: i => ({ y: 0, transition: { duration: 0.9, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] } }),
+  hidden: { opacity: 0, y: 36 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
 };
 
 /* ─── FAQ data ─── */
@@ -211,62 +245,45 @@ function FAQItem({ q, a }) {
         textAlign: 'left', fontFamily: 'inherit',
       }}>
         <span style={{ fontSize: 'clamp(15px, 1.8vw, 17px)', fontWeight: 700, color: C.navy }}>{q}</span>
-        <span style={{
+        <span className={`wls-faq-icon ${open ? 'open' : ''}`} style={{
           flex: 'none', width: 28, height: 28, borderRadius: 8,
           background: open ? '#e0f2fe' : C.bgLighter,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: C.cyan, transition: 'transform .3s ease, background .3s ease',
-          transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+          color: C.cyan,
         }}>
           {open ? <Minus size={14} /> : <Plus size={14} />}
         </span>
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ overflow: 'hidden' }}
-          >
-            <div style={{ padding: '0 24px 22px', fontSize: 15, lineHeight: 1.7, color: C.textMuted }}>{a}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className={`wls-faq-content ${open ? 'open' : ''}`}>
+        <div style={{ padding: '0 24px 22px', fontSize: 15, lineHeight: 1.7, color: C.textMuted }}>{a}</div>
+      </div>
     </div>
   );
 }
 
-function StatItem({ target, suffix, label, color }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-10% 0px' });
+function StatItem({ target, suffix, label, color, delay }) {
   return (
-    <div ref={ref} style={{ textAlign: 'center' }}>
+    <div className={`wls-animate wls-animate-delay-${delay}`} style={{ textAlign: 'center' }}>
       <div style={{
         fontFamily: "'Playfair Display', serif",
         fontSize: 'clamp(40px, 6vw, 68px)', fontWeight: 800, lineHeight: 1, color,
+        animation: 'countUp 0.6s ease-out forwards',
+        animationDelay: `${delay * 0.1}s`,
       }}>
-        {inView ? <CountUp end={target} duration={1.4} /> : '0'}{suffix}
+        {target}{suffix}
       </div>
       <div style={{ marginTop: 10, fontSize: 'clamp(12px, 1.4vw, 14px)', fontWeight: 600, color: '#8fb6c6', letterSpacing: '.04em' }}>{label}</div>
     </div>
   );
 }
 
-/* ─── Section wrapper for scroll-reveal ─── */
-function Reveal({ children, style, className }) {
+/* ─── Section wrapper with CSS animation (no useInView) ─── */
+function Reveal({ children, style, className, delay = 0 }) {
+  const delayClass = delay > 0 ? `wls-animate-delay-${Math.min(delay, 6)}` : '';
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-8% 0px' }}
-      variants={fadeInUp}
-      style={style}
-      className={className}
-    >
+    <div className={`wls-animate ${delayClass} ${className || ''}`} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -334,7 +351,7 @@ export default function EventLandingPage() {
         }}>Daftar Sekarang</a>
       </nav>
 
-      {/* ═══ HERO ═══ */}
+      {/* ═══ HERO (Framer Motion - safe, initial mount only) ═══ */}
       <header id="hero" style={{
         position: 'relative', minHeight: '100vh',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -368,10 +385,10 @@ export default function EventLandingPage() {
           background: 'linear-gradient(to bottom, transparent, rgba(8,28,40,.6))',
         }} />
 
-        <motion.div initial="hidden" animate="visible" variants={stagger} style={{
+        <motion.div initial="hidden" animate="visible" variants={heroStagger} style={{
           position: 'relative', zIndex: 2, maxWidth: 920, textAlign: 'center', color: '#fff',
         }}>
-          <motion.div custom={0} variants={heroRise} style={{
+          <motion.div variants={heroRise} style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
             padding: '8px 18px', borderRadius: 999,
             background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.16)',
@@ -385,34 +402,34 @@ export default function EventLandingPage() {
             22–23 JULI 2026 · HOLIDAY INN PASTEUR, BANDUNG
           </motion.div>
 
-          <motion.p custom={1} variants={heroRise} style={{
+          <motion.p variants={heroRise} style={{
             margin: '0 0 6px', fontSize: 'clamp(13px, 1.6vw, 16px)', fontWeight: 700,
             letterSpacing: '.42em', color: '#7fd0e3', textTransform: 'uppercase',
           }}>Waqf Leaders Summit</motion.p>
 
-          <motion.h1 custom={2} variants={heroRise} style={{
+          <motion.h1 variants={heroRise} style={{
             margin: 0, fontFamily: "'Playfair Display', serif",
             fontSize: 'clamp(58px, 12vw, 150px)', fontWeight: 800,
             lineHeight: .9, letterSpacing: '-.02em', color: '#fff',
           }}>2026</motion.h1>
 
-          <motion.img custom={3} variants={heroRise}
+          <motion.img variants={heroRise}
             src="/tumbuh-bersama-gold.png" alt="Tumbuh Bersama"
             style={{ width: 'clamp(280px, 46vw, 520px)', height: 'auto', display: 'block', margin: '14px auto 4px' }}
           />
 
-          <motion.p custom={4} variants={heroRise} style={{
+          <motion.p variants={heroRise} style={{
             maxWidth: 680, margin: '18px auto 0',
             fontFamily: "'Playfair Display', serif", fontStyle: 'italic',
             fontSize: 'clamp(17px, 2.4vw, 24px)', lineHeight: 1.5,
             color: 'rgba(255,255,255,.85)',
           }}>&ldquo;Scaling-Up the Impact of Waqf Toward Sustainable Wellbeing&rdquo;</motion.p>
 
-          <motion.div custom={5} variants={heroRise} style={{ margin: '38px 0 0' }}>
+          <motion.div variants={heroRise} style={{ margin: '38px 0 0' }}>
             <CountdownTimer />
           </motion.div>
 
-          <motion.div custom={6} variants={heroRise} style={{
+          <motion.div variants={heroRise} style={{
             display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 14, marginTop: 38,
           }}>
             <a href="#registrasi" style={{
@@ -496,7 +513,7 @@ export default function EventLandingPage() {
             </div>
           </Reveal>
 
-          <Reveal>
+          <Reveal delay={1}>
             <div style={{
               borderRadius: 22, overflow: 'hidden',
               background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`,
@@ -538,17 +555,16 @@ export default function EventLandingPage() {
       {/* ═══ STATS ═══ */}
       <section style={{ padding: 'clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px)', background: `linear-gradient(135deg, ${C.navy}, ${C.navyDark})` }}>
         <div style={{ maxWidth: 1180, margin: '0 auto' }}>
-          <motion.div className="wls-stats-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-8%' }} variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 'clamp(16px, 2.5vw, 32px)' }}>
+          <div className="wls-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 'clamp(16px, 2.5vw, 32px)' }}>
             {[
-              { target: 2, suffix: '', label: 'Hari', color: '#fff' },
-              { target: 25, suffix: '+', label: 'Narasumber', color: C.green },
-              { target: 200, suffix: '+', label: 'Peserta Target', color: C.cyan },
-              { target: 50, suffix: '+', label: 'Lembaga Nazhir', color: '#fff' },
-              { target: 30, suffix: '+', label: 'Investor & Mitra', color: C.goldLight },
-              { target: 10, suffix: '+', label: 'Booth Expo', color: C.green },
+              { target: 2, suffix: '', label: 'Hari', color: '#fff', delay: 1 },
+              { target: 25, suffix: '+', label: 'Narasumber', color: C.green, delay: 2 },
+              { target: 200, suffix: '+', label: 'Peserta Target', color: C.cyan, delay: 3 },
+              { target: 50, suffix: '+', label: 'Lembaga Nazhir', color: '#fff', delay: 4 },
+              { target: 30, suffix: '+', label: 'Investor & Mitra', color: C.goldLight, delay: 5 },
+              { target: 10, suffix: '+', label: 'Booth Expo', color: C.green, delay: 6 },
             ].map((s, i) => <StatItem key={i} {...s} />)}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -561,7 +577,7 @@ export default function EventLandingPage() {
             <p style={{ margin: 0, fontSize: 16, color: C.textLight }}>Susunan acara lengkap Waqf Leaders Summit 2026.</p>
           </Reveal>
 
-          <Reveal style={{ textAlign: 'center', marginBottom: 40 }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 40 }} delay={1}>
             <div style={{ display: 'inline-flex', gap: 6, padding: 6, borderRadius: 999, background: '#e8edf1' }}>
               <button onClick={() => setActiveDay(1)} style={tabStyle(activeDay === 1)}>Hari 1 · 22 Juli</button>
               <button onClick={() => setActiveDay(2)} style={tabStyle(activeDay === 2)}>Hari 2 · 23 Juli</button>
@@ -570,7 +586,7 @@ export default function EventLandingPage() {
 
           <div>
             {rundown.map((item, i) => (
-              <Reveal key={`${activeDay}-${i}`}>
+              <Reveal key={`${activeDay}-${i}`} delay={(i % 3) + 1}>
                 <div className="wls-agenda-row" style={{
                   display: 'grid', gridTemplateColumns: '130px 1fr', gap: 'clamp(14px, 2.5vw, 28px)',
                   padding: '18px 0', borderBottom: '1px solid #e6ebef', alignItems: 'start',
@@ -604,12 +620,11 @@ export default function EventLandingPage() {
             <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Pemimpin, akademisi, dan praktisi terdepan di bidang perwakafan nasional.</p>
           </Reveal>
 
-          <motion.div className="wls-speaker-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(18px, 2.5vw, 28px)' }}>
+          <div className="wls-speaker-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(18px, 2.5vw, 28px)' }}>
             {confirmed.map((sp, i) => {
               const cat = catStyles[sp.category] || catStyles.FWP;
               return (
-                <motion.div key={sp.id || i} variants={fadeInUp} className="wls-card" style={{
+                <div key={sp.id || i} className={`wls-card wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
                   border: `1px solid ${C.border}`, borderRadius: 20, padding: 28, background: '#fff',
                   boxShadow: '0 8px 30px rgba(17,46,63,.05)', transition: 'transform .35s ease, box-shadow .35s ease, border-color .35s ease',
                 }}>
@@ -627,12 +642,12 @@ export default function EventLandingPage() {
                   <div style={{ fontSize: 17, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 6 }}>{sp.name}</div>
                   <div style={{ fontSize: 13.5, color: C.textLight, lineHeight: 1.5, marginBottom: 14, minHeight: 40 }}>{sp.title}</div>
                   <div style={{ paddingTop: 14, borderTop: '1px dashed #e6ebef', fontSize: 13, color: '#1f5f7a', fontWeight: 600, lineHeight: 1.5 }}>{sp.role}</div>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
 
-          <Reveal style={{ marginTop: 56, padding: 'clamp(28px, 4vw, 44px)', borderRadius: 24, background: C.bgLight, border: `1px solid ${C.border}` }}>
+          <Reveal style={{ marginTop: 56, padding: 'clamp(28px, 4vw, 44px)', borderRadius: 24, background: C.bgLight, border: `1px solid ${C.border}` }} delay={2}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap', marginBottom: 24 }}>
               <h3 style={{ margin: 0, fontSize: 'clamp(20px, 2.6vw, 26px)', fontWeight: 800, color: C.navy }}>Dan 25+ Tokoh Lainnya</h3>
               <span style={{ fontSize: 14, color: C.textSubtle }}>Menanti konfirmasi kehadiran</span>
@@ -641,7 +656,7 @@ export default function EventLandingPage() {
               {pending.map((sp, i) => {
                 const cat = catStyles[sp.category] || catStyles.FWP;
                 return (
-                  <div key={sp.id || i} style={{
+                  <div key={sp.id || i} className={`wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
                     display: 'flex', gap: 14, alignItems: 'center', padding: '12px 0',
                     borderBottom: '1px solid #e8edf1',
                   }}>
@@ -671,12 +686,11 @@ export default function EventLandingPage() {
             <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: '#8fb6c6' }}>Empat paket kemitraan untuk memperkuat dampak dan visibilitas brand Anda.</p>
           </Reveal>
 
-          <motion.div className="wls-sponsor-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'clamp(16px, 2vw, 24px)', alignItems: 'stretch' }}>
+          <div className="wls-sponsor-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'clamp(16px, 2vw, 24px)', alignItems: 'stretch' }}>
             {sponsorshipPackages.map((pkg, i) => {
               const s = sponsorCardStyles[i];
               return (
-                <motion.div key={pkg.tier} variants={fadeInUp} style={{
+                <div key={pkg.tier} className={`wls-animate wls-animate-delay-${(i % 4) + 1}`} style={{
                   position: 'relative', display: 'flex', flexDirection: 'column',
                   borderRadius: 22, padding: '30px 26px',
                   background: s.cardBg, border: `1px solid ${s.border}`,
@@ -709,10 +723,10 @@ export default function EventLandingPage() {
                     background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.18)',
                     color: '#fff', fontSize: 14, fontWeight: 700, textDecoration: 'none',
                   }}>Pilih Paket</a>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -725,12 +739,11 @@ export default function EventLandingPage() {
             <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Perbankan syariah, lembaga wakaf, hingga fintech berkumpul dalam satu ruang.</p>
           </Reveal>
 
-          <motion.div className="wls-expo-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16 }}>
+          <div className="wls-expo-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16 }}>
             {miniExpoParticipants.map((ex, i) => {
               const tag = tagMap[ex.type] || tagMap['Potential Sponsor'];
               return (
-                <motion.div key={i} variants={fadeInUp} className="wls-card" style={{
+                <div key={i} className={`wls-card wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
                   border: `1px solid ${C.border}`, borderRadius: 16, padding: 22, background: '#fff',
                   transition: 'border-color .3s ease, transform .3s ease, box-shadow .3s ease',
                 }}>
@@ -747,10 +760,10 @@ export default function EventLandingPage() {
                   </div>
                   <div style={{ fontSize: 15.5, fontWeight: 800, color: C.navy, lineHeight: 1.3, marginBottom: 4 }}>{ex.name}</div>
                   <div style={{ fontSize: 13, color: C.textSubtle }}>{ex.category}</div>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -763,11 +776,10 @@ export default function EventLandingPage() {
             <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Kuota terbatas. Daftar sekarang untuk pengalaman dua hari penuh wawasan.</p>
           </Reveal>
 
-          <motion.div className="wls-reg-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
+          <div className="wls-reg-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
 
             {/* Single */}
-            <motion.div variants={fadeInUp} style={{
+            <div className="wls-animate wls-animate-delay-1" style={{
               display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
               background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
             }}>
@@ -784,10 +796,10 @@ export default function EventLandingPage() {
                 display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
                 background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
               }}>Daftar via WhatsApp</a>
-            </motion.div>
+            </div>
 
             {/* Anggota FWP - Featured */}
-            <motion.div variants={fadeInUp} className="wls-reg-featured" style={{
+            <div className="wls-animate wls-animate-delay-2 wls-reg-featured" style={{
               display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
               background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`, color: '#fff',
               boxShadow: '0 24px 50px rgba(17,46,63,.28)', position: 'relative', transform: 'translateY(-8px)',
@@ -810,10 +822,10 @@ export default function EventLandingPage() {
                 display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
                 background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
               }}>Daftar via WhatsApp</a>
-            </motion.div>
+            </div>
 
             {/* Paket 3 Orang */}
-            <motion.div variants={fadeInUp} style={{
+            <div className="wls-animate wls-animate-delay-3" style={{
               display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
               background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
             }}>
@@ -830,8 +842,8 @@ export default function EventLandingPage() {
                 display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
                 background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
               }}>Daftar via WhatsApp</a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -856,10 +868,9 @@ export default function EventLandingPage() {
             <h2 style={{ margin: 0, fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Di Balik Layar</h2>
           </Reveal>
 
-          <motion.div className="wls-committee-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-5%' }} variants={stagger}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 16 }}>
+          <div className="wls-committee-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 16 }}>
             {summitCommittee.map((c, i) => (
-              <motion.div key={i} variants={fadeInUp} style={{
+              <div key={i} className={`wls-animate wls-animate-delay-${(i % 6) + 1}`} style={{
                 border: `1px solid ${C.border}`, borderRadius: 16, padding: 20, background: '#fff',
                 display: 'flex', gap: 14, alignItems: 'center',
               }}>
@@ -874,9 +885,9 @@ export default function EventLandingPage() {
                   <div style={{ fontSize: 12.5, color: C.cyan, fontWeight: 600, margin: '2px 0' }}>{c.position}</div>
                   <div style={{ fontSize: 12, color: C.textSubtle }}>{c.organization}</div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
