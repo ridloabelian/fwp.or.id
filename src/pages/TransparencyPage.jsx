@@ -39,12 +39,12 @@ const TransparencyPage = () => {
       {/* Geospasial Section */}
       <section className="section">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
              <Map size={48} color="var(--tertiary-color)" style={{ margin: '0 auto 16px' }} />
              <h2>Sistem Informasi Wakaf (Data ZISWAF)</h2>
              <p>Integrasi data geospasial tanah wakaf secara nasional berkoordinasi dengan BPN, KUA, dan BWI.</p>
           </motion.div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="glass-card" style={{ background: '#eef2f6', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed var(--primary-light)' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="glass-card" style={{ background: '#eef2f6', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed var(--primary-light)' }}>
              <div className="text-center" style={{ color: 'var(--text-muted)' }}>
                 <Map size={64} style={{ opacity: 0.4, margin: '0 auto 16px' }} />
                 <h3>Peta Sebaran Wakaf Interaktif</h3>
@@ -57,13 +57,13 @@ const TransparencyPage = () => {
       {/* Laporan Keuangan Section */}
       <section className="section section-bg">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
              <TrendingUp size={48} color="var(--secondary-color)" style={{ margin: '0 auto 16px' }} />
              <h2>Laporan Keuangan & Akuntabilitas</h2>
              <p>Bukti nyata pengelolaan wakaf produktif yang amanah dan profesional.</p>
           </motion.div>
 
-          <motion.div className="grid-3" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+          <motion.div className="grid-3" initial="hidden" animate="visible" variants={staggerContainer}>
             {financialPublications.map((doc) => (
               <motion.div key={doc.id} variants={fadeInUp} className="glass-card" style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
@@ -85,13 +85,13 @@ const TransparencyPage = () => {
       {/* Regulasi Section */}
       <section className="section">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
              <Scale size={48} color="var(--primary-light)" style={{ margin: '0 auto 16px' }} />
              <h2>Regulasi & Fatwa Wakaf</h2>
              <p>Payung hukum dan kepatuhan syariah pendukung pengelolaan wakaf di Indonesia.</p>
           </motion.div>
 
-          <motion.div className="grid-2" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+          <motion.div className="grid-2" initial="hidden" animate="visible" variants={staggerContainer}>
             {regulationsList.map((reg) => (
               <motion.div key={reg.id} variants={fadeInUp} style={{ display: 'flex', gap: '20px', padding: '24px', border: '1px solid #eef2f6', borderRadius: '16px', background: 'white' }}>
                 <div style={{ flexShrink: 0, padding: '16px', background: 'rgba(19, 44, 63, 0.05)', borderRadius: '12px', color: 'var(--primary-color)', height: 'fit-content' }}>

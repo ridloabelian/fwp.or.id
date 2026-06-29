@@ -38,7 +38,7 @@ const SuccessStoriesPage = () => {
 
       <section className="section section-bg">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
             {caseStudies.map((study) => {
               const IconComponent = Icons[study.iconName];
 

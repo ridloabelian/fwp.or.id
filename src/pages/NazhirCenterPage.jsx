@@ -48,12 +48,12 @@ const NazhirCenterPage = () => {
       {/* WCP */}
       <section className="section section-bg">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
              <ShieldCheck size={48} color="var(--primary-light)" style={{ margin: '0 auto 16px' }} />
              <h2>Waqf Core Principles (WCP)</h2>
              <p style={{ maxWidth: '600px', margin: '0 auto' }}>Standar internasional dalam manajemen lembaga wakaf dengan 29 prinsip pilar pengelolaan risiko dan instrumen kepatuhan tata kelola syariah yang diawasi BWI.</p>
           </motion.div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid-3" style={{ justifyContent: 'center' }}>
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid-3" style={{ justifyContent: 'center' }}>
             {['Pondasi Legal', 'Tata Kelola Syariah', 'Manajemen Risiko'].map((item, idx) => (
               <motion.div key={idx} variants={fadeInUp} className="glass-card text-center" style={{ background: 'white' }}>
                 <BookOpen size={32} color="var(--secondary-color)" style={{ margin: '0 auto 16px' }} />
@@ -67,7 +67,7 @@ const NazhirCenterPage = () => {
       {/* SKKNI */}
       <section className="section">
         <div className="container grid-2" style={{ alignItems: 'center' }}>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
             <motion.h2 variants={fadeInUp}>SKKNI Pengelolaan Wakaf</motion.h2>
             <motion.p variants={fadeInUp} style={{ marginBottom: '24px' }}>
               Kepmenaker No. 47 Tahun 2021 mendefinisikan 37 Unit Kompetensi kualifikasi Nazhir Wakaf Nasional. Kami menjembatani kompetensi dari pra-sertifikasi hingga sertifikasi.
@@ -92,7 +92,7 @@ const NazhirCenterPage = () => {
             </motion.a>
           </motion.div>
           
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="glass-card" style={{ background: 'var(--primary-light)', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '400px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="glass-card" style={{ background: 'var(--primary-light)', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '400px' }}>
              <h3 style={{ borderBottom: '2px solid rgba(255,255,255,0.2)', paddingBottom: '16px', color: 'white' }}>Modul Kompetensi Tersedia</h3>
              <p>Akses pustaka e-learning SKKNI langsung melalui platform portal edukasi terafiliasi kami.</p>
              <button className="btn btn-secondary btn-disabled" style={{ marginTop: 'auto', alignSelf: 'flex-start', pointerEvents: 'none' }} disabled={true}>
@@ -105,12 +105,12 @@ const NazhirCenterPage = () => {
       {/* Direktori Nazhir */}
       <section className="section section-bg">
         <div className="container text-center">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>Direktori Lembaga Nazhir Resmi</motion.h2>
-          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} style={{ maxWidth: '600px', margin: '0 auto 40px' }}>
+          <motion.h2 initial="hidden" animate="visible" variants={fadeInUp}>Direktori Lembaga Nazhir Resmi</motion.h2>
+          <motion.p initial="hidden" animate="visible" variants={fadeInUp} style={{ maxWidth: '600px', margin: '0 auto 40px' }}>
             Puluhan Lembaga Amil dan Nazhir Nasional yang terdaftar di BWI dan merupakan mitra strategis Lembaga Keuangan Syariah Penerima Wakaf Uang (LKS-PWU).
           </motion.p>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} style={{ maxWidth: '500px', margin: '0 auto 40px', display: 'flex', gap: '8px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} style={{ maxWidth: '500px', margin: '0 auto 40px', display: 'flex', gap: '8px' }}>
              <input 
                type="text" 
                placeholder="Cari berdasarkan nama lembaga atau kota..." 
@@ -121,7 +121,7 @@ const NazhirCenterPage = () => {
              <button className="btn btn-primary" style={{ padding: '12px 20px' }}><Search size={20} /></button>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid-4" style={{ gap: '16px' }}>
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid-4" style={{ gap: '16px' }}>
             {filteredNazhirs.map((nazhir) => (
               <motion.div key={nazhir.id} className="glass-card" style={{ padding: '24px', background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
                 <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>{nazhir.name}</span>

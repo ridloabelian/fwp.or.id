@@ -38,7 +38,7 @@ const ProgramsPage = () => {
 
       <section className="section section-bg">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid-2">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid-2">
             {programsData.map((program) => {
               const IconComponent = Icons[program.iconName];
               const isCTAEmpty = program.ctaLink === '#';

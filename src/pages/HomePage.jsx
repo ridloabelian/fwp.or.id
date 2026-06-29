@@ -88,7 +88,7 @@ const LandingPage = () => {
                 className="glass-card"
                 style={{ width: '140px', height: '140px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(255,255,255,0.95)', zIndex: 2, boxShadow: '0 20px 40px rgba(0,0,0,0.15)' }}
               >
-                <Leaf size={70} color="var(--primary-color)" />
+                <img src="/logo.png" alt="FWP" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
               </motion.div>
 
               {/* Floating Element 1 - Building */}
@@ -145,7 +145,7 @@ const LandingPage = () => {
           <motion.div 
             className="glass-card"
             style={{ background: 'white', padding: '40px', display: 'flex', flexDirection: 'column', gap: '40px' }}
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
+            initial="hidden" animate="visible" variants={staggerContainer}
           >
             {/* Top Stats Cards */}
             <div className="grid-3">

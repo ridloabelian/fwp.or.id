@@ -39,13 +39,13 @@ const BusinessMatchingPage = () => {
       {/* Prospektus Proyek */}
       <section className="section section-bg">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
              <Activity size={48} color="var(--tertiary-color)" style={{ margin: '0 auto 16px' }} />
              <h2>Prospektus Proyek Wakaf Produktif</h2>
              <p style={{ maxWidth: '600px', margin: '0 auto' }}>Daftar proyek <em>onboarding</em> yang dikelola oleh Nazhir terverifikasi dan siap menerima pendanaan komersial maupun sosial.</p>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid-3">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid-3">
              {prospectusProjects.map((proj) => (
                 <motion.div key={proj.id} variants={fadeInUp} className="glass-card" style={{ background: 'white', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ background: 'var(--bg-offset)', fontSize: '0.8rem', padding: '4px 12px', borderRadius: '20px', display: 'inline-block', alignSelf: 'flex-start', marginBottom: '16px', fontWeight: 'bold', color: 'var(--text-main)' }}>
@@ -77,12 +77,12 @@ const BusinessMatchingPage = () => {
       {/* Retail & CSR Hub */}
       <section className="section">
         <div className="container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
              <h2>Retail Waqf & CSR Hub</h2>
              <p style={{ maxWidth: '600px', margin: '0 auto' }}>Menjembatani berbagai tipe pendana untuk berpartisipasi dalam perwakafan berskala besar melalui jalur yang aman dan terstruktur.</p>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid-2">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid-2">
              <motion.div variants={fadeInUp} style={{ padding: '32px', border: '1px solid #eef2f6', borderRadius: '16px', background: 'white' }}>
                <Briefcase size={32} color="var(--primary-light)" style={{ marginBottom: '16px' }} />
                <h3>Integrasi CSR (Wakaf Institusional)</h3>
