@@ -6,13 +6,5 @@ export const navLinks = [
   { id: 'stories', path: '/inspirasi-studi-kasus', label: 'Inspirasi' },
   { id: 'business', path: '/layanan-bisnis', label: 'Kemitraan Strategis' },
   { id: 'transparency', path: '/transparansi', label: 'Transparansi' },
-  { 
-    id: 'wls', 
-    label: 'WLS 2026', 
-    dropdown: [
-      { id: 'summit', path: '/waqf-leaders-summit', label: 'Informasi Summit' },
-      { id: 'proposal', path: '/proposal-wls2026', label: 'Proposal Digital' },
-      { id: 'event', path: '/wls2026', label: 'Registrasi & Tiket' }
-    ]
-  }
+  { id: 'wls', path: '/wls2026', label: 'WLS 2026' }
 ];
