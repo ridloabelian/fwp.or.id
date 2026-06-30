@@ -437,6 +437,7 @@ export default function EventLandingPage() {
       <SEO
         title="WLS 2026 - Waqf Leaders Summit"
         description="Waqf Leaders Summit 2026: Forum strategis untuk mengeskalasi dampak wakaf produktif. 22-23 Juli 2026, Holiday Inn Pasteur, Bandung."
+        ogImage="/og-wls2026.jpg"
       />
 
       {/* ═══ NAVBAR ═══ */}
