@@ -888,6 +888,50 @@ export default function EventLandingPage() {
         </div>
       </section>
 
+            {/* ═══ MERCHANDISE & SEMINAR KIT ═══ */}
+      <section id="merchandise" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: '#fff', borderBottom: `1px solid ${C.border}` }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 52 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Eksklusif Peserta</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Seminar Kit & Atribut</h2>
+            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Setiap peserta terdaftar akan mendapatkan paket atribut resmi Waqf Leaders Summit 2026.</p>
+          </Reveal>
+
+          <div className="wls-expo-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 20 }}>
+            {[
+              { icon: '🦺', title: 'Rompi Resmi WLS', desc: 'Rompi eksklusif dengan emblem WLS 2026 (Symbol Only)' },
+              { icon: '🥤', title: 'Tumbler Premium', desc: 'Tumbler ramah lingkungan untuk menemani sesi diskusi' },
+              { icon: '🎒', title: 'Tote Bag Eksklusif', desc: 'Tas kanvas premium untuk menyimpan berkas & kit' },
+              { icon: '📓', title: 'Blocknote & Pulpen', desc: 'Buku catatan & pulpen untuk merumuskan gagasan' },
+              { icon: '🪪', title: 'ID Card & Sertifikat', desc: 'Tanda pengenal resmi & sertifikat partisipasi WLS' },
+            ].map((item, i) => (
+              <Reveal key={i} delay={i + 1} variant="scale">
+                <div className="wls-card" style={{
+                  border: `1px solid ${C.border}`, borderRadius: 20, padding: 24, background: '#fff',
+                  textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                  boxShadow: '0 8px 30px rgba(17,46,63,.03)',
+                }}>
+                  <div style={{ fontSize: 40, marginBottom: 14 }}>{item.icon}</div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: C.navy, marginBottom: 8 }}>{item.title}</div>
+                  <div style={{ fontSize: 13, color: C.textMuted, lineHeight: 1.5 }}>{item.desc}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 40 }}>
+            <a href="https://canva.link/aswioygq6k3dz" target="_blank" rel="noopener noreferrer" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '12px 24px', borderRadius: 999, background: C.bgLighter,
+              color: C.navy, fontSize: 14, fontWeight: 700, textDecoration: 'none',
+              transition: 'all 0.2s ease',
+            }}>
+              📖 Lihat Proposal Lengkap (Canva)
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ REGISTRASI ═══ */}
       <section id="registrasi" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: C.bgLight }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
