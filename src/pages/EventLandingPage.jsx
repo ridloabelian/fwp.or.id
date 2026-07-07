@@ -673,7 +673,7 @@ export default function EventLandingPage() {
             {[
               { target: 2, suffix: '', label: 'Hari', color: '#fff', delay: 1 },
               { target: 25, suffix: '+', label: 'Narasumber', color: C.green, delay: 2 },
-              { target: 200, suffix: '+', label: 'Peserta Target', color: C.cyan, delay: 3 },
+              { target: 50, suffix: '+', label: 'Peserta Target', color: C.cyan, delay: 3 },
               { target: 50, suffix: '+', label: 'Lembaga Nazhir', color: '#fff', delay: 4 },
               { target: 30, suffix: '+', label: 'Investor & Mitra', color: C.goldLight, delay: 5 },
               { target: 10, suffix: '+', label: 'Booth Expo', color: C.green, delay: 6 },

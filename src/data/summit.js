@@ -527,12 +527,6 @@ export const sponsorshipPackages = [
 // Mini Expo participants
 export const miniExpoParticipants = [
   { name: 'Bank Syariah Indonesia', type: 'Sponsor Platinum', category: 'Perbankan Syariah' },
-  { name: 'Bank Mega Syariah', type: 'Potential Sponsor', category: 'Perbankan Syariah' },
-  { name: 'BPRS HIK Parahyangan', type: 'Potential Sponsor', category: 'Perbankan Syariah' },
-  { name: 'BPRS Hijra', type: 'Potential Sponsor', category: 'Perbankan Syariah' },
-  { name: 'Tri Megah Sekuritas', type: 'Potential Sponsor', category: 'Sekuritas' },
-  { name: 'Fundex', type: 'Potential Sponsor', category: 'Fintech' },
-  { name: 'RM. Ampera', type: 'Potential Sponsor', category: 'UMKM' },
   { name: 'Marwah Wakaf', type: 'Exhibitor', category: 'Lembaga Wakaf' },
   { name: 'Sinergi Foundation', type: 'Exhibitor', category: 'Lembaga Wakaf' },
   { name: 'Wakaf Salman', type: 'Exhibitor', category: 'Lembaga Wakaf' },
@@ -542,7 +536,7 @@ export const miniExpoParticipants = [
 export const eventStats = [
   { label: 'Hari', value: '2', suffix: '' },
   { label: 'Pembicara', value: '25+', suffix: '' },
-  { label: 'Peserta Target', value: '200', suffix: '+' },
+  { label: 'Peserta Target', value: '50', suffix: '+' },
   { label: 'Nazhir', value: '50+', suffix: '' },
   { label: 'Investor & Mitra', value: '30+', suffix: '' },
   { label: 'Booth Expo', value: '10', suffix: '+' },
