@@ -956,11 +956,11 @@ export default function EventLandingPage() {
                 background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
               }}>
                 <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Paket 3 Orang</div>
-                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle }}>Hemat 20%</div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 6.000.000</div>
+                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 7.500.000</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 7.000.000</div>
                 <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Ketua + Sekretaris + Bendahara</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['3 tiket akses penuh', 'Hotel bintang 4 (2 kamar)', 'Souvenir eksklusif 3 paket', 'Hemat Rp 1.500.000'].map(b => (
+                  {['3 tiket akses penuh', 'Hotel bintang 4 (2 kamar)', 'Souvenir eksklusif 3 paket', 'Hemat Rp 500.000'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
