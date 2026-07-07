@@ -905,9 +905,9 @@ export default function EventLandingPage() {
                 display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
                 background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Single</div>
-                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 4.000.000</div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 3.500.000</div>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Peserta Reguler</div>
+                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 3.000.000</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 2.500.000</div>
                 <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Peserta umum / non-anggota</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
                   {['Akses penuh 2 hari', 'Seminar kit & sertifikat', 'Makan siang & coffee break', 'Akses Mini Expo'].map(b => (

@@ -68,8 +68,8 @@ export const eventData = {
         id: 'public',
         name: 'Umum',
         description: 'Peserta umum non-anggota',
-        price: 'Rp 3.500.000',
-        originalPrice: 'Rp 4.000.000',
+        price: 'Rp 2.500.000',
+        originalPrice: 'Rp 3.000.000',
         benefits: [
           'Akses full 2 hari event',
           'Materi dan dokumentasi',
