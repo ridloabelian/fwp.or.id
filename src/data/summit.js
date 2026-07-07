@@ -72,6 +72,14 @@ export const summitSpeakers = {
       category: 'Hiburan',
       role: 'Moderator Gala Dinner / Waqf Leaders Night',
     },
+    {
+      id: 36,
+      name: 'Ibu Anisa Azizah',
+      title: 'Senior Lead, Investment Manager Angin Dampak Jaya',
+      status: 'confirmed',
+      category: 'Praktisi',
+      role: 'Grand Seminar: Perencanaan dan Analisa Usaha',
+    },
   ],
   pending: [
     {
@@ -408,8 +416,8 @@ export const rundownDay2 = [
   },
   {
     time: '09.30 – 10.30',
-    activity: 'Grand Seminar: Nazhir, Kompetensi dan Akuntabilitas',
-    detail: 'Ibu Nila Armelia Windasari, S.A., M.B.A, Ph.D. (SBM ITB)',
+    activity: 'Grand Seminar: Perencanaan dan Analisa Usaha',
+    detail: 'Ibu Anisa Azizah (Senior Lead, Investment Manager Angin Dampak Jaya)',
     type: 'seminar',
   },
   {
