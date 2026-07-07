@@ -49,14 +49,6 @@ export const summitSpeakers = {
       role: 'Pembahasan Unit Manajemen Investasi, Moderator Pitching',
     },
     {
-      id: 4,
-      name: 'Ibu Nila Armelia Windasari, S.A., M.B.A, Ph.D.',
-      title: 'Dosen Sekolah Bisnis dan Manajemen Institut Teknologi Bandung',
-      status: 'confirmed',
-      category: 'Akademisi',
-      role: 'Grand Seminar: Nazhir, Kompetensi dan Akuntabilitas',
-    },
-    {
       id: 5,
       name: 'Prof. Dr. Alla Asmara, S.Pt., M.Si.',
       title: 'Guru Besar Departemen Ilmu Ekonomi, Fakultas Ekonomi dan Manajemen (FEM) IPB University',
@@ -66,14 +58,30 @@ export const summitSpeakers = {
     },
     {
       id: 6,
-      name: 'Herri Setiawan, S.T., M.M., M.E',
-      title: 'Founder & CEO Wakaf Warrior',
+      name: 'Herri Setiawan S.T., M.M., M.E.',
+      title: 'Founder & Chief Executive Officer (CEO) Wakaf Warrior',
       status: 'confirmed',
       category: 'Praktisi',
       role: 'Leaders Talk 1: Masa Depan Perwakafan Indonesia',
     },
+    {
+      id: 33,
+      name: 'Meyda Sefira',
+      title: 'Professional MC & Actress',
+      status: 'confirmed',
+      category: 'Hiburan',
+      role: 'Moderator Gala Dinner / Waqf Leaders Night',
+    },
   ],
   pending: [
+    {
+      id: 4,
+      name: 'Ibu Nila Armelia Windasari, S.A., M.B.A, Ph.D.',
+      title: 'Dosen Sekolah Bisnis dan Manajemen Institut Teknologi Bandung',
+      status: 'cancelled',
+      category: 'Akademisi',
+      role: 'Grand Seminar: Nazhir, Kompetensi dan Akuntabilitas',
+    },
     {
       id: 7,
       name: 'Prof. Kamaruddin Amin',
@@ -134,8 +142,16 @@ export const summitSpeakers = {
       id: 14,
       name: 'Dr. Deni Lubis, S.Ag., M.A.',
       title: 'Dosen dan Peneliti Departemen Ilmu Ekonomi Syariah, FEM IPB University',
-      status: 'pending',
+      status: 'cancelled',
       category: 'Akademisi',
+      role: 'Moderator Leaders Talk 1',
+    },
+    {
+      id: 34,
+      name: 'Dr. Uus Rustiman, Lc., M.Hum.',
+      title: 'Dosen Universitas Padjadjaran & Dirut Lembaga Wakaf Persis',
+      status: 'confirmed',
+      category: 'Praktisi',
       role: 'Moderator Leaders Talk 1',
     },
     {
@@ -222,8 +238,16 @@ export const summitSpeakers = {
       id: 26,
       name: 'Ibu Yesi Mariska Indira',
       title: 'Head of Marketing, Rumah Wakaf Indonesia',
-      status: 'pending',
+      status: 'cancelled',
       category: 'Media',
+      role: 'Moderator Talkshow',
+    },
+    {
+      id: 35,
+      name: 'Asad Askaruddin',
+      title: 'Ketua Panitia WLS 2026',
+      status: 'confirmed',
+      category: 'FWP',
       role: 'Moderator Talkshow',
     },
     {
@@ -330,7 +354,7 @@ export const rundownDay1 = [
   {
     time: '11.15 – 12.30',
     activity: 'Leaders Talk 1: Masa Depan Perwakafan Indonesia',
-    detail: '1. Prof. Alla Asmara (Akademisi)\n2. Hidayat Nur Wahid (Pemerintah)\n3. Herri Setiawan (Praktisi)\n4. Tatang Astarudin (BWI)\nModerator: Deni Lubis',
+    detail: '1. Prof. Alla Asmara (Akademisi)\n2. Hidayat Nur Wahid (Pemerintah)\n3. Herri Setiawan (Praktisi)\n4. Tatang Astarudin (BWI)\nModerator: Dr. Uus Rustiman, Lc., M.Hum.',
     type: 'panel',
   },
   {
@@ -353,7 +377,7 @@ export const rundownDay1 = [
   {
     time: '15.00 – 16.15',
     activity: 'Talkshow: Wakaf sebagai Instrumen Penyelamat Lingkungan',
-    detail: '1. Prof. Abu Rohmat (Kemenag) atau Pak Ali (BWI)\n2. Nur Hasan Murtiaji (Republika, Mosaic) atau Farid Gaban (Ekspedisi Indonesia Baru)\n3. Dr. Daniar (Trubus Iman)\n4. Rizky Wisnoentoro (UIII)\nModerator: Yesi Mariska Indira',
+    detail: '1. Prof. Abu Rohmat (Kemenag) atau Pak Ali (BWI)\n2. Nur Hasan Murtiaji (Republika, Mosaic) atau Farid Gaban (Ekspedisi Indonesia Baru)\n3. Dr. Daniar (Trubus Iman)\n4. Rizky Wisnoentoro (UIII)\nModerator: Asad Askaruddin',
     type: 'talkshow',
   },
   {
