@@ -292,11 +292,19 @@ export const summitSpeakers = {
     },
     {
       id: 31,
-      name: 'KH. Abdullah Gymnastiar',
-      title: 'Pendiri dan Pengasuh Pondok Pesantren Daarut Tauhiid',
+      name: 'Prof. Dr. Ir. KH. Mohammad Nuh, DEA',
+      title: 'Ketua Badan Pelaksana BWI 2017-2024, Mantan Menteri Pendidikan & Kebudayaan RI',
       status: 'pending',
       category: 'Ulama',
       role: 'Closing Inspiration: Refleksi Wakaf untuk Peradaban Manusia',
+    },
+    {
+      id: 37,
+      name: 'Bunny Asfian',
+      title: 'Professional Master of Ceremonies (MC)',
+      status: 'confirmed',
+      category: 'Hiburan',
+      role: 'Master of Ceremonies WLS 2026',
     },
     {
       id: 32,
@@ -439,7 +447,7 @@ export const rundownDay2 = [
   {
     time: '13.00 – 14.00',
     activity: 'Closing Inspiration: Refleksi Wakaf untuk Peradaban Manusia',
-    detail: "1. Aa' Gym\n2. Ust. Budi Ashari",
+    detail: "1. Prof. Dr. Ir. KH. Mohammad Nuh, DEA\n2. Ust. Budi Ashari",
     type: 'closing',
   },
   {
