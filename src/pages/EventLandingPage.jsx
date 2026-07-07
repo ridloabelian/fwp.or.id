@@ -212,7 +212,7 @@ const tagMap = {
   Exhibitor: { bg: '#e0f2fe', color: '#0369a1' },
 };
 
-const WA_LINK = 'https://wa.me/6281389667055?text=' + encodeURIComponent('Halo, saya ingin mendaftar Waqf Leaders Summit 2026.');
+const WA_LINK = 'https://forms.gle/xcUrqyoQLN9TEq6E7';
 
 /* ─── Helpers ─── */
 function getInitials(name) {
@@ -910,14 +910,14 @@ export default function EventLandingPage() {
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 2.500.000</div>
                 <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Peserta umum / non-anggota</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['Akses penuh 2 hari', 'Seminar kit & sertifikat', 'Makan siang & coffee break', 'Akses Mini Expo'].map(b => (
+                  {['Akses penuh 2 hari', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (jaket, pouch, mug)', 'Coffee break, sarapan & makan siang'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
                 <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
                   display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
                   background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
-                }}>Daftar via WhatsApp</a>
+                }}>Daftar Sekarang</a>
               </div>
             </Reveal>
 
@@ -938,14 +938,14 @@ export default function EventLandingPage() {
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
                 <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Khusus lembaga anggota FWP</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
-                  {['Semua benefit Single', 'Harga khusus anggota', 'Prioritas seating', 'Networking dinner'].map(b => (
+                  {['Akses penuh 2 hari', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (jaket, pouch, mug)', 'Coffee break, sarapan & makan siang'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
                 <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
                   display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
                   background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
-                }}>Daftar via WhatsApp</a>
+                }}>Daftar Sekarang</a>
               </div>
             </Reveal>
 
@@ -960,14 +960,14 @@ export default function EventLandingPage() {
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 6.000.000</div>
                 <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Ketua + Sekretaris + Bendahara</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['3 tiket akses penuh', 'Hemat Rp 1.500.000', 'Ideal untuk satu lembaga', 'Networking dinner'].map(b => (
+                  {['3 tiket akses penuh', 'Hotel bintang 4 (2 kamar)', 'Souvenir eksklusif 3 paket', 'Hemat Rp 1.500.000'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
                 <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
                   display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
                   background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
-                }}>Daftar via WhatsApp</a>
+                }}>Daftar Sekarang</a>
               </div>
             </Reveal>
           </div>
