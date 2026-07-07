@@ -47,14 +47,6 @@ export const summitSpeakers = {
       role: 'Pembahasan Unit Manajemen Investasi, Moderator Pitching',
     },
     {
-      id: 4,
-      name: 'Ibu Nila Armelia Windasari, S.A., M.B.A, Ph.D.',
-      title: 'Dosen Sekolah Bisnis dan Manajemen Institut Teknologi Bandung',
-      status: 'confirmed',
-      category: 'Akademisi',
-      role: 'Grand Seminar: Nazhir, Kompetensi dan Akuntabilitas',
-    },
-    {
       id: 5,
       name: 'Prof. Dr. Alla Asmara, S.Pt., M.Si.',
       title: 'Guru Besar Departemen Ilmu Ekonomi, Fakultas Ekonomi dan Manajemen (FEM) IPB University',
@@ -70,8 +62,24 @@ export const summitSpeakers = {
       category: 'Praktisi',
       role: 'Leaders Talk 1: Masa Depan Perwakafan Indonesia',
     },
+    {
+      id: 33,
+      name: 'Meyda Sefira',
+      title: 'Professional MC & Actress',
+      status: 'confirmed',
+      category: 'Hiburan',
+      role: 'Moderator Gala Dinner / Waqf Leaders Night',
+    },
   ],
   pending: [
+    {
+      id: 4,
+      name: 'Ibu Nila Armelia Windasari, S.A., M.B.A, Ph.D.',
+      title: 'Dosen Sekolah Bisnis dan Manajemen Institut Teknologi Bandung',
+      status: 'cancelled',
+      category: 'Akademisi',
+      role: 'Grand Seminar: Nazhir, Kompetensi dan Akuntabilitas',
+    },
     {
       id: 7,
       name: 'Prof. Dr. Phil. H. Kamaruddin Amin',
@@ -132,8 +140,16 @@ export const summitSpeakers = {
       id: 14,
       name: 'Dr. Deni Lubis, S.Ag., M.A.',
       title: 'Dosen dan Peneliti Departemen Ilmu Ekonomi Syariah, FEM IPB University',
-      status: 'pending',
+      status: 'cancelled',
       category: 'Akademisi',
+      role: 'Moderator Leaders Talk 1',
+    },
+    {
+      id: 34,
+      name: 'Dr. Uus Rustiman, Lc., M.Hum.',
+      title: 'Dosen Universitas Padjadjaran & Dirut Lembaga Wakaf Persis',
+      status: 'confirmed',
+      category: 'Praktisi',
       role: 'Moderator Leaders Talk 1',
     },
     {
@@ -228,8 +244,16 @@ export const summitSpeakers = {
       id: 26,
       name: 'Ibu Yesi Mariska Indira',
       title: 'Head of Marketing, Rumah Wakaf Indonesia',
-      status: 'pending',
+      status: 'cancelled',
       category: 'Media',
+      role: 'Moderator Talkshow',
+    },
+    {
+      id: 35,
+      name: 'Asad Askaruddin',
+      title: 'Ketua Panitia WLS 2026',
+      status: 'confirmed',
+      category: 'FWP',
       role: 'Moderator Talkshow',
     },
     {
@@ -297,13 +321,13 @@ export const rundownDay1 = [
   { time: '09.25 - 09.35', activity: 'Sambutan Kementerian Agama RI', detail: 'Prof. Dr. K.H. Nasaruddin Umar, M.A.*', type: 'speech' },
   { time: '09.35 - 10.05', activity: 'Keynote Speech: Kontribusi Wakaf dalam Ketahanan Pangan dan Energi 2030', detail: 'Prof. Dr. Ir. Rachmat Pambudy, M.S. (Menteri BAPPENAS)*', type: 'keynote' },
   { time: '10.05 - 10.30', activity: 'Waqf Award & Photo Session', type: 'ceremony' },
-  { time: '10.30 - 12.00', activity: 'Leaders Talk 1: Masa Depan Perwakafan Indonesia', detail: '1. Prof. Dr. Alla Asmara, S.Pt., M.Si.\n2. Dr. H. Muhammad Hidayat Nur Wahid, M.A.*\n3. Herri Setiawan S.T., M.M., M.E.\n4. Dr. H. Tatang Astarudin, S.Ag., M.H., M.Si.\nModerator: Dr. Deni Lubis, S.Ag., M.A.', type: 'panel' },
+  { time: '10.30 - 12.00', activity: 'Leaders Talk 1: Masa Depan Perwakafan Indonesia', detail: '1. Prof. Dr. Alla Asmara, S.Pt., M.Si.\n2. Dr. H. Muhammad Hidayat Nur Wahid, M.A.*\n3. Herri Setiawan S.T., M.M., M.E.\n4. Dr. H. Tatang Astarudin, S.Ag., M.H., M.Si.\nModerator: Dr. Uus Rustiman, Lc., M.Hum.', type: 'panel' },
   { time: '12.00 - 13.00', activity: 'ISHOMA (Istirahat, Shalat, Makan)', type: 'break' },
   { time: '13.00 - 15.00', activity: 'Leaders Talk 2: Revisi UU Wakaf', detail: '1. Dr. H. Rahmat Hidayat, S.KH., M.Si., M.H.\n2. Prof. Dr. Nurul Huda, S.E., M.M., M.Si.\n3. Prof. Dr. Waryono Abdul Ghofur, M.Ag.\n4. H. Marwan Dasopang, M.Si.\nModerator: Prima Hadi Putra', type: 'panel' },
   { time: '15.00 - 15.30', activity: 'Coffee Break & Networking', type: 'break' },
-  { time: '15.30 - 17.00', activity: 'Talkshow: Wakaf sebagai Instrumen Penyelamat Lingkungan', detail: '1. Prof. Dr. H. Abu Rokhmad, M.Ag.\n2. Nur Hasan Murtiaji\n3. Dr. H. Daniar, M.A.\n4. Farid Gaban\nModerator: Ibu Yesi Mariska Indira', type: 'talkshow' },
+  { time: '15.30 - 17.00', activity: 'Talkshow: Wakaf sebagai Instrumen Penyelamat Lingkungan', detail: '1. Prof. Dr. H. Abu Rokhmad, M.Ag.\n2. Nur Hasan Murtiaji\n3. Dr. H. Daniar, M.A.\n4. Farid Gaban\nModerator: Asad Askaruddin', type: 'talkshow' },
   { time: '17.00 - 19.00', activity: 'Break & Persiapan Gala Dinner', type: 'break' },
-  { time: '19.00 - 21.00', activity: 'Gala Dinner & Waqf Leaders Night', detail: '1. Salman Subakat\n2. Pak Hendra (Al-Hilal)\n3. Virda Dimas Eka Putra\nModerator: Local MC Bandung', type: 'gala' },
+  { time: '19.00 - 21.00', activity: 'Gala Dinner & Waqf Leaders Night', detail: '1. Salman Subakat\n2. Pak Hendra (Al-Hilal)\n3. Virda Dimas Eka Putra\nModerator: Meyda Sefira', type: 'gala' },
 ];
 
 export const rundownDay2 = [
