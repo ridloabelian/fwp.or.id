@@ -15,6 +15,8 @@ export default function RegistrationForm({ onClose }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [redirectUrl, setRedirectUrl] = useState('');
+  const [redirectCountdown, setRedirectCountdown] = useState(2);
 
   const entryIds = {
     name: 'entry.1672496909',
@@ -78,12 +80,12 @@ export default function RegistrationForm({ onClose }) {
       // WhatsApp redirect preparation
       const waText = `Assalamualaikum wr. wb. Saya sudah melakukan pendaftaran Waqf Leaders Summit 2026.\n\n*Data Pendaftaran:*\n- Nama: ${formData.name}\n- Lembaga: ${formData.institution}\n- Jabatan: ${formData.role || '-'}\n- Domisili: ${formData.domicile}\n- No. WA: ${formData.whatsapp}\n- Ukuran Jaket: ${formData.jacketSize}\n\nMohon konfirmasi instruksi pembayaran & langkah selanjutnya. Terima kasih.`;
       const waLink = `https://wa.me/6281389667055?text=${encodeURIComponent(waText)}`;
+      setRedirectUrl(waLink);
 
-      // Redirect user after short timeout
+      // Avoid popup blockers: redirect in same tab instead of window.open after async delay.
       setTimeout(() => {
-        window.open(waLink, '_blank');
-        if (onClose) onClose();
-      }, 1500);
+        window.location.assign(waLink);
+      }, 1200);
 
     } catch (err) {
       console.error('Submit error:', err);
@@ -132,6 +134,11 @@ export default function RegistrationForm({ onClose }) {
             <p style={{ color: '#64748b', fontSize: 14, margin: 0 }}>
               Mengalihkan Anda ke WhatsApp Sekretariat...
             </p>
+            {redirectUrl ? (
+              <a href={redirectUrl} style={{ display: 'inline-block', marginTop: 16, color: '#0f766e', fontWeight: 700, fontSize: 14 }}>
+                Klik manual jika tidak otomatis terbuka
+              </a>
+            ) : null}
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
