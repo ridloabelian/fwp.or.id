@@ -976,6 +976,38 @@ export default function EventLandingPage() {
         </div>
       </section>
 
+      {/* ═══ SOUVENIR GALLERY ═══ */}
+      <section style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: C.bgLight }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 48 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Fasilitas &amp; Souvenir</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Desain Jaket Eksklusif</h2>
+            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Setiap peserta akan mendapatkan Jaket Resmi Waqf Leaders Summit 2026. Pilih ukuran Anda saat mendaftar.</p>
+          </Reveal>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, justifyContent: 'center' }}>
+            <Reveal delay={1} variant="scale">
+              <div style={{ border: `1px solid ${C.border}`, borderRadius: 20, overflow: 'hidden', background: '#fff', boxShadow: '0 8px 24px rgba(17,46,63,.03)' }}>
+                <img src="/jacket-design-1.jpg" alt="Desain Jaket WLS Tampak Depan" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} />
+                <div style={{ padding: 18, borderTop: `1px solid ${C.border}` }}>
+                  <div style={{ fontWeight: 800, color: C.navy, fontSize: 16 }}>Desain Jaket - Varian A</div>
+                  <div style={{ fontSize: 13, color: C.textSubtle, marginTop: 4 }}>Tampak Depan & Detail Kerah</div>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={2} variant="scale">
+              <div style={{ border: `1px solid ${C.border}`, borderRadius: 20, overflow: 'hidden', background: '#fff', boxShadow: '0 8px 24px rgba(17,46,63,.03)' }}>
+                <img src="/jacket-design-2.jpg" alt="Desain Jaket WLS Detail" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} />
+                <div style={{ padding: 18, borderTop: `1px solid ${C.border}` }}>
+                  <div style={{ fontWeight: 800, color: C.navy, fontSize: 16 }}>Desain Jaket - Detail / Tampak Belakang</div>
+                  <div style={{ fontSize: 13, color: C.textSubtle, marginTop: 4 }}>Mockup & Penempatan Logo Resmi</div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ FAQ ═══ */}
       <section style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: '#fff' }}>
         <div style={{ maxWidth: 820, margin: '0 auto' }}>
