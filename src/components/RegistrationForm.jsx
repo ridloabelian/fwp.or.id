@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 
+const JACKET_SIZES = [
+  { size: 'S',   chest: '96',  length: '66', shoulder: '42' },
+  { size: 'M',   chest: '100', length: '68', shoulder: '44' },
+  { size: 'L',   chest: '104', length: '70', shoulder: '46' },
+  { size: 'XL',  chest: '108', length: '72', shoulder: '48' },
+  { size: 'XXL', chest: '112', length: '74', shoulder: '50' },
+  { size: '3XL', chest: '116', length: '76', shoulder: '52' },
+];
+
 export default function RegistrationForm({ onClose }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -190,10 +199,43 @@ export default function RegistrationForm({ onClose }) {
                     fontSize: 14, background: '#fff', outline: 'none'
                   }}
                 >
-                  {['S', 'M', 'L', 'XL', 'XXL', '3XL'].map(sz => (
-                    <option key={sz} value={sz}>{sz}</option>
+                  {JACKET_SIZES.map(({ size }) => (
+                    <option key={size} value={size}>{size}</option>
                   ))}
                 </select>
+              </div>
+            </div>
+
+            <div style={{
+              border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#f8fafc'
+            }}>
+              <div style={{ padding: '10px 12px', fontSize: 12, fontWeight: 700, color: '#112e3f' }}>
+                Panduan Ukuran Jaket (cm)
+              </div>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12, color: '#475569' }}>
+                  <thead>
+                    <tr style={{ background: '#eef2f7', color: '#112e3f' }}>
+                      <th style={{ padding: 8, textAlign: 'left' }}>Size</th>
+                      <th style={{ padding: 8, textAlign: 'left' }}>Lingkar Dada</th>
+                      <th style={{ padding: 8, textAlign: 'left' }}>Panjang</th>
+                      <th style={{ padding: 8, textAlign: 'left' }}>Bahu</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {JACKET_SIZES.map(row => (
+                      <tr key={row.size} style={{ background: row.size === formData.jacketSize ? '#ecfeff' : '#fff' }}>
+                        <td style={{ padding: 8, fontWeight: 800, color: '#112e3f' }}>{row.size}</td>
+                        <td style={{ padding: 8 }}>{row.chest}</td>
+                        <td style={{ padding: 8 }}>{row.length}</td>
+                        <td style={{ padding: 8 }}>{row.shoulder}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ padding: '8px 12px', fontSize: 11, color: '#64748b' }}>
+                Catatan: ukuran estimasi standar jaket. Jika ragu, pilih 1 size lebih besar.
               </div>
             </div>
 
