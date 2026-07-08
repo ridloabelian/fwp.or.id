@@ -5,6 +5,7 @@ import {
   Phone, Mail, Globe
 } from 'lucide-react';
 import SEO from '../components/SEO';
+import RegistrationForm from '../components/RegistrationForm';
 import {
   summitSpeakers, summitCommittee, rundownDay1, rundownDay2,
   sponsorshipPackages, miniExpoParticipants
@@ -406,6 +407,7 @@ export default function EventLandingPage() {
   const [activeDay, setActiveDay] = useState(1);
   const [scrolled, setScrolled] = useState(false);
   const [showFloat, setShowFloat] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -914,10 +916,10 @@ export default function EventLandingPage() {
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
-                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                <button onClick={() => setShowForm(true)} style={{
                   display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
-                }}>Daftar Sekarang</a>
+                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
+                }}>Daftar Sekarang</button>
               </div>
             </Reveal>
 
@@ -942,10 +944,10 @@ export default function EventLandingPage() {
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
-                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                <button onClick={() => setShowForm(true)} style={{
                   display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                  background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
-                }}>Daftar Sekarang</a>
+                  background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
+                }}>Daftar Sekarang</button>
               </div>
             </Reveal>
 
@@ -964,10 +966,10 @@ export default function EventLandingPage() {
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
-                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{
+                <button onClick={() => setShowForm(true)} style={{
                   display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, textDecoration: 'none',
-                }}>Daftar Sekarang</a>
+                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
+                }}>Daftar Sekarang</button>
               </div>
             </Reveal>
           </div>
@@ -1087,16 +1089,18 @@ export default function EventLandingPage() {
       </footer>
 
       {/* ═══ FLOATING CTA ═══ */}
-      <a href="#registrasi" style={{
+      <button onClick={() => setShowForm(true)} style={{
         position: 'fixed', bottom: 24, right: 24, zIndex: 90,
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '14px 24px', borderRadius: 999, background: C.goldGrad,
-        color: '#15212b', fontSize: 14, fontWeight: 700, textDecoration: 'none',
+        color: '#15212b', fontSize: 14, fontWeight: 700, border: 'none', cursor: 'pointer',
         boxShadow: '0 12px 30px rgba(201,162,39,.4)',
         opacity: showFloat ? 1 : 0, transform: showFloat ? 'translateY(0)' : 'translateY(20px)',
         pointerEvents: showFloat ? 'auto' : 'none',
         transition: 'opacity .4s ease, transform .4s ease',
-      }}>Daftar <ArrowRight size={14} /></a>
+      }}>Daftar <ArrowRight size={14} /></button>
+
+      {showForm && <RegistrationForm onClose={() => setShowForm(false)} />}
     </div>
   );
 }
