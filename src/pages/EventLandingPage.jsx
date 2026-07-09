@@ -899,32 +899,10 @@ export default function EventLandingPage() {
             <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Kuota terbatas. Daftar sekarang untuk pengalaman dua hari penuh wawasan.</p>
           </Reveal>
 
-          <div className="wls-reg-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
+          <div className="wls-reg-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
 
-            {/* Single */}
+            {/* Tiket Personal / Early Bird */}
             <Reveal delay={1} variant="scale">
-              <div style={{
-                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
-                background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
-              }}>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Peserta Reguler</div>
-                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 3.000.000</div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 2.500.000</div>
-                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Peserta umum / non-anggota</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['Akses penuh 2 hari', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (jaket, pouch, mug)', 'Coffee break, sarapan & makan siang'].map(b => (
-                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
-                  ))}
-                </div>
-                <button onClick={() => setShowForm(true)} style={{
-                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
-                }}>Daftar Sekarang</button>
-              </div>
-            </Reveal>
-
-            {/* Anggota FWP - Featured */}
-            <Reveal delay={2} variant="scale">
               <div className="wls-reg-featured" style={{
                 display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
                 background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`, color: '#fff',
@@ -934,13 +912,13 @@ export default function EventLandingPage() {
                   position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)',
                   padding: '6px 16px', borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: '.05em',
                   background: C.goldGrad, color: '#15212b', whiteSpace: 'nowrap',
-                }}>PALING POPULER</span>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Anggota FWP</div>
+                }}>EARLY BIRD (s.d 15 Juli)</span>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Tiket Personal</div>
                 <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div>
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
-                <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Khusus lembaga anggota FWP</div>
+                <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Akses penuh untuk 1 orang peserta</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
-                  {['Akses penuh 2 hari', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (jaket, pouch, mug)', 'Coffee break, sarapan & makan siang'].map(b => (
+                  {['Akses penuh 2 hari kegiatan', 'Penginapan hotel bintang 4 (1 kamar 2 orang)', 'Souvenir eksklusif (Jaket WLS, Pouch, Mug)', 'Coffee break, sarapan & makan siang'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
@@ -951,18 +929,18 @@ export default function EventLandingPage() {
               </div>
             </Reveal>
 
-            {/* Paket 3 Orang */}
-            <Reveal delay={3} variant="scale">
+            {/* Bundling 3 Orang */}
+            <Reveal delay={2} variant="scale">
               <div style={{
                 display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
                 background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Paket 3 Orang</div>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Bundling Lembaga</div>
                 <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 7.500.000</div>
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 7.000.000</div>
-                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Ketua + Sekretaris + Bendahara</div>
+                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Tiket rombongan (3 Orang)</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['3 tiket akses penuh', 'Hotel bintang 4 (2 kamar)', 'Souvenir eksklusif 3 paket', 'Hemat Rp 500.000'].map(b => (
+                  {['3 tiket akses penuh WLS 2026', 'Penginapan hotel bintang 4 (2 kamar)', '3 paket souvenir eksklusif', 'Hemat lebih banyak'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
