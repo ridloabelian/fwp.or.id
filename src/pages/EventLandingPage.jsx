@@ -751,7 +751,7 @@ export default function EventLandingPage() {
                           flex: 'none', width: 72, height: 72, borderRadius: 16, overflow: 'hidden',
                           border: `2px solid ${cat.bg}`, background: '#f8fafc',
                         }}>
-                          <img src={sp.photo} alt={sp.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                          <img src={sp.photo} alt={sp.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
                         </div>
                       ) : (
                         <div style={{
@@ -793,7 +793,7 @@ export default function EventLandingPage() {
                           flex: 'none', width: 48, height: 48, borderRadius: 12, overflow: 'hidden',
                           background: '#f8fafc', border: `1px solid ${cat.bg}`,
                         }}>
-                          <img src={sp.photo} alt={sp.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                          <img src={sp.photo} alt={sp.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
                         </div>
                       ) : (
                         <div style={{
