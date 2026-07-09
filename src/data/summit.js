@@ -2,13 +2,13 @@ export const summitCommittee = [
   { position: 'Ketua', name: 'Asad Askaruddin', organization: 'RWI' },
   { position: 'Sekretaris', name: 'Ridlo Abelian', organization: 'Amal Produktif' },
   { position: 'Bendahara', name: 'Iwan Setiawan', organization: 'LAZISWAF Al-Hilal' },
-  { position: 'Divisi Acara', name: 'Nurodin', organization: 'Sinergi Foundation, Itqan' },
+  { position: 'Divisi Acara', name: 'Nurodin', organization: 'Sinergi Foundation' },
   { position: 'Divisi Sponsorship', name: 'Ryan Faisal', organization: 'Wakaf Salman' },
   { position: 'Divisi Perlengkapan', name: 'Doddy Topan', organization: 'Daarut Tauhid' },
   { position: 'Divisi Perlengkapan', name: 'Agis Muhsin', organization: 'Amal Mulia' },
   { position: 'PIC Mini Expo', name: 'Tri Eka Shofyandi', organization: 'Marwah Wakaf' },
   { position: 'Divisi Dokumentasi', name: 'Fajar', organization: 'LAZISWAF Al-Hilal' },
-  { position: 'Divisi Media dan Publikasi', name: 'Uus', organization: 'Wakaf PERSIS, Itqan' },
+  { position: 'Divisi Media dan Publikasi', name: 'Uus', organization: 'Wakaf PERSIS' },
 ];
 
 export const summitDetails = {
