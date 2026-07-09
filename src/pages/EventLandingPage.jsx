@@ -1013,8 +1013,8 @@ export default function EventLandingPage() {
               <div style={{ border: `1px solid ${C.border}`, borderRadius: 20, overflow: 'hidden', background: '#fff', boxShadow: '0 8px 24px rgba(17,46,63,.03)' }}>
                 <img src="/jacket-design-1.jpg" alt="Desain Jaket WLS Tampak Depan" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} />
                 <div style={{ padding: 18, borderTop: `1px solid ${C.border}` }}>
-                  <div style={{ fontWeight: 800, color: C.navy, fontSize: 16 }}>Desain Jaket - Varian A</div>
-                  <div style={{ fontSize: 13, color: C.textSubtle, marginTop: 4 }}>Tampak Depan & Detail Kerah</div>
+                  <div style={{ fontWeight: 800, color: C.navy, fontSize: 16 }}>Desain Chart Jaket Pria</div>
+                  <div style={{ fontSize: 13, color: C.textSubtle, marginTop: 4 }}>Panduan ukuran dan potongan khusus pria</div>
                 </div>
               </div>
             </Reveal>
@@ -1022,8 +1022,8 @@ export default function EventLandingPage() {
               <div style={{ border: `1px solid ${C.border}`, borderRadius: 20, overflow: 'hidden', background: '#fff', boxShadow: '0 8px 24px rgba(17,46,63,.03)' }}>
                 <img src="/jacket-design-2.jpg" alt="Desain Jaket WLS Detail" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} />
                 <div style={{ padding: 18, borderTop: `1px solid ${C.border}` }}>
-                  <div style={{ fontWeight: 800, color: C.navy, fontSize: 16 }}>Desain Jaket - Detail / Tampak Belakang</div>
-                  <div style={{ fontSize: 13, color: C.textSubtle, marginTop: 4 }}>Mockup & Penempatan Logo Resmi</div>
+                  <div style={{ fontWeight: 800, color: C.navy, fontSize: 16 }}>Desain Chart Jaket Wanita</div>
+                  <div style={{ fontSize: 13, color: C.textSubtle, marginTop: 4 }}>Panduan ukuran dan potongan khusus wanita</div>
                 </div>
               </div>
             </Reveal>
