@@ -3,7 +3,7 @@ export const summitCommittee = [
   { position: 'Sekretaris', name: 'Ridlo Abelian', organization: 'Amal Produktif' },
   { position: 'Bendahara', name: 'Iwan Setiawan', organization: 'LAZIS Al-Hilal' },
   { position: 'Divisi Acara', name: 'Nurodin', organization: 'Sinergi Foundation, Itqan' },
-  { position: 'Divisi Sponsorship', name: 'Rayan Faisal', organization: 'Wakaf Salman' },
+  { position: 'Divisi Sponsorship', name: 'Ryan Faisal', organization: 'Wakaf Salman' },
   { position: 'Divisi Perlengkapan', name: 'Doddy Topan', organization: 'Daarut Tauhid' },
   { position: 'Divisi Perlengkapan', name: 'Agis Muhsin', organization: 'Amal Mulia' },
   { position: 'PIC Mini Expo', name: 'Tri Eka Shofyandi', organization: 'Marwah Wakaf' },
