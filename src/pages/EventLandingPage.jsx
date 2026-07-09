@@ -746,11 +746,20 @@ export default function EventLandingPage() {
                     boxShadow: '0 8px 30px rgba(17,46,63,.05)',
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
-                      <div style={{
-                        flex: 'none', width: 60, height: 60, borderRadius: 16, background: cat.grad,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '.02em',
-                      }}>{getInitials(sp.name)}</div>
+                      {sp.photo ? (
+                        <div style={{
+                          flex: 'none', width: 72, height: 72, borderRadius: 16, overflow: 'hidden',
+                          border: `2px solid ${cat.bg}`, background: '#f8fafc',
+                        }}>
+                          <img src={sp.photo} alt={sp.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
+                      ) : (
+                        <div style={{
+                          flex: 'none', width: 60, height: 60, borderRadius: 16, background: cat.grad,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '.02em',
+                        }}>{getInitials(sp.name)}</div>
+                      )}
                       <span style={{
                         padding: '5px 12px', borderRadius: 999, fontSize: 11, fontWeight: 700, letterSpacing: '.04em',
                         background: cat.bg, color: cat.color,
@@ -779,11 +788,20 @@ export default function EventLandingPage() {
                       display: 'flex', gap: 14, alignItems: 'center', padding: '12px 0',
                       borderBottom: '1px solid #e8edf1',
                     }}>
-                      <div style={{
-                        flex: 'none', width: 42, height: 42, borderRadius: 11, background: cat.grad,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#fff', fontSize: 14, fontWeight: 700,
-                      }}>{getInitials(sp.name)}</div>
+                      {sp.photo ? (
+                        <div style={{
+                          flex: 'none', width: 48, height: 48, borderRadius: 12, overflow: 'hidden',
+                          background: '#f8fafc', border: `1px solid ${cat.bg}`,
+                        }}>
+                          <img src={sp.photo} alt={sp.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
+                      ) : (
+                        <div style={{
+                          flex: 'none', width: 42, height: 42, borderRadius: 11, background: cat.grad,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          color: '#fff', fontSize: 14, fontWeight: 700,
+                        }}>{getInitials(sp.name)}</div>
+                      )}
                       <div style={{ minWidth: 0 }}>
                         <div style={{ fontSize: 14.5, fontWeight: 700, color: C.textDark, lineHeight: 1.3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.name}</div>
                         <div style={{ fontSize: 12.5, color: C.textSubtle, lineHeight: 1.4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.title}</div>
