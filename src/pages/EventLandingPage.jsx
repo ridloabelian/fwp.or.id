@@ -899,10 +899,32 @@ export default function EventLandingPage() {
             <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Kuota terbatas. Daftar sekarang untuk pengalaman dua hari penuh wawasan.</p>
           </Reveal>
 
-          <div className="wls-reg-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
+          <div className="wls-reg-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
 
-            {/* Tiket Personal / Early Bird */}
+            {/* Harga Normal */}
             <Reveal delay={1} variant="scale">
+              <div style={{
+                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
+                background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
+              }}>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Harga Normal</div>
+                <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'transparent' }}>-</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 800, color: C.navy }}>Rp 3.000.000</div>
+                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Per orang (Harga Berlaku Umum)</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
+                  {['Akses penuh 2 hari kegiatan', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (Jaket WLS, dll)', 'Coffee break, sarapan & makan siang'].map(b => (
+                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
+                  ))}
+                </div>
+                <button onClick={() => setShowForm(true)} style={{
+                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
+                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
+                }}>Daftar Sekarang</button>
+              </div>
+            </Reveal>
+
+            {/* Harga Spesial Early Bird */}
+            <Reveal delay={2} variant="scale">
               <div className="wls-reg-featured" style={{
                 display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
                 background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`, color: '#fff',
@@ -913,12 +935,12 @@ export default function EventLandingPage() {
                   padding: '6px 16px', borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: '.05em',
                   background: C.goldGrad, color: '#15212b', whiteSpace: 'nowrap',
                 }}>EARLY BIRD (s.d 15 Juli)</span>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Tiket Personal</div>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Harga Spesial</div>
                 <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
-                <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Akses penuh untuk 1 orang peserta</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
+                <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Per orang</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
-                  {['Akses penuh 2 hari kegiatan', 'Penginapan hotel bintang 4 (1 kamar 2 orang)', 'Souvenir eksklusif (Jaket WLS, Pouch, Mug)', 'Coffee break, sarapan & makan siang'].map(b => (
+                  {['Akses penuh 2 hari kegiatan', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (Jaket WLS, dll)', 'Coffee break, sarapan & makan siang'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
@@ -929,18 +951,23 @@ export default function EventLandingPage() {
               </div>
             </Reveal>
 
-            {/* Bundling 3 Orang */}
-            <Reveal delay={2} variant="scale">
+            {/* Paket Lembaga */}
+            <Reveal delay={3} variant="scale">
               <div style={{
                 display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
                 background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Bundling Lembaga</div>
-                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 7.500.000</div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, fontWeight: 800, color: C.navy }}>Rp 7.000.000</div>
-                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Tiket rombongan (3 Orang)</div>
+                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Paket Lembaga (s.d 15 Juli)</div>
+                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 3.000.000/orang</div>
+                
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 800, color: C.navy, lineHeight: 1.1 }}>Rp 2.400.000</div>
+                <div style={{ fontSize: 12, color: C.textLight, marginBottom: 12 }}>per orang (Untuk 2 Orang)</div>
+                
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 800, color: C.navy, lineHeight: 1.1 }}>Rp 2.350.000</div>
+                <div style={{ fontSize: 12, color: C.textLight, marginBottom: 22 }}>per orang (Untuk &gt;2 Orang)</div>
+                
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['3 tiket akses penuh WLS 2026', 'Penginapan hotel bintang 4 (2 kamar)', '3 paket souvenir eksklusif', 'Hemat lebih banyak'].map(b => (
+                  {['Fasilitas penuh (sama dengan paket personal)', 'Cocok untuk delegasi pengurus lembaga', 'Kamar hotel disesuaikan', 'Hemat kolektif'].map(b => (
                     <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
                   ))}
                 </div>
