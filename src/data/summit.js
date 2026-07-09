@@ -27,6 +27,7 @@ export const summitSpeakers = {
     {
       id: 1,
       name: 'Rayan Asa Luminaries, S.E., M.A.',
+      photo: '/speakers/rayan.png',
       title: 'Ketua Umum Forum Wakaf Produktif',
       status: 'confirmed',
       category: 'FWP',
@@ -35,6 +36,7 @@ export const summitSpeakers = {
     {
       id: 2,
       name: 'Rizky Wisnoentoro, Ph.D.',
+      photo: '/speakers/rizky-wisnoentoro.png',
       title: 'Dosen Magister Keuangan Berkelanjutan FEB UIII',
       status: 'confirmed',
       category: 'Akademisi',
@@ -43,6 +45,7 @@ export const summitSpeakers = {
     {
       id: 3,
       name: 'Ali Bastoni',
+      photo: '/speakers/ali-bastoni.png',
       title: 'Kepala Unit Manajemen Investasi Forum Wakaf Produktif (FWP)',
       status: 'confirmed',
       category: 'FWP',
@@ -51,6 +54,7 @@ export const summitSpeakers = {
     {
       id: 5,
       name: 'Prof. Dr. Alla Asmara, S.Pt., M.Si.',
+      photo: '/speakers/alla.png',
       title: 'Guru Besar Departemen Ilmu Ekonomi, Fakultas Ekonomi dan Manajemen (FEM) IPB University',
       status: 'confirmed',
       category: 'Akademisi',
@@ -59,6 +63,7 @@ export const summitSpeakers = {
     {
       id: 6,
       name: 'Herri Setiawan S.T., M.H., M.E.',
+      photo: '/speakers/herri.png',
       title: 'Founder & Chief Executive Officer (CEO) Wakaf Warrior',
       status: 'confirmed',
       category: 'Praktisi',
@@ -67,6 +72,7 @@ export const summitSpeakers = {
     {
       id: 33,
       name: 'Meyda Sefira',
+      photo: '/speakers/meyda-sefira.png',
       title: 'Publik Figur',
       status: 'confirmed',
       category: 'Hiburan',
@@ -101,6 +107,7 @@ export const summitSpeakers = {
     {
       id: 9,
       name: 'Prof. Dr. K.H. Nasaruddin Umar, M.A.',
+      photo: '/speakers/nasarudin-umar.png',
       title: 'Menteri Agama Republik Indonesia',
       status: 'pending',
       category: 'Pemerintah',
@@ -109,6 +116,7 @@ export const summitSpeakers = {
     {
       id: 11,
       name: 'Prof. Dr. Ir. Rachmat Pambudy, M.S.',
+      photo: '/speakers/rachmat-pambudy.png',
       title: 'Menteri BAPPENAS Republik Indonesia',
       status: 'pending',
       category: 'Pemerintah',
@@ -125,6 +133,7 @@ export const summitSpeakers = {
     {
       id: 40,
       name: 'Muhammad Farhan, S.E.',
+      photo: '/speakers/m-farhan.png',
       title: 'Wali Kota Bandung',
       status: 'pending',
       category: 'Pemerintah',
@@ -133,6 +142,7 @@ export const summitSpeakers = {
     {
       id: 7,
       name: 'Prof. Dr. Phil. H. Kamaruddin Amin, M.A.',
+      photo: '/speakers/kamarudin.png',
       title: 'Ketua Badan Pelaksana Badan Wakaf Indonesia (BWI)',
       status: 'pending',
       category: 'Pemerintah',
@@ -141,6 +151,7 @@ export const summitSpeakers = {
     {
       id: 12,
       name: 'Dr. H. Muhammad Hidayat Nur Wahid, M.A.',
+      photo: '/speakers/hidayat-nur-wahid.png',
       title: 'Wakil Ketua Majelis Permusyawaratan Rakyat Republik Indonesia',
       status: 'pending',
       category: 'Pemerintah',
@@ -149,6 +160,7 @@ export const summitSpeakers = {
     {
       id: 13,
       name: 'Dr. H. Tatang Astarudin, S.Ag., M.H., M.Si.',
+      photo: '/speakers/tatang-astarudin.png',
       title: 'Anggota Badan Pelaksana Badan Wakaf Indonesia (BWI)',
       status: 'pending',
       category: 'Pemerintah',
@@ -157,6 +169,7 @@ export const summitSpeakers = {
     {
       id: 16,
       name: 'Prof. Dr. Nurul Huda, S.E., M.M., M.Si.',
+      photo: '/speakers/nurul-huda.png',
       title: 'Guru Besar Fakultas Ekonomi dan Bisnis Universitas Yarsi',
       status: 'pending',
       category: 'Akademisi',
@@ -173,6 +186,7 @@ export const summitSpeakers = {
     {
       id: 18,
       name: 'H. Marwan Dasopang, M.Si.',
+      photo: '/speakers/marwan-dasopang.png',
       title: 'Ketua Komisi VIII Dewan Perwakilan Rakyat Republik Indonesia',
       status: 'pending',
       category: 'Pemerintah',
@@ -181,6 +195,7 @@ export const summitSpeakers = {
     {
       id: 21,
       name: 'Prof. Dr. H. Abu Rokhmad, M.Ag.',
+      photo: '/speakers/abu-rochmad.png',
       title: 'Direktur Jenderal Bimbingan Masyarakat Islam Kementerian Agama RI',
       status: 'pending',
       category: 'Pemerintah',
@@ -205,6 +220,7 @@ export const summitSpeakers = {
     {
       id: 27,
       name: 'Salman Subakat',
+      photo: '/speakers/salman-subakat.png',
       title: 'Co-Founder Paragon Technology and Innovation (Paragon Corp)',
       status: 'pending',
       category: 'Hiburan',
@@ -221,6 +237,7 @@ export const summitSpeakers = {
     {
       id: 15,
       name: 'Dr. drh. H. Rahmat Hidayat, S.KH., M.Si., M.H.',
+      photo: '/speakers/rahmat.png',
       title: 'Anggota Bidang Advokasi Forum Wakaf Produktif',
       status: 'pending',
       category: 'FWP',
@@ -229,6 +246,7 @@ export const summitSpeakers = {
     {
       id: 19,
       name: 'Prima Hadi Putra',
+      photo: '/speakers/prima-hadi-putra.png',
       title: 'Kepala Lembaga Pengembangan Investasi Wakaf (LPIW) Dompet Dhuafa',
       status: 'pending',
       category: 'Praktisi',
