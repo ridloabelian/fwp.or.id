@@ -6,102 +6,107 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.0-F107A3?style=for-the-badge&logo=framer&logoColor=white)](https://framer.com/motion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-The official Multi-Page Application (MPA) portal for the **Forum Wakaf Produktif (FWP)**. Professionally designed, highly performant, and fully responsive to lead the national transformation of cash waqf (endowment) and productive assets development towards the **Golden Indonesia 2045** vision.
+Portal Multi-Page Application (MPA) resmi dari **Forum Wakaf Produktif (FWP)**. Dirancang dengan desain modern, performa tinggi, dan *fully responsive* untuk memimpin transformasi nasional wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
 
-🔗 **Live Website:** [https://fwp.or.id](https://fwp.or.id) (or backup: [fwp-or-id.pages.dev](https://fwp-or-id.pages.dev))
-
----
-
-## ✨ Key Features
-
-*   **⚡ Modern Multi-Page Architecture:** Instant page transitions with zero layout shifts, powered by `react-router-dom` v7.
-*   **📊 Live Data Dashboard:** Interactive data visualizations of national cash waqf accumulation trends, nationwide waqf land coverage, and certified Nazhir statistics using `recharts`.
-*   **📱 Ultra-Responsive Design:** Fully optimized for mobile viewports with a dynamic grid-collapsing system, smooth *hamburger menu* navigation, and adaptive typography.
-*   **🎨 Premium Aesthetics & Glassmorphism:** Features clean CSS styling, interactive floating HTML5 canvas shapes, and premium micro-interactions utilizing `framer-motion`.
-*   **📂 Dedicated Hubs & Transparency:** Dedicated modules for the Nazhir Center, Strategic Partnerships (Business Matching), Waqf Project Prospectus, and financial Transparency Reports.
+🔗 **Live Website:** [https://fwp.or.id](https://fwp.or.id) (atau backup: [fwp-or-id.pages.dev](https://fwp-or-id.pages.dev))
 
 ---
 
-## 🛠️ Technology Stack
+## ✨ Fitur Utama
 
-*   **Core:** [React 19](https://react.dev) & [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+*   **⚡ Arsitektur Multi-Page Modern:** Transisi halaman instan tanpa *layout shifts*, didukung oleh `react-router-dom` v7.
+*   **📊 Live Data Dashboard:** Visualisasi data interaktif tren akumulasi wakaf tunai nasional, cakupan lahan wakaf, dan statistik Nazhir tersertifikasi menggunakan `recharts`.
+*   **🤝 Waqf Leaders Summit 2026 (WLS):** Halaman khusus pendaftaran dan informasi WLS 2026 lengkap dengan *custom booking form*, WA auto-redirect, serta OpenGraph SEO generation statis.
+*   **📱 Ultra-Responsive Design:** Optimasi penuh untuk layar mobile dengan sistem *grid-collapsing* dinamis, navigasi *hamburger menu*, dan tipografi adaptif.
+*   **🎨 Premium Aesthetics & Glassmorphism:** *Styling* CSS bersih, *shape canvas* HTML5 mengambang interaktif, dan animasi mikro menggunakan `framer-motion`.
+*   **📂 Dedicated Hubs:** Modul khusus untuk Nazhir Center, Strategic Partnerships (Business Matching), Waqf Project Prospectus, dan Transparency Reports.
+
+---
+
+## 🛠️ Stack Teknologi
+
+*   **Core:** [React 19](https://react.dev) & JavaScript (ES6+)
 *   **Build Tool:** [Vite 8](https://vite.dev) (blazing fast development & production bundling)
-*   **Styling:** Vanilla CSS3 leveraging design system tokens and a mobile-first approach.
-*   **Animation:** [Framer Motion](https://framer.com/motion) for smooth page transitions and scroll-reveal effects.
-*   **Charts:** [Recharts](https://recharts.org) for responsive data visualization.
+*   **Styling:** Vanilla CSS3 (Custom Design System Tokens) tanpa framework tailwind, pendekatan mobile-first.
+*   **Animation:** [Framer Motion](https://framer.com/motion)
+*   **Charts:** [Recharts](https://recharts.org)
 *   **Icons:** [Lucide React](https://lucide.dev)
-*   **Hosting CDN:** [Cloudflare Pages](https://pages.cloudflare.com) featuring robust edge caching and strict security headers.
+*   **Backend/Deployment:** [Cloudflare Pages](https://pages.cloudflare.com) dengan Skrip Pre-render SEO Node.js.
 
 ---
 
-## 📂 Directory Structure
+## 📂 Struktur Direktori
 
 ```bash
 fwp.or.id/
-├── public/                # Static public assets
-│   ├── _redirects         # Cloudflare Pages SPA fallback routing rules
-│   └── _headers           # Cloudflare Pages security & asset caching headers
+├── public/                # Aset statis publik (Gambar, Logo, Dokumen)
+│   ├── _redirects         # Cloudflare routing rules (SPA fallback)
+│   └── _headers           # Security & asset caching headers
+├── scripts/
+│   └── post-build-seo.js  # Generator index.html statis untuk metadata SEO halaman (/wls2026, dll)
 ├── src/
-│   ├── components/        # Shared global UI components (Navbar, Footer, etc.)
-│   ├── pages/             # Main portal pages
-│   │   ├── HomePage.jsx             # Home / Landing Page
-│   │   ├── AboutPage.jsx            # About Us
-│   │   ├── ProgramsPage.jsx         # Programs & Focus Areas
-│   │   ├── NazhirCenterPage.jsx     # Nazhir Information Center
-│   │   ├── SuccessStoriesPage.jsx   # Inspirations & Case Studies
-│   │   ├── BusinessMatchingPage.jsx # Strategic Partnerships
-│   │   └── TransparencyPage.jsx     # Financial & Data Transparency
-│   ├── index.css          # Global design system tokens and styling
-│   ├── main.jsx           # React application entrypoint
-│   └── routes.jsx         # Multi-page routing configuration
-├── wrangler.toml          # Cloudflare Pages build and environment config
-├── package.json           # Dependencies and npm scripts
-└── vite.config.js         # Vite compilation configuration
+│   ├── components/        # Komponen UI global (Navbar, Footer, Form WLS, dll)
+│   ├── data/              # Sumber data konten statis (Narasumber WLS, statistik)
+│   ├── pages/             # Halaman portal utama
+│   │   ├── HomePage.jsx             # Beranda
+│   │   ├── AboutPage.jsx            # Tentang FWP
+│   │   ├── ProgramsPage.jsx         # Program & Fokus Area
+│   │   ├── EventLandingPage.jsx     # Landing Page WLS 2026 (/wls2026)
+│   │   ├── NazhirCenterPage.jsx     # Pusat Informasi Nazhir
+│   │   ├── SuccessStoriesPage.jsx   # Inspirasi & Studi Kasus
+│   │   ├── BusinessMatchingPage.jsx # Kemitraan Strategis
+│   │   └── TransparencyPage.jsx     # Transparansi Keuangan
+│   ├── index.css          # Token sistem desain global
+│   ├── main.jsx           # Entrypoint aplikasi React
+│   └── routes.jsx         # Konfigurasi routing multi-halaman
+├── package.json           # Dependensi & script build (custom vite + SEO script)
+└── vite.config.js         # Konfigurasi kompilasi Vite
 ```
 
 ---
 
-## 💻 Local Development
+## 💻 Panduan Development
 
-Follow these steps to run the project locally on your machine:
+Langkah-langkah menjalankan proyek secara lokal:
 
-1. **Clone this repository:**
+1. **Clone repository ini:**
    ```bash
    git clone https://github.com/ridloabelian/fwp.or.id.git
    cd fwp.or.id
    ```
 
-2. **Install all dependencies:**
+2. **Install dependensi:**
    ```bash
    npm install
    ```
 
-3. **Start the local development server:**
+3. **Jalankan server lokal:**
    ```bash
    npm run dev
    ```
-   The application will be running at `http://localhost:5173`.
+   Aplikasi akan berjalan di `http://localhost:5173`.
 
-4. **Compile the production build:**
+4. **Kompilasi produksi (Build):**
    ```bash
    npm run build
    ```
-   Static compiled files will be generated under `/dist` and are ready for deployment.
+   *Perintah ini akan menjalankan Vite build, dilanjutkan dengan skrip Node.js (`scripts/post-build-seo.js`) untuk menghasilkan file statis OpenGraph (SEO) spesifik per path (seperti `/wls2026/index.html`). Hasilnya ada di folder `/dist`.*
 
 ---
 
-## ☁️ Cloudflare Pages Integration
+## ☁️ Integrasi Cloudflare Pages
 
-This project is natively configured to deploy directly to **Cloudflare Pages**, featuring:
+Proyek ini telah dikonfigurasi secara native untuk rilis otomatis ke **Cloudflare Pages**, memanfaatkan:
 
-*   **SPA Redirects:** The `public/_redirects` file ensures that direct navigation to subpages (e.g. `/program`) doesn't trigger a `404 Not Found` error on static CDN edges.
-*   **Security & Cache Control:** The `public/_headers` configuration instructs the browser to cache compiled assets inside `/assets` for 1 full year, and embeds robust security headers (`X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`).
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**. Feel free to leverage this source code to advance the productive waqf ecosystem.
+*   **Pre-rendered SEO (OG Tags):** Mengingat CF Pages tidak mendukung SSR/Next.js secara native, proyek ini mengakali crawling bot sosial media (Telegram/WA) dengan skrip pre-render saat fase *post-build* untuk membuat direktori statis.
+*   **SPA Redirects:** File `public/_redirects` memastikan navigasi langsung (misal memuat ulang `/program`) dialihkan ke `index.html` dan tidak menghasilkan `404 Not Found`.
+*   **Cache & Security:** File `public/_headers` memuat konfigurasi umur *cache* aset (`/assets`) selama 1 tahun, serta mengaktifkan header sekuriti mutakhir (`X-Frame-Options`, `X-Content-Type-Options`).
 
 ---
-*Crafted with dedication by [Ridlo Abelian](https://github.com/ridloabelian).*
+
+## 📄 Lisensi
+
+Proyek ini berlisensi **MIT License**. Kami mendorong inisiatif *open-source* dalam pengembangan ekosistem dan tata kelola instrumen perwakafan.
+
+---
+*Dibangun dengan dedikasi untuk kesejahteraan umat. © 2026 Forum Wakaf Produktif.*
