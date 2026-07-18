@@ -243,7 +243,7 @@ const faqData = [
   { q: 'Kapan dan di mana acara berlangsung?', a: 'Rabu–Kamis, 22–23 Juli 2026 di Hotel Holiday Inn, Jl. Dr. Djunjunan No.96, Pasteur, Sukajadi, Kota Bandung, Jawa Barat.' },
   { q: 'Siapa saja yang dapat menghadiri?', a: 'Nazhir, pengelola lembaga wakaf, akademisi, regulator, investor, mitra strategis, serta masyarakat umum yang tertarik pada pengembangan wakaf produktif.' },
   { q: 'Bagaimana cara mendaftar?', a: 'Pilih paket registrasi yang sesuai pada bagian Registrasi, lalu klik "Daftar via WhatsApp" untuk diarahkan ke tim sekretariat kami.' },
-  { q: 'Apakah tersedia harga khusus anggota FWP?', a: 'Ya. Lembaga anggota FWP memperoleh harga khusus Rp 2.500.000 (dari Rp 3.000.000), serta tersedia paket 3 orang yang lebih hemat.' },
+  { q: 'Apakah tersedia harga khusus anggota FWP?', a: 'Ya. Lembaga anggota FWP memperoleh harga khusus Rp 2.500.000, serta tersedia paket 3 orang yang lebih hemat.' },
   { q: 'Apa saja yang termasuk dalam tiket?', a: 'Akses penuh dua hari acara, seminar kit, sertifikat, makan siang & coffee break, serta akses ke Mini Expo dan sesi networking.' },
 ];
 
@@ -954,7 +954,7 @@ export default function EventLandingPage() {
                   background: C.goldGrad, color: '#15212b', whiteSpace: 'nowrap',
                 }}>EARLY BIRD (s.d 15 Juli)</span>
                 <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Harga Spesial</div>
-                <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div>
+                {/* <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div> */}
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
                 <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Per orang</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
