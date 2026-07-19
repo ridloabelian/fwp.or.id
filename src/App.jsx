@@ -12,6 +12,7 @@ import NazhirCenterPage from './pages/NazhirCenterPage';
 import SuccessStoriesPage from './pages/SuccessStoriesPage';
 import BusinessMatchingPage from './pages/BusinessMatchingPage';
 import TransparencyPage from './pages/TransparencyPage';
+import PublicationsPage from './pages/PublicationsPage';
 import EventLandingPage from './pages/EventLandingPage';
 import SummitPage from './pages/SummitPage';
 import ProposalPage from './pages/ProposalPage';
@@ -42,6 +43,7 @@ function App() {
           <Route path="/inspirasi-studi-kasus" element={<SuccessStoriesPage />} />
           <Route path="/layanan-bisnis" element={<BusinessMatchingPage />} />
           <Route path="/transparansi" element={<TransparencyPage />} />
+          <Route path="/publikasi" element={<PublicationsPage />} />
           <Route path="/waqf-leaders-summit" element={<SummitPage />} />
           <Route path="/wls2026" element={<EventLandingPage />} />
           <Route path="/proposal-wls2026" element={<ProposalPage />} />
