@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Download, TrendingUp, Map, Scale } from 'lucide-react';
+import { FileText, Download, TrendingUp, Map, Scale, Newspaper, ExternalLink } from 'lucide-react';
 import SEO from '../components/SEO';
-import { financialPublications } from '../data/publications';
+import { financialPublications, mediaPublications } from '../data/publications';
 import { regulationsList } from '../data/regulations';
 
 const fadeInUp = {
@@ -23,7 +23,7 @@ const TransparencyPage = () => {
     <>
       <SEO 
         title="Transparansi" 
-        description="Laporan keuangan tahunan, regulasi fatwa MUI, dan sistem informasi peta geospasial sebaran wakaf nasional." 
+        description="Laporan keuangan tahunan, kliping berita media massa, regulasi fatwa MUI, dan sistem informasi peta geospasial sebaran wakaf nasional." 
       />
       <section className="section section-bg" style={{ paddingTop: '120px' }}>
         <div className="container text-center">
@@ -31,25 +31,39 @@ const TransparencyPage = () => {
             Transparansi & Publikasi
           </motion.h1>
           <motion.p initial="hidden" animate="visible" variants={fadeInUp} style={{ margin: '20px auto', maxWidth: '700px', fontSize: '1.2rem' }}>
-            Kami menjunjung tinggi akuntabilitas. Akses Laporan Keuangan Tahunan, Sistem Informasi Peta Geospasial Wakaf, serta direktori Fatwa & Regulasi.
+            Kami menjunjung tinggi akuntabilitas. Akses Laporan Keuangan Tahunan, Kliping Publikasi Media Massa, serta direktori Fatwa & Regulasi.
           </motion.p>
         </div>
       </section>
 
-      {/* Geospasial Section */}
+      {/* Media Clipping Section */}
       <section className="section">
         <div className="container">
           <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
-             <Map size={48} color="var(--tertiary-color)" style={{ margin: '0 auto 16px' }} />
-             <h2>Sistem Informasi Wakaf (Data ZISWAF)</h2>
-             <p>Integrasi data geospasial tanah wakaf secara nasional berkoordinasi dengan BPN, KUA, dan BWI.</p>
+             <Newspaper size={48} color="var(--primary-color)" style={{ margin: '0 auto 16px' }} />
+             <h2>Kliping Berita & Publikasi Media</h2>
+             <p>Catatan publikasi aktivitas Forum Wakaf Produktif di berbagai media massa nasional dan internasional.</p>
           </motion.div>
-          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="glass-card" style={{ background: '#eef2f6', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed var(--primary-light)' }}>
-             <div className="text-center" style={{ color: 'var(--text-muted)' }}>
-                <Map size={64} style={{ opacity: 0.4, margin: '0 auto 16px' }} />
-                <h3>Peta Sebaran Wakaf Interaktif</h3>
-                <p>(Visualisasi peta sedang dalam pengembangan integrasi API)</p>
-             </div>
+          
+          <motion.div className="grid-3" initial="hidden" animate="visible" variants={staggerContainer} style={{ marginBottom: '40px' }}>
+            {mediaPublications.map((pub) => (
+              <motion.div key={pub.id} variants={fadeInUp} className="glass-card" style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--secondary-color)', background: 'var(--bg-offset)', padding: '4px 8px', borderRadius: '4px' }}>
+                      {pub.source}
+                    </span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                      {pub.date}
+                    </span>
+                  </div>
+                  <h4 style={{ fontSize: '1.1rem', marginBottom: '16px', lineHeight: '1.4', color: 'var(--text-main)' }}>{pub.title}</h4>
+                </div>
+                <a href={pub.url} target="_blank" rel="noreferrer" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', marginTop: 'auto' }}>
+                  Baca Selengkapnya <ExternalLink size={14} />
+                </a>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -82,8 +96,26 @@ const TransparencyPage = () => {
         </div>
       </section>
 
-      {/* Regulasi Section */}
+      {/* Geospasial Section */}
       <section className="section">
+        <div className="container">
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
+             <Map size={48} color="var(--tertiary-color)" style={{ margin: '0 auto 16px' }} />
+             <h2>Sistem Informasi Wakaf (Data ZISWAF)</h2>
+             <p>Integrasi data geospasial tanah wakaf secara nasional berkoordinasi dengan BPN, KUA, dan BWI.</p>
+          </motion.div>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="glass-card" style={{ background: '#eef2f6', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed var(--primary-light)' }}>
+             <div className="text-center" style={{ color: 'var(--text-muted)' }}>
+                <Map size={64} style={{ opacity: 0.4, margin: '0 auto 16px' }} />
+                <h3>Peta Sebaran Wakaf Interaktif</h3>
+                <p>(Visualisasi peta sedang dalam pengembangan integrasi API)</p>
+             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Regulasi Section */}
+      <section className="section section-bg">
         <div className="container">
           <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center" style={{ marginBottom: '40px' }}>
              <Scale size={48} color="var(--primary-light)" style={{ margin: '0 auto 16px' }} />
