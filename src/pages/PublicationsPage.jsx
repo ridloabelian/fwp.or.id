@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Newspaper, Calendar, User, ArrowRight, Globe, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Newspaper, Calendar, User, ArrowRight, Globe, ArrowLeft } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { newsList } from '../data/news';
@@ -21,21 +21,9 @@ const staggerContainer = {
 const PublicationsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [currentImgIdx, setCurrentImgIdx] = useState(0);
 
+  // If ID in URL, render Detail View
   const selectedNews = id ? newsList.find((item) => item.id === id) : null;
-
-  const handlePrevImg = () => {
-    if (selectedNews && selectedNews.imageUrls) {
-      setCurrentImgIdx((prev) => (prev === 0 ? selectedNews.imageUrls.length - 1 : prev - 1));
-    }
-  };
-
-  const handleNextImg = () => {
-    if (selectedNews && selectedNews.imageUrls) {
-      setCurrentImgIdx((prev) => (prev === selectedNews.imageUrls.length - 1 ? 0 : prev + 1));
-    }
-  };
 
   return (
     <>
@@ -70,30 +58,23 @@ const PublicationsPage = () => {
                   key={news.id} 
                   variants={fadeInUp} 
                   className="glass-card" 
-                  style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', cursor: 'pointer', overflow: 'hidden', padding: 0 }}
+                  style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', cursor: 'pointer' }}
                   onClick={() => navigate(`/publikasi/${news.id}`)}
                 >
-                  {news.imageUrls && news.imageUrls.length > 0 && (
-                    <div style={{ width: '100%', height: '200px', overflow: 'hidden', background: 'var(--bg-offset)' }}>
-                      <img src={news.imageUrls[0]} alt={news.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                  )}
-                  <div style={{ padding: '24px', flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <div>
-                      <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--secondary-color)', background: 'var(--bg-offset)', padding: '4px 8px', borderRadius: '4px', display: 'inline-block', marginBottom: '12px' }}>
-                        {news.category}
-                      </span>
-                      <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', lineHeight: '1.4' }}>{news.title}</h3>
-                      <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '20px' }}>{news.excerpt}</p>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--bg-offset)', paddingTop: '12px', marginTop: 'auto' }}>
-                      <span style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Calendar size={14} /> {news.date}
-                      </span>
-                      <span style={{ fontWeight: 'bold', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        Baca <ArrowRight size={16} />
-                      </span>
-                    </div>
+                  <div>
+                    <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--secondary-color)', background: 'var(--bg-offset)', padding: '4px 8px', borderRadius: '4px', display: 'inline-block', marginBottom: '12px' }}>
+                      {news.category}
+                    </span>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', lineHeight: '1.4' }}>{news.title}</h3>
+                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '20px' }}>{news.excerpt}</p>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--bg-offset)', paddingTop: '12px', marginTop: 'auto' }}>
+                    <span style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <Calendar size={14} /> {news.date}
+                    </span>
+                    <span style={{ fontWeight: 'bold', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      Baca <ArrowRight size={16} />
+                    </span>
                   </div>
                 </motion.div>
               ))}
@@ -105,49 +86,15 @@ const PublicationsPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
               className="glass-card"
-              style={{ background: 'white', padding: '40px', maxWidth: '800px', margin: '0 auto', overflow: 'hidden' }}
+              style={{ background: 'white', padding: '40px', maxWidth: '800px', margin: '0 auto' }}
             >
               <button 
                 className="btn btn-outline" 
                 style={{ marginBottom: '24px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-                onClick={() => {
-                  setCurrentImgIdx(0);
-                  navigate('/publikasi');
-                }}
+                onClick={() => navigate('/publikasi')}
               >
                 <ArrowLeft size={16} /> Kembali ke Berita
               </button>
-
-              {/* Image Carousel */}
-              {selectedNews.imageUrls && selectedNews.imageUrls.length > 0 && (
-                <div style={{ position: 'relative', width: '100%', height: '400px', borderRadius: '12px', overflow: 'hidden', marginBottom: '32px', background: 'var(--bg-offset)' }}>
-                  <img 
-                    src={selectedNews.imageUrls[currentImgIdx]} 
-                    alt={`${selectedNews.title} - ${currentImgIdx + 1}`} 
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
-                  />
-                  
-                  {selectedNews.imageUrls.length > 1 && (
-                    <>
-                      <button 
-                        onClick={handlePrevImg}
-                        style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(19, 44, 63, 0.7)', color: 'white', border: 'none', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10 }}
-                      >
-                        <ChevronLeft size={24} />
-                      </button>
-                      <button 
-                        onClick={handleNextImg}
-                        style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(19, 44, 63, 0.7)', color: 'white', border: 'none', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10 }}
-                      >
-                        <ChevronRight size={24} />
-                      </button>
-                      <div style={{ position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(19, 44, 63, 0.7)', color: 'white', padding: '4px 12px', borderRadius: '12px', fontSize: '0.8rem', zIndex: 10 }}>
-                        {currentImgIdx + 1} / {selectedNews.imageUrls.length}
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
 
               <div style={{ marginBottom: '16px' }}>
                 <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--secondary-color)', background: 'var(--bg-offset)', padding: '4px 8px', borderRadius: '4px', display: 'inline-block' }}>
