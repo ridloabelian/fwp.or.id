@@ -22,7 +22,6 @@ const PublicationsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // If ID in URL, render Detail View
   const selectedNews = id ? newsList.find((item) => item.id === id) : null;
 
   return (
@@ -58,23 +57,30 @@ const PublicationsPage = () => {
                   key={news.id} 
                   variants={fadeInUp} 
                   className="glass-card" 
-                  style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', cursor: 'pointer' }}
+                  style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', cursor: 'pointer', overflow: 'hidden', padding: 0 }}
                   onClick={() => navigate(`/publikasi/${news.id}`)}
                 >
-                  <div>
-                    <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--secondary-color)', background: 'var(--bg-offset)', padding: '4px 8px', borderRadius: '4px', display: 'inline-block', marginBottom: '12px' }}>
-                      {news.category}
-                    </span>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', lineHeight: '1.4' }}>{news.title}</h3>
-                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '20px' }}>{news.excerpt}</p>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--bg-offset)', paddingTop: '12px', marginTop: 'auto' }}>
-                    <span style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Calendar size={14} /> {news.date}
-                    </span>
-                    <span style={{ fontWeight: 'bold', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      Baca <ArrowRight size={16} />
-                    </span>
+                  {news.imageUrl && (
+                    <div style={{ width: '100%', height: '200px', overflow: 'hidden', background: 'var(--bg-offset)' }}>
+                      <img src={news.imageUrl} alt={news.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+                  )}
+                  <div style={{ padding: '24px', flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--secondary-color)', background: 'var(--bg-offset)', padding: '4px 8px', borderRadius: '4px', display: 'inline-block', marginBottom: '12px' }}>
+                        {news.category}
+                      </span>
+                      <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', lineHeight: '1.4' }}>{news.title}</h3>
+                      <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '20px' }}>{news.excerpt}</p>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--bg-offset)', paddingTop: '12px', marginTop: 'auto' }}>
+                      <span style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Calendar size={14} /> {news.date}
+                      </span>
+                      <span style={{ fontWeight: 'bold', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        Baca <ArrowRight size={16} />
+                      </span>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -86,7 +92,7 @@ const PublicationsPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
               className="glass-card"
-              style={{ background: 'white', padding: '40px', maxWidth: '800px', margin: '0 auto' }}
+              style={{ background: 'white', padding: '40px', maxWidth: '800px', margin: '0 auto', overflow: 'hidden' }}
             >
               <button 
                 className="btn btn-outline" 
@@ -95,6 +101,12 @@ const PublicationsPage = () => {
               >
                 <ArrowLeft size={16} /> Kembali ke Berita
               </button>
+
+              {selectedNews.imageUrl && (
+                <div style={{ width: '100%', maxHeight: '450px', borderRadius: '12px', overflow: 'hidden', marginBottom: '32px', background: 'var(--bg-offset)' }}>
+                  <img src={selectedNews.imageUrl} alt={selectedNews.title} style={{ width: '100%', height: 'auto', objectFit: 'contain' }} />
+                </div>
+              )}
 
               <div style={{ marginBottom: '16px' }}>
                 <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--secondary-color)', background: 'var(--bg-offset)', padding: '4px 8px', borderRadius: '4px', display: 'inline-block' }}>

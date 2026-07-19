@@ -5,6 +5,7 @@ export const newsList = [
     date: '19 Juli 2026',
     author: 'Admin FWP',
     category: 'Sinergi & Kemitraan',
+    imageUrl: 'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-14-at-16.55.39.jpeg?w=1032&ssl=1',
     excerpt: 'Forum Wakaf Produktif (FWP) bersama OIC Youth Indonesia menyepakati kolaborasi strategis dalam pengembangan talenta muda dan inovasi keuangan sosial Islam (faith-based finance) pada D-8 Halal Expo Indonesia 2026.',
     content: `
       JAKARTA — Forum Wakaf Produktif (FWP) bersinergi dengan OIC Youth Indonesia untuk mendorong kolaborasi talenta muda, inovasi berkelanjutan, dan pengembangan keuangan sosial Islam berbasis nilai keagamaan (faith-based finance) pada perhelatan D-8 Halal Expo Indonesia 2026. Sinergi taktis ini dirancang sebagai mesin baru pembangunan ekonomi umat sekaligus strategi jitu dalam mengentaskan kemiskinan secara nasional.
