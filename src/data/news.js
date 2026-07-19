@@ -5,12 +5,17 @@ export const newsList = [
     date: '19 Juli 2026',
     author: 'Admin FWP',
     category: 'Sinergi & Kemitraan',
-    imageUrl: 'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-14-at-16.55.39.jpeg?w=1032&ssl=1',
+    imageUrls: [
+      'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-14-at-16.55.39.jpeg?w=1032&ssl=1',
+      'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-17-at-20.21.29.jpeg?w=585&ssl=1',
+      'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-17-at-14.41.38.jpeg?w=828&ssl=1',
+      'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-17-at-10.31.33-1.jpeg?w=1280&ssl=1'
+    ],
     excerpt: 'Forum Wakaf Produktif (FWP) bersama OIC Youth Indonesia menyepakati kolaborasi strategis dalam pengembangan talenta muda dan inovasi keuangan sosial Islam (faith-based finance) pada D-8 Halal Expo Indonesia 2026.',
     content: `
       JAKARTA — Forum Wakaf Produktif (FWP) bersinergi dengan OIC Youth Indonesia untuk mendorong kolaborasi talenta muda, inovasi berkelanjutan, dan pengembangan keuangan sosial Islam berbasis nilai keagamaan (faith-based finance) pada perhelatan D-8 Halal Expo Indonesia 2026. Sinergi taktis ini dirancang sebagai mesin baru pembangunan ekonomi umat sekaligus strategi jitu dalam mengentaskan kemiskinan secara nasional.
 
-      Dalam forum kolaboratif ini, Ketua FWP Rayan Asa Luminaries menekankan pentingnya melibatkan generasi muda (talenta muda) sebagai penggerak utama modernisasi wakaf produktif. Penggabungan energi kreatif pemuda dan instrumen keuangan sosial Islam dinilai mampu mempercepat transformasi aset intangible menjadi Real Asset dan Real Power yang dirasakan langsung manfaatnya oleh masyarakat miskin.
+      Dalam forum kolaboratif ini, Ketua FWP Rayan Asa Luminaries menekankan pentingnya melibatkan generasi muda (talenta muda) sebagai penggerak utama modernisasi wakaf produktif. Penggabungan energi kreatif pemuda and instrumen keuangan sosial Islam dinilai mampu mempercepat transformasi aset intangible menjadi Real Asset dan Real Power yang dirasakan langsung manfaatnya oleh masyarakat miskin.
 
       "Generasi muda bukan hanya target penerima manfaat, melainkan mitra strategis yang membawa inovasi disruptif dalam pengelolaan wakaf. Di era digital ini, kita membutuhkan integrasi teknologi, peningkatan literasi, serta kolaborasi lintas negara anggota D-8 untuk melipatgandakan dampak wakaf produktif," ujar Rayan.
 
