@@ -44,6 +44,7 @@ function App() {
           <Route path="/layanan-bisnis" element={<BusinessMatchingPage />} />
           <Route path="/transparansi" element={<TransparencyPage />} />
           <Route path="/publikasi" element={<PublicationsPage />} />
+          <Route path="/publikasi/:id" element={<PublicationsPage />} />
           <Route path="/waqf-leaders-summit" element={<SummitPage />} />
           <Route path="/wls2026" element={<EventLandingPage />} />
           <Route path="/proposal-wls2026" element={<ProposalPage />} />
