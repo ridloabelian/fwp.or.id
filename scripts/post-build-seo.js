@@ -31,7 +31,13 @@ async function generateStaticFiles() {
     await fs.writeFile(path.join(wlsDir, 'index.html'), wlsHtml, 'utf8');
     console.log('Successfully generated static index.html for /wls2026');
 
-    // 2. Generate News Static Dirs (for Social Sharing Crawlers)
+    // 2. Generate /publikasi (List View fallback)
+    const publicationsDir = path.join(distDir, 'publikasi');
+    await fs.mkdir(publicationsDir, { recursive: true });
+    await fs.writeFile(path.join(publicationsDir, 'index.html'), htmlContent, 'utf8');
+    console.log('Successfully generated static index.html for /publikasi');
+
+    // 3. Generate News Static Dirs (for Social Sharing Crawlers)
     for (const article of newsArticles) {
       const articleDir = path.join(distDir, 'publikasi', article.id);
       let articleHtml = htmlContent
