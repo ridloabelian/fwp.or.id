@@ -58,7 +58,7 @@ const PublicationsPage = () => {
                   variants={fadeInUp} 
                   className="glass-card" 
                   style={{ background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', cursor: 'pointer', overflow: 'hidden', padding: 0 }}
-                  onClick={() => navigate(`/publikasi/${news.id}`)}
+                  onClick={() => navigate(`/berita/${news.id}`)}
                 >
                   {news.imageUrl && (
                     <div style={{ width: '100%', height: '200px', overflow: 'hidden', background: 'var(--bg-offset)' }}>
@@ -97,7 +97,7 @@ const PublicationsPage = () => {
               <button 
                 className="btn btn-outline" 
                 style={{ marginBottom: '24px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-                onClick={() => navigate('/publikasi')}
+                onClick={() => navigate('/berita')}
               >
                 <ArrowLeft size={16} /> Kembali ke Berita
               </button>

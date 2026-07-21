@@ -7,6 +7,11 @@ import Footer from './components/Footer';
 // Pages
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import SejarahPage from './pages/SejarahPage';
+import LegalitasPage from './pages/LegalitasPage';
+import StrukturPage from './pages/StrukturPage';
+import MembershipPage from './pages/MembershipPage';
+import RegisterMemberPage from './pages/RegisterMemberPage';
 import ProgramsPage from './pages/ProgramsPage';
 import NazhirCenterPage from './pages/NazhirCenterPage';
 import SuccessStoriesPage from './pages/SuccessStoriesPage';
@@ -38,6 +43,13 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/tentang-kami" element={<AboutPage />} />
+          <Route path="/tentang-kami/sejarah" element={<SejarahPage />} />
+          <Route path="/tentang-kami/legalitas" element={<LegalitasPage />} />
+          <Route path="/tentang-kami/struktur" element={<StrukturPage />} />
+          <Route path="/keanggotaan" element={<MembershipPage />} />
+          <Route path="/daftar-anggota" element={<RegisterMemberPage />} />
+          <Route path="/berita" element={<PublicationsPage />} />
+          <Route path="/berita/:id" element={<PublicationsPage />} />
           <Route path="/program" element={<ProgramsPage />} />
           <Route path="/pusat-nazhir" element={<NazhirCenterPage />} />
           <Route path="/inspirasi-studi-kasus" element={<SuccessStoriesPage />} />

@@ -43,9 +43,32 @@ async function generateStaticFiles() {
     await fs.writeFile(path.join(publicationsDir, 'index.html'), htmlContent, 'utf8');
     console.log('Successfully generated static index.html for /publikasi');
 
+    // 2b. Generate /berita + article routes (mirror of /publikasi)
+    const beritaDir = path.join(distDir, 'berita');
+    await fs.mkdir(beritaDir, { recursive: true });
+    await fs.writeFile(path.join(beritaDir, 'index.html'), htmlContent, 'utf8');
+    console.log('Successfully generated static index.html for /berita');
+
+    // 2c. Generate simple static fallbacks for new top-level routes
+    const simpleRoutes = [
+      'keanggotaan',
+      'daftar-anggota',
+      'tentang-kami',
+      'tentang-kami/sejarah',
+      'tentang-kami/legalitas',
+      'tentang-kami/struktur',
+    ];
+    for (const route of simpleRoutes) {
+      const routeDir = path.join(distDir, route);
+      await fs.mkdir(routeDir, { recursive: true });
+      await fs.writeFile(path.join(routeDir, 'index.html'), htmlContent, 'utf8');
+      console.log(`Successfully generated static index.html for /${route}`);
+    }
+
     // 3. Generate News Static Dirs (for Social Sharing Crawlers)
     for (const article of newsArticles) {
-      const articleDir = path.join(distDir, 'publikasi', article.id);
+      for (const prefix of ['publikasi', 'berita']) {
+        const articleDir = path.join(distDir, prefix, article.id);
       let articleHtml = htmlContent
         .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${article.title}">`)
         .replace(/<title>[^<]*<\/title>/, `<title>${article.title}</title>`)
@@ -56,7 +79,8 @@ async function generateStaticFiles() {
 
       await fs.mkdir(articleDir, { recursive: true });
       await fs.writeFile(path.join(articleDir, 'index.html'), articleHtml, 'utf8');
-      console.log(`Successfully generated static index.html for /publikasi/${article.id}`);
+      console.log(`Successfully generated static index.html for /${prefix}/${article.id}`);
+      }
     }
 
   } catch (err) {
