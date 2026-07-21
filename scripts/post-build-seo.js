@@ -7,6 +7,12 @@ const newsArticles = [
     title: 'Dorong Kolaborasi Talenta & Inovasi Berkelanjutan di D-8 Halal Expo 2026, FWP dan OIC Youth Indonesia Siapkan Mesin Baru Pembangunan | Forum Wakaf Produktif',
     excerpt: 'Forum Wakaf Produktif (FWP) bersama OIC Youth Indonesia menyepakati kolaborasi strategis dalam pengembangan talenta muda dan inovasi keuangan sosial Islam pada D-8 Halal Expo Indonesia 2026.',
     imageUrl: 'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-14-at-16.55.39.jpeg?w=1032&ssl=1'
+  },
+  {
+    id: 'wls-2026-pendaftaran-ditutup',
+    title: 'Resmi Ditutup! Pendaftaran Waqf Leaders Summit 2026 Capai Target 53 Peserta Nasional | Forum Wakaf Produktif',
+    excerpt: 'Pendaftaran Waqf Leaders Summit 2026 resmi ditutup dengan total 53 peserta dari berbagai lembaga nazhir, regulator, dan BSI.',
+    imageUrl: 'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-17-at-10.31.33-1.jpeg?w=1280&ssl=1'
   }
 ];
 
