@@ -459,12 +459,9 @@ export default function EventLandingPage() {
             <a key={l} href={`#${l.toLowerCase()}`} style={{ fontSize: 14, fontWeight: 600, color: '#334155', textDecoration: 'none', letterSpacing: '.01em' }}>{l}</a>
           ))}
         </div>
-        <a href="#registrasi" style={{
-          flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
-          padding: '11px 22px', borderRadius: 999, background: C.goldGrad,
-          color: '#15212b', fontSize: 14, fontWeight: 700, textDecoration: 'none',
-          boxShadow: '0 6px 18px rgba(201,162,39,.32)', letterSpacing: '.01em',
-        }}>Daftar Sekarang</a>
+        <div style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 22px', borderRadius: 999, background: '#fee2e2', color: '#991b1b', fontSize: 13, fontWeight: 700 }}>
+          Registrasi Ditutup
+        </div>
       </nav>
 
       {/* ═══ HERO (Framer Motion - mount only) ═══ */}
@@ -908,93 +905,31 @@ export default function EventLandingPage() {
         </div>
       </section>
 
-      {/* ═══ REGISTRASI ═══ */}
+      {/* ═══ REGISTRASI (CLOSED) ═══ */}
       <section id="registrasi" style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: C.bgLight }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal style={{ textAlign: 'center', marginBottom: 52 }}>
             <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Registrasi</p>
-            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Amankan Kursi Anda</h2>
-            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Kuota terbatas. Daftar sekarang untuk pengalaman dua hari penuh wawasan.</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Pendaftaran Ditutup</h2>
+            <p style={{ margin: '0 auto', maxWidth: 600, fontSize: 16, color: C.textLight }}>Kuota pendaftaran peserta Waqf Leaders Summit 2026 telah terpenuhi secara penuh (53 delegasi terkunci). Sampai bertemu besok di Bandung!</p>
           </Reveal>
 
-          <div className="wls-reg-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(16px, 2.5vw, 26px)', alignItems: 'stretch' }}>
-
-            {/* Harga Normal */}
-            <Reveal delay={1} variant="scale">
-              <div style={{
-                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
-                background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
-              }}>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.cyan, textTransform: 'uppercase' }}>Harga Normal</div>
-                <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'transparent' }}>-</div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 800, color: C.navy }}>Rp 3.000.000</div>
-                <div style={{ fontSize: 13, color: C.textLight, marginBottom: 22 }}>Per orang (Harga Berlaku Umum)</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['Akses penuh 2 hari kegiatan', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (Jaket WLS, dll)', 'Coffee break, sarapan & makan siang'].map(b => (
-                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
-                  ))}
-                </div>
-                <button onClick={() => setShowForm(true)} style={{
-                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
-                }}>Daftar Sekarang</button>
-              </div>
-            </Reveal>
-
-            {/* Harga Spesial Early Bird */}
-            <Reveal delay={2} variant="scale">
-              <div className="wls-reg-featured" style={{
-                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
-                background: `linear-gradient(160deg, ${C.navy}, ${C.navyMid})`, color: '#fff',
-                boxShadow: '0 24px 50px rgba(17,46,63,.28)', position: 'relative', transform: 'translateY(-8px)',
-              }}>
-                <span style={{
-                  position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)',
-                  padding: '6px 16px', borderRadius: 999, fontSize: 11, fontWeight: 800, letterSpacing: '.05em',
-                  background: C.goldGrad, color: '#15212b', whiteSpace: 'nowrap',
-                }}>EARLY BIRD (s.d 15 Juli)</span>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.goldLight, textTransform: 'uppercase' }}>Harga Spesial</div>
-                {/* <div style={{ margin: '14px 0 4px', fontSize: 14, color: 'rgba(255,255,255,.55)', textDecoration: 'line-through' }}>Rp 3.000.000</div> */}
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 800, color: '#fff' }}>Rp 2.500.000</div>
-                <div style={{ fontSize: 13, color: 'rgba(255,255,255,.7)', marginBottom: 22 }}>Per orang</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: 'rgba(255,255,255,.85)' }}>
-                  {['Akses penuh 2 hari kegiatan', 'Penginapan hotel bintang 4', 'Souvenir eksklusif (Jaket WLS, dll)', 'Coffee break, sarapan & makan siang'].map(b => (
-                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
-                  ))}
-                </div>
-                <button onClick={() => setShowForm(true)} style={{
-                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                  background: C.goldGrad, color: '#15212b', fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
-                }}>Daftar Sekarang</button>
-              </div>
-            </Reveal>
-
-            {/* Paket Lembaga */}
-            <Reveal delay={3} variant="scale">
-              <div style={{
-                display: 'flex', flexDirection: 'column', borderRadius: 22, padding: '32px 28px',
-                background: '#fff', border: `1px solid ${C.border}`, boxShadow: '0 10px 30px rgba(17,46,63,.05)',
-              }}>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '.1em', color: C.green, textTransform: 'uppercase' }}>Paket Lembaga (s.d 15 Juli)</div>
-                <div style={{ margin: '14px 0 4px', fontSize: 14, color: C.textSubtle, textDecoration: 'line-through' }}>Rp 3.000.000/orang</div>
-                
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 800, color: C.navy, lineHeight: 1.1 }}>Rp 2.400.000</div>
-                <div style={{ fontSize: 12, color: C.textLight, marginBottom: 12 }}>per orang (Untuk 2 Orang)</div>
-                
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 800, color: C.navy, lineHeight: 1.1 }}>Rp 2.350.000</div>
-                <div style={{ fontSize: 12, color: C.textLight, marginBottom: 22 }}>per orang (Untuk &gt;2 Orang)</div>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, fontSize: 14, color: C.textMuted }}>
-                  {['Fasilitas penuh (sama dengan paket personal)', 'Cocok untuk delegasi pengurus lembaga', 'Kamar hotel disesuaikan', 'Hemat kolektif'].map(b => (
-                    <div key={b} style={{ display: 'flex', gap: 9 }}><Check size={14} style={{ flex: 'none', color: C.green, marginTop: 2 }} />{b}</div>
-                  ))}
-                </div>
-                <button onClick={() => setShowForm(true)} style={{
-                  display: 'block', textAlign: 'center', marginTop: 26, padding: 14, borderRadius: 12,
-                  background: C.bgLighter, color: C.navy, fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', width: '100%',
-                }}>Daftar Sekarang</button>
-              </div>
-            </Reveal>
+          <div style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            padding: '48px 32px', borderRadius: 24, background: '#fff', border: `1px solid ${C.border}`,
+            boxShadow: '0 10px 30px rgba(17,46,63,.05)', textAlign: 'center', maxWidth: 640, margin: '0 auto'
+          }}>
+            <div style={{
+              width: 64, height: 64, borderRadius: '50%', background: 'rgba(239, 68, 68, 0.1)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ef4444', marginBottom: 20
+            }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+            </div>
+            <h3 style={{ fontSize: '1.4rem', color: C.navy, marginBottom: 12 }}>Pendaftaran On-Site Tidak Tersedia</h3>
+            <p style={{ fontSize: '0.95rem', color: C.textLight, margin: '0 0 24px', lineHeight: 1.6 }}>Demi kenyamanan delegasi and ketersediaan kapasitas akomodasi kamar hotel bintang 4 serta ballroom utama, kami mohon maaf tidak dapat melayani pendaftaran langsung di lokasi acara.</p>
+            <a href="https://wa.me/6281389667055" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              Hubungi Sekretariat FWP
+            </a>
           </div>
         </div>
       </section>
@@ -1077,18 +1012,18 @@ export default function EventLandingPage() {
         </div>
       </section>
 
-      {/* ═══ CTA BANNER ═══ */}
+      {/* ═══ CTA BANNER (CLOSED) ═══ */}
       <section style={{ padding: 'clamp(60px, 8vw, 110px) clamp(20px, 5vw, 64px)', background: 'radial-gradient(120% 120% at 50% 0%, #1b465f, #0c2230)' }}>
         <Reveal style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center', color: '#fff' }}>
           <img src="/tumbuh-bersama-gold.png" alt="Tumbuh Bersama" style={{ width: 'clamp(220px, 38vw, 380px)', height: 'auto', margin: '0 auto 26px', display: 'block' }} />
-          <h2 style={{ margin: '0 0 18px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 46px)', fontWeight: 700, lineHeight: 1.15, color: '#fff' }}>Mari Tumbuh Bersama di WLS 2026</h2>
-          <p style={{ margin: '0 auto 32px', maxWidth: 540, fontSize: 17, lineHeight: 1.7, color: 'rgba(255,255,255,.8)' }}>Bergabunglah dengan para pemimpin wakaf untuk mengeskalasi dampak nyata bagi peradaban.</p>
-          <a href="#registrasi" style={{
+          <h2 style={{ margin: '0 0 18px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 46px)', fontWeight: 700, lineHeight: 1.15, color: '#fff' }}>Pendaftaran Resmi Ditutup</h2>
+          <p style={{ margin: '0 auto 32px', maxWidth: 540, fontSize: 17, lineHeight: 1.7, color: 'rgba(255,255,255,.8)' }}>Terima kasih atas partisipasi luar biasa dari para pemimpin lembaga nazhir nasional.</p>
+          <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 9,
-            padding: '16px 38px', borderRadius: 999, background: C.goldGrad,
-            color: '#15212b', fontSize: 16, fontWeight: 700, textDecoration: 'none',
-            boxShadow: '0 14px 34px rgba(201,162,39,.36)',
-          }}>Daftar Sekarang <ArrowRight size={16} /></a>
+            padding: '16px 38px', borderRadius: 999, background: 'rgba(255,255,255,0.1)',
+            color: '#fff', fontSize: 16, fontWeight: 700,
+            border: '1px solid rgba(255,255,255,0.2)'
+          }}>Kuota Terpenuhi (53 Peserta)</div>
         </Reveal>
       </section>
 
@@ -1143,8 +1078,8 @@ export default function EventLandingPage() {
         </div>
       </footer>
 
-      {/* ═══ FLOATING CTA ═══ */}
-      <button onClick={() => setShowForm(true)} style={{
+      {/* ═══ FLOATING CTA (DISABLED) ═══ */}
+      {/* <button onClick={() => setShowForm(true)} style={{
         position: 'fixed', bottom: 24, right: 24, zIndex: 90,
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '14px 24px', borderRadius: 999, background: C.goldGrad,
@@ -1153,7 +1088,7 @@ export default function EventLandingPage() {
         opacity: showFloat ? 1 : 0, transform: showFloat ? 'translateY(0)' : 'translateY(20px)',
         pointerEvents: showFloat ? 'auto' : 'none',
         transition: 'opacity .4s ease, transform .4s ease',
-      }}>Daftar <ArrowRight size={14} /></button>
+      }}>Daftar <ArrowRight size={14} /></button> */}
 
       {showForm && <RegistrationForm onClose={() => setShowForm(false)} />}
     </div>
