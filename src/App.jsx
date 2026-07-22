@@ -3,6 +3,8 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import NavbarV2 from './components/NavbarV2';
+import FooterV2 from './components/FooterV2';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -41,11 +43,12 @@ const RedirectToBerita = () => {
 function App() {
   const { pathname } = useLocation();
   const isStandalonePage = pathname === '/wls2026';
+  const isV2Preview = pathname === '/v2-preview';
 
   return (
     <>
       <ScrollToTop />
-      {!isStandalonePage && <Navbar />}
+      {!isStandalonePage && (isV2Preview ? <NavbarV2 /> : <Navbar />)}
       <main style={{ minHeight: '100vh' }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -71,7 +74,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      {!isStandalonePage && <Footer />}
+      {!isStandalonePage && (isV2Preview ? <FooterV2 /> : <Footer />)}
     </>
   );
 }

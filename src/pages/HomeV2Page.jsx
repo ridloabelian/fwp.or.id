@@ -35,17 +35,12 @@ export default function HomeV2Page() {
             <Link className="v2-btn v2-btn-secondary" to="/layanan-bisnis">Jalin Kemitraan</Link>
           </div>
         </div>
-        <div className="v2-hero-mark" aria-hidden="true">
-          <div className="v2-mark-core"><img src="/logo.png" alt="" /></div>
-          <span className="v2-orbit v2-orbit-one"><Users size={22}/></span>
-          <span className="v2-orbit v2-orbit-two"><Building2 size={22}/></span>
-          <span className="v2-orbit v2-orbit-three"><Handshake size={22}/></span>
-        </div>
+        <div className="v2-hero-photo"><img src={newsList[1]?.imageUrl} alt="Dokumentasi kolaborasi Forum Wakaf Produktif"/><span>Kolaborasi lintas lembaga untuk wakaf produktif</span></div>
       </div>
     </section>
 
     <section className="v2-trust"><div className="container v2-trust-grid">
-      <div><strong>{members.length}</strong><span>Lembaga tercatat</span><small>Pembaruan Juli 2026</small></div>
+      <div><strong>{members.length}</strong><span>Lembaga dalam data terbaru</span><small>Daftar peserta pelatihan · Juli 2026</small></div>
       <div><strong>2016</strong><span>Awal perjalanan FWP</span><small>Kolaborasi lintas lembaga</small></div>
       <Link to="/tentang-kami/legalitas"><ShieldCheck size={28}/><span>Badan hukum resmi</span><small>Lihat legalitas FWP</small></Link>
     </div></section>
@@ -58,7 +53,7 @@ export default function HomeV2Page() {
 
     <section className="v2-section v2-audience"><div className="container">
       <header className="v2-section-head"><span className="v2-kicker">Mulai dari kebutuhan Anda</span><h2>Satu ekosistem, tiga jalur kolaborasi.</h2></header>
-      <div className="v2-audience-grid">{audiences.map(item=><article key={item.label}><span>{item.label}</span><h3>{item.title}</h3><p>{item.text}</p><Link to={item.to}>{item.cta} <ArrowRight size={16}/></Link></article>)}</div>
+      <div className="v2-audience-grid">{audiences.map(item=><Link to={item.to} key={item.label}><article><span>{item.label}</span><h3>{item.title}</h3><p>{item.text}</p><strong>{item.cta} <ArrowRight size={16}/></strong></article></Link>)}</div>
     </div></section>
 
     <section className="v2-section v2-network"><div className="container v2-network-grid">
