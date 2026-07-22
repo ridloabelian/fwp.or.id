@@ -425,18 +425,22 @@ const LandingPage = () => {
                 }}
                 whileHover={{ y: -8, scale: 1.02 }}
               >
-                <div style={{ 
-                  width: '80px', 
-                  height: '80px', 
-                  borderRadius: '50%', 
-                  background: 'var(--bg-offset)', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center',
-                  margin: '0 auto 16px'
-                }}>
-                  <Users size={40} color="var(--primary-color)" />
-                </div>
+                <img
+                  src={`/speakers/${member.position === 'Ketua' ? 'rayan' : member.position === 'Sekretaris' ? 'alla' : 'herri'}.png`}
+                  alt={`Foto ${member.name}`}
+                  loading="lazy"
+                  style={{
+                    width: '120px',
+                    height: '120px',
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    objectPosition: 'top',
+                    display: 'block',
+                    margin: '0 auto 20px',
+                    border: '4px solid var(--secondary-color)',
+                    background: 'var(--bg-offset)'
+                  }}
+                />
                 <h3 style={{ fontSize: '1.2rem', marginBottom: '4px' }}>{member?.name || ''}</h3>
                 <p style={{ color: 'var(--secondary-dark)', fontWeight: 'bold', margin: 0 }}>{member?.position || ''}</p>
               </motion.div>
