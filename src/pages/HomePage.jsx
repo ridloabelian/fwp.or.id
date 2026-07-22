@@ -425,22 +425,29 @@ const LandingPage = () => {
                 }}
                 whileHover={{ y: -8, scale: 1.02 }}
               >
-                <img
-                  src={`/speakers/${member.position === 'Ketua' ? 'rayan' : member.position === 'Sekretaris' ? 'alla' : 'herri'}.png`}
-                  alt={`Foto ${member.name}`}
-                  loading="lazy"
-                  style={{
-                    width: '120px',
-                    height: '120px',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    objectPosition: 'top',
-                    display: 'block',
-                    margin: '0 auto 20px',
-                    border: '4px solid var(--secondary-color)',
-                    background: 'var(--bg-offset)'
-                  }}
-                />
+                <div style={{
+                  width: '120px',
+                  height: '120px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  margin: '0 auto 20px',
+                  border: '4px solid var(--secondary-color)',
+                  background: 'var(--bg-offset)'
+                }}>
+                  <img
+                    src={`/speakers/${member.position === 'Ketua' ? 'rayan' : member.position === 'Sekretaris' ? 'alla' : 'herri'}.png`}
+                    alt={`Foto ${member.name}`}
+                    loading="lazy"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center top',
+                      display: 'block',
+                      transform: member.position === 'Bendahara' ? 'scale(1.35)' : 'none'
+                    }}
+                  />
+                </div>
                 <h3 style={{ fontSize: '1.2rem', marginBottom: '4px' }}>{member?.name || ''}</h3>
                 <p style={{ color: 'var(--secondary-dark)', fontWeight: 'bold', margin: 0 }}>{member?.position || ''}</p>
               </motion.div>
