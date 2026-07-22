@@ -3,12 +3,9 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import NavbarV2 from './components/NavbarV2';
-import FooterV2 from './components/FooterV2';
 
 // Pages
 import HomePage from './pages/HomePage';
-import HomeV2Page from './pages/HomeV2Page';
 import AboutPage from './pages/AboutPage';
 import SejarahPage from './pages/SejarahPage';
 import LegalitasPage from './pages/LegalitasPage';
@@ -43,16 +40,16 @@ const RedirectToBerita = () => {
 function App() {
   const { pathname } = useLocation();
   const isStandalonePage = pathname === '/wls2026';
-  const isV2Preview = pathname === '/v2-preview';
+
 
   return (
     <>
       <ScrollToTop />
-      {!isStandalonePage && (isV2Preview ? <NavbarV2 /> : <Navbar />)}
+      {!isStandalonePage && <Navbar />}
       <main style={{ minHeight: '100vh' }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/v2-preview" element={<HomeV2Page />} />
+
           <Route path="/tentang-kami" element={<AboutPage />} />
           <Route path="/tentang-kami/sejarah" element={<SejarahPage />} />
           <Route path="/tentang-kami/legalitas" element={<LegalitasPage />} />
@@ -74,7 +71,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      {!isStandalonePage && (isV2Preview ? <FooterV2 /> : <Footer />)}
+      {!isStandalonePage && <Footer />}
     </>
   );
 }
