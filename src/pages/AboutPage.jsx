@@ -1,330 +1,126 @@
 import { motion } from 'framer-motion';
-import { aboutData, milestones, members, programs, regionStats } from '../data/about';
-import { MapPin, Users, Award, BookOpen, Phone, Mail, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Award, BookOpen, Building2, CalendarDays, Check, Mail, Phone, Scale, Users } from 'lucide-react';
+import SEO from '../components/SEO';
+import { aboutData, milestones, members } from '../data/about';
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+const profileLinks = [
+  { to: '/tentang-kami/sejarah', icon: BookOpen, title: 'Sejarah FWP', text: 'Perjalanan sejak peluncuran pada 7 Desember 2016.' },
+  { to: '/tentang-kami/legalitas', icon: Scale, title: 'Legalitas', text: 'Landasan hukum dan badan hukum resmi organisasi.' },
+  { to: '/tentang-kami/struktur', icon: Users, title: 'Struktur', text: 'Pengurus FWP periode 2024–2027 dan bidang organisasi.' },
+];
+
+const portraits = {
+  Ketua: '/speakers/rayan.png',
+  Sekretaris: '/speakers/alla.png',
+  Bendahara: '/speakers/herri.png',
 };
 
 export default function AboutPage() {
-  // Safety check for data
-  if (!aboutData || !aboutData.hero) {
-    return <div style={{ padding: '100px', textAlign: 'center' }}>Loading...</div>;
-  }
+  const featuredMilestones = milestones.filter((_, index) => [0, 1, 3, 8, 11, 13].includes(index));
 
   return (
-    <div className="about-page">
-      {/* Hero Section */}
-      <section className="about-hero">
-        <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-            className="hero-content"
-          >
-            <h1>{aboutData.hero?.title || 'Forum Wakaf Produktif'}</h1>
-            <p className="hero-subtitle">{aboutData.hero?.subtitle || ''}</p>
-            <p className="hero-description">{aboutData.hero?.description || ''}</p>
-          </motion.div>
-        </div>
-      </section>
+    <div className="about-page about-redesign">
+      <SEO title="Tentang FWP" description="Profil, visi, misi, legalitas, dan kepengurusan Forum Wakaf Produktif." />
 
-      {/* Vision & Mission */}
-      <section className="vision-mission">
-        <div className="container">
-          <div className="grid-2">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
-              className="vision-card"
-            >
-              <h2>{aboutData.vision?.title || 'Visi'}</h2>
-              <p>{aboutData.vision?.content || ''}</p>
-            </motion.div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
-              className="mission-card"
-            >
-              <h2>{aboutData.mission?.title || 'Misi'}</h2>
-              <ul>
-                {(aboutData.mission?.items || []).map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </motion.div>
+      <section className="about-hero about-hero-premium">
+        <div className="container about-hero-grid">
+          <div className="about-hero-copy">
+            <span className="about-eyebrow">Tentang Kami</span>
+            <h1>Forum Wakaf Produktif</h1>
+            <p className="about-hero-lead">Katalisator kolaborasi nazhir untuk memperbesar dampak wakaf produktif Indonesia.</p>
+            <p className="about-hero-description">{aboutData.hero.description}</p>
+            <div className="about-hero-actions">
+              <Link to="/keanggotaan" className="btn btn-primary">Jelajahi Keanggotaan <ArrowRight size={18} /></Link>
+              <Link to="/tentang-kami/sejarah" className="btn about-btn-light">Pelajari Perjalanan FWP</Link>
+            </div>
+          </div>
+          <div className="about-stat-panel" aria-label="Statistik Forum Wakaf Produktif">
+            <div className="about-stat-primary"><strong>{members.length}</strong><span>Lembaga Nazhir tercatat</span></div>
+            <div className="about-stat-row">
+              <div><CalendarDays size={22} /><strong>2016</strong><span>Tahun peluncuran</span></div>
+              <div><Building2 size={22} /><strong>Nasional</strong><span>Jangkauan kolaborasi</span></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* History */}
-      <section className="history-section">
+      <section className="about-profile-nav section">
         <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-          >
-            <h2 className="section-title">{aboutData.history?.title || 'Sejarah'}</h2>
-            <div className="history-content">
-              {(aboutData.history?.content || '').split('\n\n').map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </div>
-          </motion.div>
+          <div className="about-section-heading">
+            <span className="about-kicker">Profil Organisasi</span>
+            <h2>Kenali FWP lebih dekat</h2>
+            <p>Informasi organisasi disusun ringkas, transparan, dan mudah ditelusuri.</p>
+          </div>
+          <div className="about-profile-grid">
+            {profileLinks.map(({ to, icon: Icon, title, text }) => (
+              <Link key={to} to={to} className="about-profile-card">
+                <span className="about-icon-box"><Icon size={24} /></span>
+                <h3>{title}</h3><p>{text}</p>
+                <span className="about-card-link">Selengkapnya <ArrowRight size={16} /></span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Legal */}
-      <section className="legal-section">
+      <section className="about-purpose section">
         <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-            className="legal-card"
-          >
-            <Award className="legal-icon" />
-            <h2>{aboutData.legal?.title || 'Legal Formal'}</h2>
-            <div className="legal-details">
-              <p className="sk-number">{aboutData.legal?.skNumber || ''}</p>
-              <p className="legal-desc">{aboutData.legal?.description || ''}</p>
-              <p className="legal-issuer">Diterbitkan oleh: {aboutData.legal?.issuedBy || ''}</p>
+          <div className="about-vision-block">
+            <span className="about-kicker">Visi</span>
+            <blockquote>“{aboutData.vision.content}”</blockquote>
+          </div>
+          <div className="about-mission-block">
+            <div className="about-section-heading about-heading-left"><span className="about-kicker">Misi</span><h2>Kerja nyata untuk ekosistem wakaf</h2></div>
+            <div className="about-mission-grid">
+              {aboutData.mission.items.map((item) => <div key={item} className="about-mission-item"><Check size={18} /><span>{item}</span></div>)}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Leadership */}
-      <section className="leadership-section">
+      <section className="about-leadership section">
         <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-          >
-            <h2 className="section-title">{aboutData.leadership?.title || 'Pengurus'}</h2>
-            <p className="section-note">{aboutData.leadership?.note || ''}</p>
-            
-            <div className="leadership-grid">
-              {(aboutData.leadership?.members || []).map((member, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUp}
-                  className="leader-card"
-                >
-                  <div className="leader-image">
-                    <div className="leader-placeholder">
-                      <Users size={48} />
-                    </div>
-                  </div>
-                  <h3>{member?.name || ''}</h3>
-                  <p className="leader-position">{member?.position || ''}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="divisions-grid">
-              {(aboutData.leadership?.divisions || []).map((division, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUp}
-                  className="division-card"
-                >
-                  <h4>{division?.name || ''}</h4>
-                  <p>{division?.description || ''}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+          <div className="about-section-heading">
+            <span className="about-kicker">Kepemimpinan</span>
+            <h2>Pengurus FWP <span className="about-period">Periode 2024–2027</span></h2>
+            <p>Pengurus inti yang mengawal amanah dan arah strategis organisasi.</p>
+          </div>
+          <div className="about-leader-grid">
+            {aboutData.leadership.members.map((member) => (
+              <motion.article key={member.position} initial="hidden" animate="visible" variants={fadeInUp} className="about-leader-card">
+                <div className="about-leader-photo"><img src={portraits[member.position]} alt={`Foto ${member.name}`} /></div>
+                <span>{member.position}</span><h3>{member.name}</h3>
+              </motion.article>
+            ))}
+          </div>
+          <div className="about-center-action"><Link to="/tentang-kami/struktur" className="btn btn-outline">Lihat Struktur Organisasi <ArrowRight size={18} /></Link></div>
         </div>
       </section>
 
-      {/* Milestones */}
-      <section className="milestones-section">
+      <section className="about-milestones section">
         <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-          >
-            <h2 className="section-title">Milestone FWP</h2>
-            <div className="timeline">
-              {(milestones || []).map((milestone, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUp}
-                  className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
-                >
-                  <div className="timeline-content">
-                    <span className="timeline-year">{milestone?.year || ''}</span>
-                    <h4>{milestone?.title || ''}</h4>
-                    <p>{milestone?.description || ''}</p>
-                    <span className={`timeline-category ${milestone?.category || ''}`}>
-                      {milestone?.category || ''}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+          <div className="about-section-heading about-heading-left"><span className="about-kicker">Jejak Dampak</span><h2>Milestone utama FWP</h2><p>Ikhtiar kolaboratif dalam penguatan tata kelola dan ekosistem wakaf nasional.</p></div>
+          <div className="about-milestone-grid">
+            {featuredMilestones.map((item) => <article key={`${item.year}-${item.title}`} className="about-milestone-card"><span>{item.year}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}
+          </div>
+          <div className="about-center-action"><Link to="/tentang-kami/sejarah" className="about-text-link">Lihat sejarah lengkap <ArrowRight size={17} /></Link></div>
         </div>
       </section>
 
-      {/* Members */}
-      <section className="members-section">
-        <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-          >
-            <h2 className="section-title">Anggota Forum Wakaf Produktif</h2>
-            <p className="members-count">Total: {(members || []).length} Anggota</p>
-            
-            <div className="region-stats">
-              {Object.entries(regionStats || {}).map(([region, count]) => (
-                <div key={region} className="region-stat">
-                  <MapPin size={16} />
-                  <span>{region}</span>
-                  <span className="count">{count}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="members-table-container">
-              <table className="members-table">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Lembaga</th>
-                    <th>Nama Yayasan</th>
-                    <th>No. STBPN</th>
-                    <th>Wilayah</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(members || []).map((member) => (
-                    <tr key={member?.no || 0}>
-                      <td>{member?.no || ''}</td>
-                      <td>{member?.name || ''}</td>
-                      <td>{member?.yayasan || ''}</td>
-                      <td>{member?.stbpn || ''}</td>
-                      <td>{member?.region || ''}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
-        </div>
+      <section className="about-cta section">
+        <div className="container"><div className="about-cta-card">
+          <div><span className="about-kicker">Tumbuh Bersama</span><h2>Bangun dampak wakaf yang lebih besar</h2><p>Bergabung dalam jejaring lembaga FWP atau jalin kemitraan strategis untuk mengembangkan aset wakaf produktif.</p></div>
+          <div className="about-cta-actions"><Link to="/daftar-anggota" className="btn btn-primary">Daftar Keanggotaan</Link><Link to="/layanan-bisnis" className="btn about-btn-light">Jalin Kemitraan</Link></div>
+        </div></div>
       </section>
 
-      {/* Programs */}
-      <section className="programs-section">
-        <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-          >
-            <h2 className="section-title">Katalog Program Nazhir</h2>
-            <div className="programs-grid">
-              {(programs || []).map((program) => (
-                <motion.div
-                  key={program?.id || 0}
-                  variants={fadeInUp}
-                  className="program-card"
-                >
-                  <h3>{program?.name || ''}</h3>
-                  <p className="program-pic">PIC: {program?.pic || ''}</p>
-                  <p className="program-desc">{program?.description || ''}</p>
-                  <div className="program-highlight">
-                    <strong>Program Unggulan:</strong> {program?.program || ''}
-                  </div>
-                  <p className="program-detail">{program?.programDetail || ''}</p>
-                  <div className="program-contact">
-                    {program?.contact && (
-                      <p><Phone size={14} /> {program.contact}</p>
-                    )}
-                    {program?.account && (
-                      <p><BookOpen size={14} /> {program.account}</p>
-                    )}
-                    {program?.socialMedia && (
-                      <p><Globe size={14} /> {program.socialMedia}</p>
-                    )}
-                    {program?.website && (
-                      <p><Globe size={14} /> {program.website}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Partners */}
-      <section className="partners-section">
-        <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-          >
-            <h2 className="section-title">{aboutData.partners?.title || 'Mitra'}</h2>
-            <div className="partners-grid">
-              {(aboutData.partners?.categories || []).map((category, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUp}
-                  className="partner-category"
-                >
-                  <h4>{category?.name || ''}</h4>
-                  <ul>
-                    {(category?.partners || []).map((partner, pIndex) => (
-                      <li key={pIndex}>{partner}</li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section className="contact-section">
-        <div className="container">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-            className="contact-card"
-          >
-            <h2>Hubungi Kami</h2>
-            <div className="contact-details">
-              <p><Phone size={18} /> {aboutData.contact?.phone || ''}</p>
-              <p><Mail size={18} /> {aboutData.contact?.email || ''}</p>
-              <p><Globe size={18} /> @{aboutData.contact?.instagram || ''}</p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <section className="about-contact-strip"><div className="container"><div><Award size={22} /><span>Badan Hukum: {aboutData.legal.skNumber}</span></div><a href={`tel:${aboutData.contact.phone.replace(/\s/g, '')}`}><Phone size={18} />{aboutData.contact.phone}</a><a href={`mailto:${aboutData.contact.email}`}><Mail size={18} />{aboutData.contact.email}</a></div></section>
     </div>
   );
 }
