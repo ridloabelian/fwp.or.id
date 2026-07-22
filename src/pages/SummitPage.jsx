@@ -4,7 +4,7 @@ import {
   Calendar, MapPin, Users, Award, ArrowRight, Leaf,
   Clock, Mic, Coffee, Star, CheckCircle, XCircle, HelpCircle,
   Send, Mail, Phone, Globe, Building2, GraduationCap, Landmark,
-  Briefcase, Heart, TrendingUp, ChevronRight, Ticket, MapPinCheck
+  Briefcase, Heart, TrendingUp, ChevronRight, Ticket, MapPinCheck, Download
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import {
@@ -652,32 +652,34 @@ const SummitPage = () => {
             variants={staggerContainer}
           >
             <motion.h2 variants={fadeInUp} style={{ color: 'var(--primary-color)', marginBottom: '16px' }}>
-              Ayo Bergabung!
+              Materi &amp; Modul WLS 2026
             </motion.h2>
             <motion.p variants={fadeInUp} style={{
               maxWidth: '600px', margin: '0 auto 32px', color: 'var(--text-main)'
             }}>
-              Jadilah bagian dari transformasi wakaf nasional. Daftarkan lembaga atau diri Anda untuk Waqf Leaders Summit 2026.
+              Akses file presentasi, modul materi, dan dokumentasi resmi pelaksanaan Waqf Leaders Summit 2026 melalui folder Google Drive resmi.
             </motion.p>
 
             <motion.div variants={fadeInUp} style={{
               display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '32px'
             }}>
               <a
-                href="https://wa.me/6281329765758?text=Assalamu'alaykum,%20saya%20ingin%20mendaftar%20Waqf%20Leaders%20Summit%202026"
+                href="https://drive.google.com/drive/folders/1V1LZ1smIymICVyJ02VGKjDQQZc5qfXUt?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
                 className="btn"
                 style={{ background: 'var(--primary-color)', color: 'white', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
               >
-                <Phone size={18} /> Daftar via WhatsApp
+                <Download size={18} /> Unduh Modul Materi WLS
               </a>
               <a
-                href="mailto:sekretariat@fwp.or.id?subject=Pendaftaran%20Waqf%20Leaders%20Summit%202026"
+                href="https://wa.me/6281389667055"
+                target="_blank"
+                rel="noreferrer"
                 className="btn btn-outline"
                 style={{ borderColor: 'var(--primary-color)', color: 'var(--primary-color)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
               >
-                <Mail size={18} /> Daftar via Email
+                <Phone size={18} /> Hubungi Sekretariat
               </a>
             </motion.div>
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Calendar, MapPin, Film, ArrowRight, Check, Plus, Minus,
-  Phone, Mail, Globe
+  Phone, Mail, Globe, Download
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import RegistrationForm from '../components/RegistrationForm';
@@ -545,12 +545,12 @@ export default function EventLandingPage() {
           <motion.div variants={heroRise} style={{
             display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 14, marginTop: 38,
           }}>
-            <a href="#registrasi" style={{
+            <a href="https://drive.google.com/drive/folders/1V1LZ1smIymICVyJ02VGKjDQQZc5qfXUt?usp=sharing" target="_blank" rel="noopener noreferrer" style={{
               display: 'inline-flex', alignItems: 'center', gap: 9,
               padding: '15px 32px', borderRadius: 999, background: C.goldGrad,
               color: '#15212b', fontSize: 15, fontWeight: 700, textDecoration: 'none',
               boxShadow: '0 12px 30px rgba(201,162,39,.35)',
-            }}>Daftar Sekarang <ArrowRight size={16} /></a>
+            }}>Unduh Modul Materi <Download size={16} /></a>
             <a href="#agenda" style={{
               display: 'inline-flex', alignItems: 'center', gap: 9,
               padding: '15px 32px', borderRadius: 999,
@@ -925,11 +925,18 @@ export default function EventLandingPage() {
             }}>
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
             </div>
-            <h3 style={{ fontSize: '1.4rem', color: C.navy, marginBottom: 12 }}>Pendaftaran On-Site Tidak Tersedia</h3>
-            <p style={{ fontSize: '0.95rem', color: C.textLight, margin: '0 0 24px', lineHeight: 1.6 }}>Demi kenyamanan delegasi and ketersediaan kapasitas akomodasi kamar hotel bintang 4 serta ballroom utama, kami mohon maaf tidak dapat melayani pendaftaran langsung di lokasi acara.</p>
-            <a href="https://wa.me/6281389667055" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-              Hubungi Sekretariat FWP
-            </a>
+            <h3 style={{ fontSize: '1.4rem', color: C.navy, marginBottom: 12 }}>Pendaftaran Telah Ditutup</h3>
+            <p style={{ fontSize: '0.95rem', color: C.textLight, margin: '0 0 24px', lineHeight: 1.6 }}>Kuota peserta terisi penuh. Bagi delegasi terdaftar dan umum, Anda dapat mengunduh dokumen presentasi, modul materi, serta panduan teknis acara melalui tautan di bawah.</p>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <a href="https://drive.google.com/drive/folders/1V1LZ1smIymICVyJ02VGKjDQQZc5qfXUt?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8, background: C.goldGrad, color: '#15212b', fontWeight: 700, padding: '10px 20px', borderRadius: 999, textDecoration: 'none'
+              }}>
+                <Download size={16} /> Unduh Materi &amp; Modul WLS
+              </a>
+              <a href="https://wa.me/6281389667055" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 999, border: `1px solid ${C.navy}`, color: C.navy, textDecoration: 'none' }}>
+                Hubungi Sekretariat
+              </a>
+            </div>
           </div>
         </div>
       </section>
