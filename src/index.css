@@ -444,6 +444,11 @@ button {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding: 120px 0 72px;
+    overflow: hidden;
+  }
   .nav-links {
     display: none;
   }
@@ -452,7 +457,7 @@ button {
   }
   .hero-grid {
     grid-template-columns: 1fr !important;
-    gap: 30px !important;
+    gap: 0 !important;
   }
   .hero-title {
     font-size: 2.2rem !important;
@@ -471,11 +476,9 @@ button {
     justify-content: center;
   }
   
-  /* Fix Hero HTML5 Animation block to fit mobile screen */
+  /* Keep mobile first viewport focused on message and CTA. */
   .hero-grid > div:nth-child(2) {
-    height: 350px !important;
-    transform: scale(0.85);
-    transform-origin: center;
+    display: none !important;
   }
   .stat-item {
     border-left: none;
