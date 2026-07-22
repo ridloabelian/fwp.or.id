@@ -7,11 +7,12 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-// Foto pengurus memakai aset yang sudah ada di /public/speakers
+// Foto pengurus memakai aset yang sudah ada di /public/speakers atau /team
 const PHOTOS = {
   'Ketua': '/speakers/rayan.png',
   'Sekretaris': '/speakers/alla.png',
   'Bendahara': '/speakers/herri.png',
+  'Kepala Unit Manajemen Investasi': '/speakers/ali-bastoni.png',
 };
 
 const cardStyle = {
@@ -73,7 +74,8 @@ export default function StrukturPage() {
   const members = aboutData.leadership?.members || [];
   const divisions = aboutData.leadership?.divisions || [];
   const ketua = members.find((m) => m.position === 'Ketua');
-  const pengurusInti = members.filter((m) => m.position !== 'Ketua');
+  const pengurusInti = members.filter((m) => ['Sekretaris', 'Bendahara'].includes(m.position));
+  const umi = members.find((m) => m.position === 'Kepala Unit Manajemen Investasi');
 
   return (
     <div className="about-page">
@@ -114,7 +116,15 @@ export default function StrukturPage() {
             </div>
             <div style={connectorVertical} />
 
-            {/* Level 3: Bidang-bidang */}
+            {/* Level 3: Unit Manajemen Investasi */}
+            {umi && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }}>
+                <LeaderCard member={umi} />
+                <div style={connectorVertical} />
+              </div>
+            )}
+
+            {/* Level 4: Bidang-bidang */}
             <h2 className="section-title" style={{ marginTop: '16px' }}>Bidang Kelengkapan Organisasi</h2>
             <p className="section-note">{aboutData.leadership?.note || ''}</p>
             <div className="divisions-grid" style={{ width: '100%' }}>

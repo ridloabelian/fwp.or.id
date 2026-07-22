@@ -16,10 +16,10 @@ export const eventData = {
     confirmed: [
       { name: 'Bp. Rayan Asa Luminaries, S.E., M.A.', role: 'Ketua Forum Wakaf Produktif', session: 'Sambutan FWP, Summit Highlights & Closing' },
       { name: 'Bp. Rizky Wisnoentoro, Ph.D.', role: 'Dosen Magister Keuangan Berkelanjutan FEB UIII', session: 'Talkshow: Wakaf sebagai Instrumen Penyelamat Lingkungan' },
+      { name: 'Bp. Rayan Asa Luminaries, S.E., M.A.', role: 'Ketua Forum Wakaf Produktif', session: 'Sambutan FWP, Summit Highlights & Closing' },
       { name: 'Bp. Ali Bastoni', role: 'Kepala Unit Manajemen Investasi FWP', session: 'Pembahasan Unit Manajemen Investasi, Moderator Pitching' },
-      { name: 'Ibu Nila Armelia Windasari, S.A., M.B.A, Ph.D.', role: 'Dosen SBM ITB', session: 'Grand Seminar: Nazhir, Kompetensi dan Akuntabilitas' },
       { name: 'Prof. Dr. Alla Asmara, S.Pt., M.Si.', role: 'Guru Besar FEM IPB University', session: 'Leaders Talk 1: Masa Depan Perwakafan Indonesia' },
-      { name: 'Herri Setiawan, S.T., M.M., M.E', role: 'Founder & CEO Wakaf Warrior', session: 'Leaders Talk 1' },
+      { name: 'Herri Setiawan, S.T., M.H., M.E.', role: 'Founder & CEO Wakaf Warrior', session: 'Leaders Talk 1' },
     ],
     pending: [
       { name: 'Prof. Kamaruddin Amin', role: 'Ketua Badan Pelaksana BWI', session: 'Sambutan BWI' },

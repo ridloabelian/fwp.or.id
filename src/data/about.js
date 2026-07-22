@@ -40,18 +40,23 @@ Dibentuk sejak 2018 oleh Badan Wakaf Indonesia bersama lembaga Nazhir Wakaf dan 
     members: [
       {
         position: 'Ketua',
-        name: 'Rayan Asa Luminaries, S.E.',
+        name: 'Rayan Asa Luminaries, S.E., M.A.',
         image: '/team/rayan.jpg',
       },
       {
         position: 'Sekretaris',
-        name: 'Prof. Dr. Alla Asmara, S.Pt,. M.Si.',
+        name: 'Prof. Dr. Alla Asmara, S.Pt., M.Si.',
         image: '/team/alla.jpg',
       },
       {
         position: 'Bendahara',
-        name: 'Herri Setiawan',
+        name: 'Herri Setiawan, S.T., M.H., M.E.',
         image: '/team/herri.jpg',
+      },
+      {
+        position: 'Kepala Unit Manajemen Investasi',
+        name: 'Ali Bastoni',
+        image: '/team/ali-bastoni.jpg',
       },
     ],
     divisions: [
