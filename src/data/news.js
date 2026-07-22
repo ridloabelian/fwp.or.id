@@ -1,5 +1,30 @@
 export const newsList = [
   {
+    id: 'wls-2026-satukan-pemimpin-nazhir',
+    title: 'Waqf Leaders Summit 2026 Satukan Pemimpin Nazhir untuk Memperbesar Dampak Wakaf Produktif',
+    date: '22 Juli 2026',
+    author: 'Panitia WLS 2026',
+    category: 'Event & Summit',
+    imageUrl: '/og-image.jpg',
+    excerpt: 'Forum Wakaf Produktif menggelar WLS 2026 di Bandung dengan menghadirkan 53 delegasi untuk memperkuat kolaborasi dan dampak wakaf produktif nasional.',
+    content: `
+      BANDUNG — Forum Wakaf Produktif (FWP) menggelar Waqf Leaders Summit (WLS) 2026 pada 22–23 Juli 2026 di Holiday Inn Pasteur, Bandung. Forum strategis bertema "Scaling-Up the Impact of Waqf Toward Sustainable Wellbeing" ini mempertemukan pimpinan lembaga nazhir, regulator, akademisi, praktisi, dan mitra industri untuk memperkuat kolaborasi serta memperbesar dampak wakaf produktif di Indonesia.
+
+      WLS 2026 diikuti 53 delegasi dari berbagai lembaga nazhir nasional, institusi pemerintah, akademisi, dan mitra strategis. Kehadiran para pemimpin ekosistem wakaf dalam satu forum diharapkan menghasilkan agenda bersama yang konkret, terukur, dan berkelanjutan.
+
+      Ketua Forum Wakaf Produktif, Rayan Asa Luminaries, S.E., M.A., menegaskan bahwa penguatan dampak wakaf membutuhkan kolaborasi lintas lembaga, peningkatan kapasitas nazhir, dan inovasi pengelolaan aset yang berorientasi pada kesejahteraan masyarakat.
+
+      Agenda WLS 2026 mencakup Leaders Talk mengenai masa depan perwakafan Indonesia, pembahasan kebijakan dan penguatan kelembagaan, seminar peningkatan kompetensi nazhir, pembahasan Unit Manajemen Investasi FWP, program pitching, serta pengembangan kemitraan strategis.
+
+      Salah satu agenda penting adalah peluncuran Unit Manajemen Investasi (UMI) FWP. Unit ini disiapkan untuk mendukung penguatan tata kelola investasi dan pengembangan aset wakaf produktif secara profesional, prudent, dan berorientasi pada keberlanjutan manfaat.
+
+      WLS 2026 juga membuka ruang business matching antara lembaga nazhir dan mitra potensial, termasuk sektor perbankan syariah, lembaga keuangan, investor berdampak, akademisi, dan pelaku usaha. Kolaborasi tersebut diharapkan mempercepat transformasi aset wakaf menjadi kekuatan ekonomi dan sosial yang memberi manfaat nyata bagi umat.
+
+      Melalui semangat "Tumbuh Bersama", Forum Wakaf Produktif berharap WLS 2026 melahirkan rekomendasi strategis, jejaring kolaborasi, dan tindak lanjut konkret untuk memperkuat ekosistem wakaf nasional menuju Indonesia Emas 2045.
+    `,
+    mediaCoverage: []
+  },
+  {
     id: 'fwp-oic-youth-d8-expo-2026',
     title: 'Dorong Kolaborasi Talenta & Inovasi Berkelanjutan di D-8 Halal Expo 2026, FWP dan OIC Youth Indonesia Siapkan Mesin Baru Pembangunan',
     date: '19 Juli 2026',

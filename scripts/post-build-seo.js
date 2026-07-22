@@ -3,6 +3,12 @@ import path from 'path';
 
 const newsArticles = [
   {
+    id: 'wls-2026-satukan-pemimpin-nazhir',
+    title: 'Waqf Leaders Summit 2026 Satukan Pemimpin Nazhir untuk Memperbesar Dampak Wakaf Produktif | Forum Wakaf Produktif',
+    excerpt: 'Forum Wakaf Produktif menggelar WLS 2026 di Bandung dengan menghadirkan 53 delegasi untuk memperkuat kolaborasi dan dampak wakaf produktif nasional.',
+    imageUrl: 'https://fwp.or.id/og-image.jpg'
+  },
+  {
     id: 'fwp-oic-youth-d8-expo-2026',
     title: 'Dorong Kolaborasi Talenta & Inovasi Berkelanjutan di D-8 Halal Expo 2026, FWP dan OIC Youth Indonesia Siapkan Mesin Baru Pembangunan | Forum Wakaf Produktif',
     excerpt: 'Forum Wakaf Produktif (FWP) bersama OIC Youth Indonesia menyepakati kolaborasi strategis dalam pengembangan talenta muda dan inovasi keuangan sosial Islam pada D-8 Halal Expo Indonesia 2026.',
