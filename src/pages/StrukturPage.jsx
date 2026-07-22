@@ -24,15 +24,6 @@ const cardStyle = {
   maxWidth: '260px',
 };
 
-const photoStyle = {
-  width: '96px',
-  height: '96px',
-  borderRadius: '50%',
-  objectFit: 'cover',
-  margin: '0 auto 12px',
-  display: 'block',
-  border: '3px solid var(--secondary-color)',
-};
 
 const connectorVertical = {
   width: '2px',
@@ -54,12 +45,13 @@ function LeaderCard({ member }) {
   return (
     <motion.div variants={fadeInUp} style={cardStyle}>
       {photo ? (
-        <img
-          src={photo}
-          alt={member?.name}
-          style={photoStyle}
-          onError={(e) => { e.target.style.display = 'none'; }}
-        />
+        <div className={`structure-photo-frame structure-photo-${member.position.toLowerCase()}`}>
+          <img
+            src={photo}
+            alt={member?.name}
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+        </div>
       ) : null}
       <p style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--secondary-dark)', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 4px' }}>
         {member?.position || ''}
