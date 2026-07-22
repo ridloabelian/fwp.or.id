@@ -22,19 +22,13 @@ const Footer = () => {
         <div>
           <h3 style={{ color: 'var(--secondary-color)', marginBottom: '20px' }}>Tautan Cepat</h3>
           <ul className="footer-links" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-            {navLinks.flatMap((link) =>
-              link.dropdown
-                ? link.dropdown.map((child) => (
-                    <li key={child.id}>
-                      <Link to={child.path}>{child.label}</Link>
-                    </li>
-                  ))
-                : [
-                    <li key={link.id}>
-                      <Link to={link.path}>{link.label}</Link>
-                    </li>,
-                  ]
-            )}
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <Link to={link.dropdown ? link.dropdown[0].path : link.path}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 

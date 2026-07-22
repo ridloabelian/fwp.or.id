@@ -424,17 +424,6 @@ button {
 .footer-links a:hover {
   color: var(--secondary-color);
   padding-left: 4px;
-}12px;
-  }
-
-  .footer-links a {
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .footer-links a:hover {
-    color: var(--secondary-color);
-    padding-left: 4px;
-  }
 }
 
 .footer-bottom {
