@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 
 // Pages
 import HomePage from './pages/HomePage';
+import HomeV2Page from './pages/HomeV2Page';
 import AboutPage from './pages/AboutPage';
 import SejarahPage from './pages/SejarahPage';
 import LegalitasPage from './pages/LegalitasPage';
@@ -48,6 +49,7 @@ function App() {
       <main style={{ minHeight: '100vh' }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/v2-preview" element={<HomeV2Page />} />
           <Route path="/tentang-kami" element={<AboutPage />} />
           <Route path="/tentang-kami/sejarah" element={<SejarahPage />} />
           <Route path="/tentang-kami/legalitas" element={<LegalitasPage />} />

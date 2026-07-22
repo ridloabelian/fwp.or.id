@@ -57,6 +57,7 @@ async function generateStaticFiles() {
 
     // 2c. Generate simple static fallbacks for new top-level routes
     const simpleRoutes = [
+      'v2-preview',
       'keanggotaan',
       'daftar-anggota',
       'tentang-kami',
