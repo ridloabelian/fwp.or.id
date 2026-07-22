@@ -53,11 +53,6 @@ Dibentuk sejak 2018 oleh Badan Wakaf Indonesia bersama lembaga Nazhir Wakaf dan 
         name: 'Herri Setiawan, S.T., M.H., M.E.',
         image: '/team/herri.jpg',
       },
-      {
-        position: 'Kepala Unit Manajemen Investasi',
-        name: 'Ali Bastoni',
-        image: '/team/ali-bastoni.jpg',
-      },
     ],
     divisions: [
       {
