@@ -128,9 +128,11 @@ export default function AboutPage() {
                   className="leader-card"
                 >
                   <div className="leader-image">
-                    <div className="leader-placeholder">
-                      <Users size={48} />
-                    </div>
+                    <img
+                      src={`/speakers/${member.position === 'Ketua' ? 'rayan' : member.position === 'Sekretaris' ? 'alla' : 'herri'}.png`}
+                      alt={`Foto ${member.name}`}
+                      loading="lazy"
+                    />
                   </div>
                   <h3>{member?.name || ''}</h3>
                   <p className="leader-position">{member?.position || ''}</p>
