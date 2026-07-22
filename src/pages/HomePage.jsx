@@ -52,7 +52,7 @@ const LandingPage = () => {
               </motion.h1>
               <motion.p className="hero-subtitle" variants={fadeInUp} style={{ marginLeft: 0, fontSize: '1.2rem', maxWidth: '600px', marginBottom: '40px' }}>
                 Dilaunching 7 Desember 2016, FWP menjadi katalisator pengembangan wakaf produktif di Indonesia. 
-                Saat ini tercatat 49 Lembaga Nazhir yang memimpin transformasi wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
+                Bersama jejaring lembaga nazhir, FWP mendorong transformasi wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
               </motion.p>
               <motion.div className="hero-actions" variants={fadeInUp} style={{ justifyContent: 'flex-start', flexWrap: 'wrap', gap: '20px', display: 'flex' }}>
                 <motion.a href="https://satuwakaf.id" target="_blank" rel="noreferrer" className="btn btn-primary" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ whiteSpace: 'nowrap' }}>
@@ -188,7 +188,7 @@ const LandingPage = () => {
                 </div>
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <div style={{ width: '12px', height: '12px', background: 'var(--secondary-color)', borderRadius: '50%' }}></div>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>Live Data Monitoring</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>Data Statistik</span>
                 </div>
               </div>
               
@@ -228,8 +228,8 @@ const LandingPage = () => {
                   <Users size={20} />
                 </div>
                 <div>
-                  <h4 style={{ margin: 0, color: 'var(--text-main)', fontSize: '1.2rem' }}>49 Lembaga Nazhir</h4>
-                  <p style={{ margin: 0, fontSize: '0.95rem' }}>Anggota aktif yang terdaftar resmi di Badan Wakaf Indonesia (BWI).</p>
+                  <h4 style={{ margin: 0, color: 'var(--text-main)', fontSize: '1.2rem' }}>Jejaring Lembaga Nazhir</h4>
+                  <p style={{ margin: 0, fontSize: '0.95rem' }}>Kolaborasi lembaga nazhir dalam penguatan ekosistem wakaf produktif.</p>
                 </div>
               </motion.div>
               <motion.div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }} variants={fadeInUp}>
@@ -475,7 +475,7 @@ const LandingPage = () => {
             animate="visible" 
             variants={fadeInUp}
           >
-            49 Lembaga Nazhir Anggota FWP
+            Jejaring Lembaga Nazhir FWP
           </motion.h2>
           <motion.p 
             style={{ maxWidth: '600px', margin: '0 auto', marginBottom: '40px' }}
@@ -483,7 +483,7 @@ const LandingPage = () => {
             animate="visible" 
             variants={fadeInUp}
           >
-            Forum Wakaf Produktif beranggotakan berbagai Lembaga Nazhir profesional yang terdaftar resmi di Badan Wakaf Indonesia (BWI), tersebar di 8 wilayah Indonesia.
+            Forum Wakaf Produktif menghimpun jejaring lembaga nazhir dari berbagai wilayah untuk belajar, berkolaborasi, dan mengembangkan wakaf produktif.
           </motion.p>
           
           <motion.div 
