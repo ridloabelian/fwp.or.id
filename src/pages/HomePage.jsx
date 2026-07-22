@@ -55,12 +55,14 @@ const LandingPage = () => {
                 Bersama jejaring lembaga nazhir, FWP mendorong transformasi wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
               </motion.p>
               <motion.div className="hero-actions" variants={fadeInUp} style={{ justifyContent: 'flex-start', flexWrap: 'wrap', gap: '20px', display: 'flex' }}>
-                <motion.a href="https://satuwakaf.id" target="_blank" rel="noreferrer" className="btn btn-primary" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ whiteSpace: 'nowrap' }}>
-                  Tunaikan Wakaf <ArrowRight size={20} />
-                </motion.a>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ display: 'inline-block' }}>
-                  <Link to="/tentang-kami" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
-                    Pelajari Peta Jalan
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} style={{ display: 'inline-block' }}>
+                  <Link to="/keanggotaan" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
+                    Jelajahi Keanggotaan <ArrowRight size={20} />
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} style={{ display: 'inline-block' }}>
+                  <Link to="/layanan-bisnis" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
+                    Jalin Kemitraan
                   </Link>
                 </motion.div>
               </motion.div>
