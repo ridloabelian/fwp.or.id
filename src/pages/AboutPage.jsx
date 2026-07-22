@@ -132,6 +132,7 @@ export default function AboutPage() {
                       src={`/speakers/${member.position === 'Ketua' ? 'rayan' : member.position === 'Sekretaris' ? 'alla' : 'herri'}.png`}
                       alt={`Foto ${member.name}`}
                       loading="lazy"
+                      className={member.position === 'Bendahara' ? 'leader-photo-herri' : ''}
                     />
                   </div>
                   <h3>{member?.name || ''}</h3>
