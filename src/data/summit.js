@@ -27,7 +27,7 @@ export const summitSpeakers = {
     {
       id: 1,
       name: 'Rayan Asa Luminaries, S.E., M.A.',
-      photo: '/speakers/rayan.png',
+      photo: '/speakers/rayan-2026.png',
       title: 'Ketua Umum Forum Wakaf Produktif',
       status: 'confirmed',
       category: 'FWP',

@@ -9,7 +9,7 @@ const fadeInUp = {
 
 // Foto pengurus memakai aset yang sudah ada di /public/speakers
 const PHOTOS = {
-  'Ketua': '/speakers/rayan.png',
+  'Ketua': '/speakers/rayan-2026.png',
   'Sekretaris': '/speakers/alla.png',
   'Bendahara': '/speakers/herri.png',
 };
