@@ -5,8 +5,8 @@ import { navLinks } from '../data/navigation';
 
 const Footer = () => {
   return (
-    <footer className="footer" id="kontak">
-      <div className="container grid-4">
+    <footer className="footer" id="kontak" style={{ background: 'var(--primary-color)', color: 'var(--text-light)', paddingTop: '64px' }}>
+      <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px' }}>
         <div>
           <div className="nav-brand" style={{ color: 'white', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ background: 'white', padding: '6px', borderRadius: '8px', display: 'flex' }}>
@@ -20,8 +20,8 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3>Tautan Cepat</h3>
-          <ul className="footer-links">
+          <h3 style={{ color: 'var(--secondary-color)', marginBottom: '20px' }}>Tautan Cepat</h3>
+          <ul className="footer-links" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
             {navLinks.flatMap((link) =>
               link.dropdown
                 ? link.dropdown.map((child) => (
@@ -39,17 +39,17 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3>Kontak Kami</h3>
+          <h3 style={{ color: 'var(--secondary-color)', marginBottom: '20px' }}>Sekretariat FWP</h3>
           <ul className="footer-links">
-            <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <MapPin size={18} color="var(--secondary-color)" />
-              <span>Komplek Masjid Agung Al Azhar<br />Jl. Sisingamangaraja, Kebayoran Baru<br />Jakarta Selatan</span>
+            <li style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+              <MapPin size={18} color="var(--secondary-color)" style={{ marginTop: '4px', flexShrink: 0 }} />
+              <span style={{ lineHeight: '1.4' }}>Komplek Masjid Agung Al Azhar<br />Jl. Sisingamangaraja, Kebayoran Baru<br />Jakarta Selatan, 12110</span>
             </li>
-            <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <li style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '8px' }}>
               <Mail size={18} color="var(--secondary-color)" />
               <span>fwpsekretariat@gmail.com</span>
             </li>
-            <li style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <li style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '8px' }}>
               <Phone size={18} color="var(--secondary-color)" />
               <span>0813 8966 7055</span>
             </li>
@@ -57,7 +57,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3>Mari Berkolaborasi</h3>
+          <h3 style={{ color: 'var(--secondary-color)', marginBottom: '20px' }}>Mari Berkolaborasi</h3>
           <p>Dukung pertumbuhan ekonomi umat melalui wakaf produktif bersama Lembaga Nazhir terpercaya di seluruh Indonesia.</p>
           <a href="mailto:fwpsekretariat@gmail.com" className="btn btn-secondary" style={{ marginTop: '16px' }}>Kirim Pesan</a>
           <div style={{ marginTop: '24px', display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
       </div>
       
-      <div className="footer-bottom">
+      <div className="footer-bottom" style={{ marginTop: '48px', padding: '24px 0', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>
         <p>&copy; {new Date().getFullYear()} Forum Wakaf Produktif Indonesia. Seluruh hak cipta dilindungi.</p>
       </div>
     </footer>
