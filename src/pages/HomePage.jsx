@@ -43,7 +43,6 @@ const LandingPage = () => {
           <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '60px', alignItems: 'center', width: '100%' }}>
             <motion.div 
               className="hero-content"
-              initial="hidden"
               animate="visible"
               variants={staggerContainer}
               style={{ textAlign: 'left', margin: 0 }}
@@ -69,7 +68,6 @@ const LandingPage = () => {
 
             {/* HTML5 Animation Section */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
               style={{ position: 'relative', height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}

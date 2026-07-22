@@ -23,7 +23,6 @@ const Navbar = () => {
       <motion.nav 
         className={`navbar ${scrolled ? 'glass-card' : ''}`} 
         style={scrolled ? { border: 'none', borderRadius: 0, padding: '0 24px' } : {}}
-        initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
