@@ -35,7 +35,7 @@ const LandingPage = () => {
     <>
       <SEO 
         title="Beranda" 
-        description="Portal resmi Forum Wakaf Produktif Indonesia. Mengorkestrasi gerakan Indonesia Berwakaf untuk memajukan ekosistem wakaf produktif secara nasional." 
+        description="Portal resmi Forum Wakaf Produktif. Mengorkestrasi gerakan Indonesia Berwakaf untuk memajukan ekosistem wakaf produktif secara nasional."
       />
       {/* Hero Section */}
       <section className="hero" id="beranda">
@@ -48,7 +48,7 @@ const LandingPage = () => {
               style={{ textAlign: 'left', margin: 0 }}
             >
               <motion.h1 className="hero-title" variants={fadeInUp} style={{ fontSize: '3.8rem', lineHeight: '1.15', marginBottom: '24px' }}>
-                Forum Wakaf Produktif Indonesia
+                Forum Wakaf Produktif
               </motion.h1>
               <motion.p className="hero-subtitle" variants={fadeInUp} style={{ marginLeft: 0, fontSize: '1.2rem', maxWidth: '600px', marginBottom: '40px' }}>
                 Dilaunching 7 Desember 2016, FWP menjadi katalisator pengembangan wakaf produktif di Indonesia. 

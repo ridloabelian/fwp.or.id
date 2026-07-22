@@ -69,7 +69,7 @@ const Footer = () => {
       </div>
       
       <div className="footer-bottom" style={{ marginTop: '48px', padding: '24px 0', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>
-        <p>&copy; {new Date().getFullYear()} Forum Wakaf Produktif Indonesia. Seluruh hak cipta dilindungi.</p>
+        <p>&copy; {new Date().getFullYear()} Forum Wakaf Produktif. Seluruh hak cipta dilindungi.</p>
       </div>
     </footer>
   );
