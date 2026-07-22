@@ -10,7 +10,7 @@ export const aboutData = {
 
 Dilaunching pada tanggal 7 Desember 2016 di Hotel Sari Pan Pacific Jakarta, yang saat awal beranggotakan 11 Nazhir Yayasan dan Badan Hukum Koperasi yang telah memiliki izin legalitas sebagai nazhir wakaf uang, antara lain: Badan Wakaf Indonesia, Dompet Dhuafa, Wakaf Al-Azhar, Yayasan Wakaf Bangun Nurani Bangsa (ESQ), Perhimpunan BMT Indonesia, Global Wakaf, Rumah Wakaf, Sinergi Foundation (Wakafpro), Wakaf Daarut Tauhiid, dan Wakaf Bani Umar.
 
-Dibentuk sejak 2018 oleh Badan Wakaf Indonesia bersama lembaga Nazhir Wakaf dan didukung oleh Kementerian Agama, saat ini tercatat memiliki 57 anggota dan akan terus bertambah seiring perkembangan organisasi kenazhiran di Indonesia.`,
+Dibentuk sejak 2018 oleh Badan Wakaf Indonesia bersama lembaga Nazhir Wakaf dan didukung oleh Kementerian Agama, saat ini tercatat memiliki 49 anggota berdasarkan pembaruan daftar anggota terbaru dan akan terus bertambah seiring perkembangan organisasi kenazhiran di Indonesia.`,
   },
   legal: {
     title: 'Legal Formal',
@@ -221,7 +221,7 @@ export const members = [
   { no: 11, name: 'LAZNAS MANDIRI AMAL INSANI', yayasan: 'YAYASAN MANDIRI AMAL INSANI', stbpn: '3.3.00133', region: 'Banten' },
   { no: 12, name: 'YPM Salman ITB', yayasan: 'YAYASAN PEMBINA MASJID SALMAN ITB', stbpn: '3.3.00170', region: 'Jawa Barat' },
   { no: 13, name: 'Inisiatif Wakaf', yayasan: 'YAYASAN INISIATIF WAKAF', stbpn: '3.3.00172', region: 'Jawa Barat' },
-  { no: 14, name: 'Baitul Wakaf', yayasan: 'YAYASAN BAITUL MAAL HIDAYATULLAH', stbpn: '3.3.00175', region: 'Banten' },
+  { no: 14, name: 'Baitul Wakaf', yayasan: 'BAITUL WAKAF', stbpn: '3.3.00175', region: 'Banten' },
   { no: 15, name: 'Tazakka', yayasan: 'YAYASAN TAZAKKA BATANG', stbpn: '3.3.00188', region: 'Jawa Tengah' },
   { no: 16, name: 'Daarul Quran Nusantara', yayasan: 'YAYASAN DAARUL QURAN NUSANTARA', stbpn: '3.3.00192', region: 'Banten' },
   { no: 17, name: 'BSI Maslahat', yayasan: 'YAYASAN BANGUN SEJAHTERA INDONESIA MASLAHAT', stbpn: '3.3.00201', region: 'Banten' },
@@ -254,6 +254,9 @@ export const members = [
   { no: 44, name: 'Rumah Itqon Zakat dan Infak (RIZKI)', yayasan: 'YAYASAN RUMAH ITQON ZAKAT DAN INFAK', stbpn: '3.3.00387', region: 'Jawa Timur' },
   { no: 45, name: 'Lembaga Wakaf Doa Bangsa', yayasan: 'YAYASAN PEMBINA PENDIDIKAN DOA BANGSA', stbpn: '3.3.00401', region: 'Jawa Barat' },
   { no: 46, name: 'Yayasan Wakaf Indonesia Bersatu (Wahdah Islamiyah)', yayasan: 'YAYASAN WAKAF INDONESIA BERSATU', stbpn: '3.3.00405', region: 'Sulawesi Selatan' },
+  { no: 47, name: 'Badan Wakaf Dewan Da’wah Islamiyah Indonesia', yayasan: 'BADAN WAKAF DEWAN DA’WAH ISLAMIYAH INDONESIA', stbpn: '3.3.00174', region: 'Nasional' },
+  { no: 48, name: 'Cinta Wakaf', yayasan: 'CINTA WAKAF', stbpn: '3.3.00069', region: 'Nasional' },
+  { no: 49, name: 'One Wakaf', yayasan: 'ONE WAKAF', stbpn: '3.3.00405', region: 'Nasional' },
 ];
 
 export const programs = [

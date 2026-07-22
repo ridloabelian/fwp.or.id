@@ -52,7 +52,7 @@ const LandingPage = () => {
               </motion.h1>
               <motion.p className="hero-subtitle" variants={fadeInUp} style={{ marginLeft: 0, fontSize: '1.2rem', maxWidth: '600px', marginBottom: '40px' }}>
                 Dilaunching 7 Desember 2016, FWP menjadi katalisator pengembangan wakaf produktif di Indonesia. 
-                Saat ini beranggotakan 57 Lembaga Nazhir yang memimpin transformasi wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
+                Saat ini tercatat 49 Lembaga Nazhir yang memimpin transformasi wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
               </motion.p>
               <motion.div className="hero-actions" variants={fadeInUp} style={{ justifyContent: 'flex-start', flexWrap: 'wrap', gap: '20px', display: 'flex' }}>
                 <motion.a href="https://satuwakaf.id" target="_blank" rel="noreferrer" className="btn btn-primary" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ whiteSpace: 'nowrap' }}>
@@ -228,7 +228,7 @@ const LandingPage = () => {
                   <Users size={20} />
                 </div>
                 <div>
-                  <h4 style={{ margin: 0, color: 'var(--text-main)', fontSize: '1.2rem' }}>57 Lembaga Nazhir</h4>
+                  <h4 style={{ margin: 0, color: 'var(--text-main)', fontSize: '1.2rem' }}>49 Lembaga Nazhir</h4>
                   <p style={{ margin: 0, fontSize: '0.95rem' }}>Anggota aktif yang terdaftar resmi di Badan Wakaf Indonesia (BWI).</p>
                 </div>
               </motion.div>
@@ -475,7 +475,7 @@ const LandingPage = () => {
             animate="visible" 
             variants={fadeInUp}
           >
-            57 Lembaga Nazhir Anggota FWP
+            49 Lembaga Nazhir Anggota FWP
           </motion.h2>
           <motion.p 
             style={{ maxWidth: '600px', margin: '0 auto', marginBottom: '40px' }}
