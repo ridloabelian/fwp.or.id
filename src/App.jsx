@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -31,6 +31,12 @@ const ScrollToTop = () => {
   return null;
 }
 
+// Legacy /publikasi/:id → /berita/:id (keep article slug)
+const RedirectToBerita = () => {
+  const { pathname } = useLocation();
+  return <Navigate to={pathname.replace('/publikasi/', '/berita/')} replace />;
+}
+
 function App() {
   const { pathname } = useLocation();
   const isStandalonePage = pathname === '/wls2026';
@@ -55,8 +61,8 @@ function App() {
           <Route path="/inspirasi-studi-kasus" element={<SuccessStoriesPage />} />
           <Route path="/layanan-bisnis" element={<BusinessMatchingPage />} />
           <Route path="/transparansi" element={<TransparencyPage />} />
-          <Route path="/publikasi" element={<PublicationsPage />} />
-          <Route path="/publikasi/:id" element={<PublicationsPage />} />
+          <Route path="/publikasi" element={<Navigate to="/berita" replace />} />
+          <Route path="/publikasi/:id" element={<RedirectToBerita />} />
           <Route path="/waqf-leaders-summit" element={<SummitPage />} />
           <Route path="/wls2026" element={<EventLandingPage />} />
           <Route path="/proposal-wls2026" element={<ProposalPage />} />

@@ -23,9 +23,9 @@ const staggerContainer = {
 const NazhirCenterPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredNazhirs = nazhirList.filter(nazhir => 
-    nazhir.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    nazhir.city.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredNazhirs = nazhirList.filter(nazhir =>
+    nazhir.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (nazhir.region || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -123,10 +123,10 @@ const NazhirCenterPage = () => {
 
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid-4" style={{ gap: '16px' }}>
             {filteredNazhirs.map((nazhir) => (
-              <motion.div key={nazhir.id} className="glass-card" style={{ padding: '24px', background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
-                <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>{nazhir.name}</span>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>{nazhir.status}</span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{nazhir.city}</span>
+              <motion.div key={nazhir.no} className="glass-card" style={{ padding: '24px', background: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
+                <span style={{ fontWeight: '600', color: 'var(--text-main)', textAlign: 'center' }}>{nazhir.name}</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>STBPN {nazhir.stbpn}</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{nazhir.region}</span>
               </motion.div>
             ))}
           </motion.div>

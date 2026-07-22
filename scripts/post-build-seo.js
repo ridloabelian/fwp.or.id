@@ -74,7 +74,7 @@ async function generateStaticFiles() {
         .replace(/<title>[^<]*<\/title>/, `<title>${article.title}</title>`)
         .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${article.excerpt}">`)
         .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${article.excerpt}">`)
-        .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="https://fwp.or.id/publikasi/${article.id}">`)
+        .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="https://fwp.or.id/${prefix}/${article.id}">`)
         .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${article.imageUrl}">`);
 
       await fs.mkdir(articleDir, { recursive: true });

@@ -485,8 +485,8 @@ const LandingPage = () => {
             variants={staggerContainer}
           >
             {nazhirList.slice(0, 8).map((nazhir) => (
-              <motion.div 
-                key={nazhir.id} 
+              <motion.div
+                key={nazhir.no}
                 className="glass-card" 
                 style={{ padding: '24px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 variants={itemScale}
