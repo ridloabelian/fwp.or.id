@@ -23,6 +23,5 @@ export const navLinks = [
   { id: 'nazhir', path: '/pusat-nazhir', label: 'Pusat Nazhir' },
   { id: 'stories', path: '/inspirasi-studi-kasus', label: 'Inspirasi' },
   { id: 'business', path: '/layanan-bisnis', label: 'Kemitraan' },
-  { id: 'transparency', path: '/transparansi', label: 'Transparansi' },
-  { id: 'wls', path: '/wls2026', label: 'WLS 2026' }
+  { id: 'transparency', path: '/transparansi', label: 'Transparansi' }
 ];
