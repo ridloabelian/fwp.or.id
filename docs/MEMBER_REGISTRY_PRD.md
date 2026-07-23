@@ -83,6 +83,10 @@ Hanya menampilkan organisasi `verified`, membership `active`, dan `public_consen
 - Satu lembaga boleh memiliki banyak aplikasi historis.
 - Maksimal satu membership berjalan per lembaga.
 - Nomor membership unik dan immutable.
+- Silver dan Gold dikenakan Rp2 juta per tahun; Platinum Rp15 juta per tahun.
+- Membership berlaku 1 tahun dengan grace period 30 hari.
+- Approval membutuhkan Ketua dan satu pengurus inti; dua approver harus berbeda.
+- Platinum hanya melalui undangan atau nominasi pengurus.
 - Approval dan activation harus tercatat dalam audit log.
 - Reviewer tidak boleh menyetujui aplikasi miliknya sendiri bila konflik kepentingan ditandai.
 - File privat hanya diakses melalui signed URL.

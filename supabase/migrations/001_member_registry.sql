@@ -79,6 +79,7 @@ create table public.membership_tiers (
   name text not null,
   description text,
   fee_amount bigint,
+  fee_period text not null default 'annual' check (fee_period in ('annual','one_time','waived')),
   currency char(3) not null default 'IDR',
   eligibility_rules jsonb not null default '{}'::jsonb,
   benefits jsonb not null default '[]'::jsonb,
@@ -118,12 +119,14 @@ create table public.memberships (
   expires_at date,
   approved_at timestamptz,
   approved_by uuid references public.app_users(id) on delete set null,
+  second_approved_by uuid references public.app_users(id) on delete set null,
   suspended_at timestamptz,
   ended_at timestamptz,
   notes text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   check (expires_at is null or started_at is null or expires_at >= started_at),
+  check (approved_by is null or second_approved_by is null or approved_by <> second_approved_by),
   check (status = 'pending_activation' or member_number is not null)
 );
 create unique index memberships_one_running_per_org on public.memberships(organization_id)
@@ -245,12 +248,12 @@ where o.verification_status = 'verified'
   and o.archived_at is null
   and m.status in ('active','honorary');
 
--- Draft tier seeds. Do not run in production before policy approval; fee periods are not encoded yet.
-insert into public.membership_tiers(code,name,description,fee_amount,eligibility_rules,active_from)
+-- Working-policy v0.1 tier seeds. Create a new dated tier version when policy changes; do not overwrite historical tiers.
+insert into public.membership_tiers(code,name,description,fee_amount,fee_period,eligibility_rules,active_from)
 values
- ('silver','Anggota Biasa (Silver)','Lembaga Nazhir dengan izin Nazhir Wakaf Uang',2000000,'{"requires_cash_waqf_license":true}'::jsonb,current_date),
- ('gold','Anggota Luar Biasa (Gold)','Lembaga Nazhir dengan izin NWU dan aset kelolaan minimum',2000000,'{"requires_cash_waqf_license":true,"minimum_managed_assets":2000000000}'::jsonb,current_date),
- ('platinum','Anggota Kehormatan (Platinum)','Lembaga non-Nazhir/mitra strategis',15000000,'{"organization_types":["non_nazhir","government","corporate","academic"]}'::jsonb,current_date);
+ ('silver','Anggota Biasa (Silver)','Lembaga Nazhir dengan izin Nazhir Wakaf Uang',2000000,'annual','{"requires_cash_waqf_license":true,"membership_months":12,"grace_period_days":30}'::jsonb,current_date),
+ ('gold','Anggota Luar Biasa (Gold)','Lembaga Nazhir dengan izin NWU dan aset kelolaan minimum',2000000,'annual','{"requires_cash_waqf_license":true,"minimum_managed_assets":2000000000,"membership_months":12,"grace_period_days":30}'::jsonb,current_date),
+ ('platinum','Anggota Kehormatan (Platinum)','Lembaga non-Nazhir/mitra strategis melalui undangan/nominasi pengurus',15000000,'annual','{"organization_types":["non_nazhir","government","corporate","academic"],"admission":"invitation_or_nomination","membership_months":12,"grace_period_days":30}'::jsonb,current_date);
 
 comment on table public.organizations is 'Canonical organization registry; imported training records remain unverified.';
 comment on table public.audit_logs is 'Append-only audit trail; browser roles intentionally have no write policy.';

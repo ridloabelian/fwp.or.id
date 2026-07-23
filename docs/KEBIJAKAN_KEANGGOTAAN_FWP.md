@@ -1,7 +1,7 @@
 # Draft Kebijakan Keanggotaan Forum Wakaf Produktif
 
-**Status:** Draf untuk keputusan pengurus  
-**Tujuan:** Menjadi dasar operasional Member Registry FWP. Butir bertanda **[PUTUSKAN]** belum boleh dianggap kebijakan resmi.
+**Status:** Kebijakan kerja sementara, versi 0.1
+**Tujuan:** Menjadi dasar pembangunan dan operasional awal Member Registry FWP. Pengurus dapat merevisi kebijakan melalui versi baru tanpa mengubah histori transaksi dan keanggotaan.
 
 ## 1. Prinsip
 
@@ -17,19 +17,19 @@
 
 - Lembaga Nazhir.
 - Memiliki izin Nazhir Wakaf Uang yang valid.
-- Usulan iuran: Rp2.000.000. **[PUTUSKAN: tahunan/sekali bayar]**
+- Iuran: Rp2.000.000 per tahun.
 
 ### Gold — Anggota Luar Biasa
 
 - Memiliki izin Nazhir Wakaf Uang yang valid.
 - Memiliki aset kelolaan minimal Rp2.000.000.000 yang dapat diverifikasi.
-- Usulan iuran: Rp2.000.000. **[PUTUSKAN: tahunan/sekali bayar]**
+- Iuran: Rp2.000.000 per tahun.
 
 ### Platinum — Anggota Kehormatan
 
 - Ditujukan bagi lembaga non-Nazhir/mitra strategis.
-- Usulan kontribusi: Rp15.000.000. **[PUTUSKAN: tahunan/sekali bayar]**
-- Mekanisme: **[PUTUSKAN: pendaftaran/undangan pengurus]**
+- Kontribusi: Rp15.000.000 per tahun.
+- Mekanisme: undangan atau nominasi pengurus; bukan pendaftaran mandiri otomatis.
 
 ## 3. Lifecycle
 
@@ -62,22 +62,22 @@ Status alternatif: `rejected`, `withdrawn`, `suspended`, `resigned`, `terminated
 
 1. Sekretariat memeriksa kelengkapan.
 2. Reviewer memverifikasi legalitas dan dokumen.
-3. Pengurus berwenang menyetujui/menolak. **[PUTUSKAN: jabatan/kuorum]**
+3. Persetujuan membutuhkan Ketua dan minimal satu pengurus inti lain. Bila Ketua memiliki konflik kepentingan, persetujuan dilakukan oleh dua pengurus inti lain dan dicatat dalam audit log.
 4. Sistem menerbitkan tagihan bila berlaku.
 5. Keanggotaan aktif setelah pembayaran/waiver diverifikasi.
 6. Perubahan tier mengikuti proses review baru.
 
 ## 7. Masa Berlaku
 
-- Masa keanggotaan: **[PUTUSKAN]**
-- Grace period: **[PUTUSKAN]**
+- Masa keanggotaan: 1 tahun sejak tanggal aktivasi.
+- Grace period: 30 hari kalender setelah tanggal kedaluwarsa.
 - Jadwal review data: minimal tahunan.
-- Konsekuensi tunggakan: **[PUTUSKAN]**
+- Konsekuensi tunggakan: status menjadi `grace_period`; setelah 30 hari menjadi `inactive`. Aktivasi ulang tidak menghapus histori.
 
 ## 8. Nomor Anggota
 
-Usulan format: `FWP-{TAHUN}-{NOMOR_URUT}`.  
-Contoh: `FWP-2026-0001`. **[PUTUSKAN]**
+Format: `FWP-{TAHUN_AKTIVASI}-{NOMOR_URUT}`.
+Contoh: `FWP-2026-0001`.
 
 Nomor tidak dipakai ulang walau keanggotaan berakhir.
 
@@ -112,21 +112,28 @@ Tidak boleh otomatis ditandai `active` sebelum rekonsiliasi dengan keputusan/ars
 
 | No | Keputusan | Opsi/Rekomendasi | Keputusan Final |
 |---:|---|---|---|
-| 1 | Definisi anggota aktif | Approved + kewajiban administrasi selesai | |
-| 2 | Iuran Silver | Rp2 juta; tahunan/sekali | |
-| 3 | Iuran Gold | Rp2 juta; tahunan/sekali | |
-| 4 | Kontribusi Platinum | Rp15 juta; tahunan/sekali | |
-| 5 | Masa berlaku | Rekomendasi 1 tahun | |
-| 6 | Grace period | Rekomendasi 30 hari | |
-| 7 | Verifikator | Sekretariat + reviewer | |
-| 8 | Approver | Ketua/pengurus/rapat | |
-| 9 | Bukti aset Gold | Laporan audit/laporan keuangan/pernyataan | |
-| 10 | Mekanisme Platinum | Undangan pengurus | |
-| 11 | Nomor anggota | `FWP-YYYY-NNNN` | |
-| 12 | Data direktori publik | Sesuai Bagian 9 | |
-| 13 | Status 49 lembaga | Rekonsiliasi satu per satu | |
+| 1 | Definisi anggota aktif | Approved + kewajiban administrasi selesai | Ditetapkan sementara |
+| 2 | Iuran Silver | Rp2 juta per tahun | Ditetapkan sementara |
+| 3 | Iuran Gold | Rp2 juta per tahun | Ditetapkan sementara |
+| 4 | Kontribusi Platinum | Rp15 juta per tahun | Ditetapkan sementara |
+| 5 | Masa berlaku | 1 tahun sejak aktivasi | Ditetapkan sementara |
+| 6 | Grace period | 30 hari kalender | Ditetapkan sementara |
+| 7 | Verifikator | Sekretariat + reviewer yang ditunjuk | Ditetapkan sementara |
+| 8 | Approver | Ketua + satu pengurus inti | Ditetapkan sementara |
+| 9 | Bukti aset Gold | Laporan keuangan terbaru; laporan audit bila tersedia; surat pernyataan pimpinan sebagai pendamping | Ditetapkan sementara |
+| 10 | Mekanisme Platinum | Undangan/nominasi pengurus | Ditetapkan sementara |
+| 11 | Nomor anggota | `FWP-YYYY-NNNN` | Ditetapkan sementara |
+| 12 | Data direktori publik | Sesuai Bagian 9 + consent lembaga | Ditetapkan sementara |
+| 13 | Status 49 lembaga | Rekonsiliasi satu per satu; bukan anggota aktif otomatis | Ditetapkan sementara |
 
-## 12. Pengesahan
+## 12. Versioning Kebijakan
+
+1. Perubahan iuran, syarat, masa berlaku, dan manfaat menghasilkan versi kebijakan baru dengan tanggal efektif.
+2. Membership aktif mengikuti versi saat aktivasi sampai perpanjangan berikutnya, kecuali keputusan pengurus menyatakan lain.
+3. Tier tidak diedit destruktif; versi lama ditutup melalui `active_until`, lalu versi baru dibuat.
+4. Revisi tidak boleh menghapus aplikasi, pembayaran, keputusan, atau audit log historis.
+
+## 13. Pengesahan
 
 Dokumen ini menjadi kebijakan efektif setelah tanggal, nomor keputusan, dan pihak berwenang dicantumkan.
 

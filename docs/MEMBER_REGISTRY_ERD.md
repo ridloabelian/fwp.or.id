@@ -61,6 +61,8 @@ erDiagram
     text status
     date started_at
     date expires_at
+    uuid approved_by FK
+    uuid second_approved_by FK
   }
   MEMBERSHIP_TIERS {
     uuid id PK
