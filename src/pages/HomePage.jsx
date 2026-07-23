@@ -72,10 +72,12 @@ const LandingPage = () => {
             <motion.div 
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
+              className="hero-visual-3d"
               style={{ position: 'relative', height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}
             >
               {/* Center Glow */}
               <motion.div 
+                className="hero-3d-layer hero-3d-glow"
                 animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 style={{ position: 'absolute', width: '350px', height: '350px', background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 60%)', zIndex: 0 }}
@@ -83,9 +85,9 @@ const LandingPage = () => {
 
               {/* Center Logo/Icon */}
               <motion.div 
+                className="hero-3d-layer hero-3d-logo glass-card"
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="glass-card"
                 style={{ width: '140px', height: '140px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(255,255,255,0.95)', zIndex: 2, boxShadow: '0 20px 40px rgba(0,0,0,0.15)' }}
               >
                 <img src="/logo.png" alt="FWP" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
@@ -93,9 +95,9 @@ const LandingPage = () => {
 
               {/* Floating Element 1 - Building */}
               <motion.div 
+                className="hero-3d-layer hero-3d-card-1 glass-card"
                 animate={{ y: [0, 25, 0], x: [0, 15, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="glass-card"
                 style={{ position: 'absolute', top: '15%', left: '-5%', padding: '20px', borderRadius: '20px', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', gap: '16px', zIndex: 3, boxShadow: 'var(--shadow-xl)', minWidth: '220px' }}
               >
                 <div style={{ padding: '12px', background: 'rgba(22, 174, 202, 0.15)', color: 'var(--tertiary-color)', borderRadius: '14px' }}>
@@ -109,9 +111,9 @@ const LandingPage = () => {
 
               {/* Floating Element 2 - Target */}
               <motion.div 
+                className="hero-3d-layer hero-3d-card-2 glass-card"
                 animate={{ y: [0, -25, 0], x: [0, -15, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-                className="glass-card"
                 style={{ position: 'absolute', bottom: '15%', right: '-15%', padding: '20px', borderRadius: '20px', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', gap: '16px', zIndex: 3, boxShadow: 'var(--shadow-xl)', minWidth: '220px' }}
               >
                 <div style={{ padding: '12px', background: 'rgba(139, 197, 63, 0.15)', color: 'var(--secondary-color)', borderRadius: '14px' }}>
@@ -125,9 +127,9 @@ const LandingPage = () => {
 
               {/* Floating Element 3 - Users */}
               <motion.div 
+                className="hero-3d-layer hero-3d-icon"
                 animate={{ y: [0, -20, 0], x: [0, -20, 0] }}
                 transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-                className="glass-card"
                 style={{ position: 'absolute', top: '10%', right: '5%', padding: '16px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', zIndex: 1, boxShadow: 'var(--shadow-lg)' }}
               >
                 <Users size={32} color="var(--primary-color)" />
