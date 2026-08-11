@@ -3,10 +3,10 @@ import path from 'path';
 
 const newsArticles = [
   {
-    id: 'sharia-talks-sinergi-zis-waf-2024',
-    title: 'Sharia Talks: Sinergi ZIS-WAF Mendorong Pertumbuhan dan Kesejahteraan Masyarakat | Forum Wakaf Produktif',
-    excerpt: 'Ketua Forum Wakaf Produktif, Rayyan A. Luminaries, menjadi salah satu narasumber Sharia Talks Bank Indonesia di Duta Mall Banjarmasin.',
-    imageUrl: 'https://fwp.or.id/sharia-talks-sinergi-zis-waf-2024.jpg'
+    id: 'pamor-borneo-2026-wakaf-produktif',
+    title: 'Forum Wakaf Produktif Dorong Wakaf Produktif sebagai Penggerak Pemberdayaan Ekonomi Masyarakat | Forum Wakaf Produktif',
+    excerpt: 'Forum Wakaf Produktif mendorong penguatan wakaf produktif sebagai instrumen strategis pertumbuhan ekonomi dan peningkatan kesejahteraan masyarakat dalam Sharia Talks Pamor Borneo 2026.',
+    imageUrl: 'https://fwp.or.id/pamor-borneo-2026-01.jpg'
   },
   {
     id: 'wls-2026-satukan-pemimpin-nazhir',

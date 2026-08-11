@@ -1,20 +1,58 @@
 export const newsList = [
   {
-    id: 'sharia-talks-sinergi-zis-waf-2024',
-    title: 'Sharia Talks: Sinergi ZIS-WAF Mendorong Pertumbuhan dan Kesejahteraan Masyarakat',
-    date: '8 Juni 2024',
+    id: 'pamor-borneo-2026-wakaf-produktif',
+    title: 'Forum Wakaf Produktif Dorong Wakaf Produktif sebagai Penggerak Pemberdayaan Ekonomi Masyarakat',
+    date: '8 Agustus 2026',
     author: 'Admin FWP',
     category: 'Kegiatan & Sinergi',
-    imageUrl: '/sharia-talks-sinergi-zis-waf-2024.jpg',
-    excerpt: 'Ketua Forum Wakaf Produktif, Rayyan A. Luminaries, menjadi salah satu narasumber Sharia Talks Bank Indonesia di Duta Mall Banjarmasin.',
+    imageUrl: '/pamor-borneo-2026-01.jpg',
+    excerpt: 'Forum Wakaf Produktif mendorong penguatan wakaf produktif sebagai instrumen strategis pertumbuhan ekonomi dan peningkatan kesejahteraan masyarakat dalam Sharia Talks Pamor Borneo 2026.',
     content: `
-      BANJARMASIN — Bank Indonesia menyelenggarakan Sharia Talks bertema "Sinergi ZIS-WAF Mendorong Pertumbuhan dan Kesejahteraan Masyarakat" pada Sabtu, 8 Juni 2024, di Duta Mall Banjarmasin.
+      BANJARMASIN, 8 Agustus 2026 — Forum Wakaf Produktif (FWP) mendorong penguatan peran wakaf produktif sebagai salah satu instrumen strategis dalam mendukung pertumbuhan ekonomi dan meningkatkan kesejahteraan masyarakat. Pesan tersebut disampaikan Ketua Forum Wakaf Produktif 2024–2027, Rayan Asa Luminaries, S.E., M.A., dalam Sharia Talks: “Sinergi ZIS-WAF Mendorong Pertumbuhan dan Kesejahteraan Masyarakat” yang diselenggarakan Bank Indonesia dalam rangkaian Pamor Borneo 2026 di Atrium 1 Duta Mall Banjarmasin, Sabtu (8/8).
 
-      Kegiatan ini berlangsung pukul 16.15–18.00 WITA dengan menghadirkan Irham, Ketua BAZNAS Provinsi Kalimantan Selatan; Alvia Syafira Fauzia, karyawan Kantor Perwakilan Bank Indonesia Provinsi Kalimantan Selatan; serta Rayyan A. Luminaries, Ketua Forum Wakaf Produktif, sebagai narasumber.
+      Dalam sesi talkshow tersebut, Rayan menyoroti besarnya potensi wakaf di Kalimantan Selatan yang masih perlu dioptimalkan. Dengan lebih dari 96 persen penduduk Kalimantan Selatan beragama Islam, terdapat basis wakif yang besar. Di sisi lain, Kalimantan Selatan memiliki lebih dari 300 ribu pelaku UMKM yang dapat menjadi bagian dari ekosistem penerima manfaat maupun penggerak program wakaf produktif.
 
-      Sharia Talks menjadi ruang dialog mengenai sinergi zakat, infak, sedekah, dan wakaf (ZIS-WAF) dalam mendorong pertumbuhan ekonomi sekaligus memperluas kesejahteraan masyarakat. Kolaborasi antarpemangku kepentingan menjadi fondasi penting agar dana sosial Islam memberi dampak yang lebih produktif dan berkelanjutan.
+      Menurut Rayan, tantangan utama bukan semata-mata terletak pada besarnya potensi wakaf, tetapi juga pada literasi masyarakat, profesionalisme pengelolaan, serta kemampuan nazhir mengembangkan aset wakaf agar menghasilkan manfaat ekonomi secara berkelanjutan. Karena itu, wakaf perlu dipahami secara lebih luas dan tidak lagi terbatas pada aset seperti tanah, masjid, makam, atau mushaf.
 
-      Acara ini merupakan bagian dari rangkaian program Bank Indonesia bersama Pemerintah Provinsi Kalimantan Selatan dan mitra terkait. RRI hadir sebagai media partner.
+      “Wakaf memiliki ruang yang sangat luas untuk dikembangkan. Wakaf uang, wakaf melalui uang, aset produktif, aset bergerak, hingga kekayaan intelektual dapat menjadi bagian dari ekosistem wakaf selama dikelola secara amanah, profesional, dan memberikan manfaat yang berkelanjutan.”
+
+      Pandangan tersebut sejalan dengan materi yang disampaikan FWP bahwa wakaf produktif merupakan pendekatan pengelolaan aset yang menjaga nilai aset sekaligus mengoptimalkannya agar dapat menghasilkan manfaat ekonomi. Hasil pengelolaan kemudian dapat disalurkan untuk tujuan sosial, pendidikan, kesehatan, ekonomi umat, lingkungan, serta bidang kemaslahatan lainnya sesuai dengan tujuan wakaf.
+
+      Dari Wakaf Konvensional Menuju Wakaf Produktif
+
+      Dalam paparannya, Rayan menjelaskan bahwa transformasi wakaf membutuhkan perubahan cara pandang. Aset wakaf tidak hanya ditempatkan sebagai aset yang digunakan secara langsung untuk fungsi sosial, tetapi juga dapat dikelola secara produktif dengan tetap menjaga nilai dan keberlanjutan aset.
+
+      FWP memandang bahwa pengembangan tersebut membutuhkan penguatan lembaga nazhir secara bertahap, mulai dari fondasi kelembagaan, penguatan manajemen dan pendanaan, peningkatan produktivitas, hingga ekspansi dan inovasi berkelanjutan. Pada tahap yang lebih matang, lembaga wakaf diharapkan mampu mengelola aset dalam skala lebih besar, membangun kolaborasi multipihak, serta menghasilkan dampak yang luas dan berkelanjutan.
+
+      “Time to Scale Up Waqf!” menjadi pesan penting yang dibawa FWP dalam forum tersebut. Scaling up wakaf tidak hanya berarti meningkatkan penghimpunan, tetapi juga meningkatkan kualitas pengelolaan, kapasitas nazhir, inovasi program, kemitraan, serta kemampuan mengukur dampak wakaf.
+
+      Digitalisasi Menjadi Kunci Penguatan Ekosistem Wakaf
+
+      FWP juga menekankan pentingnya digitalisasi dalam transformasi pengelolaan wakaf. Digitalisasi dapat diterapkan mulai dari proses penghimpunan, pengelolaan wakif, manajemen aset, pengelolaan keuangan, hingga monitoring dan evaluasi program.
+
+      Dalam materi yang dipaparkan, pengembangan platform digital wakaf yang terintegrasi diharapkan dapat menghadirkan proses penghimpunan yang lebih mudah, pengelolaan yang profesional dan akuntabel, serta pelaporan dampak yang lebih transparan. Pemanfaatan sistem terintegrasi seperti ERP wakaf juga dapat membantu nazhir dalam mengelola data wakif, aset, transaksi, program, keuangan, serta pelaporan secara lebih terstruktur.
+
+      Digitalisasi tersebut perlu berjalan bersama dengan penguatan tata kelola, kepatuhan syariah, kolaborasi dan kemitraan, literasi masyarakat, serta pemanfaatan data dan riset sebagai dasar pengambilan keputusan.
+
+      Wakaf Produktif untuk Menjawab Kebutuhan Masyarakat
+
+      Dalam kesempatan tersebut, FWP turut memperlihatkan berbagai contoh pengembangan wakaf produktif di sejumlah bidang. Di antaranya adalah wakaf energi dan air, pendidikan, industrialisasi, infrastruktur ibadah dan kesehatan, kedaulatan pangan, hingga pemberdayaan perempuan.
+
+      Salah satu contoh yang dipaparkan adalah pengembangan wakaf energi melalui infrastruktur seperti solar panel dan SPKLU. Model tersebut menunjukkan bagaimana aset wakaf dapat dikembangkan menjadi sumber manfaat ekonomi sekaligus memberikan dampak sosial dan lingkungan, seperti efisiensi biaya, akses energi bersih, pengurangan emisi, serta penciptaan manfaat jangka panjang bagi masyarakat.
+
+      Contoh lainnya mencakup wakaf gedung asrama untuk mendukung pendidikan penghafal Al-Qur’an, pengembangan usaha peternakan dan pertanian, pembangunan infrastruktur yang mendukung sektor pangan, hingga fasilitas yang mendukung pemberdayaan masyarakat.
+
+      Berbagai praktik tersebut menunjukkan bahwa wakaf produktif dapat hadir untuk menjawab kebutuhan riil masyarakat sekaligus membangun kemandirian ekonomi umat.
+
+      Mendorong Sinergi ZISWAF dan Ekonomi Syariah
+
+      FWP menilai pengembangan wakaf produktif tidak dapat dilakukan oleh nazhir secara sendiri. Diperlukan sinergi antara nazhir, pemerintah, Badan Wakaf Indonesia, lembaga keuangan syariah, lembaga filantropi, dunia usaha, akademisi, komunitas, dan masyarakat.
+
+      Hal ini sejalan dengan tujuan Sharia Talks yang diarahkan untuk memperkuat kapasitas nazhir dan mendorong inovasi program wakaf produktif yang berorientasi pada pemberdayaan ekonomi masyarakat, penguatan sektor riil, serta pembangunan daerah.
+
+      “FWP melihat Kalimantan Selatan memiliki potensi besar untuk menjadi salah satu daerah yang mendorong pertumbuhan wakaf produktif. Dengan kolaborasi yang kuat, tata kelola yang profesional, serta dukungan teknologi dan inovasi, wakaf dapat berkembang dari sekadar instrumen filantropi menjadi salah satu penggerak kemandirian dan kesejahteraan masyarakat,” ujar Rayan.
+
+      Melalui partisipasinya dalam Sharia Talks Pamor Borneo 2026, Forum Wakaf Produktif menegaskan komitmennya untuk terus mendorong transformasi wakaf di Indonesia—dari potensi menjadi produktif, dari produktif menjadi berdampak, dan dari dampak menjadi keberlanjutan.
     `,
     mediaCoverage: []
   },
