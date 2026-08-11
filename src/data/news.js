@@ -1,5 +1,24 @@
 export const newsList = [
   {
+    id: 'sharia-talks-sinergi-zis-waf-2024',
+    title: 'Sharia Talks: Sinergi ZIS-WAF Mendorong Pertumbuhan dan Kesejahteraan Masyarakat',
+    date: '8 Juni 2024',
+    author: 'Admin FWP',
+    category: 'Kegiatan & Sinergi',
+    imageUrl: '/sharia-talks-sinergi-zis-waf-2024.jpg',
+    excerpt: 'Ketua Forum Wakaf Produktif, Rayyan A. Luminaries, menjadi salah satu narasumber Sharia Talks Bank Indonesia di Duta Mall Banjarmasin.',
+    content: `
+      BANJARMASIN — Bank Indonesia menyelenggarakan Sharia Talks bertema "Sinergi ZIS-WAF Mendorong Pertumbuhan dan Kesejahteraan Masyarakat" pada Sabtu, 8 Juni 2024, di Duta Mall Banjarmasin.
+
+      Kegiatan ini berlangsung pukul 16.15–18.00 WITA dengan menghadirkan Irham, Ketua BAZNAS Provinsi Kalimantan Selatan; Alvia Syafira Fauzia, karyawan Kantor Perwakilan Bank Indonesia Provinsi Kalimantan Selatan; serta Rayyan A. Luminaries, Ketua Forum Wakaf Produktif, sebagai narasumber.
+
+      Sharia Talks menjadi ruang dialog mengenai sinergi zakat, infak, sedekah, dan wakaf (ZIS-WAF) dalam mendorong pertumbuhan ekonomi sekaligus memperluas kesejahteraan masyarakat. Kolaborasi antarpemangku kepentingan menjadi fondasi penting agar dana sosial Islam memberi dampak yang lebih produktif dan berkelanjutan.
+
+      Acara ini merupakan bagian dari rangkaian program Bank Indonesia bersama Pemerintah Provinsi Kalimantan Selatan dan mitra terkait. RRI hadir sebagai media partner.
+    `,
+    mediaCoverage: []
+  },
+  {
     id: 'wls-2026-satukan-pemimpin-nazhir',
     title: 'Waqf Leaders Summit 2026 Satukan Pemimpin Nazhir untuk Memperbesar Dampak Wakaf Produktif',
     date: '22 Juli 2026',
