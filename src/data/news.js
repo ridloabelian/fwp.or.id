@@ -1,5 +1,58 @@
 export const newsList = [
   {
+    id: 'rakornas-fwp-2026-konsolidasi-kolaborasi',
+    title: 'Rakornas FWP 2026: Perkuat Konsolidasi dan Kolaborasi untuk Mendorong Ekosistem Wakaf yang Berdampak',
+    date: '29 Agustus 2026',
+    author: 'Admin FWP',
+    category: 'Kegiatan & Konsolidasi',
+    imageUrl: '/rakornas-fwp-2026.jpg',
+    excerpt: 'Rakornas FWP 2026 memperkuat konsolidasi internal, kolaborasi strategis, knowledge hub, serta agenda pengembangan ekosistem wakaf yang berdampak.',
+    content: `
+      JAKARTA — Forum Wakaf Produktif (FWP) menyelenggarakan Rapat Koordinasi Nasional (Rakornas) FWP 2026 secara daring pada Sabtu, 29 Agustus 2026. Kegiatan ini menjadi momentum konsolidasi nasional untuk mengevaluasi pelaksanaan program kerja, menyelaraskan arah dan prioritas organisasi, serta merumuskan langkah strategis FWP ke depan.
+
+      Rakornas juga menjadi ruang untuk memperkuat sinergi antarbidang dan memastikan bahwa berbagai capaian yang telah diraih dapat dikembangkan menjadi capaian bersama organisasi. Ke depan, FWP diarahkan untuk semakin memperkuat ekosistem wakaf melalui inovasi, digitalisasi, kolaborasi strategis, serta orientasi pada dampak yang lebih luas.
+
+      Memperkuat Peran FWP sebagai Knowledge Hub Wakaf
+
+      Salah satu perhatian dalam Rakornas adalah masih terbatasnya literatur mengenai implementasi wakaf produktif di Indonesia. Kondisi tersebut menjadi peluang bagi FWP untuk mengambil peran lebih besar dalam menghasilkan dan menyebarluaskan pengetahuan mengenai pengembangan wakaf produktif.
+
+      Beberapa langkah yang didorong antara lain pengembangan riset wakaf produktif yang dapat dipublikasikan pada jurnal bereputasi, pengembangan policy brief sebagai bahan publikasi dan advokasi, serta penyusunan direktori riset wakaf sebagai database penelitian dan literatur. Selain itu, pengembangan kajian mengenai wakaf berbasis inovasi juga menjadi salah satu agenda yang perlu diperkuat.
+
+      Melalui langkah tersebut, FWP diharapkan tidak hanya berperan sebagai wadah kolaborasi para nazhir, tetapi juga berkembang sebagai knowledge hub yang berkontribusi terhadap pengembangan pemikiran dan praktik wakaf produktif di Indonesia.
+
+      Dari Partnership Building Menuju Impact Ecosystem
+
+      Penguatan kolaborasi menjadi salah satu agenda utama yang dibahas dalam Rakornas. FWP memandang bahwa kerja sama yang telah dibangun dengan berbagai stakeholder perlu terus dikembangkan, tidak berhenti pada terbentuknya kemitraan, tetapi diarahkan untuk menghasilkan output dan dampak yang terukur.
+
+      Untuk mendukung hal tersebut, FWP akan mendorong penyusunan database partnership yang memuat informasi mitra, status kerja sama, PIC, serta potensi kolaborasi. Pemetaan terhadap program kerja sama juga perlu dilakukan untuk mengetahui program yang telah berjalan, belum berjalan, maupun yang membutuhkan akselerasi.
+
+      Selain itu, penguatan pipeline proyek wakaf produktif, pengembangan Waqf Business Match Forum, Waqf Investment Showcase, serta penyusunan katalog atau prospektus proyek wakaf produktif menjadi bagian dari agenda penguatan kolaborasi FWP.
+
+      Membuka Ruang Kolaborasi Wakaf Internasional
+
+      Rakornas juga menyoroti pentingnya memperluas jejaring FWP ke tingkat internasional melalui agenda International Waqf Collaboration. FWP akan mulai menjajaki peluang kolaborasi dengan lembaga wakaf maupun organisasi internasional, termasuk potensi pengelolaan National Waqf di United Kingdom (UK).
+
+      Agenda internasional tersebut juga diharapkan dapat mulai diakomodasi dalam Musyawarah Nasional (Munas) FWP 2027, salah satunya dengan membuka ruang kehadiran dan keterlibatan mitra internasional.
+
+      Mengawal Penguatan Regulasi dan Mengaktifkan Pengembangan Wilayah
+
+      Di bidang regulasi, pengawalan revisi Undang-Undang Wakaf menjadi salah satu prioritas strategis FWP. Sementara itu, pengembangan wilayah juga mulai diaktivasi untuk memperluas peran FWP di berbagai daerah.
+
+      Memperkuat Program Unggulan dan Benefit bagi Anggota
+
+      Dalam Rakornas turut dibahas pentingnya memperkuat program-program unggulan atau “program gacoan” FWP dalam satu tahun ke depan. Program tersebut diharapkan memberikan manfaat dan benefit yang lebih nyata bagi anggota atau registered member FWP.
+
+      Menuju FWP yang Semakin Kolaboratif dan Berdampak
+
+      Rakornas FWP 2026 menegaskan bahwa konsolidasi internal, penguatan kolaborasi, dan orientasi pada dampak menjadi fondasi penting bagi pengembangan FWP ke depan.
+
+      Dari program menuju kolaborasi. Dari kolaborasi menuju dampak.
+
+      Forum Wakaf Produktif berkomitmen untuk terus mengawal pengembangan wakaf produktif sebagai bagian dari upaya memperkuat ekosistem perwakafan di Indonesia.
+    `,
+    mediaCoverage: []
+  },
+  {
     id: 'pamor-borneo-2026-wakaf-produktif',
     title: 'Forum Wakaf Produktif Dorong Wakaf Produktif sebagai Penggerak Pemberdayaan Ekonomi Masyarakat',
     date: '8 Agustus 2026',

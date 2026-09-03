@@ -3,6 +3,12 @@ import path from 'path';
 
 const newsArticles = [
   {
+    id: 'rakornas-fwp-2026-konsolidasi-kolaborasi',
+    title: 'Rakornas FWP 2026: Perkuat Konsolidasi dan Kolaborasi untuk Mendorong Ekosistem Wakaf yang Berdampak | Forum Wakaf Produktif',
+    excerpt: 'Rakornas FWP 2026 memperkuat konsolidasi internal, kolaborasi strategis, knowledge hub, serta agenda pengembangan ekosistem wakaf yang berdampak.',
+    imageUrl: 'https://fwp.or.id/rakornas-fwp-2026.jpg'
+  },
+  {
     id: 'pamor-borneo-2026-wakaf-produktif',
     title: 'Forum Wakaf Produktif Dorong Wakaf Produktif sebagai Penggerak Pemberdayaan Ekonomi Masyarakat | Forum Wakaf Produktif',
     excerpt: 'Forum Wakaf Produktif mendorong penguatan wakaf produktif sebagai instrumen strategis pertumbuhan ekonomi dan peningkatan kesejahteraan masyarakat dalam Sharia Talks Pamor Borneo 2026.',
