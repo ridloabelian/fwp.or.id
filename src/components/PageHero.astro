@@ -1,0 +1,38 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  compact?: boolean;
+}
+
+const { eyebrow, title, description, breadcrumbs = [], compact = false } = Astro.props;
+---
+
+<section class={`page-hero ${compact ? 'page-hero--compact' : ''}`}>
+  <div class="container">
+    <div class="page-hero__inner">
+      {breadcrumbs.length > 0 && (
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Beranda</a>
+          {breadcrumbs.map((item) => (
+            <>
+              <span aria-hidden="true">/</span>
+              {item.href ? <a href={item.href}>{item.label}</a> : <span style="color:rgba(255,255,255,0.92); font-weight:600;">{item.label}</span>}
+            </>
+          ))}
+        </nav>
+      )}
+      <div class="eyebrow-pill eyebrow-pill--dark">{eyebrow}</div>
+      <h1>{title}</h1>
+      {description && <p class="page-hero__lead">{description}</p>}
+      <slot />
+    </div>
+  </div>
+</section>

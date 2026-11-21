@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import NazhirDirectory from '../components/NazhirDirectory.jsx';
+import { members, programs } from '../data/about';
+---
+
+<BaseLayout
+  title="Pusat Nazhir — Direktori 49 Nazhir Wakaf Uang Resmi"
+  description={`Direktori interaktif ${members.length} lembaga nazhir wakaf uang anggota Forum Wakaf Produktif beserta nomor STBPN resmi Badan Wakaf Indonesia dan program unggulan masing-masing lembaga.`}
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Pusat Nazhir', url: 'https://fwp.or.id/pusat-nazhir' },
+  ]}
+>
+  <PageHero
+    eyebrow={`Jejaring ${members.length} Lembaga Terverifikasi`}
+    title="Pusat Nazhir Wakaf Produktif"
+    description="Telusuri daftar resmi lembaga pengelola wakaf uang (NWU) anggota FWP berdasarkan nama lembaga, yayasan induk, wilayah kerja, dan nomor STBPN Badan Wakaf Indonesia."
+    breadcrumbs={[{ label: 'Pusat Nazhir' }]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading--left" style="margin-bottom: 24px;">
+        <div class="eyebrow-pill">Direktori Anggota Resmi</div>
+        <h2>Pencarian {members.length} Lembaga Nazhir Anggota FWP</h2>
+        <p>Filter berdasarkan provinsi atau cari langsung berdasarkan nama nazhir, badan hukum yayasan, maupun nomor STBPN.</p>
+      </div>
+
+      <NazhirDirectory client:load />
+
+      <div id="program-nazhir" style="margin-top: 72px;">
+        <div class="section-heading">
+          <div class="eyebrow-pill eyebrow-pill--cyan">Profil &amp; Program Lembaga</div>
+          <h2>Etalase Program {programs.length} Nazhir Kontributor</h2>
+          <p>Informasi narahubung, deskripsi program produktif, dan rekening resmi penyaluran wakaf lembaga anggota.</p>
+        </div>
+
+        <div class="grid-2">
+          {programs.map((item) => (
+            <article class="program-card">
+              <h3 style="font-size: 1.16rem; margin-bottom: 4px;">{item.name}</h3>
+              <p class="program-pic">PIC: {item.pic}</p>
+              <p style="font-size: 0.92rem; margin-bottom: 14px;">{item.description}</p>
+              <div class="program-highlight">
+                <div style="font-weight: 800; color: var(--navy-900); margin-bottom: 4px;">
+                  {item.program}
+                </div>
+                <div style="color: var(--ink-secondary);">{item.programDetail}</div>
+              </div>
+              <div class="program-contact">
+                <p><strong>Kontak:</strong> {item.contact}</p>
+                <p><strong>Rekening:</strong> {item.account}</p>
+                {item.website && <p><strong>Website:</strong> {item.website}</p>}
+                {item.socialMedia && <p><strong>Sosial Media:</strong> {item.socialMedia}</p>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

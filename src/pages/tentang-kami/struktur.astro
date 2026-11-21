@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { aboutData } from '../../data/about';
+
+const PHOTOS: Record<string, string> = {
+  Ketua: '/speakers/rayan-2026.png',
+  Sekretaris: '/speakers/alla.png',
+  Bendahara: '/speakers/herri.png',
+};
+
+const ketua = aboutData.leadership.members.find((m) => m.position === 'Ketua');
+const pengurusPendukung = aboutData.leadership.members.filter((m) => m.position !== 'Ketua');
+---
+
+<BaseLayout
+  title="Struktur Organisasi Periode 2024–2027"
+  description="Susunan pengurus inti dan empat bidang strategis Forum Wakaf Produktif periode 2024–2027."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Tentang Kami', url: 'https://fwp.or.id/tentang-kami' },
+    { name: 'Struktur Pengurus', url: 'https://fwp.or.id/tentang-kami/struktur' },
+  ]}
+>
+  <PageHero
+    eyebrow="Tata Kelola Pengurus"
+    title={aboutData.leadership.title}
+    description={aboutData.leadership.note}
+    breadcrumbs={[
+      { label: 'Tentang Kami', href: '/tentang-kami' },
+      { label: 'Struktur Pengurus' },
+    ]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <!-- Top Ketua Node -->
+      {ketua && (
+        <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+          <div class="fwp-card" style="text-align: center; width: 100%; max-width: 320px; border-top: 4px solid var(--green-500);">
+            <div class="structure-photo-frame structure-photo-ketua">
+              <img src={PHOTOS.Ketua} alt={ketua.name} loading="eager" />
+            </div>
+            <div style="font-size: 0.78rem; font-weight: 800; color: var(--green-700); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">
+              {ketua.position}
+            </div>
+            <h2 style="font-size: 1.2rem; margin-bottom: 0;">{ketua.name}</h2>
+          </div>
+        </div>
+      )}
+
+      <!-- Sekretaris & Bendahara -->
+      <div class="grid-2" style="max-width: 700px; margin: 0 auto 60px;">
+        {pengurusPendukung.map((member) => {
+          const photo = PHOTOS[member.position] ?? '/speakers/alla.png';
+          const photoClass =
+            member.position === 'Sekretaris'
+              ? 'structure-photo-sekretaris'
+              : 'structure-photo-bendahara';
+          return (
+            <div class="fwp-card" style="text-align: center; border-top: 4px solid var(--cyan-500);">
+              <div class={`structure-photo-frame ${photoClass}`}>
+                <img src={photo} alt={member.name} loading="lazy" />
+              </div>
+              <div style="font-size: 0.78rem; font-weight: 800; color: var(--cyan-700); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">
+                {member.position}
+              </div>
+              <h3 style="font-size: 1.12rem; margin-bottom: 0;">{member.name}</h3>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- 4 Bidang Operasional -->
+      <div class="section-heading">
+        <div class="eyebrow-pill">Pelaksana Program</div>
+        <h2>Empat Bidang Strategis FWP</h2>
+        <p>Pilar kerja fungsional untuk mendorong riset, perluasan wilayah, kemitraan, dan advokasi kebijakan.</p>
+      </div>
+
+      <div class="divisions-grid">
+        {aboutData.leadership.divisions.map((division, idx) => (
+          <div class="division-card">
+            <div style="font-size: 0.76rem; font-weight: 800; color: var(--green-700); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+              Bidang 0{idx + 1}
+            </div>
+            <h3 style="font-size: 1.15rem; margin-bottom: 8px;">{division.name}</h3>
+            <p>{division.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

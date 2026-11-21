@@ -1,0 +1,439 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { aboutData, members } from '../data/about';
+import { homeStats, chartData } from '../data/stats';
+import { programsData } from '../data/programs';
+import { getAllArticles } from '../lib/articles';
+
+const { articles, cacheHint } = await getAllArticles({ limit: 4 });
+if (cacheHint?.tags?.length) {
+  (Astro as unknown as { cache?: { set?: (v: unknown) => void } }).cache?.set?.(cacheHint);
+}
+
+const featuredArticle = articles[0] ?? null;
+const secondaryArticles = articles.slice(1, 4);
+const maxChartAmount = Math.max(...chartData.map((d) => d.amount), 1);
+
+const LEADERSHIP_PHOTOS: Record<string, string> = {
+  Ketua: '/speakers/rayan-2026.png',
+  Sekretaris: '/speakers/alla.png',
+  Bendahara: '/speakers/herri.png',
+};
+
+const statVariants = ['', 'stat-metric--cyan', 'stat-metric--navy', 'stat-metric--gold'];
+
+const featuredNazhir = members.slice(0, 8);
+---
+
+<BaseLayout
+  title="Forum Wakaf Produktif — Katalisator Wakaf Produktif Nasional"
+  description="Portal resmi Forum Wakaf Produktif (FWP). Menggerakkan kolaborasi 49 lembaga nazhir wakaf uang, mitra strategis, dan inovasi aset produktif menuju Indonesia Emas 2045."
+  image="/og-image.jpg"
+>
+  <!-- 1. Executive Hero -->
+  <section class="home-hero">
+    <div class="container">
+      <div class="home-hero__grid">
+        <div>
+          <div class="eyebrow-pill eyebrow-pill--dark">
+            Katalisator Wakaf Produktif Nasional
+          </div>
+          <h1 class="home-hero__title">
+            Menggerakkan Aset Wakaf Menjadi Mesin Ekonomi Umat
+          </h1>
+          <p class="home-hero__lead">
+            Forum Wakaf Produktif menghimpun 49 lembaga nazhir wakaf uang terdaftar BWI
+            bersama regulator, perguruan tinggi, dan mitra keuangan syariah untuk
+            mempercepat transformasi wakaf produktif di Indonesia.
+          </p>
+
+          <div class="home-hero__actions">
+            <a href="/daftar-anggota" class="btn btn-accent">
+              Daftar Anggota Lembaga
+            </a>
+            <a href="/layanan-bisnis" class="btn btn-outline-light">
+              Jajaki Kemitraan Proyek
+            </a>
+          </div>
+
+          <div class="home-hero__trust">
+            <span>Berdiri 7 Desember 2016</span>
+            <span aria-hidden="true">&bull;</span>
+            <span>{aboutData.legal.skNumber}</span>
+            <span aria-hidden="true">&bull;</span>
+            <span>{members.length} Lembaga Nazhir Resmi</span>
+          </div>
+        </div>
+
+        <div class="home-hero__panel">
+          <div class="home-hero__media">
+            <img
+              src="/rakornas-fwp-2026.jpg"
+              alt="Rapat Koordinasi Nasional Forum Wakaf Produktif"
+              width="640"
+              height="440"
+              loading="eager"
+            />
+          </div>
+          <div class="home-hero__caption">
+            <a href="/berita/rakornas-fwp-2026-konsolidasi-kolaborasi" class="home-hero__mini">
+              <div class="home-hero__mini-k">Agenda Strategis</div>
+              <div class="home-hero__mini-v">Rakornas FWP 2026 &rarr;</div>
+            </a>
+            <a href="/waqf-leaders-summit" class="home-hero__mini">
+              <div class="home-hero__mini-k">Konferensi Nasional</div>
+              <div class="home-hero__mini-v">Waqf Leaders Summit &rarr;</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. National Waqf Data & Trend Panel -->
+  <section class="stats-shell">
+    <div class="container">
+      <div class="stats-panel">
+        <div class="stats-strip">
+          {homeStats.map((stat, idx) => {
+            const displayNumber =
+              stat.label === 'Luas Tanah Wakaf'
+                ? '445.410'
+                : String(stat.number);
+            return (
+              <div class={`stat-metric ${statVariants[idx] ?? ''}`}>
+                <div class="stat-metric__value">
+                  {stat.prefix}{displayNumber}{stat.suffix}
+                </div>
+                <div class="stat-metric__label">{stat.label}</div>
+                <div class="stat-metric__source">Sumber: {stat.source}</div>
+              </div>
+            );
+          })}
+          <div class="stat-metric stat-metric--gold">
+            <div class="stat-metric__value">{members.length}</div>
+            <div class="stat-metric__label">Anggota Nazhir FWP</div>
+            <div class="stat-metric__source">Izin NWU BWI Terverifikasi</div>
+          </div>
+        </div>
+
+        <div class="waqf-trend">
+          <div>
+            <div class="eyebrow-pill" style="margin-bottom: 12px;">
+              Akselerasi Penghimpunan Nasional
+            </div>
+            <h2 style="font-size: clamp(1.35rem, 2.5vw, 1.85rem); margin-bottom: 10px;">
+              Pertumbuhan Realisasi &amp; Potensi Wakaf Uang
+            </h2>
+            <p style="font-size: 0.94rem; margin-bottom: 14px;">
+              Sinergi lembaga nazhir, instrumen CWLS, dan digitalisasi penghimpunan
+              mendorong lonjakan aset produktif dari Rp 450 miliar (2020) hingga Rp 4,2
+              triliun pada fase akselerasi saat ini (dalam miliar rupiah).
+            </p>
+            <a href="/transparansi" class="news-card__read">
+              Pelajari Data &amp; Regulasi &rarr;
+            </a>
+          </div>
+
+          <div class="waqf-bars" role="img" aria-label="Grafik tren penghimpunan wakaf uang tahun 2020 hingga kini dalam miliar rupiah">
+            {chartData.map((point) => {
+              const barHeight = Math.max(18, Math.round((point.amount / maxChartAmount) * 124));
+              return (
+                <div class="waqf-bar-col">
+                  <span class="waqf-bar-val">
+                    {point.amount >= 1000 ? `${(point.amount / 1000).toFixed(1)}T` : `${point.amount}M`}
+                  </span>
+                  <div class="waqf-bar-fill" style={`height: ${barHeight}px;`} />
+                  <span class="waqf-bar-lbl">{point.year}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Audience Collaboration Pathways -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Jalur Kolaborasi</div>
+        <h2>Ekosistem Terbuka untuk Setiap Pemangku Kepentingan</h2>
+        <p>
+          FWP menjembatani tata kelola nazhir profesional, pembiayaan proyek berdampak,
+          dan keterbukaan informasi wakaf nasional.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="pathway-card">
+          <div>
+            <div class="pathway-icon" style="background: var(--green-50); color: var(--green-700);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <h3>Untuk Lembaga Nazhir</h3>
+            <p>
+              Bergabung dalam konsolidasi nasional, standarisasi sertifikasi profesi,
+              advokasi kebijakan BWI–Kemenag, dan inkubasi manajemen aset produktif.
+            </p>
+          </div>
+          <a href="/keanggotaan" class="news-card__read">
+            Lihat Skema Keanggotaan &rarr;
+          </a>
+        </article>
+
+        <article class="pathway-card">
+          <div>
+            <div class="pathway-icon" style="background: var(--cyan-50); color: var(--cyan-700);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </div>
+            <h3>Untuk Investor Sosial &amp; Mitra</h3>
+            <p>
+              Akses kurasi prospektus proyek wakaf produktif di sektor kesehatan,
+              pendidikan, dan agribisnis beserta fasilitas pembiayaan CWLS &amp; APIF.
+            </p>
+          </div>
+          <a href="/layanan-bisnis" class="news-card__read">
+            Eksplorasi Prospektus &rarr;
+          </a>
+        </article>
+
+        <article class="pathway-card">
+          <div>
+            <div class="pathway-icon" style="background: var(--gold-50); color: var(--navy-800);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+            </div>
+            <h3>Untuk Publik &amp; Regulator</h3>
+            <p>
+              Telusuri direktori 49 nazhir berizin resmi STBPN, kerangka regulasi UU No. 41
+              Tahun 2004, serta studi kasus dampak berkelanjutan bagi mauquf alaih.
+            </p>
+          </div>
+          <a href="/pusat-nazhir" class="news-card__read">
+            Buka Pusat Nazhir &rarr;
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Live CMS Editorial Section: Berita & Kabar Ekosistem -->
+  <section class="section section-white" style="border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="section-heading--left" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px;">
+        <div>
+          <div class="eyebrow-pill eyebrow-pill--cyan">Portal Berita &amp; Rilis Resmi</div>
+          <h2>Kabar Ekosistem Wakaf Terkini</h2>
+          <p style="margin-bottom: 0;">
+            Pembaruan agenda nasional, konsolidasi nazhir, dan rilis pers resmi Forum Wakaf
+            Produktif.
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a href="/berita" class="btn btn-outline btn-sm">Semua Berita</a>
+        </div>
+      </div>
+
+      {featuredArticle && (
+        <a href={`/berita/${featuredArticle.slug}`} class="editorial-featured">
+          <div class="editorial-featured__media">
+            <img
+              src={featuredArticle.imageUrl}
+              alt={featuredArticle.title}
+              loading="lazy"
+            />
+          </div>
+          <div class="editorial-featured__body">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;">
+              <span class="news-badge" style="margin-bottom: 0;">{featuredArticle.category.label}</span>
+              <span style="font-size: 0.84rem; color: var(--ink-muted); font-weight: 600;">
+                {featuredArticle.dateLabel}
+              </span>
+            </div>
+            <h3 style="font-size: clamp(1.35rem, 2.4vw, 1.85rem); margin-bottom: 12px;">
+              {featuredArticle.title}
+            </h3>
+            <p style="font-size: 0.96rem; margin-bottom: 20px;">
+              {featuredArticle.excerpt}
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <span style="font-size: 0.85rem; color: var(--ink-muted);">
+                Oleh {featuredArticle.author} &bull; {featuredArticle.readingMinutes} menit baca
+              </span>
+              <span class="news-card__read">Baca Artikel &rarr;</span>
+            </div>
+          </div>
+        </a>
+      )}
+
+      {secondaryArticles.length > 0 && (
+        <div class="grid-3">
+          {secondaryArticles.map((item) => (
+            <a href={`/berita/${item.slug}`} class="news-card">
+              <div class="news-card__media">
+                <img src={item.imageUrl} alt={item.title} loading="lazy" />
+              </div>
+              <div class="news-card__body">
+                <span class="news-badge">{item.category.label}</span>
+                <h3 class="news-card__title">{item.title}</h3>
+                <p class="news-card__excerpt">{item.excerpt}</p>
+                <div class="news-card__footer">
+                  <span>{item.dateLabel}</span>
+                  <span class="news-card__read">Baca &rarr;</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- 5. 4 Strategic Focus Programs -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Fokus Strategis</div>
+        <h2>Inisiatif &amp; Instrumen Akselerasi Wakaf</h2>
+        <p>
+          Empat pilar pengembangan ekosistem dari inkubasi bisnis hingga skema pembiayaan
+          nasional dan global.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        {programsData.map((program) => {
+          const href = program.ctaLink === '#' ? '/pusat-nazhir#program-nazhir' : program.ctaLink;
+          return (
+            <div class="fwp-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px;">
+                <h3 style="margin-bottom: 0;">{program.title}</h3>
+                <span style="font-size: 0.76rem; font-weight: 700; color: var(--ink-muted); background: var(--surface-mist); padding: 4px 10px; border-radius: var(--radius-full); white-space: nowrap;">
+                  {program.source}
+                </span>
+              </div>
+              <p style="font-size: 0.95rem;">{program.description}</p>
+              <a
+                href={href}
+                target={program.isExternal ? '_blank' : undefined}
+                rel={program.isExternal ? 'noopener noreferrer' : undefined}
+                class="news-card__read"
+              >
+                {program.ctaText} &rarr;
+              </a>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Leadership 2024-2027 -->
+  <section class="section section-white" style="border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Tata Kelola Organisasi</div>
+        <h2>{aboutData.leadership.title}</h2>
+        <p>{aboutData.leadership.note}</p>
+      </div>
+
+      <div class="leadership-grid">
+        {aboutData.leadership.members.map((leader) => {
+          const photo = LEADERSHIP_PHOTOS[leader.position] ?? '/speakers/rayan-2026.png';
+          const isHerri = leader.position === 'Bendahara';
+          return (
+            <article class="leader-card">
+              <div class="leader-image">
+                <img
+                  src={photo}
+                  alt={leader.name}
+                  class={isHerri ? 'leader-photo-herri' : undefined}
+                  loading="lazy"
+                />
+              </div>
+              <h3>{leader.name}</h3>
+              <p class="leader-position">{leader.position}</p>
+            </article>
+          );
+        })}
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="/tentang-kami/struktur" class="btn btn-outline">
+          Lihat Struktur &amp; 4 Bidang FWP
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Nazhir Network + Closing CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Jejaring Nasional</div>
+        <h2>Dipercaya oleh {members.length} Lembaga Nazhir Terdaftar</h2>
+        <p>
+          Para pengelola wakaf berizin resmi Badan Wakaf Indonesia yang berkolaborasi
+          membangun dampak sosial ekonomi berkelanjutan.
+        </p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom: 48px;">
+        {featuredNazhir.map((nazhir) => (
+          <div class="fwp-card" style="padding: 18px;">
+            <div style="font-size: 0.74rem; font-weight: 700; color: var(--green-700); margin-bottom: 6px;">
+              STBPN {nazhir.stbpn}
+            </div>
+            <div style="font-weight: 700; color: var(--navy-900); font-size: 0.94rem; line-height: 1.35; margin-bottom: 4px;">
+              {nazhir.name}
+            </div>
+            <div style="font-size: 0.78rem; color: var(--ink-muted);">{nazhir.region}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style="text-align: center; margin-bottom: 64px;">
+        <a href="/pusat-nazhir" class="btn btn-primary">
+          Telusuri Seluruh {members.length} Nazhir &rarr;
+        </a>
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <div class="eyebrow-pill eyebrow-pill--dark">Mari Berkolaborasi</div>
+          <h2>Perbesar Dampak Aset Wakaf Lembaga Anda</h2>
+          <p>
+            Daftarkan keanggotaan lembaga nazhir Anda atau diskusikan peluang
+            kemitraan proyek wakaf produktif bersama Sekretariat Nasional FWP.
+          </p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+          <a href="/daftar-anggota" class="btn btn-accent">
+            Daftar Keanggotaan
+          </a>
+          <a
+            href="https://wa.me/6281389667055"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline-light"
+          >
+            Hubungi Sekretariat
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

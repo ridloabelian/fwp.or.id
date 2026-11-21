@@ -1,0 +1,98 @@
+---
+import { aboutData } from '../data/about';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" id="kontak">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+          <div style="background:#ffffff; padding:6px; border-radius:10px; display:flex; align-items:center;">
+            <img src="/logo.png" alt="Logo Forum Wakaf Produktif" width="34" height="34" style="height:34px; width:auto; object-fit:contain;" />
+          </div>
+          <div>
+            <div style="font-family:var(--font-heading); font-size:1.25rem; font-weight:700; color:#ffffff; line-height:1.15;">
+              Forum Wakaf Produktif
+            </div>
+            <div style="font-size:0.75rem; color:rgba(255,255,255,0.68);">
+              Didirikan 7 Desember 2016
+            </div>
+          </div>
+        </div>
+        <p style="color:rgba(255,255,255,0.8); font-size:0.93rem; line-height:1.7; max-width:34ch;">
+          Wadah kolaborasi antar-lembaga nazhir dan mitra strategis untuk memajukan transformasi wakaf produktif di Indonesia menuju Indonesia Emas 2045.
+        </p>
+        <div style="display:inline-flex; align-items:center; gap:8px; margin-top:8px; padding:7px 12px; border-radius:10px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); font-size:0.78rem; color:rgba(255,255,255,0.86);">
+          <span>SK Kemenkumham:</span>
+          <strong style="color:var(--green-400);">{aboutData.legal.skNumber}</strong>
+        </div>
+      </div>
+
+      <div>
+        <h3>Organisasi</h3>
+        <ul class="site-footer__links">
+          <li><a href="/tentang-kami">Profil Lembaga</a></li>
+          <li><a href="/tentang-kami/sejarah">Sejarah &amp; Milestone</a></li>
+          <li><a href="/tentang-kami/legalitas">Legalitas Resmi</a></li>
+          <li><a href="/tentang-kami/struktur">Struktur Pengurus</a></li>
+          <li><a href="/transparansi">Transparansi &amp; Regulasi</a></li>
+          <li><a href="/berita">Berita &amp; Siaran Pers</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Ekosistem</h3>
+        <ul class="site-footer__links">
+          <li><a href="/keanggotaan">Keanggotaan Lembaga</a></li>
+          <li><a href="/daftar-anggota">Daftar Anggota Baru</a></li>
+          <li><a href="/pusat-nazhir">Direktori 49 Nazhir</a></li>
+          <li><a href="/program">Program Strategis</a></li>
+          <li><a href="/layanan-bisnis">Kemitraan &amp; Prospektus</a></li>
+          <li><a href="/inspirasi-studi-kasus">Inspirasi &amp; Studi Kasus</a></li>
+          <li><a href="/waqf-leaders-summit">Waqf Leaders Summit 2026</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Sekretariat FWP</h3>
+        <ul class="site-footer__links" style="gap:12px;">
+          <li style="color:rgba(255,255,255,0.82); font-size:0.9rem; line-height:1.6;">
+            Komplek Masjid Agung Al Azhar<br />
+            Jl. Sisingamangaraja, Kebayoran Baru<br />
+            Jakarta Selatan 12110
+          </li>
+          <li>
+            <a href={`mailto:${aboutData.contact.email}`} style="font-weight:600;">
+              {aboutData.contact.email}
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/6281389667055" target="_blank" rel="noopener noreferrer" style="font-weight:600;">
+              WhatsApp: {aboutData.contact.phone}
+            </a>
+          </li>
+          <li>
+            <a href={`https://www.instagram.com/${aboutData.contact.instagram}`} target="_blank" rel="noopener noreferrer">
+              Instagram: @{aboutData.contact.instagram}
+            </a>
+          </li>
+        </ul>
+        <div style="margin-top:18px;">
+          <a href="https://wa.me/6281389667055" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+            Hubungi Sekretariat
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>&copy; {year} Perkumpulan Forum Wakaf Produktif. Seluruh hak cipta dilindungi.</span>
+      <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
+        <a href="/sitemap.xml" style="color:rgba(255,255,255,0.72);">Peta Situs</a>
+        <a href="/admin" style="color:var(--green-400); font-weight:600;">Portal Redaksi (CMS)</a>
+      </div>
+    </div>
+  </div>
+</footer>

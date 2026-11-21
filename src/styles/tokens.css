@@ -1,0 +1,69 @@
+:root {
+  /* Institutional Navy */
+  --navy-950: #081924;
+  --navy-900: #0c2230;
+  --navy-800: #132c3f;
+  --navy-700: #1d445c;
+  --navy-600: #2c5a75;
+
+  /* Action Green & Accessible Ink */
+  --green-500: #8bc53f;
+  --green-400: #a4db5a;
+  --green-700: #2d5a0c;
+  --green-50: #eff7e6;
+
+  /* Information Cyan */
+  --cyan-500: #16aeca;
+  --cyan-700: #087b92;
+  --cyan-50: #e8f7fa;
+
+  /* Warm Gold Accents */
+  --gold-500: #c9a227;
+  --gold-400: #e8cf78;
+  --gold-50: #fdf8e6;
+
+  /* Neutrals */
+  --surface-canvas: #f8faf9;
+  --surface-mist: #eef3f1;
+  --surface-white: #ffffff;
+  --border-subtle: #dce6e1;
+  --border-strong: #c5d3cc;
+  --ink-primary: #132c3f;
+  --ink-secondary: #415666;
+  --ink-muted: #5a7080;
+
+  /* Legacy Variable Aliases (ensuring smooth compatibility across all pages/components) */
+  --primary-color: var(--navy-800);
+  --primary-light: var(--navy-700);
+  --secondary-color: var(--green-500);
+  --secondary-light: var(--green-400);
+  --secondary-dark: var(--green-700);
+  --tertiary-color: var(--cyan-500);
+  --bg-color: var(--surface-canvas);
+  --bg-offset: var(--surface-mist);
+  --text-main: var(--ink-primary);
+  --text-muted: var(--ink-secondary);
+  --text-light: #ffffff;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing & Radii */
+  --container-max: 1180px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(12, 34, 48, 0.05);
+  --shadow-md: 0 6px 18px rgba(12, 34, 48, 0.06);
+  --shadow-lg: 0 16px 36px rgba(12, 34, 48, 0.09);
+  --shadow-xl: 0 24px 48px rgba(12, 34, 48, 0.14);
+
+  /* Motion */
+  --transition-normal: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  --focus-ring: 0 0 0 3px rgba(22, 174, 202, 0.38);
+}

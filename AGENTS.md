@@ -4,38 +4,36 @@ Forum Wakaf Produktif — Official Portal.
 
 ## Purpose
 
-Portal resmi multi-page application (MPA) untuk Forum Wakaf Produktif (FWP). Memimpin transformasi nasional wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
+Portal resmi multi-halaman (SSR + CMS) untuk Forum Wakaf Produktif (FWP). Memimpin transformasi nasional wakaf tunai, direktori nazhir, prospektus proyek, serta portal berita/publikasi redaksi menuju Indonesia Emas 2045.
 
 ## Tech Stack
 
-- **Frontend:** React 19, JavaScript (ES6+), Vite 8
-- **Routing:** React Router v7
-- **Styling:** Vanilla CSS3 dengan design system tokens
-- **Animation:** Framer Motion
-- **Charts:** Recharts
-- **Icons:** Lucide React
-- **Hosting:** Cloudflare Pages
+- **Framework:** Astro 7 (`output: "server"`), React 19 Islands, TypeScript / ES Modules
+- **CMS:** EmDash CMS (`emdash@1.5.0` + `@emdash-cms/cloudflare@1.5.0`)
+- **Styling:** Vanilla CSS3 (`src/styles/tokens.css`, `src/styles/global.css`, `src/styles/prose.css`) — **tanpa TailwindCSS**
+- **Animation & Icons:** Framer Motion (React islands), Lucide React
+- **Hosting & Storage:** Cloudflare Workers (`@astrojs/cloudflare`), D1 (`DB`), R2 (`MEDIA`), KV (`SESSION`), Cloudflare Images (`IMAGES`), Durable Objects (`EMDASH_ROOMS`)
 
 ## Key Features
 
-- Multi-page architecture dengan instant transitions
-- Live data dashboard (tren wakaf tunai nasional, cakupan lahan, statistik Nazhir)
-- Ultra-responsive mobile-first design
-- Glassmorphism aesthetics & interactive HTML5 canvas shapes
-- Dedicated hubs: Nazhir Center, Business Matching, Project Prospectus, Transparency Reports
+- **EmDash CMS Redaksi (`/admin` -> `/_emdash/admin`):** Manajemen artikel berita/publikasi (`posts`), halaman dinamis (`pages`), kategori/tag, media library R2, preview draf, multi-user admin/pengurus dengan Passkey auth, serta SEO & JSON-LD otomatis (`<EmDashHead>`).
+- **Portal Berita & Redaksi (`/berita`, `/berita/[slug]`):** Kueri server live dari EmDash D1 dengan deduplicated fallback ke `src/data/news.js`, filter kategori, pencarian, share bar, dan liputan media terkait.
+- **Direktori Pusat Nazhir & Prospektus:** 49 lembaga nazhir berizin STBPN BWI, business matching prospektus, transparansi & sebaran wilayah, keanggotaan kelembagaan, serta hub Waqf Leaders Summit 2026.
 
 ## Commands
 
 ```bash
-npm install       # Install dependencies
-npm run dev       # Start Vite dev server
-npm run build     # Build for production
+npm install                               # Install dependencies
+npm run dev                               # Start Astro + EmDash dev server
+npm run typecheck                         # Run astro check (TypeScript)
+npm run lint                              # Run ESLint across src/
+npm run build                             # Build SSR Worker bundle + assets
+npx emdash seed seed/seed.json --validate # Validate EmDash seed schema & content
+npx wrangler deploy                       # Deploy Worker + assets to Cloudflare
 ```
 
 ## Key Conventions
 
-- React Router v7 untuk MPA routing
-- Vanilla CSS3 (bukan Tailwind) — design system berbasis custom CSS tokens
-- Framer Motion untuk animasi halus
-- Recharts untuk data visualization
-- Cloudflare Pages untuk hosting
+- Gunakan **Vanilla CSS3 design tokens** (`tokens.css` / `global.css`); **jangan menambahkan TailwindCSS**.
+- Semua kueri EmDash (`getEmDashCollection`, `getEmDashEntry`, `getTaxonomyTerms`) diakses melalui layer `src/lib/articles.ts` (aman dengan `try/catch` sebelum inisialisasi awal D1).
+- Jangan pernah meng-commit `.env`, `.env.local`, `.dev.vars`, `.wrangler/`, `data.db*`, atau `uploads/` ke Git.

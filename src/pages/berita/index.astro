@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getAllArticles } from '../../lib/articles';
+
+const searchQuery = Astro.url.searchParams.get('q')?.trim() ?? '';
+const selectedCategory = Astro.url.searchParams.get('kategori')?.trim().toLowerCase() ?? 'semua';
+
+const { articles, categories, cacheHint } = await getAllArticles({
+  categorySlug: selectedCategory,
+  searchQuery,
+});
+
+if (cacheHint?.tags?.length) {
+  (Astro as unknown as { cache?: { set?: (v: unknown) => void } }).cache?.set?.(cacheHint);
+}
+
+const isUnfiltered = !searchQuery && (!selectedCategory || selectedCategory === 'semua');
+const featuredArticle = isUnfiltered && articles.length > 0 ? articles[0] : null;
+const gridArticles = featuredArticle ? articles.slice(1) : articles;
+
+function categoryHref(slug: string): string {
+  const params = new URLSearchParams();
+  if (slug !== 'semua') params.set('kategori', slug);
+  if (searchQuery) params.set('q', searchQuery);
+  const qs = params.toString();
+  return qs ? `/berita?${qs}` : '/berita';
+}
+---
+
+<BaseLayout
+  title="Berita & Publikasi Ekosistem Wakaf"
+  description="Indeks berita resmi, siaran pers, laporan agenda nasional, dan opini wakaf produktif dari Forum Wakaf Produktif."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Berita & Publikasi', url: 'https://fwp.or.id/berita' },
+  ]}
+>
+  <PageHero
+    eyebrow="Portal Redaksi & Publikasi"
+    title="Berita, Kegiatan &amp; Siaran Pers"
+    description="Informasi aktual mengenai konsolidasi nazhir nasional, inovasi instrumen wakaf produktif, dan liputan kegiatan resmi Forum Wakaf Produktif."
+    breadcrumbs={[{ label: 'Berita & Publikasi' }]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar">
+        <div class="filter-chips" role="navigation" aria-label="Filter kategori berita">
+          <a
+            href={categoryHref('semua')}
+            class={`filter-chip ${selectedCategory === 'semua' ? 'is-active' : ''}`}
+          >
+            Semua Kategori
+          </a>
+          {categories.map((cat) => (
+            <a
+              href={categoryHref(cat.slug)}
+              class={`filter-chip ${selectedCategory === cat.slug ? 'is-active' : ''}`}
+            >
+              {cat.label} ({cat.count})
+            </a>
+          ))}
+        </div>
+
+        <form method="get" action="/berita" class="search-inline" role="search">
+          {selectedCategory !== 'semua' && (
+            <input type="hidden" name="kategori" value={selectedCategory} />
+          )}
+          <input
+            type="search"
+            name="q"
+            value={searchQuery}
+            placeholder="Cari judul atau topik berita..."
+            aria-label="Cari artikel berita"
+          />
+          <button type="submit" class="btn btn-primary btn-sm">
+            Cari
+          </button>
+        </form>
+      </div>
+
+      {featuredArticle && (
+        <a href={`/berita/${featuredArticle.slug}`} class="editorial-featured">
+          <div class="editorial-featured__media">
+            <img
+              src={featuredArticle.imageUrl}
+              alt={featuredArticle.title}
+              loading="eager"
+            />
+          </div>
+          <div class="editorial-featured__body">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;">
+              <span class="news-badge" style="margin-bottom: 0;">{featuredArticle.category.label}</span>
+              <span style="font-size: 0.84rem; color: var(--ink-muted); font-weight: 600;">
+                {featuredArticle.dateLabel}
+              </span>
+              {featuredArticle.location && (
+                <span style="font-size: 0.82rem; color: var(--ink-muted);">
+                  &bull; {featuredArticle.location}
+                </span>
+              )}
+            </div>
+            <h2 style="font-size: clamp(1.45rem, 2.5vw, 1.95rem); margin-bottom: 12px;">
+              {featuredArticle.title}
+            </h2>
+            <p style="font-size: 0.96rem; margin-bottom: 20px;">
+              {featuredArticle.excerpt}
+            </p>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <span style="font-size: 0.85rem; color: var(--ink-muted);">
+                Oleh {featuredArticle.author} &bull; {featuredArticle.readingMinutes} menit baca
+              </span>
+              <span class="news-card__read">Baca Artikel &rarr;</span>
+            </div>
+          </div>
+        </a>
+      )}
+
+      {gridArticles.length > 0 ? (
+        <div class="grid-3">
+          {gridArticles.map((item) => (
+            <a href={`/berita/${item.slug}`} class="news-card">
+              <div class="news-card__media">
+                <img src={item.imageUrl} alt={item.title} loading="lazy" />
+              </div>
+              <div class="news-card__body">
+                <span class="news-badge">{item.category.label}</span>
+                <h3 class="news-card__title">{item.title}</h3>
+                <p class="news-card__excerpt">{item.excerpt}</p>
+                <div class="news-card__footer">
+                  <span>{item.dateLabel}</span>
+                  <span class="news-card__read">Baca &rarr;</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : !featuredArticle ? (
+        <div class="fwp-card" style="text-align: center; padding: 48px 24px;">
+          <h3>Artikel Tidak Ditemukan</h3>
+          <p style="max-width: 48ch; margin: 0 auto 20px;">
+            Tidak ada artikel yang sesuai dengan kata kunci atau kategori yang dipilih.
+          </p>
+          <a href="/berita" class="btn btn-primary btn-sm">
+            Reset Filter Berita
+          </a>
+        </div>
+      ) : null}
+
+      <div class="fwp-card" style="margin-top: 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; background: var(--surface-white);">
+        <div>
+          <div class="eyebrow-pill" style="margin-bottom: 8px;">Redaksi &amp; Pengurus FWP</div>
+          <h3 style="margin-bottom: 6px;">Kelola &amp; Unggah Artikel Baru melalui EmDash CMS</h3>
+          <p style="margin-bottom: 0; font-size: 0.94rem;">
+            Tim Admin dan Pengurus yang berwenang dapat masuk ke dashboard redaksi untuk
+            menulis, menjadwalkan, dan mempublikasikan berita terbaru secara langsung.
+          </p>
+        </div>
+        <a href="/admin" class="btn btn-primary">
+          Masuk ke Portal Redaksi (CMS)
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

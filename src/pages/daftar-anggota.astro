@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import RegisterMemberForm from '../components/RegisterMemberForm.jsx';
+import { aboutData } from '../data/about';
+
+const TIER_MAP: Record<string, string> = {
+  silver: 'Anggota Biasa (Silver)',
+  gold: 'Anggota Luar Biasa (Gold)',
+  platinum: 'Anggota Kehormatan (Platinum)',
+};
+
+const tierParam = Astro.url.searchParams.get('tier')?.trim().toLowerCase() ?? 'silver';
+const defaultTier = TIER_MAP[tierParam] ?? 'Anggota Biasa (Silver)';
+---
+
+<BaseLayout
+  title="Formulir Pendaftaran Anggota Lembaga FWP"
+  description="Daftar keanggotaan kelembagaan Forum Wakaf Produktif (Silver, Gold, atau Platinum) dan terhubung dengan Sekretariat Nasional FWP."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Keanggotaan', url: 'https://fwp.or.id/keanggotaan' },
+    { name: 'Daftar Anggota', url: 'https://fwp.or.id/daftar-anggota' },
+  ]}
+>
+  <PageHero
+    eyebrow="Registrasi Kelembagaan"
+    title="Formulir Pendaftaran Anggota FWP"
+    description="Keanggotaan Forum Wakaf Produktif ditujukan bagi lembaga nazhir wakaf uang berizin resmi BWI serta mitra strategis ekosistem wakaf produktif."
+    breadcrumbs={[
+      { label: 'Keanggotaan', href: '/keanggotaan' },
+      { label: 'Daftar Anggota' },
+    ]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; align-items: start;">
+        <div>
+          <RegisterMemberForm client:load defaultTier={defaultTier} />
+        </div>
+
+        <aside style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="fwp-card">
+            <div class="eyebrow-pill" style="margin-bottom: 12px;">Persyaratan Umum</div>
+            <h2 style="font-size: 1.35rem;">Verifikasi Kelembagaan</h2>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.93rem; color: var(--ink-secondary);">
+              <li>• Berbadan hukum yayasan, perkumpulan, atau koperasi syariah.</li>
+              <li>• Melampirkan nomor STBPN Nazhir Wakaf Uang dari BWI (untuk kategori Silver/Gold).</li>
+              <li>• Menunjuk narahubung resmi pimpinan atau pengurus pengelola wakaf.</li>
+            </ul>
+          </div>
+
+          <div class="fwp-card" style="background: var(--navy-800); color: #ffffff;">
+            <h3 style="color: var(--green-400); margin-bottom: 10px;">Bantuan Sekretariat</h3>
+            <p style="color: rgba(255,255,255,0.84); font-size: 0.93rem;">
+              Butuh konfirmasi berkas pendaftaran atau informasi iuran tahunan?
+            </p>
+            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.88); display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px;">
+              <span><strong>WhatsApp:</strong> {aboutData.contact.phone}</span>
+              <span><strong>Email:</strong> {aboutData.contact.email}</span>
+            </div>
+            <a
+              href="https://wa.me/6281389667055"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-accent btn-sm"
+            >
+              Chat Sekretariat FWP
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { prospectusProjects } from '../data/projects';
+import { aboutData } from '../data/about';
+
+const STATUS_BADGE: Record<string, { bg: string; color: string }> = {
+  Onboarding: { bg: 'var(--cyan-50)', color: 'var(--cyan-700)' },
+  'Due Diligence': { bg: 'var(--gold-50)', color: '#7c5c06' },
+  Funding: { bg: 'var(--green-50)', color: 'var(--green-700)' },
+};
+---
+
+<BaseLayout
+  title="Layanan Bisnis &amp; Prospektus Investasi Wakaf"
+  description="Business matching proyek wakaf produktif, kurasi prospektus sektor kesehatan &amp; agrobisnis, serta fasilitasi pembiayaan syariah bersama FWP."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Layanan Bisnis', url: 'https://fwp.or.id/layanan-bisnis' },
+  ]}
+>
+  <PageHero
+    eyebrow="Business Matching &amp; Kurasi Aset"
+    title="Layanan Bisnis &amp; Prospektus Wakaf"
+    description="Menjembatani proyek strategis lembaga nazhir anggota dengan investor sosial, lembaga keuangan syariah, serta fasilitas pembiayaan global."
+    breadcrumbs={[{ label: 'Layanan Bisnis' }]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Pipeline Proyek Unggulan</div>
+        <h2>Prospektus Proyek Wakaf Produktif</h2>
+        <p>Daftar proyek berdampak tinggi yang telah melalui kurasi awal kelayakan model bisnis dan kepatuhan syariah bersama nazhir pelaksana.</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 64px;">
+        {prospectusProjects.map((project) => {
+          const badge = STATUS_BADGE[project.status] ?? {
+            bg: 'var(--surface-mist)',
+            color: 'var(--ink-primary)',
+          };
+          const waHref = `https://wa.me/6281389667055?text=${encodeURIComponent(
+            `Assalamu'alaikum Sekretariat FWP, kami tertarik menjajaki kemitraan proyek prospektus: ${project.title} (${project.nazhir}).`,
+          )}`;
+          return (
+            <article class="fwp-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px;">
+                  <span
+                    style={`display: inline-flex; padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.76rem; font-weight: 800; background: ${badge.bg}; color: ${badge.color};`}
+                  >
+                    {project.status}
+                  </span>
+                  <span style="font-size: 0.78rem; color: var(--ink-muted); font-weight: 600;">
+                    {project.lastUpdated}
+                  </span>
+                </div>
+
+                <h3 style="margin-bottom: 6px;">{project.title}</h3>
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--green-700); margin-bottom: 18px;">
+                  Nazhir: {project.nazhir}
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px; border-radius: var(--radius-md); background: var(--surface-canvas); border: 1px solid var(--border-subtle); margin-bottom: 18px;">
+                  <div>
+                    <div style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted);">
+                      Estimasi Imbal Hasil
+                    </div>
+                    <div style="font-weight: 800; color: var(--navy-900); font-size: 1rem;">
+                      {project.roi}
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted);">
+                      Kebutuhan Dana
+                    </div>
+                    <div style="font-weight: 800; color: var(--navy-900); font-size: 1rem;">
+                      {project.fund}
+                    </div>
+                  </div>
+                </div>
+
+                <p style="font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 18px;">
+                  Sumber: {project.source}
+                </p>
+              </div>
+
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-sm"
+                style="width: 100%;"
+              >
+                Minta Memo Prospektus &rarr;
+              </a>
+            </article>
+          );
+        })}
+      </div>
+
+      <div class="section-heading">
+        <div class="eyebrow-pill eyebrow-pill--cyan">Skema Kolaborasi</div>
+        <h2>Alur Business Matching FWP</h2>
+        <p>Proses terstruktur dari pengajuan kelayakan aset hingga penjajakan pembiayaan sindikasi.</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 56px;">
+        <div class="fwp-card">
+          <div style="font-size: 0.78rem; font-weight: 800; color: var(--green-700); margin-bottom: 8px;">01. KURASI &amp; STUDI KELAYAKAN</div>
+          <h3>Validasi Legal &amp; Bisnis</h3>
+          <p style="margin-bottom: 0; font-size: 0.93rem;">
+            Verifikasi alas hak tanah/aset wakaf, STBPN Nazhir dari BWI, serta proyeksi arus kas operasional unit komersial.
+          </p>
+        </div>
+        <div class="fwp-card">
+          <div style="font-size: 0.78rem; font-weight: 800; color: var(--cyan-700); margin-bottom: 8px;">02. PENYUSUNAN STRUKTUR</div>
+          <h3>Blended Finance &amp; CWLS</h3>
+          <p style="margin-bottom: 0; font-size: 0.93rem;">
+            Desain struktur pembiayaan syariah melalui skema Cash Waqf Linked Sukuk, wakaf temporer, atau fasilitas APIF-IsDB.
+          </p>
+        </div>
+        <div class="fwp-card">
+          <div style="font-size: 0.78rem; font-weight: 800; color: var(--navy-800); margin-bottom: 8px;">03. PENGAWASAN DAMPAK</div>
+          <h3>Monitoring &amp; Pelaporan</h3>
+          <p style="margin-bottom: 0; font-size: 0.93rem;">
+            Pendampingan berkala tata kelola surplus usaha agar porsi mauquf alaih tersalur transparan sesuai ikrar wakaf.
+          </p>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <h2>Diskusikan Kemitraan Proyek Bersama Tim FWP</h2>
+          <p>Kirim ringkasan inisiatif ke {aboutData.contact.email} atau konsultasi langsung melalui WhatsApp Sekretariat ({aboutData.contact.phone}).</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <a href={`mailto:${aboutData.contact.email}`} class="btn btn-accent">
+            Kirim Proposal Proyek
+          </a>
+          <a href="/program" class="btn btn-outline-light">
+            Lihat Skema CWLS &amp; APIF
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

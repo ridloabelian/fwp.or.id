@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const TIERS = [
+  {
+    id: 'silver',
+    name: 'Anggota Biasa',
+    badge: 'Silver',
+    iuran: 'Rp 2.000.000',
+    note: 'Iuran keanggotaan per tahun',
+    featured: false,
+    accent: 'var(--navy-700)',
+    requirements: [
+      'Berbentuk lembaga (bukan individu)',
+      'Memiliki Izin Nazhir Wakaf Uang (NWU) resmi dari BWI',
+      'Terintegrasi dalam direktori Pusat Nazhir FWP',
+    ],
+  },
+  {
+    id: 'gold',
+    name: 'Anggota Luar Biasa',
+    badge: 'Gold',
+    iuran: 'Rp 2.000.000',
+    note: 'Iuran keanggotaan per tahun',
+    featured: true,
+    accent: 'var(--green-500)',
+    requirements: [
+      'Berbentuk lembaga (bukan individu)',
+      'Memiliki Izin Nazhir Wakaf Uang (NWU) dari BWI',
+      'Aset kelolaan wakaf minimal Rp 2 Miliar',
+      'Prioritas matching prospektus & inkubasi proyek nasional',
+    ],
+  },
+  {
+    id: 'platinum',
+    name: 'Anggota Kehormatan',
+    badge: 'Platinum',
+    iuran: 'Rp 15.000.000',
+    note: 'Kontribusi mitra strategis per tahun',
+    featured: false,
+    accent: 'var(--cyan-500)',
+    requirements: [
+      'Terbuka untuk lembaga non-Nazhir',
+      'Mitra strategis ekosistem wakaf produktif (korporasi, fintech, perguruan tinggi)',
+      'Mendukung program literasi, riset, dan advokasi FWP',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Keanggotaan Lembaga Forum Wakaf Produktif"
+  description="Skema keanggotaan kelembagaan Forum Wakaf Produktif: Anggota Biasa (Silver), Anggota Luar Biasa (Gold), dan Anggota Kehormatan (Platinum)."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Keanggotaan', url: 'https://fwp.or.id/keanggotaan' },
+  ]}
+>
+  <PageHero
+    eyebrow="Skema Kelembagaan"
+    title="Keanggotaan Forum Wakaf Produktif"
+    description="Keanggotaan FWP bersifat kelembagaan (bukan perorangan) untuk menghimpun lembaga nazhir wakaf uang serta mitra strategis ekosistem perwakafan nasional."
+    breadcrumbs={[{ label: 'Keanggotaan' }]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Kategori Anggota</div>
+        <h2>Pilih Tingkat Keanggotaan Lembaga Anda</h2>
+        <p>Seluruh kategori mendapatkan akses jaringan nasional, forum konsolidasi, dan pembaruan kebijakan BWI–Kemenag.</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 56px;">
+        {TIERS.map((tier) => (
+          <div
+            class="fwp-card"
+            style={`display: flex; flex-direction: column; justify-content: space-between; ${
+              tier.featured
+                ? 'border: 2px solid var(--green-500); box-shadow: var(--shadow-lg);'
+                : ''
+            }`}
+          >
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px;">
+                <span class="news-badge" style="margin-bottom: 0;">{tier.badge}</span>
+                {tier.featured && (
+                  <span style="font-size: 0.74rem; font-weight: 800; color: var(--navy-900); background: var(--gold-50); border: 1px solid var(--gold-400); padding: 4px 10px; border-radius: var(--radius-full);">
+                    Rekomendasi Nazhir
+                  </span>
+                )}
+              </div>
+
+              <h3 style="margin-bottom: 8px;">{tier.name}</h3>
+              <div style="font-family: var(--font-heading); font-size: 1.9rem; font-weight: 800; color: var(--navy-900); line-height: 1.15; margin-bottom: 4px;">
+                {tier.iuran}
+              </div>
+              <p style="font-size: 0.84rem; color: var(--ink-muted); margin-bottom: 20px;">
+                {tier.note}
+              </p>
+
+              <ul style="list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 10px;">
+                {tier.requirements.map((req) => (
+                  <li style="display: flex; gap: 8px; align-items: flex-start; font-size: 0.92rem; color: var(--ink-secondary);">
+                    <span style="color: var(--green-700); font-weight: 800;">✓</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href={`/daftar-anggota?tier=${tier.id}`}
+              class={tier.featured ? 'btn btn-accent' : 'btn btn-primary'}
+              style="width: 100%;"
+            >
+              Daftar {tier.badge} &rarr;
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <h2>Siap Memverifikasi STBPN Lembaga Anda?</h2>
+          <p>Lengkapi formulir pendaftaran daring agar Sekretariat Nasional dapat meninjau dokumen kenazhiran lembaga Anda.</p>
+        </div>
+        <a href="/daftar-anggota" class="btn btn-accent">
+          Isi Formulir Pendaftaran
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

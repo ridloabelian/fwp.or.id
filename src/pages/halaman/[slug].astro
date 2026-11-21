@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getEmDashEntry, type PortableTextBlock } from 'emdash';
+import { PortableText } from 'emdash/ui';
+
+const slug = Astro.params.slug ?? '';
+let pageEntry: {
+  id: string;
+  data: Record<string, unknown>;
+} | null = null;
+let isPreview = false;
+
+try {
+  const result = await getEmDashEntry('pages', slug);
+  if (!result.error && result.entry) {
+    pageEntry = {
+      id: String((result.entry.data as Record<string, unknown>)?.id ?? result.entry.id),
+      data: (result.entry.data ?? {}) as Record<string, unknown>,
+    };
+    isPreview = result.isPreview;
+    if (result.cacheHint?.tags?.length) {
+      (Astro as unknown as { cache?: { set?: (v: unknown) => void } }).cache?.set?.(
+        result.cacheHint,
+      );
+    }
+  }
+} catch {
+  pageEntry = null;
+}
+
+if (!pageEntry) {
+  Astro.response.status = 404;
+}
+
+const title = pageEntry ? String(pageEntry.data.title ?? 'Halaman') : 'Halaman Tidak Ditemukan';
+const excerpt = pageEntry ? String(pageEntry.data.excerpt ?? '') : '';
+const blocks = (pageEntry && Array.isArray(pageEntry.data.content)
+  ? pageEntry.data.content
+  : null) as PortableTextBlock[] | null;
+---
+
+{pageEntry ? (
+  <BaseLayout
+    title={title}
+    description={excerpt || `${title} — Forum Wakaf Produktif`}
+    kind="content"
+    pageType="page"
+    contentRef={{ collection: 'pages', id: pageEntry.id, slug }}
+    editUrl={`/_emdash/admin/content/pages/${pageEntry.id}`}
+  >
+    <PageHero
+      eyebrow="Informasi Resmi"
+      title={title}
+      description={excerpt || undefined}
+      breadcrumbs={[{ label: title }]}
+      compact={true}
+    />
+
+    <section class="section">
+      <div class="container">
+        <article class="article-shell">
+          {isPreview && (
+            <div style="margin-bottom: 20px; padding: 12px 16px; border-radius: var(--radius-md); background: var(--gold-50); border: 1px solid var(--gold-500); color: var(--navy-900); font-size: 0.88rem; font-weight: 700;">
+              Mode Pratinjau Draf Halaman CMS.
+            </div>
+          )}
+          <div class="prose">
+            {blocks && blocks.length > 0 ? (
+              <PortableText value={blocks} />
+            ) : (
+              <p>Konten halaman sedang disiapkan oleh tim redaksi.</p>
+            )}
+          </div>
+        </article>
+      </div>
+    </section>
+  </BaseLayout>
+) : (
+  <BaseLayout title="Halaman Tidak Ditemukan">
+    <section class="section">
+      <div class="container">
+        <div class="fwp-card" style="max-width: 620px; margin: 0 auto; text-align: center; padding: 48px 28px;">
+          <div class="eyebrow-pill" style="margin-bottom: 14px;">404 — Tidak Ditemukan</div>
+          <h1>Halaman Tidak Ditemukan</h1>
+          <p>Halaman dinamis yang Anda tuju belum tersedia atau telah dihapus.</p>
+          <a href="/" class="btn btn-primary">Kembali ke Beranda</a>
+        </div>
+      </div>
+    </section>
+  </BaseLayout>
+)}

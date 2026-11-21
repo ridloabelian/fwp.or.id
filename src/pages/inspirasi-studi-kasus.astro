@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { caseStudies } from '../data/caseStudies';
+
+const PANEL_THEMES = ['showcase-panel--cyan', 'showcase-panel--green', 'showcase-panel'];
+const METRIC_LABELS = [
+  { metric: 'Sustainable Healthcare', caption: 'Klinik Medikids Wakaf — Depok / Sawangan' },
+  { metric: 'Human Capital Impact', caption: 'Beasiswa FKG UI & Orphan Support' },
+  { metric: 'Rural Agro-Economy', caption: 'Kebun Produktif Berbasis Lahan Wakaf' },
+];
+---
+
+<BaseLayout
+  title="Inspirasi & Studi Kasus Wakaf Produktif"
+  description="Kisah sukses dan model pengelolaan wakaf produktif di bidang layanan kesehatan, pendidikan, serta agribisnis masyarakat."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Inspirasi & Studi Kasus', url: 'https://fwp.or.id/inspirasi-studi-kasus' },
+  ]}
+>
+  <PageHero
+    eyebrow="Model &amp; Dampak Nyata"
+    title="Inspirasi &amp; Studi Kasus"
+    description="Pembelajaran praktik terbaik bagaimana pengelolaan aset wakaf berpadu dengan bisnis komersial profesional untuk memperluas kemanfaatan bagi mauquf alaih."
+    breadcrumbs={[{ label: 'Inspirasi & Studi Kasus' }]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div style="display: flex; flex-direction: column; gap: 36px; margin-bottom: 56px;">
+        {caseStudies.map((study, idx) => {
+          const panelTheme = PANEL_THEMES[idx % PANEL_THEMES.length];
+          const visualMeta = METRIC_LABELS[idx] ?? { metric: 'Waqf Impact Model', caption: study.source };
+          const textBlock = (
+            <div class="fwp-card" style="display: flex; flex-direction: column; justify-content: center;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px;">
+                <span class="news-badge" style="margin-bottom: 0;">Studi Kasus 0{idx + 1}</span>
+                <span style="font-size: 0.78rem; color: var(--ink-muted); font-weight: 600;">
+                  {study.source}
+                </span>
+              </div>
+              <h2 style="font-size: clamp(1.4rem, 2.5vw, 1.85rem); margin-bottom: 8px;">{study.title}</h2>
+              <p style="font-weight: 600; color: var(--navy-800); margin-bottom: 12px;">{study.subtitle}</p>
+              <p style="font-size: 0.96rem; margin-bottom: 18px;">{study.description}</p>
+              {study.ctaLink && (
+                <a href={study.ctaLink} class="btn btn-primary btn-sm" style="width: fit-content;">
+                  {study.ctaText} &rarr;
+                </a>
+              )}
+            </div>
+          );
+
+          const visualPanel = (
+            <div class={`showcase-panel ${panelTheme}`}>
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green-400);">
+                  Model Terbukti
+                </span>
+                <span style="font-size: 0.78rem; color: rgba(255,255,255,0.75);">
+                  Data {study.lastUpdated}
+                </span>
+              </div>
+              <div>
+                <div style="font-family: var(--font-heading); font-size: clamp(1.45rem, 2.5vw, 2rem); font-weight: 700; color: #ffffff; margin-bottom: 8px;">
+                  {visualMeta.metric}
+                </div>
+                <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 0;">
+                  {visualMeta.caption}
+                </p>
+              </div>
+              <div style="padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.14); font-size: 0.84rem; color: rgba(255,255,255,0.8);">
+                Surplus produktif disalurkan kembali untuk perluasan manfaat mauquf alaih.
+              </div>
+            </div>
+          );
+
+          return (
+            <div class="grid-2">
+              {study.isReverse ? (
+                <>
+                  {visualPanel}
+                  {textBlock}
+                </>
+              ) : (
+                <>
+                  {textBlock}
+                  {visualPanel}
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <h2>Ingin Mengajukan Proyek Inkubasi Baru?</h2>
+          <p>Konsultasikan kelayakan model bisnis dan skema wakaf produktif lembaga Anda bersama tim FWP.</p>
+        </div>
+        <a href="/layanan-bisnis" class="btn btn-accent">
+          Masuk ke Layanan Bisnis
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

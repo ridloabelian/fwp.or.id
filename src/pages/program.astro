@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { programsData } from '../data/programs';
+import { programs as nazhirPrograms } from '../data/about';
+---
+
+<BaseLayout
+  title="Program Strategis Wakaf Produktif"
+  description="Empat program strategis nasional Forum Wakaf Produktif serta 14 inisiatif lapangan dari lembaga nazhir anggota di seluruh Indonesia."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Program', url: 'https://fwp.or.id/program' },
+  ]}
+>
+  <PageHero
+    eyebrow="Agenda &amp; Inisiatif"
+    title="Program Strategis FWP"
+    description="Dari inkubasi bisnis wakaf produktif di daerah hingga akselerasi instrumen CWLS dan pembiayaan internasional APIF-IsDB."
+    breadcrumbs={[{ label: 'Program' }]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Empat Pilar Akselerasi</div>
+        <h2>Inisiatif Utama Forum Wakaf Produktif</h2>
+        <p>Program kolaboratif yang menjembatani aset wakaf menjadi entitas usaha dan dampak berkelanjutan.</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom: 64px;">
+        {programsData.map((program) => {
+          const href = program.ctaLink === '#' ? '#program-lapangan' : program.ctaLink;
+          return (
+            <div class="fwp-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px;">
+                  <span class="news-badge" style="margin-bottom: 0;">{program.source}</span>
+                  <span style="font-size: 0.78rem; color: var(--ink-muted);">Pembaruan {program.lastUpdated}</span>
+                </div>
+                <h3>{program.title}</h3>
+                <p style="font-size: 0.95rem;">{program.description}</p>
+              </div>
+              <a
+                href={href}
+                target={program.isExternal ? '_blank' : undefined}
+                rel={program.isExternal ? 'noopener noreferrer' : undefined}
+                class="btn btn-outline btn-sm"
+                style="width: fit-content;"
+              >
+                {program.ctaText} &rarr;
+              </a>
+            </div>
+          );
+        })}
+      </div>
+
+      <div id="program-lapangan" class="section-heading">
+        <div class="eyebrow-pill eyebrow-pill--cyan">Direktori Praktik Lapangan</div>
+        <h2>{nazhirPrograms.length} Program Unggulan Anggota Nazhir</h2>
+        <p>Ragam proyek kesehatan, pendidikan, dan pemberdayaan ekonomi yang dikelola langsung oleh nazhir anggota FWP.</p>
+      </div>
+
+      <div class="grid-2">
+        {nazhirPrograms.map((item) => (
+          <article class="program-card">
+            <h3 style="font-size: 1.18rem; margin-bottom: 4px;">{item.name}</h3>
+            <p class="program-pic">PIC: {item.pic}</p>
+            <p style="font-size: 0.92rem; margin-bottom: 14px;">{item.description}</p>
+            <div class="program-highlight">
+              <div style="font-weight: 800; color: var(--navy-900); margin-bottom: 4px;">
+                Program: {item.program}
+              </div>
+              <div style="color: var(--ink-secondary);">{item.programDetail}</div>
+            </div>
+            <div class="program-contact">
+              <p><strong>Kontak:</strong> {item.contact}</p>
+              <p><strong>Rekening:</strong> {item.account}</p>
+              {item.website && <p><strong>Website:</strong> {item.website}</p>}
+              {item.socialMedia && <p><strong>Media Sosial:</strong> {item.socialMedia}</p>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

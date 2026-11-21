@@ -1,0 +1,701 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "defaultLocale": "id",
+  "meta": {
+    "name": "Portal Resmi Forum Wakaf Produktif",
+    "description": "Konfigurasi awal koleksi berita, halaman dinamis, taksonomi, dan arsip rilis resmi Forum Wakaf Produktif.",
+    "author": "Forum Wakaf Produktif"
+  },
+  "settings": {
+    "title": "Forum Wakaf Produktif",
+    "tagline": "Kolaborasi Lembaga untuk Memperbesar Dampak Wakaf Produktif Indonesia",
+    "postsPerPage": 9,
+    "dateFormat": "d MMMM yyyy",
+    "timezone": "Asia/Jakarta"
+  },
+  "collections": [
+    {
+      "slug": "posts",
+      "label": "Berita & Artikel",
+      "labelSingular": "Artikel",
+      "description": "Berita kegiatan, siaran pers resmi, opini, dan liputan ekosistem wakaf produktif.",
+      "icon": "newspaper",
+      "urlPattern": "/berita/{slug}",
+      "routable": true,
+      "supports": ["drafts", "revisions", "preview", "search", "seo"],
+      "titleField": "title",
+      "dateField": "published_date",
+      "admin": {
+        "listColumns": ["published_date", "location"]
+      },
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Judul Artikel",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "featured_image",
+          "label": "Foto Utama",
+          "type": "image"
+        },
+        {
+          "slug": "excerpt",
+          "label": "Ringkasan Singkat",
+          "type": "text",
+          "searchable": true
+        },
+        {
+          "slug": "published_date",
+          "label": "Tanggal Tayang",
+          "type": "datetime",
+          "indexed": true
+        },
+        {
+          "slug": "location",
+          "label": "Kota / Lokasi Liputan",
+          "type": "string"
+        },
+        {
+          "slug": "content",
+          "label": "Isi Artikel",
+          "type": "portableText",
+          "searchable": true
+        },
+        {
+          "slug": "media_coverage",
+          "label": "Liputan Media Terkait",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "media",
+                "label": "Nama Media",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "url",
+                "label": "Tautan Berita",
+                "type": "url",
+                "required": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pages",
+      "label": "Halaman Dinamis",
+      "labelSingular": "Halaman",
+      "description": "Halaman informasi tambahan yang dapat dikelola pengurus.",
+      "icon": "file-text",
+      "urlPattern": "/halaman/{slug}",
+      "routable": true,
+      "supports": ["drafts", "revisions", "preview", "search", "seo"],
+      "titleField": "title",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Judul Halaman",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "Ringkasan",
+          "type": "text"
+        },
+        {
+          "slug": "content",
+          "label": "Konten Halaman",
+          "type": "portableText",
+          "searchable": true
+        }
+      ]
+    }
+  ],
+  "taxonomies": [
+    {
+      "name": "category",
+      "label": "Kategori",
+      "labelSingular": "Kategori",
+      "hierarchical": true,
+      "collections": ["posts"],
+      "terms": [
+        { "slug": "kegiatan-konsolidasi", "label": "Kegiatan & Konsolidasi" },
+        { "slug": "kegiatan-sinergi", "label": "Kegiatan & Sinergi" },
+        { "slug": "event-summit", "label": "Event & Summit" },
+        { "slug": "sinergi-kemitraan", "label": "Sinergi & Kemitraan" },
+        { "slug": "siaran-pers", "label": "Siaran Pers" },
+        { "slug": "opini-edukasi", "label": "Opini & Edukasi" }
+      ]
+    },
+    {
+      "name": "tag",
+      "label": "Tag",
+      "labelSingular": "Tag",
+      "hierarchical": false,
+      "collections": ["posts"],
+      "terms": [
+        { "slug": "wakaf-produktif", "label": "Wakaf Produktif" },
+        { "slug": "nazhir", "label": "Nazhir" },
+        { "slug": "wls-2026", "label": "WLS 2026" },
+        { "slug": "rakornas", "label": "Rakornas" },
+        { "slug": "ekonomi-syariah", "label": "Ekonomi Syariah" },
+        { "slug": "regulasi-wakaf", "label": "Regulasi Wakaf" }
+      ]
+    }
+  ],
+  "bylines": [
+    {
+      "id": "byline-admin",
+      "slug": "admin-fwp",
+      "displayName": "Admin FWP",
+      "bio": "Tim Redaksi dan Sekretariat Nasional Forum Wakaf Produktif."
+    },
+    {
+      "id": "byline-redaksi",
+      "slug": "tim-redaksi-fwp",
+      "displayName": "Tim Redaksi FWP",
+      "bio": "Bidang Publikasi dan Knowledge Hub Forum Wakaf Produktif."
+    },
+    {
+      "id": "byline-wls",
+      "slug": "panitia-wls-2026",
+      "displayName": "Panitia WLS 2026",
+      "bio": "Panitia Pelaksana Waqf Leaders Summit 2026.",
+      "isGuest": true
+    }
+  ],
+  "menus": [
+    {
+      "name": "primary",
+      "label": "Navigasi Utama",
+      "items": [
+        { "type": "custom", "label": "Beranda", "url": "/" },
+        { "type": "custom", "label": "Tentang", "url": "/tentang-kami" },
+        { "type": "custom", "label": "Keanggotaan", "url": "/keanggotaan" },
+        { "type": "custom", "label": "Berita", "url": "/berita" },
+        { "type": "custom", "label": "Program", "url": "/program" },
+        { "type": "custom", "label": "Pusat Nazhir", "url": "/pusat-nazhir" },
+        { "type": "custom", "label": "Kemitraan", "url": "/layanan-bisnis" }
+      ]
+    }
+  ],
+  "content": {
+    "posts": [
+      {
+        "id": "post-rakornas-2026",
+        "slug": "rakornas-fwp-2026-konsolidasi-kolaborasi",
+        "status": "published",
+        "taxonomies": {
+          "category": ["kegiatan-konsolidasi"],
+          "tag": ["wakaf-produktif", "rakornas", "nazhir", "regulasi-wakaf"]
+        },
+        "bylines": [{ "byline": "byline-admin", "roleLabel": "Penulis" }],
+        "data": {
+          "title": "Rakornas FWP 2026: Perkuat Konsolidasi dan Kolaborasi untuk Mendorong Ekosistem Wakaf yang Berdampak",
+          "published_date": "2026-08-29T09:00:00.000Z",
+          "location": "Jakarta (Daring)",
+          "excerpt": "Rakornas FWP 2026 memperkuat konsolidasi internal, kolaborasi strategis, knowledge hub, serta agenda pengembangan ekosistem wakaf yang berdampak.",
+          "featured_image": {
+            "$media": {
+              "url": "https://fwp.or.id/rakornas-fwp-2026.jpg",
+              "filename": "rakornas-fwp-2026.jpg",
+              "alt": "Rapat Koordinasi Nasional Forum Wakaf Produktif 2026"
+            }
+          },
+          "media_coverage": [],
+          "content": [
+            {
+              "_type": "block",
+              "_key": "rk-p1",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p1-s", "text": "JAKARTA — Forum Wakaf Produktif (FWP) menyelenggarakan Rapat Koordinasi Nasional (Rakornas) FWP 2026 secara daring pada Sabtu, 29 Agustus 2026. Kegiatan ini menjadi momentum konsolidasi nasional untuk mengevaluasi pelaksanaan program kerja, menyelaraskan arah dan prioritas organisasi, serta merumuskan langkah strategis FWP ke depan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p2",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p2-s", "text": "Rakornas juga menjadi ruang untuk memperkuat sinergi antarbidang dan memastikan bahwa berbagai capaian yang telah diraih dapat dikembangkan menjadi capaian bersama organisasi. Ke depan, FWP diarahkan untuk semakin memperkuat ekosistem wakaf melalui inovasi, digitalisasi, kolaborasi strategis, serta orientasi pada dampak yang lebih luas." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-h1",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "rk-h1-s", "text": "Memperkuat Peran FWP sebagai Knowledge Hub Wakaf" }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p3",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p3-s", "text": "Salah satu perhatian dalam Rakornas adalah masih terbatasnya literatur mengenai implementasi wakaf produktif di Indonesia. Kondisi tersebut menjadi peluang bagi FWP untuk mengambil peran lebih besar dalam menghasilkan dan menyebarluaskan pengetahuan mengenai pengembangan wakaf produktif." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p4",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p4-s", "text": "Beberapa langkah yang didorong antara lain pengembangan riset wakaf produktif yang dapat dipublikasikan pada jurnal bereputasi, pengembangan policy brief sebagai bahan publikasi dan advokasi, serta penyusunan direktori riset wakaf sebagai database penelitian dan literatur. Selain itu, pengembangan kajian mengenai wakaf berbasis inovasi juga menjadi salah satu agenda yang perlu diperkuat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p5",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p5-s", "text": "Melalui langkah tersebut, FWP diharapkan tidak hanya berperan sebagai wadah kolaborasi para nazhir, tetapi juga berkembang sebagai knowledge hub yang berkontribusi terhadap pengembangan pemikiran dan praktik wakaf produktif di Indonesia." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-h2",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "rk-h2-s", "text": "Dari Partnership Building Menuju Impact Ecosystem" }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p6",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p6-s", "text": "Penguatan kolaborasi menjadi salah satu agenda utama yang dibahas dalam Rakornas. FWP memandang bahwa kerja sama yang telah dibangun dengan berbagai stakeholder perlu terus dikembangkan, tidak berhenti pada terbentuknya kemitraan, tetapi diarahkan untuk menghasilkan output dan dampak yang terukur." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p7",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p7-s", "text": "Untuk mendukung hal tersebut, FWP akan mendorong penyusunan database partnership yang memuat informasi mitra, status kerja sama, PIC, serta potensi kolaborasi. Pemetaan terhadap program kerja sama juga perlu dilakukan untuk mengetahui program yang telah berjalan, belum berjalan, maupun yang membutuhkan akselerasi." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p8",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p8-s", "text": "Selain itu, penguatan pipeline proyek wakaf produktif, pengembangan Waqf Business Match Forum, Waqf Investment Showcase, serta penyusunan katalog atau prospektus proyek wakaf produktif menjadi bagian dari agenda penguatan kolaborasi FWP." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-h3",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "rk-h3-s", "text": "Membuka Ruang Kolaborasi Wakaf Internasional" }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p9",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p9-s", "text": "Rakornas juga menyoroti pentingnya memperluas jejaring FWP ke tingkat internasional melalui agenda International Waqf Collaboration. FWP akan mulai menjajaki peluang kolaborasi dengan lembaga wakaf maupun organisasi internasional, termasuk potensi pengelolaan National Waqf di United Kingdom (UK)." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p10",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p10-s", "text": "Agenda internasional tersebut juga diharapkan dapat mulai diakomodasi dalam Musyawarah Nasional (Munas) FWP 2027, salah satunya dengan membuka ruang kehadiran dan keterlibatan mitra internasional." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-h4",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "rk-h4-s", "text": "Mengawal Penguatan Regulasi dan Mengaktifkan Pengembangan Wilayah" }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p11",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p11-s", "text": "Di bidang regulasi, pengawalan revisi Undang-Undang Wakaf menjadi salah satu prioritas strategis FWP. Sementara itu, pengembangan wilayah juga mulai diaktivasi untuk memperluas peran FWP di berbagai daerah." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-h5",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "rk-h5-s", "text": "Memperkuat Program Unggulan dan Benefit bagi Anggota" }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p12",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p12-s", "text": "Dalam Rakornas turut dibahas pentingnya memperkuat program-program unggulan atau “program gacoan” FWP dalam satu tahun ke depan. Program tersebut diharapkan memberikan manfaat dan benefit yang lebih nyata bagi anggota atau registered member FWP." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-h6",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "rk-h6-s", "text": "Menuju FWP yang Semakin Kolaboratif dan Berdampak" }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p13",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p13-s", "text": "Rakornas FWP 2026 menegaskan bahwa konsolidasi internal, penguatan kolaborasi, dan orientasi pada dampak menjadi fondasi penting bagi pengembangan FWP ke depan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-q1",
+              "style": "blockquote",
+              "children": [{ "_type": "span", "_key": "rk-q1-s", "text": "Dari program menuju kolaborasi. Dari kolaborasi menuju dampak." }]
+            },
+            {
+              "_type": "block",
+              "_key": "rk-p14",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "rk-p14-s", "text": "Forum Wakaf Produktif berkomitmen untuk terus mengawal pengembangan wakaf produktif sebagai bagian dari upaya memperkuat ekosistem perwakafan di Indonesia." }]
+            }
+          ]
+        }
+      },
+      {
+        "id": "post-pamor-borneo-2026",
+        "slug": "pamor-borneo-2026-wakaf-produktif",
+        "status": "published",
+        "taxonomies": {
+          "category": ["kegiatan-sinergi"],
+          "tag": ["wakaf-produktif", "ekonomi-syariah", "nazhir"]
+        },
+        "bylines": [{ "byline": "byline-admin", "roleLabel": "Penulis" }],
+        "data": {
+          "title": "Forum Wakaf Produktif Dorong Wakaf Produktif sebagai Penggerak Pemberdayaan Ekonomi Masyarakat",
+          "published_date": "2026-08-08T10:00:00.000Z",
+          "location": "Banjarmasin",
+          "excerpt": "Forum Wakaf Produktif mendorong penguatan wakaf produktif sebagai instrumen strategis pertumbuhan ekonomi dan peningkatan kesejahteraan masyarakat dalam Sharia Talks Pamor Borneo 2026.",
+          "featured_image": {
+            "$media": {
+              "url": "https://fwp.or.id/pamor-borneo-2026-01.jpg",
+              "filename": "pamor-borneo-2026-01.jpg",
+              "alt": "Sharia Talks Pamor Borneo 2026 bersama Forum Wakaf Produktif"
+            }
+          },
+          "media_coverage": [],
+          "content": [
+            {
+              "_type": "block",
+              "_key": "pb-p1",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p1-s", "text": "BANJARMASIN, 8 Agustus 2026 — Forum Wakaf Produktif (FWP) mendorong penguatan peran wakaf produktif sebagai salah satu instrumen strategis dalam mendukung pertumbuhan ekonomi dan meningkatkan kesejahteraan masyarakat. Pesan tersebut disampaikan Ketua Forum Wakaf Produktif 2024–2027, Rayan Asa Luminaries, S.E., M.A., dalam Sharia Talks: “Sinergi ZIS-WAF Mendorong Pertumbuhan dan Kesejahteraan Masyarakat” yang diselenggarakan Bank Indonesia dalam rangkaian Pamor Borneo 2026 di Atrium 1 Duta Mall Banjarmasin, Sabtu (8/8)." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p2",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p2-s", "text": "Dalam sesi talkshow tersebut, Rayan menyoroti besarnya potensi wakaf di Kalimantan Selatan yang masih perlu dioptimalkan. Dengan lebih dari 96 persen penduduk Kalimantan Selatan beragama Islam, terdapat basis wakif yang besar. Di sisi lain, Kalimantan Selatan memiliki lebih dari 300 ribu pelaku UMKM yang dapat menjadi bagian dari ekosistem penerima manfaat maupun penggerak program wakaf produktif." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p3",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p3-s", "text": "Menurut Rayan, tantangan utama bukan semata-mata terletak pada besarnya potensi wakaf, tetapi juga pada literasi masyarakat, profesionalisme pengelolaan, serta kemampuan nazhir mengembangkan aset wakaf agar menghasilkan manfaat ekonomi secara berkelanjutan. Karena itu, wakaf perlu dipahami secara lebih luas dan tidak lagi terbatas pada aset seperti tanah, masjid, makam, atau mushaf." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-q1",
+              "style": "blockquote",
+              "children": [{ "_type": "span", "_key": "pb-q1-s", "text": "“Wakaf memiliki ruang yang sangat luas untuk dikembangkan. Wakaf uang, wakaf melalui uang, aset produktif, aset bergerak, hingga kekayaan intelektual dapat menjadi bagian dari ekosistem wakaf selama dikelola secara amanah, profesional, dan memberikan manfaat yang berkelanjutan.”" }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p4",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p4-s", "text": "Pandangan tersebut sejalan dengan materi yang disampaikan FWP bahwa wakaf produktif merupakan pendekatan pengelolaan aset yang menjaga nilai aset sekaligus mengoptimalkannya agar dapat menghasilkan manfaat ekonomi. Hasil pengelolaan kemudian dapat disalurkan untuk tujuan sosial, pendidikan, kesehatan, ekonomi umat, lingkungan, serta bidang kemaslahatan lainnya sesuai dengan tujuan wakaf." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-h1",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "pb-h1-s", "text": "Dari Wakaf Konvensional Menuju Wakaf Produktif" }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p5",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p5-s", "text": "Dalam paparannya, Rayan menjelaskan bahwa transformasi wakaf membutuhkan perubahan cara pandang. Aset wakaf tidak hanya ditempatkan sebagai aset yang digunakan secara langsung untuk fungsi sosial, tetapi juga dapat dikelola secara produktif dengan tetap menjaga nilai dan keberlanjutan aset." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p6",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p6-s", "text": "FWP memandang bahwa pengembangan tersebut membutuhkan penguatan lembaga nazhir secara bertahap, mulai dari fondasi kelembagaan, penguatan manajemen dan pendanaan, peningkatan produktivitas, hingga ekspansi dan inovasi berkelanjutan. Pada tahap yang lebih matang, lembaga wakaf diharapkan mampu mengelola aset dalam skala lebih besar, membangun kolaborasi multipihak, serta menghasilkan dampak yang luas dan berkelanjutan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p7",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p7-s", "text": "“Time to Scale Up Waqf!” menjadi pesan penting yang dibawa FWP dalam forum tersebut. Scaling up wakaf tidak hanya berarti meningkatkan penghimpunan, tetapi juga meningkatkan kualitas pengelolaan, kapasitas nazhir, inovasi program, kemitraan, serta kemampuan mengukur dampak wakaf." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-h2",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "pb-h2-s", "text": "Digitalisasi Menjadi Kunci Penguatan Ekosistem Wakaf" }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p8",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p8-s", "text": "FWP juga menekankan pentingnya digitalisasi dalam transformasi pengelolaan wakaf. Digitalisasi dapat diterapkan mulai dari proses penghimpunan, pengelolaan wakif, manajemen aset, pengelolaan keuangan, hingga monitoring dan evaluasi program." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p9",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p9-s", "text": "Dalam materi yang dipaparkan, pengembangan platform digital wakaf yang terintegrasi diharapkan dapat menghadirkan proses penghimpunan yang lebih mudah, pengelolaan yang profesional dan akuntabel, serta pelaporan dampak yang lebih transparan. Pemanfaatan sistem terintegrasi seperti ERP wakaf juga dapat membantu nazhir dalam mengelola data wakif, aset, transaksi, program, keuangan, serta pelaporan secara lebih terstruktur." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p10",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p10-s", "text": "Digitalisasi tersebut perlu berjalan bersama dengan penguatan tata kelola, kepatuhan syariah, kolaborasi dan kemitraan, literasi masyarakat, serta pemanfaatan data dan riset sebagai dasar pengambilan keputusan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-h3",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "pb-h3-s", "text": "Wakaf Produktif untuk Menjawab Kebutuhan Masyarakat" }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p11",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p11-s", "text": "Dalam kesempatan tersebut, FWP turut memperlihatkan berbagai contoh pengembangan wakaf produktif di sejumlah bidang. Di antaranya adalah wakaf energi dan air, pendidikan, industrialisasi, infrastruktur ibadah dan kesehatan, kedaulatan pangan, hingga pemberdayaan perempuan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p12",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p12-s", "text": "Salah satu contoh yang dipaparkan adalah pengembangan wakaf energi melalui infrastruktur seperti solar panel dan SPKLU. Model tersebut menunjukkan bagaimana aset wakaf dapat dikembangkan menjadi sumber manfaat ekonomi sekaligus memberikan dampak sosial dan lingkungan, seperti efisiensi biaya, akses energi bersih, pengurangan emisi, serta penciptaan manfaat jangka panjang bagi masyarakat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p13",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p13-s", "text": "Contoh lainnya mencakup wakaf gedung asrama untuk mendukung pendidikan penghafal Al-Qur’an, pengembangan usaha peternakan dan pertanian, pembangunan infrastruktur yang mendukung sektor pangan, hingga fasilitas yang mendukung pemberdayaan masyarakat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p14",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p14-s", "text": "Berbagai praktik tersebut menunjukkan bahwa wakaf produktif dapat hadir untuk menjawab kebutuhan riil masyarakat sekaligus membangun kemandirian ekonomi umat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-h4",
+              "style": "h2",
+              "children": [{ "_type": "span", "_key": "pb-h4-s", "text": "Mendorong Sinergi ZISWAF dan Ekonomi Syariah" }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p15",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p15-s", "text": "FWP menilai pengembangan wakaf produktif tidak dapat dilakukan oleh nazhir secara sendiri. Diperlukan sinergi antara nazhir, pemerintah, Badan Wakaf Indonesia, lembaga keuangan syariah, lembaga filantropi, dunia usaha, akademisi, komunitas, dan masyarakat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p16",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p16-s", "text": "Hal ini sejalan dengan tujuan Sharia Talks yang diarahkan untuk memperkuat kapasitas nazhir dan mendorong inovasi program wakaf produktif yang berorientasi pada pemberdayaan ekonomi masyarakat, penguatan sektor riil, serta pembangunan daerah." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-q2",
+              "style": "blockquote",
+              "children": [{ "_type": "span", "_key": "pb-q2-s", "text": "“FWP melihat Kalimantan Selatan memiliki potensi besar untuk menjadi salah satu daerah yang mendorong pertumbuhan wakaf produktif. Dengan kolaborasi yang kuat, tata kelola yang profesional, serta dukungan teknologi dan inovasi, wakaf dapat berkembang dari sekadar instrumen filantropi menjadi salah satu penggerak kemandirian dan kesejahteraan masyarakat,” ujar Rayan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "pb-p17",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "pb-p17-s", "text": "Melalui partisipasinya dalam Sharia Talks Pamor Borneo 2026, Forum Wakaf Produktif menegaskan komitmennya untuk terus mendorong transformasi wakaf di Indonesia—dari potensi menjadi produktif, dari produktif menjadi berdampak, dan dari dampak menjadi keberlanjutan." }]
+            }
+          ]
+        }
+      },
+      {
+        "id": "post-wls-2026-satukan-pemimpin",
+        "slug": "wls-2026-satukan-pemimpin-nazhir",
+        "status": "published",
+        "taxonomies": {
+          "category": ["event-summit"],
+          "tag": ["wakaf-produktif", "wls-2026", "nazhir"]
+        },
+        "bylines": [{ "byline": "byline-wls", "roleLabel": "Penulis" }],
+        "data": {
+          "title": "Waqf Leaders Summit 2026 Satukan Pemimpin Nazhir untuk Memperbesar Dampak Wakaf Produktif",
+          "published_date": "2026-07-22T09:00:00.000Z",
+          "location": "Bandung",
+          "excerpt": "Forum Wakaf Produktif menggelar WLS 2026 di Bandung dengan menghadirkan 53 delegasi untuk memperkuat kolaborasi dan dampak wakaf produktif nasional.",
+          "featured_image": {
+            "$media": {
+              "url": "https://fwp.or.id/og-image.jpg",
+              "filename": "wls-2026-bandung.jpg",
+              "alt": "Waqf Leaders Summit 2026 di Bandung"
+            }
+          },
+          "media_coverage": [],
+          "content": [
+            {
+              "_type": "block",
+              "_key": "wls-p1",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wls-p1-s", "text": "BANDUNG — Forum Wakaf Produktif (FWP) menggelar Waqf Leaders Summit (WLS) 2026 pada 22–23 Juli 2026 di Holiday Inn Pasteur, Bandung. Forum strategis bertema \"Scaling-Up the Impact of Waqf Toward Sustainable Wellbeing\" ini mempertemukan pimpinan lembaga nazhir, regulator, akademisi, praktisi, dan mitra industri untuk memperkuat kolaborasi serta memperbesar dampak wakaf produktif di Indonesia." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wls-p2",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wls-p2-s", "text": "WLS 2026 diikuti 53 delegasi dari berbagai lembaga nazhir nasional, institusi pemerintah, akademisi, dan mitra strategis. Kehadiran para pemimpin ekosistem wakaf dalam satu forum diharapkan menghasilkan agenda bersama yang konkret, terukur, dan berkelanjutan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wls-p3",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wls-p3-s", "text": "Ketua Forum Wakaf Produktif, Rayan Asa Luminaries, S.E., M.A., menegaskan bahwa penguatan dampak wakaf membutuhkan kolaborasi lintas lembaga, peningkatan kapasitas nazhir, dan inovasi pengelolaan aset yang berorientasi pada kesejahteraan masyarakat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wls-p4",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wls-p4-s", "text": "Agenda WLS 2026 mencakup Leaders Talk mengenai masa depan perwakafan Indonesia, pembahasan kebijakan dan penguatan kelembagaan, seminar peningkatan kompetensi nazhir, pembahasan Unit Manajemen Investasi FWP, program pitching, serta pengembangan kemitraan strategis." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wls-p5",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wls-p5-s", "text": "Salah satu agenda penting adalah peluncuran Unit Manajemen Investasi (UMI) FWP. Unit ini disiapkan untuk mendukung penguatan tata kelola investasi dan pengembangan aset wakaf produktif secara profesional, prudent, dan berorientasi pada keberlanjutan manfaat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wls-p6",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wls-p6-s", "text": "WLS 2026 juga membuka ruang business matching antara lembaga nazhir dan mitra potensial, termasuk sektor perbankan syariah, lembaga keuangan, investor berdampak, akademisi, dan pelaku usaha. Kolaborasi tersebut diharapkan mempercepat transformasi aset wakaf menjadi kekuatan ekonomi dan sosial yang memberi manfaat nyata bagi umat." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wls-p7",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wls-p7-s", "text": "Melalui semangat \"Tumbuh Bersama\", Forum Wakaf Produktif berharap WLS 2026 melahirkan rekomendasi strategis, jejaring kolaborasi, dan tindak lanjut konkret untuk memperkuat ekosistem wakaf nasional menuju Indonesia Emas 2045." }]
+            }
+          ]
+        }
+      },
+      {
+        "id": "post-wls-2026-ditutup",
+        "slug": "wls-2026-pendaftaran-ditutup",
+        "status": "published",
+        "taxonomies": {
+          "category": ["event-summit"],
+          "tag": ["wls-2026", "nazhir"]
+        },
+        "bylines": [{ "byline": "byline-wls", "roleLabel": "Penulis" }],
+        "data": {
+          "title": "Resmi Ditutup! Pendaftaran Waqf Leaders Summit 2026 Capai Target 53 Peserta Nasional",
+          "published_date": "2026-07-21T09:00:00.000Z",
+          "location": "Bandung",
+          "excerpt": "Pendaftaran Waqf Leaders Summit 2026 resmi ditutup dengan total 53 peserta dari berbagai lembaga nazhir, regulator, dan BSI. Seluruh persiapan teknis dan pembagian kamar delegasi telah rampung.",
+          "featured_image": {
+            "$media": {
+              "url": "https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-17-at-10.31.33-1.jpeg?w=1280&ssl=1",
+              "filename": "wls-2026-pendaftaran-ditutup.jpg",
+              "alt": "Persiapan Waqf Leaders Summit 2026 mencapai 53 peserta nasional"
+            }
+          },
+          "media_coverage": [],
+          "content": [
+            {
+              "_type": "block",
+              "_key": "wd-p1",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wd-p1-s", "text": "BANDUNG — Pendaftaran resmi untuk perhelatan akbar Waqf Leaders Summit (WLS) 2026 secara resmi telah ditutup per hari ini, Selasa, 21 Juli 2026. Panitia mencatat total delegasi yang terdaftar mencapai 53 peserta dari berbagai lembaga nazhir nasional, institusi pemerintah, akademisi, serta 2 perwakilan dari mitra strategis Bank Syariah Indonesia (BSI)." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wd-p2",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wd-p2-s", "text": "Sekretaris Panitia WLS 2026, Ridlo Abelian, menyampaikan bahwa kuota peserta telah terpenuhi sesuai dengan proyeksi daya tampung ballroom utama Granada di Holiday Inn Pasteur Bandung. Seluruh persiapan logistik, mulai dari pembagian kamar penginapan bintang 4 untuk delegasi hingga penyediaan fasilitas seminar kit, saat ini sudah 100% rampung." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wd-q1",
+              "style": "blockquote",
+              "children": [{ "_type": "span", "_key": "wd-q1-s", "text": "\"Alhamdulillah, antusiasme dari para pimpinan lembaga nazhir sangat luar biasa. Target awal kami 50 peserta telah terlampaui dengan total 53 pendaftar terkunci. Kami juga telah menyelesaikan skema pembagian kamar bagi peserta luar kota agar proses check-in besok berjalan tertib dan cepat,\" ujar Ridlo." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wd-p3",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wd-p3-s", "text": "WLS 2026 yang akan berlangsung selama dua hari penuh pada 22–23 Juli 2026 ini mengusung tema \"Scale Up Waqf: Visionary Collaboration and Disruptive Innovation for Sustainable Economic Growth\". Selain dihadiri pimpinan FWP dan stakeholder ekosistem wakaf nasional, forum ini juga mengamankan kehadiran Kyai Miftah Faridh secara langsung untuk memberikan refleksi rohani serta meresmikan peluncuran Unit Manajemen Investasi (UMI) FWP." }]
+            },
+            {
+              "_type": "block",
+              "_key": "wd-p4",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "wd-p4-s", "text": "Bagi peserta dan panitia, dresscode resmi untuk hari pertama telah ditetapkan seragam kemeja putih dengan peci hitam (untuk pria) pada sesi pagi hingga sore, dilanjutkan dengan batik pada gala dinner malam hari. Sementara hari kedua akan menggunakan pakaian bebas rapi yang dilengkapi dengan jaket resmi WLS 2026." }]
+            }
+          ]
+        }
+      },
+      {
+        "id": "post-fwp-oic-youth-d8",
+        "slug": "fwp-oic-youth-d8-expo-2026",
+        "status": "published",
+        "taxonomies": {
+          "category": ["sinergi-kemitraan"],
+          "tag": ["wakaf-produktif", "ekonomi-syariah"]
+        },
+        "bylines": [{ "byline": "byline-admin", "roleLabel": "Penulis" }],
+        "data": {
+          "title": "Dorong Kolaborasi Talenta & Inovasi Berkelanjutan di D-8 Halal Expo 2026, FWP dan OIC Youth Indonesia Siapkan Mesin Baru Pembangunan",
+          "published_date": "2026-07-19T09:00:00.000Z",
+          "location": "Jakarta",
+          "excerpt": "Forum Wakaf Produktif (FWP) bersama OIC Youth Indonesia menyepakati kolaborasi strategis dalam pengembangan talenta muda dan inovasi keuangan sosial Islam (faith-based finance) pada D-8 Halal Expo Indonesia 2026.",
+          "featured_image": {
+            "$media": {
+              "url": "https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-14-at-16.55.39.jpeg?w=1032&ssl=1",
+              "filename": "fwp-oic-youth-d8-expo-2026.jpg",
+              "alt": "Kolaborasi FWP dan OIC Youth Indonesia di D-8 Halal Expo 2026"
+            }
+          },
+          "media_coverage": [
+            { "media": "TV One News", "url": "https://www.tvonenews.com/ekonomi/453724-mengenal-wakaf-produktif-plus-pengembangan-talenta-muda-sebagai-strategi-jitu-lawan-kemiskinan?page=all" },
+            { "media": "Indonesia Window (ID)", "url": "https://indonesiawindow.com/fokus-berita-forum-wakaf-produktif-dan-oic-youth-indonesia-dorong-kolaborasi-talenta-inovasi-berkelanjutan" },
+            { "media": "Indonesia Window (EN)", "url": "https://indonesiawindow.com/news-focus-productive-waqf-forum-and-oic-youth-indonesia-encourage-talent-collaboration-and-sustainable-innovation" },
+            { "media": "Faktanesia.id", "url": "https://faktanesia.id/forum-wakaf-produktif-dorong-keuangan-berbasis-nilai-keagamaan-siapkan-mesin-baru-pembangunan/" },
+            { "media": "Humaniora.id (EN)", "url": "https://www.humaniora.id/forum-wakaf-produktif-and-oic-youth-indonesia-advance-collaboration-on-talent-sustainable-innovation-and-faith-based-finance-at-the-d-8-halal-expo-indonesia-2026/" },
+            { "media": "Humaniora.id (ID)", "url": "https://www.humaniora.id/indonesia-dorong-kolaborasi-talenta-inovasi-berkelanjutan-dan-keuangan-berbasis-nilai-keagamaan-sebagai-motor-baru-pembangunan-di-d-8-halal-expo-2026/" },
+            { "media": "Mozaik Inilah", "url": "https://mozaik.inilah.com/news/wakaf-produktif-jadi-senjata-baru-bangun-ekonomi-umat" },
+            { "media": "OIC Youth Indonesia (ID)", "url": "https://oicyouthindonesia.org/forum-wakaf-produktif-dan-oic-youth-indonesia-dorong-kolaborasi-talenta-inovasi-berkelanjutan-dan-keuangan-berbasis-nilai-keagamaan-pada-d-8-halal-expo-indonesia-2026/" },
+            { "media": "OIC Youth Indonesia (EN)", "url": "https://oicyouthindonesia.org/forum-wakaf-produktif-and-oic-youth-indonesia-advance-collaboration-on-talent-sustainable-innovation-and-faith-based-finance-at-the-d-8-halal-expo-indonesia-2026/" }
+          ],
+          "content": [
+            {
+              "_type": "block",
+              "_key": "d8-p1",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "d8-p1-s", "text": "JAKARTA — Forum Wakaf Produktif (FWP) bersinergi dengan OIC Youth Indonesia untuk mendorong kolaborasi talenta muda, inovasi berkelanjutan, dan pengembangan keuangan sosial Islam berbasis nilai keagamaan (faith-based finance) pada perhelatan D-8 Halal Expo Indonesia 2026. Sinergi taktis ini dirancang sebagai mesin baru pembangunan ekonomi umat sekaligus strategi jitu dalam mengentaskan kemiskinan secara nasional." }]
+            },
+            {
+              "_type": "block",
+              "_key": "d8-p2",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "d8-p2-s", "text": "Dalam forum kolaboratif ini, Ketua FWP Rayan Asa Luminaries menekankan pentingnya melibatkan generasi muda (talenta muda) sebagai penggerak utama modernisasi wakaf produktif. Penggabungan energi kreatif pemuda dan instrumen keuangan sosial Islam dinilai mampu mempercepat transformasi aset intangible menjadi Real Asset dan Real Power yang dirasakan langsung manfaatnya oleh masyarakat miskin." }]
+            },
+            {
+              "_type": "block",
+              "_key": "d8-q1",
+              "style": "blockquote",
+              "children": [{ "_type": "span", "_key": "d8-q1-s", "text": "\"Generasi muda bukan hanya target penerima manfaat, melainkan mitra strategis yang membawa inovasi disruptif dalam pengelolaan wakaf. Di era digital ini, kita membutuhkan integrasi teknologi, peningkatan literasi, serta kolaborasi lintas negara anggota D-8 untuk melipatgandakan dampak wakaf produktif,\" ujar Rayan." }]
+            },
+            {
+              "_type": "block",
+              "_key": "d8-p3",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "d8-p3-s", "text": "Selain fokus pada pengembangan kapasitas SDM pemuda, kolaborasi ini juga menyoroti implementasi green waqf (wakaf hijau) dan teknologi digital untuk transparansi pengelolaan dana publik. FWP berkomitmen memfasilitasi inkubasi bisnis bagi startup pemuda berbasis wakaf, guna mendorong ekosistem kewirausahaan sosial yang mandiri." }]
+            },
+            {
+              "_type": "block",
+              "_key": "d8-p4",
+              "style": "normal",
+              "children": [{ "_type": "span", "_key": "d8-p4-s", "text": "Langkah ini mendapat apresiasi luas dari delegasi negara-negara anggota D-8 Halal Expo 2026 yang melihat model integrasi wakaf produktif dan pemberdayaan pemuda di Indonesia sebagai referensi global yang sangat aplikatif untuk diterapkan di negara berkembang lainnya." }]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

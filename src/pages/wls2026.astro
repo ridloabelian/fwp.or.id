@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventLandingView from '../components/EventLandingView.jsx';
+---
+
+<BaseLayout
+  title="Waqf Leaders Summit 2026 | Holiday Inn Pasteur Bandung"
+  description="Halaman acara resmi Waqf Leaders Summit 2026 pada 22–23 Juli 2026 di Holiday Inn Pasteur Bandung bersama Forum Wakaf Produktif."
+  image="/og-image-v2.jpg"
+  standalone={true}
+>
+  <EventLandingView client:load />
+</BaseLayout>

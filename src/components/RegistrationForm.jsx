@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const JACKET_SIZES = [
   { size: 'S',   chest: '96',  length: '66', shoulder: '42' },
@@ -25,7 +25,6 @@ export default function RegistrationForm({ onClose }) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const [redirectUrl, setRedirectUrl] = useState('');
-  const [redirectCountdown, setRedirectCountdown] = useState(2);
 
   const entryIds = {
     name: 'entry.1672496909',

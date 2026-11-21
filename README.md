@@ -1,112 +1,64 @@
-# 🌐 Forum Wakaf Produktif (FWP) Portal
+# Portal Resmi Forum Wakaf Produktif (`fwp.or.id`)
 
-[![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
-[![Vite](https://img.shields.io/badge/Vite-8.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
-[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-000000?style=for-the-badge&logo=cloudflare-pages&logoColor=F38020)](https://pages.cloudflare.com)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.0-F107A3?style=for-the-badge&logo=framer&logoColor=white)](https://framer.com/motion)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+Portal web resmi **Perkumpulan Forum Wakaf Produktif (FWP)** — wadah kolaborasi nasional bagi lembaga nazhir wakaf uang terdaftar BWI dan mitra strategis ekosistem perwakafan Indonesia.
 
-Portal Multi-Page Application (MPA) resmi dari **Forum Wakaf Produktif (FWP)**. Dirancang dengan desain modern, performa tinggi, dan *fully responsive* untuk memimpin transformasi nasional wakaf tunai dan pengembangan aset produktif menuju Indonesia Emas 2045.
+## Arsitektur & Teknologi
 
-🔗 **Live Website:** [https://fwp.or.id](https://fwp.or.id) (atau backup: [fwp-or-id.pages.dev](https://fwp-or-id.pages.dev))
-
----
-
-## ✨ Fitur Utama
-
-*   **⚡ Arsitektur Multi-Page Modern:** Transisi halaman instan tanpa *layout shifts*, didukung oleh `react-router-dom` v7.
-*   **📊 Live Data Dashboard:** Visualisasi data interaktif tren akumulasi wakaf tunai nasional, cakupan lahan wakaf, dan statistik Nazhir tersertifikasi menggunakan `recharts`.
-*   **🤝 Waqf Leaders Summit 2026 (WLS):** Halaman khusus pendaftaran dan informasi WLS 2026 lengkap dengan *custom booking form*, WA auto-redirect, serta OpenGraph SEO generation statis.
-*   **📱 Ultra-Responsive Design:** Optimasi penuh untuk layar mobile dengan sistem *grid-collapsing* dinamis, navigasi *hamburger menu*, dan tipografi adaptif.
-*   **🎨 Premium Aesthetics & Glassmorphism:** *Styling* CSS bersih, *shape canvas* HTML5 mengambang interaktif, dan animasi mikro menggunakan `framer-motion`.
-*   **📂 Dedicated Hubs:** Modul khusus untuk Nazhir Center, Strategic Partnerships (Business Matching), Waqf Project Prospectus, dan Transparency Reports.
+- **SSR & Routing:** Astro 7 (`output: "server"`) berjalan di Cloudflare Workers (`@astrojs/cloudflare`).
+- **CMS Redaksi:** **EmDash CMS** (`emdash@1.5.0` + `@emdash-cms/cloudflare@1.5.0`) untuk publikasi artikel, kategori/tag, halaman dinamis, dan media.
+- **Database & Penyimpanan:**
+  - Cloudflare **D1** (`DB` -> `fwp-or-id-db`) untuk konten, taksonomi, pengguna, dan pengaturan situs.
+  - Cloudflare **R2** (`MEDIA` -> `fwp-or-id-media`) untuk penyimpanan foto/media unggahan redaksi.
+  - Cloudflare **KV** (`SESSION`) untuk sesi login admin/pengurus, **Images** (`IMAGES`), dan **Durable Objects** (`EMDASH_ROOMS`) untuk penyuntingan kolaboratif.
+- **UI & Islands:** Vanilla CSS3 custom tokens (`tokens.css`, `global.css`, `prose.css`) + React 19 islands (`NazhirDirectory`, `RegisterMemberForm`, `SummitView`, `EventLandingView`, `ProposalView`).
 
 ---
 
-## 🛠️ Stack Teknologi
+## Panduan Admin & Pengurus Mengelola Artikel (EmDash CMS)
 
-*   **Core:** [React 19](https://react.dev) & JavaScript (ES6+)
-*   **Build Tool:** [Vite 8](https://vite.dev) (blazing fast development & production bundling)
-*   **Styling:** Vanilla CSS3 (Custom Design System Tokens) tanpa framework tailwind, pendekatan mobile-first.
-*   **Animation:** [Framer Motion](https://framer.com/motion)
-*   **Charts:** [Recharts](https://recharts.org)
-*   **Icons:** [Lucide React](https://lucide.dev)
-*   **Backend/Deployment:** [Cloudflare Pages](https://pages.cloudflare.com) dengan Skrip Pre-render SEO Node.js.
+Agar pengurus atau tim redaksi dapat mengunggah artikel baru maupun memperbarui berita secara langsung tanpa menyentuh kode:
+
+### 1. Pengaturan Awal (Hanya Dilakukan 1 Kali oleh Super Admin)
+1. Buka browser dan kunjungi **`https://fwp.or.id/admin`** (otomatis diarahkan ke Setup Wizard `/_emdash/admin/setup`).
+2. Daftarkan akun Admin pertama menggunakan **Passkey** (sidik jari/FaceID/Windows Hello/perangkat pengelola sandi) dan email resmi admin.
+3. Pada langkah impor data awal (*Starter / Sample Content*), **biarkan opsi seed aktif** agar 5 berita historis FWP, daftar kategori, tag, serta tim penulis awal otomatis masuk ke database D1.
+4. Selesaikan wizard — Anda akan langsung masuk ke dashboard **FWP Redaksi & CMS**.
+
+### 2. Mengundang Anggota Pengurus / Tim Redaksi
+1. Di dalam dashboard **`https://fwp.or.id/admin`**, buka menu **Users / Pengaturan Pengguna**.
+2. Klik **Invite User**, masukkan nama dan email pengurus terkait, lalu pilih peran:
+   - **Editor:** dapat membuat, menyunting, menjadwalkan, dan mempublikasikan semua artikel serta mengelola media.
+   - **Author:** dapat menulis draf, mengunggah gambar, dan mengelola artikel miliknya sendiri.
+3. Pengurus penerima undangan cukup membuka tautan undangan tersebut dan mengaktifkan **Passkey** di perangkat masing-masing.
+
+### 3. Mengunggah & Mempublikasikan Artikel Baru
+1. Buka dashboard `/admin` -> pilih koleksi **Berita & Artikel**.
+2. Klik **New Artikel** lalu lengkapi kolom redaksi:
+   - **Judul Artikel:** judul utama berita/rilis. Slug URL (`/berita/{slug}`) terbentuk otomatis atau dapat disesuaikan.
+   - **Foto Utama:** unggah gambar sampul (tersimpan otomatis ke Cloudflare R2) serta isi teks alternatif (`alt`) untuk aksesibilitas dan SEO.
+   - **Ringkasan Singkat:** cuplikan 1–2 kalimat yang tampil pada kartu beranda, daftar `/berita`, dan meta deskripsi.
+   - **Tanggal Tayang & Kota/Lokasi:** tanggal rilis berita dan lokasi kegiatan (mis. `Jakarta` atau `Bandung`).
+   - **Kategori & Tag:** pilih kategori utama (`Kegiatan & Konsolidasi`, `Siaran Pers`, `Event & Summit`, `Sinergi & Kemitraan`, `Opini & Edukasi`) dan tag terkait.
+   - **Isi Artikel:** editor blok teks kaya (*Portable Text*) yang mendukung subjudul (`H2`/`H3`), kutipan tokoh (*blockquote*), tautan, daftar poin, maupun gambar sisipan.
+   - **Liputan Media Terkait (opsional):** tambahkan daftar nama media dan tautan berita eksternal apabila kegiatan diliput media massa.
+3. Klik **Preview** untuk meninjau tampilan persisnya sebelum terbit, atau klik **Publish** agar artikel langsung tampil di halaman utama, `/berita`, serta indeks `/sitemap.xml`.
 
 ---
 
-## 📂 Struktur Direktori
+## Pengembangan Lokal
+
+Salin `.dev.vars` (berisi `EMDASH_ENCRYPTION_KEY` lokal) lalu jalankan:
 
 ```bash
-fwp.or.id/
-├── public/                # Aset statis publik (Gambar, Logo, Dokumen)
-│   ├── _redirects         # Cloudflare routing rules (SPA fallback)
-│   └── _headers           # Security & asset caching headers
-├── scripts/
-│   └── post-build-seo.js  # Generator index.html statis untuk metadata SEO halaman (/wls2026, dll)
-├── src/
-│   ├── components/        # Komponen UI global (Navbar, Footer, Form WLS, dll)
-│   ├── data/              # Sumber data konten statis (Narasumber WLS, statistik)
-│   ├── pages/             # Halaman portal utama
-│   │   ├── HomePage.jsx             # Beranda
-│   │   ├── AboutPage.jsx            # Tentang FWP
-│   │   ├── ProgramsPage.jsx         # Program & Fokus Area
-│   │   ├── EventLandingPage.jsx     # Landing Page WLS 2026 (/wls2026)
-│   │   ├── NazhirCenterPage.jsx     # Pusat Informasi Nazhir
-│   │   ├── SuccessStoriesPage.jsx   # Inspirasi & Studi Kasus
-│   │   ├── BusinessMatchingPage.jsx # Kemitraan Strategis
-│   │   └── TransparencyPage.jsx     # Transparansi Keuangan
-│   ├── index.css          # Token sistem desain global
-│   ├── main.jsx           # Entrypoint aplikasi React
-│   └── routes.jsx         # Konfigurasi routing multi-halaman
-├── package.json           # Dependensi & script build (custom vite + SEO script)
-└── vite.config.js         # Konfigurasi kompilasi Vite
+npm install
+npx emdash seed seed/seed.json --validate
+npm run dev
 ```
 
----
+Pengujian build produksi & lint:
 
-## 💻 Panduan Development
-
-Langkah-langkah menjalankan proyek secara lokal:
-
-1. **Clone repository ini:**
-   ```bash
-   git clone https://github.com/ridloabelian/fwp.or.id.git
-   cd fwp.or.id
-   ```
-
-2. **Install dependensi:**
-   ```bash
-   npm install
-   ```
-
-3. **Jalankan server lokal:**
-   ```bash
-   npm run dev
-   ```
-   Aplikasi akan berjalan di `http://localhost:5173`.
-
-4. **Kompilasi produksi (Build):**
-   ```bash
-   npm run build
-   ```
-   *Perintah ini akan menjalankan Vite build, dilanjutkan dengan skrip Node.js (`scripts/post-build-seo.js`) untuk menghasilkan file statis OpenGraph (SEO) spesifik per path (seperti `/wls2026/index.html`). Hasilnya ada di folder `/dist`.*
-
----
-
-## ☁️ Integrasi Cloudflare Pages
-
-Proyek ini telah dikonfigurasi secara native untuk rilis otomatis ke **Cloudflare Pages**, memanfaatkan:
-
-*   **Pre-rendered SEO (OG Tags):** Mengingat CF Pages tidak mendukung SSR/Next.js secara native, proyek ini mengakali crawling bot sosial media (Telegram/WA) dengan skrip pre-render saat fase *post-build* untuk membuat direktori statis.
-*   **SPA Redirects:** File `public/_redirects` memastikan navigasi langsung (misal memuat ulang `/program`) dialihkan ke `index.html` dan tidak menghasilkan `404 Not Found`.
-*   **Cache & Security:** File `public/_headers` memuat konfigurasi umur *cache* aset (`/assets`) selama 1 tahun, serta mengaktifkan header sekuriti mutakhir (`X-Frame-Options`, `X-Content-Type-Options`).
-
----
-
-## 📄 Lisensi
-
-Proyek ini berlisensi **MIT License**. Kami mendorong inisiatif *open-source* dalam pengembangan ekosistem dan tata kelola instrumen perwakafan.
-
----
-*Dibangun dengan dedikasi untuk kesejahteraan umat. © 2026 Forum Wakaf Produktif.*
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```

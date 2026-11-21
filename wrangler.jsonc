@@ -1,0 +1,49 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "fwp-or-id",
+  "account_id": "7094f29424a9d001e9550daa33874cda",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "fwp.or.id/*",
+      "zone_name": "fwp.or.id"
+    }
+  ],
+  "vars": {
+    "EMDASH_SITE_URL": "https://fwp.or.id"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "fwp-or-id-db",
+      "database_id": "84baf0ab-12af-426b-8007-89c85670a4ff"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "fwp-or-id-media"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "f7cb55a1838748a3adcdb9369dc97912"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" }]
+  },
+  "exports": {
+    "EmDashRoom": { "type": "durable-object", "storage": "sqlite" }
+  },
+  "triggers": {
+    "crons": ["* * * * *"]
+  }
+}

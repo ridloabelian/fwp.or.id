@@ -1,0 +1,209 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { aboutData, milestones, members } from '../../data/about';
+
+const LEADERSHIP_PHOTOS: Record<string, string> = {
+  Ketua: '/speakers/rayan-2026.png',
+  Sekretaris: '/speakers/alla.png',
+  Bendahara: '/speakers/herri.png',
+};
+
+const historyParagraphs = aboutData.history.content
+  .split('\n\n')
+  .map((p) => p.trim())
+  .filter(Boolean);
+---
+
+<BaseLayout
+  title="Tentang Kami — Profil Forum Wakaf Produktif"
+  description={aboutData.hero.description}
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Tentang Kami', url: 'https://fwp.or.id/tentang-kami' },
+  ]}
+>
+  <PageHero
+    eyebrow={aboutData.hero.subtitle}
+    title={aboutData.hero.title}
+    description={aboutData.hero.description}
+    breadcrumbs={[{ label: 'Tentang Kami' }]}
+  >
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px;">
+      <a href="/tentang-kami/sejarah" class="btn btn-accent btn-sm">Sejarah &amp; Milestone</a>
+      <a href="/tentang-kami/legalitas" class="btn btn-outline-light btn-sm">Legalitas Formal</a>
+      <a href="/tentang-kami/struktur" class="btn btn-outline-light btn-sm">Struktur Kepengurusan</a>
+    </div>
+  </PageHero>
+
+  <!-- Sejarah Singkat -->
+  <section class="section section-white" style="border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Rekam Jejak Nasional</div>
+        <h2>{aboutData.history.title} Forum Wakaf Produktif</h2>
+        <p>Menggerakkan perwakafan produktif Indonesia sejak 7 Desember 2016 hingga {members.length} nazhir terdaftar saat ini.</p>
+      </div>
+      <div class="history-content">
+        {historyParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+        <div style="margin-top: 24px;">
+          <a href="/tentang-kami/sejarah" class="news-card__read">
+            Baca Seluruh 17 Tonggak Sejarah FWP &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visi & Misi -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="vision-card">
+          <div class="eyebrow-pill eyebrow-pill--dark">Visi Organisasi</div>
+          <h2>{aboutData.vision.title}</h2>
+          <p>{aboutData.vision.content}</p>
+        </div>
+
+        <div class="mission-card">
+          <div class="eyebrow-pill">Misi Strategis</div>
+          <h2>{aboutData.mission.title}</h2>
+          <ul>
+            {aboutData.mission.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legalitas Ringkas -->
+  <section class="section section-white" style="border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="legal-card">
+        <svg class="legal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+        <div class="eyebrow-pill">{aboutData.legal.title}</div>
+        <h2>{aboutData.legal.description}</h2>
+        <div class="sk-number">{aboutData.legal.skNumber}</div>
+        <p class="legal-issuer" style="margin-bottom: 18px;">
+          Disahkan oleh {aboutData.legal.issuedBy} Republik Indonesia
+        </p>
+        <a href="/tentang-kami/legalitas" class="btn btn-outline btn-sm">
+          Detail Tata Kelola Legalitas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pengurus Inti & Bidang -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Kepengurusan Aktif</div>
+        <h2>{aboutData.leadership.title}</h2>
+        <p>{aboutData.leadership.note}</p>
+      </div>
+
+      <div class="leadership-grid" style="margin-bottom: 44px;">
+        {aboutData.leadership.members.map((leader) => {
+          const photo = LEADERSHIP_PHOTOS[leader.position] ?? '/speakers/rayan-2026.png';
+          return (
+            <article class="leader-card">
+              <div class="leader-image">
+                <img
+                  src={photo}
+                  alt={leader.name}
+                  class={leader.position === 'Bendahara' ? 'leader-photo-herri' : undefined}
+                  loading="lazy"
+                />
+              </div>
+              <h3>{leader.name}</h3>
+              <p class="leader-position">{leader.position}</p>
+            </article>
+          );
+        })}
+      </div>
+
+      <div class="divisions-grid">
+        {aboutData.leadership.divisions.map((div) => (
+          <div class="division-card">
+            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">{div.name}</h3>
+            <p>{div.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Ringkasan Milestone -->
+  <section class="section section-white" style="border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Linimasa Perkembangan</div>
+        <h2>Tonggak Strategis (2016 – 2024)</h2>
+        <p>Cuplikan inisiatif advokasi, riset, dan kolaborasi kebijakan wakaf nasional.</p>
+      </div>
+
+      <div class="timeline">
+        {milestones.slice(0, 6).map((item, index) => (
+          <div class={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
+            <div class="timeline-content">
+              <span class="timeline-year">{item.year}</span>
+              <span class="timeline-category" style="margin-left: 8px;">{item.category}</span>
+              <h3 style="font-size: 1.1rem; margin-top: 6px; margin-bottom: 6px;">{item.title}</h3>
+              <p style="font-size: 0.92rem; margin-bottom: 0;">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style="text-align: center; margin-top: 28px;">
+        <a href="/tentang-kami/sejarah" class="btn btn-primary">
+          Lihat Seluruh {milestones.length} Milestone Sejarah &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ekosistem Mitra -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Jaringan Kolaborasi</div>
+        <h2>{aboutData.partners.title}</h2>
+        <p>Sinergi multipihak dari regulator negara hingga industri keuangan syariah.</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom: 48px;">
+        {aboutData.partners.categories.map((cat) => (
+          <div class="partner-category">
+            <h4>{cat.name}</h4>
+            <ul>
+              {cat.partners.map((partner) => (
+                <li>{partner}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <h2>Hubungi Sekretariat Nasional FWP</h2>
+          <p>
+            {aboutData.contact.address} &bull; Email: {aboutData.contact.email} &bull; WhatsApp: {aboutData.contact.phone}
+          </p>
+        </div>
+        <a href="/daftar-anggota" class="btn btn-accent">
+          Gabung Keanggotaan
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

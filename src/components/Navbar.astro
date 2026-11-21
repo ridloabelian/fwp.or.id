@@ -1,0 +1,199 @@
+---
+import { navLinks } from '../data/navigation';
+
+interface Props {
+  isAuthenticated?: boolean;
+}
+
+const { isAuthenticated = false } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function isPathActive(path: string): boolean {
+  const normalized = path.replace(/\/$/, '') || '/';
+  if (normalized === '/') return currentPath === '/';
+  return currentPath === normalized || currentPath.startsWith(`${normalized}/`);
+}
+---
+
+<header class="site-navbar" id="site-navbar">
+  <div class="container site-navbar__inner">
+    <a href="/" class="site-brand" aria-label="Beranda Forum Wakaf Produktif">
+      <img src="/logo.png" alt="Logo Forum Wakaf Produktif" width="40" height="40" />
+      <span class="site-brand__text">
+        <span class="site-brand__name">Forum Wakaf Produktif</span>
+        <span class="site-brand__sub">Katalisator Ekosistem Wakaf Nasional</span>
+      </span>
+    </a>
+
+    <nav aria-label="Navigasi utama">
+      <ul class="site-nav-list">
+        {navLinks.map((link) => {
+          if (link.dropdown) {
+            const childActive = link.dropdown.some((child) => isPathActive(child.path));
+            return (
+              <li class="site-nav-item">
+                <button
+                  type="button"
+                  class={`site-nav-trigger ${childActive ? 'active' : ''}`}
+                  aria-haspopup="true"
+                >
+                  <span>{link.label}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                <ul class="site-dropdown">
+                  {link.dropdown.map((child) => (
+                    <li>
+                      <a href={child.path} class={isPathActive(child.path) ? 'active' : ''}>
+                        <span>{child.label}</span>
+                        {child.desc && <span class="sub-desc">{child.desc}</span>}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          }
+
+          return (
+            <li class="site-nav-item">
+              <a href={link.path} class={`site-nav-link ${isPathActive(link.path!) ? 'active' : ''}`}>
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <div class="site-nav-actions">
+      {isAuthenticated && (
+        <a href="/admin" class="site-cms-pill" title="Buka CMS Redaksi EmDash">
+          CMS Redaksi
+        </a>
+      )}
+      <a href="/daftar-anggota" class="btn btn-accent btn-sm">
+        Daftar Anggota
+      </a>
+    </div>
+
+    <button
+      type="button"
+      class="mobile-toggle"
+      id="mobile-menu-toggle"
+      aria-label="Buka menu navigasi"
+      aria-expanded="false"
+      aria-controls="mobile-drawer"
+    >
+      <svg class="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <line x1="4" y1="6" x2="20" y2="6" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="18" x2="20" y2="18" />
+      </svg>
+      <svg class="icon-close" style="display:none" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  {navLinks.map((link) => {
+    if (link.dropdown) {
+      const childActive = link.dropdown.some((child) => isPathActive(child.path));
+      return (
+        <div>
+          <button
+            type="button"
+            class={`mobile-drawer-link ${childActive ? 'active' : ''}`}
+            style="width:100%; text-align:left;"
+            data-mobile-accordion
+            aria-expanded={childActive ? 'true' : 'false'}
+          >
+            <span>{link.label}</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <div class={`mobile-submenu ${childActive ? 'is-open' : ''}`}>
+            {link.dropdown.map((child) => (
+              <a href={child.path} class={isPathActive(child.path) ? 'active' : ''}>
+                {child.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <a href={link.path} class={`mobile-drawer-link ${isPathActive(link.path!) ? 'active' : ''}`}>
+        {link.label}
+      </a>
+    );
+  })}
+
+  <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+    <a href="/daftar-anggota" class="btn btn-accent" style="width:100%;">
+      Daftar Anggota Lembaga
+    </a>
+    {isAuthenticated ? (
+      <a href="/admin" class="btn btn-outline" style="width:100%;">
+        Buka CMS Redaksi
+      </a>
+    ) : (
+      <a href="/admin" class="btn btn-outline" style="width:100%;">
+        Portal Redaksi (Pengurus)
+      </a>
+    )}
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const navbar = document.getElementById('site-navbar');
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-drawer');
+    if (!navbar || !toggle || !drawer) return;
+
+    const iconOpen = toggle.querySelector('.icon-open');
+    const iconClose = toggle.querySelector('.icon-close');
+
+    const updateScroll = () => {
+      navbar.classList.toggle('is-scrolled', window.scrollY > 24);
+    };
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+
+    const setDrawer = (open) => {
+      drawer.classList.toggle('is-open', open);
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (iconOpen && iconClose) {
+        iconOpen.style.display = open ? 'none' : 'block';
+        iconClose.style.display = open ? 'block' : 'none';
+      }
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', () => setDrawer(!drawer.classList.contains('is-open')));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setDrawer(false);
+    });
+
+    drawer.querySelectorAll('[data-mobile-accordion]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const sub = btn.nextElementSibling;
+        if (!sub) return;
+        const expanded = sub.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+    });
+
+    drawer.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
+  })();
+</script>

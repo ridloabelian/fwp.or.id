@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image, PortableText } from 'emdash/ui';
+import { getAllArticles, getArticleBySlug } from '../../lib/articles';
+
+const slug = Astro.params.slug ?? '';
+const { article, isPreview, cacheHint } = await getArticleBySlug(slug);
+
+if (cacheHint?.tags?.length) {
+  (Astro as unknown as { cache?: { set?: (v: unknown) => void } }).cache?.set?.(cacheHint);
+}
+
+if (!article) {
+  Astro.response.status = 404;
+}
+
+const relatedResult = article ? await getAllArticles({ limit: 4 }) : { articles: [] };
+const relatedArticles = article
+  ? relatedResult.articles.filter((item) => item.slug !== article.slug).slice(0, 3)
+  : [];
+
+const shareUrl = `https://fwp.or.id/berita/${slug}`;
+const shareTitle = article?.title ?? 'Artikel Forum Wakaf Produktif';
+const waShareHref = `https://wa.me/?text=${encodeURIComponent(`${shareTitle} — ${shareUrl}`)}`;
+const xShareHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`;
+
+function classifyLegacyParagraph(paragraph: string): 'blockquote' | 'heading' | 'p' {
+  const trimmed = paragraph.trim();
+  if (trimmed.startsWith('“') || trimmed.startsWith('"')) return 'blockquote';
+  if (
+    trimmed.length > 0 &&
+    trimmed.length <= 85 &&
+    !trimmed.endsWith('.') &&
+    !trimmed.endsWith('!') &&
+    !trimmed.endsWith('?') &&
+    !trimmed.includes('—')
+  ) {
+    return 'heading';
+  }
+  return 'p';
+}
+---
+
+{article ? (
+  <BaseLayout
+    title={article.seo?.title || article.title}
+    description={article.seo?.description || article.excerpt}
+    image={article.seo?.ogImage || article.imageUrl}
+    canonical={article.seo?.canonical ?? undefined}
+    kind="content"
+    pageType="article"
+    contentRef={
+      article.source === 'emdash'
+        ? { collection: 'posts', id: article.id, slug: article.slug }
+        : undefined
+    }
+    seo={article.seo}
+    articleMeta={{
+      publishedTime: article.publishedAtIso,
+      author: article.author,
+    }}
+    breadcrumbs={[
+      { name: 'Beranda', url: 'https://fwp.or.id/' },
+      { name: 'Berita', url: 'https://fwp.or.id/berita' },
+      { name: article.title, url: shareUrl },
+    ]}
+    editUrl={article.source === 'emdash' ? `/_emdash/admin/content/posts/${article.id}` : '/admin'}
+  >
+    <section class="section" style="padding-top: 40px;">
+      <div class="container">
+        <article class="article-shell">
+          {isPreview && (
+            <div style="margin-bottom: 20px; padding: 12px 16px; border-radius: var(--radius-md); background: var(--gold-50); border: 1px solid var(--gold-500); color: var(--navy-900); font-size: 0.88rem; font-weight: 700;">
+              Mode Pratinjau Draf — Artikel ini belum dipublikasikan ke publik.
+            </div>
+          )}
+
+          <nav class="breadcrumb" style="margin-bottom: 18px; color: var(--ink-muted);" aria-label="Breadcrumb">
+            <a href="/" style="color: var(--ink-muted);">Beranda</a>
+            <span aria-hidden="true">/</span>
+            <a href="/berita" style="color: var(--ink-muted);">Berita</a>
+            <span aria-hidden="true">/</span>
+            <a href={`/berita?kategori=${article.category.slug}`} style="color: var(--green-700); font-weight: 600;">
+              {article.category.label}
+            </a>
+          </nav>
+
+          <span class="news-badge">{article.category.label}</span>
+
+          <h1
+            style="font-size: clamp(1.75rem, 3.6vw, 2.5rem); line-height: 1.22; margin-bottom: 8px;"
+            {...(typeof article.edit === 'object' && article.edit !== null
+              ? ((article.edit as Record<string, Record<string, unknown>>).title ?? {})
+              : {})}
+          >
+            {article.title}
+          </h1>
+
+          <div class="article-meta">
+            <span><strong>Tanggal:</strong> {article.dateLabel}</span>
+            {article.location && <span><strong>Lokasi:</strong> {article.location}</span>}
+            <span><strong>Oleh:</strong> {article.author}</span>
+            <span><strong>Durasi:</strong> {article.readingMinutes} menit baca</span>
+          </div>
+
+          <div class="article-hero-img">
+            {article.source === 'emdash' &&
+            article.featuredImage &&
+            typeof article.featuredImage === 'object' ? (
+              <Image
+                image={article.featuredImage}
+                alt={article.title}
+                priority={true}
+              />
+            ) : (
+              <img src={article.imageUrl} alt={article.title} loading="eager" />
+            )}
+          </div>
+
+          <div class="prose">
+            {article.contentBlocks && article.contentBlocks.length > 0 ? (
+              <PortableText value={article.contentBlocks} />
+            ) : (
+              article.legacyParagraphs.map((paragraph) => {
+                const kind = classifyLegacyParagraph(paragraph);
+                if (kind === 'blockquote') {
+                  return <blockquote>{paragraph}</blockquote>;
+                }
+                if (kind === 'heading') {
+                  return <h2>{paragraph}</h2>;
+                }
+                return <p>{paragraph}</p>;
+              })
+            )}
+          </div>
+
+          {article.tags.length > 0 && (
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;">
+              {article.tags.map((tag) => (
+                <span class="filter-chip" style="font-size: 0.78rem; min-height: 30px;">
+                  #{tag.label}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div class="share-bar">
+            <span style="font-size: 0.88rem; font-weight: 700; color: var(--ink-secondary);">
+              Bagikan artikel ini:
+            </span>
+            <div class="share-actions">
+              <a
+                href={waShareHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-outline btn-sm"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={xShareHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-outline btn-sm"
+              >
+                X / Twitter
+              </a>
+              <button
+                type="button"
+                class="btn btn-outline btn-sm"
+                data-copy-share-url={shareUrl}
+              >
+                Salin Tautan
+              </button>
+            </div>
+          </div>
+
+          {article.mediaCoverage.length > 0 && (
+            <div class="media-coverage-box">
+              <h2 style="font-size: 1.25rem; margin-bottom: 6px;">Liputan Media Terkait</h2>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">
+                Pemberitaan kegiatan ini juga dimuat di berbagai media massa nasional dan internasional:
+              </p>
+              <div class="media-coverage-grid">
+                {article.mediaCoverage.map((clip) => (
+                  <a
+                    href={clip.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="media-clipping-card"
+                  >
+                    <span>{clip.media}</span>
+                    <span aria-hidden="true">&nearr;</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </article>
+
+        {relatedArticles.length > 0 && (
+          <div style="margin-top: 64px;">
+            <div class="section-heading--left" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h2 style="font-size: 1.65rem; margin-bottom: 4px;">Berita &amp; Rilis Lainnya</h2>
+                <p style="margin-bottom: 0;">Kabar terbaru dari ekosistem Forum Wakaf Produktif.</p>
+              </div>
+              <a href="/berita" class="btn btn-outline btn-sm">Lihat Semua Berita</a>
+            </div>
+            <div class="grid-3">
+              {relatedArticles.map((item) => (
+                <a href={`/berita/${item.slug}`} class="news-card">
+                  <div class="news-card__media">
+                    <img src={item.imageUrl} alt={item.title} loading="lazy" />
+                  </div>
+                  <div class="news-card__body">
+                    <span class="news-badge">{item.category.label}</span>
+                    <h3 class="news-card__title">{item.title}</h3>
+                    <div class="news-card__footer">
+                      <span>{item.dateLabel}</span>
+                      <span class="news-card__read">Baca &rarr;</span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <script is:inline>
+      (() => {
+        const copyBtn = document.querySelector('[data-copy-share-url]');
+        if (!copyBtn) return;
+        copyBtn.addEventListener('click', async () => {
+          const url = copyBtn.getAttribute('data-copy-share-url') || window.location.href;
+          try {
+            await navigator.clipboard.writeText(url);
+            const original = copyBtn.textContent;
+            copyBtn.textContent = 'Tautan Tersalin';
+            setTimeout(() => {
+              copyBtn.textContent = original || 'Salin Tautan';
+            }, 2200);
+          } catch {
+            // Fallback when clipboard permission is unavailable
+          }
+        });
+      })();
+    </script>
+  </BaseLayout>
+) : (
+  <BaseLayout title="Artikel Tidak Ditemukan">
+    <section class="section">
+      <div class="container">
+        <div class="fwp-card" style="max-width: 620px; margin: 0 auto; text-align: center; padding: 48px 28px;">
+          <div class="eyebrow-pill" style="margin-bottom: 14px;">404 — Artikel Tidak Ditemukan</div>
+          <h1>Artikel Tidak Tersedia</h1>
+          <p>
+            Maaf, artikel yang Anda cari tidak ditemukan atau sudah dipindahkan.
+            Anda dapat menelusuri seluruh rilis resmi di halaman Berita.
+          </p>
+          <a href="/berita" class="btn btn-primary">Kembali ke Daftar Berita</a>
+        </div>
+      </div>
+    </section>
+  </BaseLayout>
+)}

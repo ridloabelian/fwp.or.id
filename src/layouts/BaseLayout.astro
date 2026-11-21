@@ -1,0 +1,134 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/prose.css';
+import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from 'emdash/ui';
+import { createPublicPageContext } from 'emdash/page';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface BreadcrumbCrumb {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  kind?: 'content' | 'custom';
+  pageType?: string;
+  contentRef?: {
+    collection: string;
+    id: string;
+    slug?: string | null;
+  };
+  seo?: {
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    ogImage?: string | null;
+    robots?: string | null;
+  };
+  articleMeta?: {
+    publishedTime?: string | null;
+    modifiedTime?: string | null;
+    author?: string | null;
+  };
+  breadcrumbs?: BreadcrumbCrumb[];
+  standalone?: boolean;
+  editUrl?: string;
+}
+
+const {
+  title,
+  description = 'Forum Wakaf Produktif (FWP) — Wadah kolaborasi nasional lembaga nazhir wakaf uang dan mitra strategis untuk transformasi wakaf produktif menuju Indonesia Emas 2045.',
+  image = '/og-image.jpg',
+  canonical,
+  kind = 'custom',
+  pageType,
+  contentRef,
+  seo,
+  articleMeta,
+  breadcrumbs,
+  standalone = false,
+  editUrl = '/admin',
+} = Astro.props;
+
+const fullTitle = title.includes('Forum Wakaf Produktif')
+  ? title
+  : `${title} | Forum Wakaf Produktif`;
+
+const resolvedImage = image.startsWith('http')
+  ? image
+  : `https://fwp.or.id${image.startsWith('/') ? image : `/${image}`}`;
+
+const page = createPublicPageContext({
+  Astro,
+  kind,
+  pageType,
+  title: fullTitle,
+  pageTitle: title,
+  description,
+  canonical,
+  image: resolvedImage,
+  content: contentRef,
+  seo,
+  articleMeta,
+  siteName: 'Forum Wakaf Produktif',
+  siteUrl: 'https://fwp.or.id',
+  breadcrumbs,
+});
+
+const isAuthenticated = Boolean(Astro.locals.user);
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c2230" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{fullTitle}</title>
+    <EmDashHead page={page} />
+    <slot name="head" />
+  </head>
+  <body>
+    <EmDashBodyStart page={page} />
+
+    {!standalone && <Navbar isAuthenticated={isAuthenticated} />}
+
+    {standalone ? (
+      <slot />
+    ) : (
+      <main id="main-content">
+        <slot />
+      </main>
+    )}
+
+    {!standalone && <Footer />}
+
+    {isAuthenticated && (
+      <aside class="cms-floating-bar" aria-label="Bilah Akses Redaksi CMS">
+        <span style="padding: 0 8px; font-weight: 700; color: rgba(255,255,255,0.85);">
+          Mode Redaksi
+        </span>
+        <a href={editUrl} class="primary-action">
+          Kelola di CMS
+        </a>
+        <a href="/_emdash/admin/content/posts" class="secondary-action">
+          Daftar Artikel
+        </a>
+      </aside>
+    )}
+
+    <EmDashBodyEnd page={page} />
+  </body>
+</html>

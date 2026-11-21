@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProposalView from '../components/ProposalView.jsx';
+---
+
+<BaseLayout
+  title="Proposal &amp; Kemitraan Waqf Leaders Summit 2026"
+  description="Proposal kemitraan strategis, paket sponsorship, dan profil manfaat partisipasi dalam Waqf Leaders Summit 2026 Forum Wakaf Produktif."
+  image="/og-image-v2.jpg"
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Waqf Leaders Summit', url: 'https://fwp.or.id/waqf-leaders-summit' },
+    { name: 'Proposal WLS 2026', url: 'https://fwp.or.id/proposal-wls2026' },
+  ]}
+>
+  <ProposalView client:load />
+</BaseLayout>

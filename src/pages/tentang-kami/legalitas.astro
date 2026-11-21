@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { aboutData } from '../../data/about';
+---
+
+<BaseLayout
+  title="Legalitas Resmi Forum Wakaf Produktif"
+  description={`Status badan hukum resmi Perkumpulan Forum Wakaf Produktif dengan SK ${aboutData.legal.skNumber} dari ${aboutData.legal.issuedBy}.`}
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Tentang Kami', url: 'https://fwp.or.id/tentang-kami' },
+    { name: 'Legalitas', url: 'https://fwp.or.id/tentang-kami/legalitas' },
+  ]}
+>
+  <PageHero
+    eyebrow="Kepatuhan &amp; Badan Hukum"
+    title="Legalitas Organisasi"
+    description="Landasan hukum formal Perkumpulan Forum Wakaf Produktif dalam menaungi kolaborasi lembaga nazhir di Indonesia."
+    breadcrumbs={[
+      { label: 'Tentang Kami', href: '/tentang-kami' },
+      { label: 'Legalitas' },
+    ]}
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="legal-card" style="margin-bottom: 48px;">
+        <svg class="legal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+        <div class="eyebrow-pill" style="margin-bottom: 12px;">Dokumen Pengesahan Negara</div>
+        <h2>{aboutData.legal.description}</h2>
+        <div class="sk-number">{aboutData.legal.skNumber}</div>
+        <p class="legal-issuer">Diterbitkan oleh Kementerian Hukum dan Hak Asasi Manusia ({aboutData.legal.issuedBy})</p>
+        <p style="font-size: 0.96rem; margin-bottom: 24px;">
+          Status Perkumpulan berbadan hukum ini memastikan Forum Wakaf Produktif sah
+          bermitra dengan Badan Wakaf Indonesia (BWI), Kementerian Agama RI, Kementerian
+          Keuangan RI, Bank Indonesia, Otoritas Jasa Keuangan (OJK), maupun lembaga
+          internasional.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
+          <a href="/transparansi" class="btn btn-primary btn-sm">Regulasi &amp; Transparansi</a>
+          <a href="/keanggotaan" class="btn btn-outline btn-sm">Ketentuan Keanggotaan</a>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="fwp-card">
+          <h3>Payung Perkumpulan Resmi</h3>
+          <p style="margin-bottom: 0; font-size: 0.94rem;">
+            Berbentuk Badan Hukum Perkumpulan yang mengakomodasi partisipasi aktif lembaga
+            nazhir yayasan, koperasi syariah, dan organisasi kemasyarakatan berizin BWI.
+          </p>
+        </div>
+        <div class="fwp-card">
+          <h3>Kepatuhan UU No. 41/2004</h3>
+          <p style="margin-bottom: 0; font-size: 0.94rem;">
+            Seluruh agenda inkubasi dan pembiayaan wakaf produktif mengacu pada UU No. 41
+            Tahun 2004 tentang Wakaf, PP No. 42 Tahun 2006, serta Peraturan BWI.
+          </p>
+        </div>
+        <div class="fwp-card">
+          <h3>Standar Kelembagaan Nazhir</h3>
+          <p style="margin-bottom: 0; font-size: 0.94rem;">
+            Keanggotaan FWP memprioritaskan nazhir dengan Surat Tanda Bukti Pendaftaran Nazhir
+            (STBPN) Wakaf Uang yang diterbitkan langsung oleh Badan Wakaf Indonesia.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

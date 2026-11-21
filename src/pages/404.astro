@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+Astro.response.status = 404;
+---
+
+<BaseLayout
+  title="Halaman Tidak Ditemukan (404)"
+  description="Halaman yang Anda cari tidak tersedia di portal Forum Wakaf Produktif."
+>
+  <section class="section">
+    <div class="container">
+      <div class="fwp-card" style="max-width: 680px; margin: 0 auto; text-align: center; padding: clamp(32px, 5vw, 56px);">
+        <div class="eyebrow-pill" style="margin-bottom: 16px;">404 &mdash; Halaman Tidak Ditemukan</div>
+        <h1 style="font-size: clamp(1.9rem, 4vw, 2.75rem); margin-bottom: 12px;">
+          Maaf, Tautan Tidak Tersedia
+        </h1>
+        <p style="max-width: 48ch; margin: 0 auto 28px;">
+          Halaman yang Anda kunjungi mungkin telah dipindahkan atau sudah diperbarui.
+          Silakan gunakan pintasan berikut untuk menjelajahi portal resmi Forum Wakaf Produktif.
+        </p>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+          <a href="/" class="btn btn-primary btn-sm">Beranda</a>
+          <a href="/berita" class="btn btn-outline btn-sm">Berita &amp; Siaran Pers</a>
+          <a href="/pusat-nazhir" class="btn btn-outline btn-sm">Pusat Nazhir</a>
+          <a href="/keanggotaan" class="btn btn-accent btn-sm">Keanggotaan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

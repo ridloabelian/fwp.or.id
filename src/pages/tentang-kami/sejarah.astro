@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { aboutData, milestones } from '../../data/about';
+
+const historyParagraphs = aboutData.history.content
+  .split('\n\n')
+  .map((p) => p.trim())
+  .filter(Boolean);
+---
+
+<BaseLayout
+  title="Sejarah & Milestone Forum Wakaf Produktif"
+  description="Perjalanan Forum Wakaf Produktif sejak peluncuran 7 Desember 2016 hingga 17 tonggak kolaborasi nasional bersama BWI dan Kementerian Agama."
+  breadcrumbs={[
+    { name: 'Beranda', url: 'https://fwp.or.id/' },
+    { name: 'Tentang Kami', url: 'https://fwp.or.id/tentang-kami' },
+    { name: 'Sejarah', url: 'https://fwp.or.id/tentang-kami/sejarah' },
+  ]}
+>
+  <PageHero
+    eyebrow="Rekam Jejak Sejarah (2016 – Kini)"
+    title="Sejarah &amp; Tonggak Perjalanan"
+    description="Dari 11 nazhir pendiri pada 7 Desember 2016 menjadi gerakan nasional transformasi wakaf produktif di Indonesia."
+    breadcrumbs={[
+      { label: 'Tentang Kami', href: '/tentang-kami' },
+      { label: 'Sejarah' },
+    ]}
+    compact={true}
+  />
+
+  <section class="section section-white" style="border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="history-content">
+        <div class="eyebrow-pill" style="margin-bottom: 14px;">Latar Belakang Pendirian</div>
+        <h2>Inisiasi Forum Wakaf Produktif</h2>
+        {historyParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow-pill">Linimasa Lengkap</div>
+        <h2>{milestones.length} Milestone Strategis FWP</h2>
+        <p>Capaian kolaborasi kebijakan, inovasi produk keuangan syariah, literasi, dan penguatan kapasitas nazhir.</p>
+      </div>
+
+      <div class="timeline">
+        {milestones.map((item, index) => (
+          <div class={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
+            <div class="timeline-content">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
+                <span class="timeline-year" style="margin-bottom: 0;">{item.year}</span>
+                <span class="timeline-category">{item.category}</span>
+              </div>
+              <h3 style="font-size: 1.12rem; margin-bottom: 6px;">{item.title}</h3>
+              <p style="font-size: 0.92rem; margin-bottom: 0;">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
