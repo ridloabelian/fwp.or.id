@@ -657,6 +657,7 @@ textarea:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 48% center;
   display: block;
 }
 
@@ -684,7 +685,8 @@ textarea:focus-visible {
 
 .home-hero__mini-v {
   font-weight: 700;
-  font-size: 0.94rem;
+  font-size: 0.88rem;
+  line-height: 1.35;
   color: #ffffff;
 }
 
@@ -722,10 +724,11 @@ textarea:focus-visible {
 
 .stat-metric__value {
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-size: clamp(1.55rem, 2.35vw, 2.05rem);
   font-weight: 800;
   color: var(--navy-900);
   line-height: 1.1;
+  white-space: nowrap;
   margin-bottom: 4px;
 }
 
@@ -754,8 +757,8 @@ textarea:focus-visible {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
   align-items: end;
-  height: 210px;
-  padding: 18px 18px 12px;
+  height: 224px;
+  padding: 18px 18px 14px;
   border-radius: var(--radius-lg);
   background: var(--surface-canvas);
   border: 1px solid var(--border-subtle);
@@ -774,6 +777,7 @@ textarea:focus-visible {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--navy-800);
+  white-space: nowrap;
 }
 
 .waqf-bar-fill {
@@ -792,6 +796,7 @@ textarea:focus-visible {
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--ink-muted);
+  white-space: nowrap;
 }
 
 /* Pathways */
@@ -1341,9 +1346,10 @@ textarea:focus-visible {
 
 .leader-image {
   width: 100%;
-  height: 290px;
+  aspect-ratio: 15 / 16;
+  max-height: 330px;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 35%, #f4f8f6 0%, var(--surface-mist) 100%);
+  background: #cac8d6;
   margin-bottom: 20px;
 }
 
@@ -1353,10 +1359,6 @@ textarea:focus-visible {
   object-fit: cover;
   object-position: center top;
   display: block;
-}
-
-.leader-image img.leader-photo-herri {
-  object-position: center 12%;
 }
 
 .leader-card h3 {
@@ -1836,6 +1838,10 @@ textarea:focus-visible {
   .media-split {
     grid-template-columns: 1fr;
   }
+  .editorial-featured__media {
+    aspect-ratio: 16 / 10;
+    min-height: 220px;
+  }
   .grid-3,
   .grid-4,
   .doc-photo-grid,
@@ -1882,6 +1888,23 @@ textarea:focus-visible {
     right: 12px;
     left: 12px;
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 520px) {
+  .home-hero__caption {
+    grid-template-columns: 1fr;
+  }
+  .waqf-bars {
+    gap: 6px;
+    padding: 14px 10px 12px;
+    height: 210px;
+  }
+  .waqf-bar-val {
+    font-size: 0.68rem;
+  }
+  .waqf-bar-lbl {
+    font-size: 0.72rem;
   }
 }
 

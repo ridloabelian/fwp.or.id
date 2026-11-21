@@ -24,7 +24,7 @@ export const programsData = [
     imageAlt: 'Dokumentasi sosialisasi potensi wakaf daerah dan pengembangan wilayah pada Sharia Talks',
     imageLabel: 'Dokumentasi Literasi Wilayah',
     ctaText: 'Pelajari Modul',
-    ctaLink: '#',
+    ctaLink: '/program#program-lapangan',
     isExternal: false,
     themeColor: 'var(--tertiary-color)',
     bgColor: 'rgba(22, 174, 202, 0.15)',

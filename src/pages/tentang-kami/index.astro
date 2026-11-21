@@ -4,9 +4,9 @@ import PageHero from '../../components/PageHero.astro';
 import { aboutData, milestones, members } from '../../data/about';
 
 const LEADERSHIP_PHOTOS: Record<string, string> = {
-  Ketua: '/speakers/rayan-2026.png',
-  Sekretaris: '/speakers/alla.png',
-  Bendahara: '/speakers/herri.png',
+  Ketua: '/team/rayan-card.jpg',
+  Sekretaris: '/team/alla-card.jpg',
+  Bendahara: '/team/herri-card.jpg',
 };
 
 const historyParagraphs = aboutData.history.content
@@ -140,14 +140,13 @@ const historyParagraphs = aboutData.history.content
 
       <div class="leadership-grid" style="margin-bottom: 44px;">
         {aboutData.leadership.members.map((leader) => {
-          const photo = LEADERSHIP_PHOTOS[leader.position] ?? '/speakers/rayan-2026.png';
+          const photo = LEADERSHIP_PHOTOS[leader.position] ?? '/team/rayan-card.jpg';
           return (
             <article class="leader-card">
               <div class="leader-image">
                 <img
                   src={photo}
                   alt={leader.name}
-                  class={leader.position === 'Bendahara' ? 'leader-photo-herri' : undefined}
                   loading="lazy"
                 />
               </div>

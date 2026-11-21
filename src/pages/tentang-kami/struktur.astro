@@ -4,9 +4,9 @@ import PageHero from '../../components/PageHero.astro';
 import { aboutData } from '../../data/about';
 
 const PHOTOS: Record<string, string> = {
-  Ketua: '/speakers/rayan-2026.png',
-  Sekretaris: '/speakers/alla.png',
-  Bendahara: '/speakers/herri.png',
+  Ketua: '/team/rayan-card.jpg',
+  Sekretaris: '/team/alla-card.jpg',
+  Bendahara: '/team/herri-card.jpg',
 };
 
 const ketua = aboutData.leadership.members.find((m) => m.position === 'Ketua');
@@ -53,7 +53,7 @@ const pengurusPendukung = aboutData.leadership.members.filter((m) => m.position 
       <!-- Sekretaris & Bendahara -->
       <div class="grid-2" style="max-width: 700px; margin: 0 auto 60px;">
         {pengurusPendukung.map((member) => {
-          const photo = PHOTOS[member.position] ?? '/speakers/alla.png';
+          const photo = PHOTOS[member.position] ?? '/team/alla-card.jpg';
           const photoClass =
             member.position === 'Sekretaris'
               ? 'structure-photo-sekretaris'

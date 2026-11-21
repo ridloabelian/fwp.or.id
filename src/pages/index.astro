@@ -12,12 +12,42 @@ if (cacheHint?.tags?.length) {
 
 const featuredArticle = articles[0] ?? null;
 const secondaryArticles = articles.slice(1, 4);
-const maxChartAmount = Math.max(...chartData.map((d) => d.amount), 1);
+
+function formatHomeStatValue(stat: {
+  label: string;
+  number: number;
+  prefix?: string;
+  unit?: string;
+  suffix?: string;
+}): string {
+  const prefix = stat.prefix ?? '';
+  const rawUnit = stat.unit ?? stat.suffix ?? '';
+  const unit = rawUnit === 'T+' ? ' T+' : rawUnit;
+  if (stat.label === 'Luas Tanah Wakaf') {
+    return `${prefix}445.410${unit}`;
+  }
+  const formattedNum = Number.isInteger(stat.number)
+    ? new Intl.NumberFormat('id-ID').format(stat.number)
+    : String(stat.number).replace('.', ',');
+  return `${prefix}${formattedNum}${unit}`;
+}
+
+const normalizedChartData = chartData.map((d) => {
+  const record = d as { name?: string; year?: string; Capaian?: number; amount?: number };
+  const amount = Number(record.Capaian ?? record.amount ?? 0);
+  const label = String(record.name ?? record.year ?? '');
+  const valueText =
+    amount >= 1000
+      ? `${(amount / 1000).toFixed(1).replace('.', ',')}T`
+      : `${amount}M`;
+  return { label, amount, valueText };
+});
+const maxChartAmount = Math.max(...normalizedChartData.map((d) => d.amount), 1);
 
 const LEADERSHIP_PHOTOS: Record<string, string> = {
-  Ketua: '/speakers/rayan-2026.png',
-  Sekretaris: '/speakers/alla.png',
-  Bendahara: '/speakers/herri.png',
+  Ketua: '/team/rayan-card.jpg',
+  Sekretaris: '/team/alla-card.jpg',
+  Bendahara: '/team/herri-card.jpg',
 };
 
 const statVariants = ['', 'stat-metric--cyan', 'stat-metric--navy', 'stat-metric--gold'];
@@ -68,21 +98,22 @@ const featuredNazhir = members.slice(0, 8);
         <div class="home-hero__panel">
           <div class="home-hero__media">
             <img
-              src="/rakornas-fwp-2026.jpg"
-              alt="Rapat Koordinasi Nasional Forum Wakaf Produktif"
+              src="/photos/wls-2026-delegates.jpg"
+              alt="Pimpinan Forum Wakaf Produktif bersama Badan Wakaf Indonesia dan tokoh perwakafan nasional pada Waqf Leaders Summit 2026"
               width="640"
               height="440"
               loading="eager"
+              fetchpriority="high"
             />
           </div>
           <div class="home-hero__caption">
             <a href="/berita/rakornas-fwp-2026-konsolidasi-kolaborasi" class="home-hero__mini">
               <div class="home-hero__mini-k">Agenda Strategis</div>
-              <div class="home-hero__mini-v">Rakornas FWP 2026 &rarr;</div>
+              <div class="home-hero__mini-v">Rakornas FWP 2026&nbsp;&rarr;</div>
             </a>
             <a href="/waqf-leaders-summit" class="home-hero__mini">
               <div class="home-hero__mini-k">Konferensi Nasional</div>
-              <div class="home-hero__mini-v">Waqf Leaders Summit &rarr;</div>
+              <div class="home-hero__mini-v">Waqf Leaders Summit&nbsp;&rarr;</div>
             </a>
           </div>
         </div>
@@ -95,21 +126,15 @@ const featuredNazhir = members.slice(0, 8);
     <div class="container">
       <div class="stats-panel">
         <div class="stats-strip">
-          {homeStats.map((stat, idx) => {
-            const displayNumber =
-              stat.label === 'Luas Tanah Wakaf'
-                ? '445.410'
-                : String(stat.number);
-            return (
-              <div class={`stat-metric ${statVariants[idx] ?? ''}`}>
-                <div class="stat-metric__value">
-                  {stat.prefix}{displayNumber}{stat.suffix}
-                </div>
-                <div class="stat-metric__label">{stat.label}</div>
-                <div class="stat-metric__source">Sumber: {stat.source}</div>
+          {homeStats.map((stat, idx) => (
+            <div class={`stat-metric ${statVariants[idx] ?? ''}`}>
+              <div class="stat-metric__value">
+                {formatHomeStatValue(stat)}
               </div>
-            );
-          })}
+              <div class="stat-metric__label">{stat.label}</div>
+              <div class="stat-metric__source">Sumber: {stat.source}</div>
+            </div>
+          ))}
           <div class="stat-metric stat-metric--gold">
             <div class="stat-metric__value">{members.length}</div>
             <div class="stat-metric__label">Anggota Nazhir FWP</div>
@@ -136,15 +161,13 @@ const featuredNazhir = members.slice(0, 8);
           </div>
 
           <div class="waqf-bars" role="img" aria-label="Grafik tren penghimpunan wakaf uang tahun 2020 hingga kini dalam miliar rupiah">
-            {chartData.map((point) => {
+            {normalizedChartData.map((point) => {
               const barHeight = Math.max(18, Math.round((point.amount / maxChartAmount) * 124));
               return (
                 <div class="waqf-bar-col">
-                  <span class="waqf-bar-val">
-                    {point.amount >= 1000 ? `${(point.amount / 1000).toFixed(1)}T` : `${point.amount}M`}
-                  </span>
+                  <span class="waqf-bar-val">{point.valueText}</span>
                   <div class="waqf-bar-fill" style={`height: ${barHeight}px;`} />
-                  <span class="waqf-bar-lbl">{point.year}</span>
+                  <span class="waqf-bar-lbl">{point.label}</span>
                 </div>
               );
             })}
@@ -316,16 +339,18 @@ const featuredNazhir = members.slice(0, 8);
 
       <div class="grid-2">
         {programsData.map((program) => {
-          const href = program.ctaLink === '#' ? '/pusat-nazhir#program-nazhir' : program.ctaLink;
+          const href = program.ctaLink === '#' ? '/program#program-lapangan' : program.ctaLink;
           return (
-            <div class="fwp-card">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px;">
-                <h3 style="margin-bottom: 0;">{program.title}</h3>
-                <span style="font-size: 0.76rem; font-weight: 700; color: var(--ink-muted); background: var(--surface-mist); padding: 4px 10px; border-radius: var(--radius-full); white-space: nowrap;">
-                  {program.source}
-                </span>
+            <div class="fwp-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px;">
+                  <h3 style="margin-bottom: 0;">{program.title}</h3>
+                  <span style="font-size: 0.76rem; font-weight: 700; color: var(--ink-muted); background: var(--surface-mist); padding: 4px 10px; border-radius: var(--radius-full); white-space: nowrap;">
+                    {program.source}
+                  </span>
+                </div>
+                <p style="font-size: 0.95rem;">{program.description}</p>
               </div>
-              <p style="font-size: 0.95rem;">{program.description}</p>
               <a
                 href={href}
                 target={program.isExternal ? '_blank' : undefined}
@@ -352,15 +377,13 @@ const featuredNazhir = members.slice(0, 8);
 
       <div class="leadership-grid">
         {aboutData.leadership.members.map((leader) => {
-          const photo = LEADERSHIP_PHOTOS[leader.position] ?? '/speakers/rayan-2026.png';
-          const isHerri = leader.position === 'Bendahara';
+          const photo = LEADERSHIP_PHOTOS[leader.position] ?? '/team/rayan-card.jpg';
           return (
             <article class="leader-card">
               <div class="leader-image">
                 <img
                   src={photo}
                   alt={leader.name}
-                  class={isHerri ? 'leader-photo-herri' : undefined}
                   loading="lazy"
                 />
               </div>
