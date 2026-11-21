@@ -35,6 +35,10 @@ import { programs as nazhirPrograms } from '../data/about';
           return (
             <div class="fwp-card" style="display: flex; flex-direction: column; justify-content: space-between;">
               <div>
+                <div class="card-media-top">
+                  <img src={program.imageUrl} alt={program.imageAlt} loading="lazy" />
+                  <span class="illustration-pill">{program.imageLabel}</span>
+                </div>
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px;">
                   <span class="news-badge" style="margin-bottom: 0;">{program.source}</span>
                   <span style="font-size: 0.78rem; color: var(--ink-muted);">Pembaruan {program.lastUpdated}</span>

@@ -81,6 +81,7 @@ export const summitSpeakers = {
     {
       id: 36,
       name: 'Anisa Azizah',
+      photo: '/speakers/anisa-azizah.jpg',
       title: 'Senior Lead, Investment Manager, Angin Dampak Jaya',
       status: 'confirmed',
       category: 'Praktisi',
@@ -89,6 +90,7 @@ export const summitSpeakers = {
     {
       id: 34,
       name: 'Dr. Uus Rustiman Lc., M.Hum.',
+      photo: '/speakers/uus-rustiman.jpg',
       title: 'Dosen Universitas Padjadjaran dan Direktur Utama Lembaga Wakaf Persis',
       status: 'confirmed',
       category: 'Praktisi',
@@ -97,6 +99,7 @@ export const summitSpeakers = {
     {
       id: 35,
       name: 'Asad Askaruddin',
+      photo: '/speakers/asad-askaruddin.jpg',
       title: 'Manajer Partnership Rumah Wakaf Indonesia',
       status: 'confirmed',
       category: 'Praktisi',
@@ -125,6 +128,7 @@ export const summitSpeakers = {
     {
       id: 8,
       name: 'H. Dedi Mulyadi, S.H., M.M.',
+      photo: '/speakers/dedi-mulyadi.jpg',
       title: 'Gubernur Jawa Barat',
       status: 'pending',
       category: 'Pemerintah',
@@ -178,6 +182,7 @@ export const summitSpeakers = {
     {
       id: 17,
       name: 'Prof. Dr. H. Waryono Abdul Ghofur, M.Ag.',
+      photo: '/speakers/waryono.png',
       title: 'Direktur Pemberdayaan Zakat dan Wakaf, Kemenag RI',
       status: 'pending',
       category: 'Pemerintah',
@@ -204,6 +209,7 @@ export const summitSpeakers = {
     {
       id: 22,
       name: 'Mohammad Ali Yusuf',
+      photo: '/speakers/m-ali-yusuf.png',
       title: 'Co-Founder Mosaic (Muslims for Shared Action on Climate Impact)',
       status: 'pending',
       category: 'Praktisi',
@@ -212,6 +218,7 @@ export const summitSpeakers = {
     {
       id: 23,
       name: 'Dr. H. Daniar, M.A.',
+      photo: '/speakers/daniar.png',
       title: 'Pimpinan Pondok Pesantren Trubus Iman',
       status: 'pending',
       category: 'Akademisi',
@@ -229,6 +236,7 @@ export const summitSpeakers = {
     {
       id: 41,
       name: 'Muhammad Virda Dimas Ekaputra, S.Sos., M.M',
+      photo: '/speakers/virda.png',
       title: 'Aktivis Wakaf',
       status: 'pending',
       category: 'Praktisi',
@@ -525,4 +533,37 @@ export const eventStats = [
   { label: 'Nazhir', value: '50+', suffix: '' },
   { label: 'Investor & Mitra', value: '30+', suffix: '' },
   { label: 'Booth Expo', value: '10', suffix: '+' },
+];
+
+export const wlsDocumentationPhotos = [
+  {
+    src: '/photos/wls-2026-plenary.jpg',
+    alt: 'Sesi foto bersama seluruh delegasi pimpinan nazhir pada Waqf Leaders Summit 2026 Bandung',
+    caption: 'Sesi Pleno & Konsolidasi 53 Delegasi Nazhir Nasional di Holiday Inn Pasteur, Bandung',
+  },
+  {
+    src: '/photos/wls-2026-keynote.jpg',
+    alt: 'Keynote paparan strategi akselerasi wakaf nasional dan potensi wakaf uang Rp 300 triliun',
+    caption: 'Keynote Speech — Mengurai Kesenjangan Potensi Wakaf Uang Rp 300 Triliun & Literasi Nasional',
+  },
+  {
+    src: '/photos/wls-2026-panel.jpg',
+    alt: 'Diskusi panel Leaders Talk Revisi Undang-Undang Wakaf Indonesia di panggung utama WLS 2026',
+    caption: 'Leaders Talk — Konsolidasi Regulasi & Revisi Undang-Undang Wakaf Indonesia',
+  },
+  {
+    src: '/photos/wls-2026-mou-umi.jpg',
+    alt: 'Penandatanganan MoU Kerja Sama Forum Wakaf Produktif dan Badan Wakaf Indonesia',
+    caption: 'Penandatanganan MoU FWP–BWI & Peluncuran Unit Manajemen Investasi (UMI)',
+  },
+  {
+    src: '/photos/wls-2026-delegates.jpg',
+    alt: 'Pimpinan Forum Wakaf Produktif bersama perwakilan BWI dan regulator di panggung utama',
+    caption: 'Sinergi Kepemimpinan FWP, Badan Wakaf Indonesia, dan Lembaga Nazhir Anggota',
+  },
+  {
+    src: '/photos/wls-2026-day2-seminar.jpg',
+    alt: 'Grand Seminar penguatan kapasitas kepemimpinan dan analisis investasi pada Hari ke-2 WLS 2026',
+    caption: 'Hari ke-2 — Grand Seminar Penguatan Kapasitas Nazhir & Pitching Proyek Wakaf',
+  },
 ];

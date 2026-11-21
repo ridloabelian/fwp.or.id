@@ -12,7 +12,8 @@ import {
   rundownDay1,
   rundownDay2,
   sponsorshipPackages,
-  eventStats
+  eventStats,
+  wlsDocumentationPhotos
 } from '../data/summit';
 
 const fadeInUp = {
@@ -92,10 +93,22 @@ const SummitView = () => {
 
             <motion.h1 variants={fadeInUp} style={{
               fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white',
-              marginBottom: '16px', lineHeight: '1.2'
+              marginBottom: '12px', lineHeight: '1.2'
             }}>
               {summitDetails.name}
             </motion.h1>
+
+            <motion.img
+              variants={fadeInUp}
+              src="/tumbuh-bersama-gold.png"
+              alt="Tumbuh Bersama — Forum Wakaf Produktif"
+              style={{
+                width: 'clamp(220px, 34vw, 340px)',
+                height: 'auto',
+                display: 'block',
+                margin: '0 auto 18px'
+              }}
+            />
 
             <motion.p variants={fadeInUp} style={{
               fontSize: '1.15rem', maxWidth: '700px', margin: '0 auto 32px',
@@ -228,17 +241,32 @@ const SummitView = () => {
             }}>
               {summitSpeakers.confirmed.map((speaker) => (
                 <motion.div key={speaker.id} variants={itemScale} className="glass-card" style={{
-                  padding: '20px', display: 'flex', alignItems: 'flex-start', gap: '12px',
+                  padding: '20px', display: 'flex', alignItems: 'flex-start', gap: '14px',
                   borderLeft: '4px solid #16a34a'
                 }}>
-                  <div style={{
-                    width: '48px', height: '48px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, var(--primary-color), var(--tertiary-color))',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'white', fontWeight: 700, fontSize: '1.1rem', flexShrink: 0
-                  }}>
-                    {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                  </div>
+                  {speaker.photo ? (
+                    <div style={{
+                      width: '56px', height: '56px', borderRadius: '50%',
+                      overflow: 'hidden', border: '2px solid #dcfce7',
+                      background: '#f8fafc', flexShrink: 0
+                    }}>
+                      <img
+                        src={speaker.photo}
+                        alt={speaker.name}
+                        loading="lazy"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                      />
+                    </div>
+                  ) : (
+                    <div style={{
+                      width: '56px', height: '56px', borderRadius: '50%',
+                      background: 'linear-gradient(135deg, var(--primary-color), var(--tertiary-color))',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'white', fontWeight: 700, fontSize: '1.1rem', flexShrink: 0
+                    }}>
+                      {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                    </div>
+                  )}
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', marginBottom: '4px' }}>
                       {speaker.name}
@@ -280,17 +308,32 @@ const SummitView = () => {
             }}>
               {summitSpeakers.pending.map((speaker) => (
                 <motion.div key={speaker.id} variants={itemScale} className="glass-card" style={{
-                  padding: '20px', display: 'flex', alignItems: 'flex-start', gap: '12px',
+                  padding: '20px', display: 'flex', alignItems: 'flex-start', gap: '14px',
                   borderLeft: '4px solid #f59e0b'
                 }}>
-                  <div style={{
-                    width: '48px', height: '48px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'white', fontWeight: 700, fontSize: '1.1rem', flexShrink: 0
-                  }}>
-                    {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                  </div>
+                  {speaker.photo ? (
+                    <div style={{
+                      width: '56px', height: '56px', borderRadius: '50%',
+                      overflow: 'hidden', border: '2px solid #fef3c7',
+                      background: '#f8fafc', flexShrink: 0
+                    }}>
+                      <img
+                        src={speaker.photo}
+                        alt={speaker.name}
+                        loading="lazy"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                      />
+                    </div>
+                  ) : (
+                    <div style={{
+                      width: '56px', height: '56px', borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'white', fontWeight: 700, fontSize: '1.1rem', flexShrink: 0
+                    }}>
+                      {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                    </div>
+                  )}
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-main)', marginBottom: '4px' }}>
                       {speaker.name}
@@ -315,49 +358,90 @@ const SummitView = () => {
           </motion.div>
 
           {/* Proposed Speakers */}
-          <motion.div
-            initial="hidden" animate="visible"
-            variants={staggerContainer}
-          >
-            <h3 style={{
-              fontSize: '1.2rem', marginBottom: '20px', display: 'flex',
-              alignItems: 'center', gap: '8px', color: 'var(--primary-color)'
-            }}>
-              <Star size={20} style={{ color: 'var(--secondary-color)' }} />
-              Usulan Pembicara Lain
-            </h3>
-            <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-              gap: '12px'
-            }}>
-              {summitSpeakers.proposed.map((speaker, idx) => (
-                <motion.div key={idx} variants={itemScale} className="glass-card" style={{
-                  padding: '16px', textAlign: 'center', opacity: 0.7
-                }}>
-                  <div style={{
-                    width: '40px', height: '40px', borderRadius: '50%',
-                    background: 'var(--bg-offset)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    margin: '0 auto 8px', color: 'var(--text-muted)'
+          {summitSpeakers.proposed.length > 0 && (
+            <motion.div
+              initial="hidden" animate="visible"
+              variants={staggerContainer}
+            >
+              <h3 style={{
+                fontSize: '1.2rem', marginBottom: '20px', display: 'flex',
+                alignItems: 'center', gap: '8px', color: 'var(--primary-color)'
+              }}>
+                <Star size={20} style={{ color: 'var(--secondary-color)' }} />
+                Usulan Pembicara Lain
+              </h3>
+              <div style={{
+                display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                gap: '12px'
+              }}>
+                {summitSpeakers.proposed.map((speaker, idx) => (
+                  <motion.div key={idx} variants={itemScale} className="glass-card" style={{
+                    padding: '16px', textAlign: 'center', opacity: 0.7
                   }}>
-                    <Star size={18} />
-                  </div>
-                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)', marginBottom: '4px' }}>
-                    {speaker.name}
-                  </div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
-                    {speaker.title}
-                  </div>
-                  <span style={{
-                    fontSize: '0.7rem', padding: '2px 8px', borderRadius: '10px',
-                    background: 'var(--bg-offset)', color: 'var(--text-muted)'
-                  }}>
-                    {speaker.category}
-                  </span>
-                </motion.div>
-              ))}
+                    <div style={{
+                      width: '40px', height: '40px', borderRadius: '50%',
+                      background: 'var(--bg-offset)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      margin: '0 auto 8px', color: 'var(--text-muted)'
+                    }}>
+                      <Star size={18} />
+                    </div>
+                    <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)', marginBottom: '4px' }}>
+                      {speaker.name}
+                    </div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                      {speaker.title}
+                    </div>
+                    <span style={{
+                      fontSize: '0.7rem', padding: '2px 8px', borderRadius: '10px',
+                      background: 'var(--bg-offset)', color: 'var(--text-muted)'
+                    }}>
+                      {speaker.category}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+      {/* ===== DOKUMENTASI WLS 2026 ===== */}
+      <section className="section section-bg" id="dokumentasi">
+        <div className="container">
+          <div className="section-heading">
+            <div className="eyebrow-pill">Arsip Dokumentasi</div>
+            <h2>Dokumentasi Pelaksanaan WLS 2026</h2>
+            <p>Momen konsolidasi pemimpin nazhir, paparan strategi nasional, serta penandatanganan kemitraan di Bandung.</p>
+          </div>
+          <div className="doc-photo-grid">
+            {wlsDocumentationPhotos.map((photo, idx) => (
+              <figure key={idx} className="doc-photo-card">
+                <div className="doc-photo-card__media">
+                  <img src={photo.src} alt={photo.alt} loading="lazy" />
+                </div>
+                <figcaption>{photo.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <div style={{ marginTop: '48px' }}>
+            <div className="section-heading" style={{ marginBottom: '28px' }}>
+              <div className="eyebrow-pill eyebrow-pill--cyan">Fasilitas Delegasi</div>
+              <h3 style={{ fontSize: 'clamp(1.35rem, 2.5vw, 1.85rem)' }}>Souvenir Eksklusif Delegasi</h3>
+              <p>Jaket resmi Waqf Leaders Summit 2026 untuk peserta dan pimpinan nazhir.</p>
             </div>
-          </motion.div>
+            <div className="doc-photo-grid doc-photo-grid--2">
+              <figure className="doc-photo-card">
+                <img src="/jacket-design-1.jpg" alt="Desain dan Panduan Ukuran Jaket Pria WLS 2026" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                <figcaption><strong>Desain Jaket Eksklusif Pria</strong> — Panduan ukuran dan spesifikasi bordir resmi WLS 2026.</figcaption>
+              </figure>
+              <figure className="doc-photo-card">
+                <img src="/jacket-design-2.jpg" alt="Desain dan Panduan Ukuran Jaket Wanita WLS 2026" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                <figcaption><strong>Desain Jaket Eksklusif Wanita</strong> — Panduan ukuran dan spesifikasi bordir resmi WLS 2026.</figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
       </section>
 

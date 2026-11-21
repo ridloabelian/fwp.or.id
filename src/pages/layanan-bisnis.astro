@@ -47,6 +47,10 @@ const STATUS_BADGE: Record<string, { bg: string; color: string }> = {
           return (
             <article class="fwp-card" style="display: flex; flex-direction: column; justify-content: space-between;">
               <div>
+                <div class="card-media-top">
+                  <img src={project.imageUrl} alt={project.imageAlt} loading="lazy" />
+                  <span class="illustration-pill">Ilustrasi Proyek</span>
+                </div>
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px;">
                   <span
                     style={`display: inline-flex; padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.76rem; font-weight: 800; background: ${badge.bg}; color: ${badge.color};`}
@@ -54,7 +58,7 @@ const STATUS_BADGE: Record<string, { bg: string; color: string }> = {
                     {project.status}
                   </span>
                   <span style="font-size: 0.78rem; color: var(--ink-muted); font-weight: 600;">
-                    {project.lastUpdated}
+                    {project.sector} &bull; {project.lastUpdated}
                   </span>
                 </div>
 
@@ -129,6 +133,33 @@ const STATUS_BADGE: Record<string, { bg: string; color: string }> = {
             Pendampingan berkala tata kelola surplus usaha agar porsi mauquf alaih tersalur transparan sesuai ikrar wakaf.
           </p>
         </div>
+      </div>
+
+      <div class="fwp-card media-split" style="margin-bottom: 56px; align-items: center;">
+        <div>
+          <div class="eyebrow-pill" style="margin-bottom: 12px;">Tata Kelola Investasi</div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 10px;">
+            Penandatanganan MoU &amp; Peluncuran Unit Manajemen Investasi FWP
+          </h3>
+          <p style="font-size: 0.95rem; margin-bottom: 14px;">
+            Melalui peluncuran Unit Manajemen Investasi (UMI) bersama Badan Wakaf Indonesia di Bandung, FWP memperkuat standardisasi kurasi prospektus, manajemen risiko syariah, dan konektivitas proyek nazhir dengan mitra pembiayaan nasional.
+          </p>
+          <a href="/berita/wls-2026-satukan-pemimpin-nazhir" class="news-card__read">
+            Baca Rilis Peluncuran UMI FWP &rarr;
+          </a>
+        </div>
+        <figure class="doc-photo-card" style="box-shadow: none;">
+          <div class="doc-photo-card__media">
+            <img
+              src="/photos/wls-2026-mou-umi.jpg"
+              alt="Penandatanganan MoU Kerja Sama FWP dan BWI serta Peluncuran Unit Manajemen Investasi"
+              loading="lazy"
+            />
+          </div>
+          <figcaption>
+            Penandatanganan MoU kemitraan FWP–BWI dan pengukuhan Unit Manajemen Investasi pada WLS 2026.
+          </figcaption>
+        </figure>
       </div>
 
       <div class="cta-banner">

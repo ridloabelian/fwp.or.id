@@ -44,14 +44,42 @@ const historyParagraphs = aboutData.history.content
         <h2>{aboutData.history.title} Forum Wakaf Produktif</h2>
         <p>Menggerakkan perwakafan produktif Indonesia sejak 7 Desember 2016 hingga {members.length} nazhir terdaftar saat ini.</p>
       </div>
-      <div class="history-content">
-        {historyParagraphs.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
-        <div style="margin-top: 24px;">
-          <a href="/tentang-kami/sejarah" class="news-card__read">
-            Baca Seluruh 17 Tonggak Sejarah FWP &rarr;
-          </a>
+      <div class="media-split">
+        <div class="history-content" style="margin: 0;">
+          {historyParagraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          <div style="margin-top: 24px;">
+            <a href="/tentang-kami/sejarah" class="news-card__read">
+              Baca Seluruh 17 Tonggak Sejarah FWP &rarr;
+            </a>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <figure class="doc-photo-card">
+            <div class="doc-photo-card__media">
+              <img
+                src="/photos/wls-2026-keynote.jpg"
+                alt="Keynote Forum Wakaf Produktif tentang potensi dan literasi wakaf nasional"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              Forum konsolidasi strategi transformasi wakaf produktif nasional pada WLS 2026.
+            </figcaption>
+          </figure>
+          <figure class="doc-photo-card">
+            <div class="doc-photo-card__media">
+              <img
+                src="/pamor-borneo-2026-05.jpg"
+                alt="Kolaborasi Forum Wakaf Produktif bersama Bank Indonesia dan BAZNAS pada Pamor Borneo 2026"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              Sinergi literasi ZIS-WAF FWP bersama Bank Indonesia Kalimantan Selatan di Banjarmasin.
+            </figcaption>
+          </figure>
         </div>
       </div>
     </div>

@@ -297,21 +297,57 @@ const SpeakerCard = ({ speaker, index }) => {
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'flex-start',
+        alignItems: 'center',
+        gap: '0.75rem',
         marginBottom: '1rem',
       }}>
-        <span style={{
-          fontSize: '0.75rem',
-          fontWeight: 700,
-          color: color,
-          backgroundColor: `${color}15`,
-          padding: '4px 10px',
-          borderRadius: 6,
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-        }}>
-          {speaker.category}
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {speaker.photo ? (
+            <img
+              src={speaker.photo}
+              alt={speaker.name}
+              loading="lazy"
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                objectPosition: 'center top',
+                border: `2px solid ${color}33`,
+                backgroundColor: '#f8fafc',
+                flexShrink: 0,
+              }}
+            />
+          ) : (
+            <div style={{
+              width: 52,
+              height: 52,
+              borderRadius: '50%',
+              backgroundColor: `${color}15`,
+              color,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 800,
+              fontSize: '0.95rem',
+              flexShrink: 0,
+            }}>
+              {speaker.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+            </div>
+          )}
+          <span style={{
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: color,
+            backgroundColor: `${color}15`,
+            padding: '4px 10px',
+            borderRadius: 6,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+          }}>
+            {speaker.category}
+          </span>
+        </div>
         <StatusBadge status={speaker.status} />
       </div>
       <h4 style={{
@@ -737,6 +773,18 @@ export default function ProposalView() {
               PROPOSAL EVENT
             </motion.div>
 
+            <motion.img
+              variants={fadeInUp}
+              src="/tumbuh-bersama-gold.png"
+              alt="Tumbuh Bersama — Forum Wakaf Produktif"
+              style={{
+                width: 'clamp(190px, 28vw, 280px)',
+                height: 'auto',
+                display: 'block',
+                marginBottom: '1.25rem',
+              }}
+            />
+
             {/* Title */}
             <motion.h1
               variants={fadeInUp}
@@ -992,6 +1040,24 @@ export default function ProposalView() {
               Indonesia.
             </p>
           </motion.div>
+
+          <figure style={{
+            marginTop: '1.5rem',
+            borderRadius: 16,
+            overflow: 'hidden',
+            border: '1px solid #e2e8f0',
+            backgroundColor: '#f8fafc',
+          }}>
+            <img
+              src="/photos/wls-2026-plenary.jpg"
+              alt="Dokumentasi pleno pimpinan lembaga nazhir pada Waqf Leaders Summit 2026 di Bandung"
+              loading="lazy"
+              style={{ width: '100%', maxHeight: 380, objectFit: 'cover', display: 'block' }}
+            />
+            <figcaption style={{ padding: '0.75rem 1rem', fontSize: '0.875rem', color: '#475569' }}>
+              Dokumentasi pleno pimpinan lembaga nazhir nasional pada pelaksanaan Waqf Leaders Summit 2026 di Holiday Inn Pasteur, Bandung.
+            </figcaption>
+          </figure>
         </motion.div>
       </section>
 

@@ -15,6 +15,12 @@ export interface ArticleMediaCoverage {
   url: string;
 }
 
+export interface ArticleGalleryItem {
+  src: string;
+  alt: string;
+  caption: string;
+}
+
 export interface ArticleCategory {
   slug: string;
   label: string;
@@ -33,6 +39,7 @@ export interface ArticleItem {
   tags: ArticleCategory[];
   featuredImage?: ImageValue | string | null;
   imageUrl: string;
+  galleryImages: ArticleGalleryItem[];
   contentBlocks?: PortableTextBlock[] | null;
   legacyParagraphs: string[];
   mediaCoverage: ArticleMediaCoverage[];
@@ -116,19 +123,83 @@ export function formatIndonesianDate(value: unknown): string {
   }).format(date);
 }
 
+const ARTICLE_GALLERY_BY_SLUG: Record<string, ArticleGalleryItem[]> = {
+  'pamor-borneo-2026-wakaf-produktif': [
+    {
+      src: '/pamor-borneo-2026-02.jpg',
+      alt: 'Ketua FWP Rayan Asa Luminaries memaparkan materi wakaf produktif di Atrium Duta Mall Banjarmasin',
+      caption: 'Penyampaian materi potensi dan transformasi wakaf produktif di hadapan pelaku UMKM dan masyarakat Kalimantan Selatan.',
+    },
+    {
+      src: '/pamor-borneo-2026-03.jpg',
+      alt: 'Paparan potensi wakaf Kalimantan Selatan pada layar utama panggung Pamor Borneo 2026',
+      caption: 'Paparan strategi optimalisasi wakaf uang dan kemitraan 300 ribu+ UMKM Kalimantan Selatan.',
+    },
+    {
+      src: '/pamor-borneo-2026-04.jpg',
+      alt: 'Sesi tanya jawab panel Sharia Talks Bank Indonesia Pamor Borneo 2026',
+      caption: 'Diskusi interaktif mengenai digitalisasi tata kelola wakaf, ERP nazhir, dan sinergi ZIS-WAF.',
+    },
+    {
+      src: '/pamor-borneo-2026-05.jpg',
+      alt: 'Foto bersama narasumber dan Bank Indonesia Kalimantan Selatan pada Pamor Borneo 2026',
+      caption: 'Penyerahan plakat dan foto bersama narasumber Sharia Talks: BAZNAS Kalsel, Bank Indonesia, dan FWP.',
+    },
+  ],
+  'wls-2026-satukan-pemimpin-nazhir': [
+    {
+      src: '/photos/wls-2026-keynote.jpg',
+      alt: 'Paparan keynote strategi akselerasi wakaf nasional di Waqf Leaders Summit 2026',
+      caption: 'Pemaparan kesenjangan potensi wakaf uang Rp 300 triliun dan strategi penguatan literasi nasional.',
+    },
+    {
+      src: '/photos/wls-2026-panel.jpg',
+      alt: 'Sesi Leaders Talk Revisi UU Wakaf Indonesia pada WLS 2026 di Bandung',
+      caption: 'Panel Leaders Talk mengenai penguatan regulasi dan revisi Undang-Undang Wakaf bersama regulator dan praktisi.',
+    },
+    {
+      src: '/photos/wls-2026-mou-umi.jpg',
+      alt: 'Penandatanganan MoU Kerja Sama Forum Wakaf Produktif dan Badan Wakaf Indonesia',
+      caption: 'Penandatanganan MoU kemitraan FWP–BWI serta peluncuran Unit Manajemen Investasi (UMI) FWP.',
+    },
+    {
+      src: '/photos/wls-2026-delegates.jpg',
+      alt: 'Pimpinan FWP bersama perwakilan Badan Wakaf Indonesia dan mitra pada panggung WLS 2026',
+      caption: 'Konsolidasi pimpinan FWP, BWI, dan perwakilan nazhir nasional dalam semangat Tumbuh Bersama.',
+    },
+  ],
+};
+
 export function resolveMediaUrl(media: unknown, fallback = '/og-image.jpg'): string {
   if (!media) return fallback;
   if (typeof media === 'string') return media.trim() || fallback;
   if (typeof media === 'object') {
     const record = media as Record<string, unknown>;
+    const mimeType = typeof record.mimeType === 'string' ? record.mimeType.toLowerCase() : '';
+    if (mimeType.startsWith('text/html')) return fallback;
+
     if (typeof record.src === 'string' && record.src.trim()) return record.src;
+    if (typeof record.url === 'string' && record.url.trim()) return record.url;
     if (typeof record.previewUrl === 'string' && record.previewUrl.trim()) return record.previewUrl;
-    if (record.meta && typeof record.meta === 'object') {
-      const metaUrl = (record.meta as Record<string, unknown>).url;
-      if (typeof metaUrl === 'string' && metaUrl.trim()) return metaUrl;
+
+    const meta = record.meta && typeof record.meta === 'object'
+      ? (record.meta as Record<string, unknown>)
+      : undefined;
+    if (meta && typeof meta.url === 'string' && meta.url.trim()) return meta.url;
+
+    const storageKey =
+      (meta && typeof meta.storageKey === 'string' ? meta.storageKey.trim() : '') ||
+      (typeof record.storageKey === 'string' ? record.storageKey.trim() : '');
+    if (storageKey && !storageKey.toLowerCase().endsWith('.html')) {
+      return `/_emdash/api/media/file/${encodeURIComponent(storageKey)}`;
     }
-    if (typeof record.id === 'string' && record.id.trim()) {
-      return `/_emdash/api/media/file/${encodeURIComponent(record.id)}`;
+
+    if (
+      typeof record.id === 'string' &&
+      record.id.trim() &&
+      (!mimeType || mimeType.startsWith('image/'))
+    ) {
+      return `/_emdash/api/media/file/${encodeURIComponent(record.id.trim())}`;
     }
   }
   return fallback;
@@ -219,6 +290,21 @@ function sanitizeMediaCoverage(raw: unknown): ArticleMediaCoverage[] {
     .filter((item) => item.media.length > 0 && /^https?:\/\//i.test(item.url));
 }
 
+function sanitizeGalleryImages(raw: unknown, slug: string): ArticleGalleryItem[] {
+  if (Array.isArray(raw) && raw.length > 0) {
+    const parsed = raw
+      .filter((item): item is Record<string, unknown> => Boolean(item && typeof item === 'object'))
+      .map((item) => ({
+        src: resolveMediaUrl(item.src ?? item.image, ''),
+        alt: String(item.alt ?? '').trim(),
+        caption: String(item.caption ?? '').trim(),
+      }))
+      .filter((item) => item.src.length > 0);
+    if (parsed.length > 0) return parsed;
+  }
+  return ARTICLE_GALLERY_BY_SLUG[slug] ?? [];
+}
+
 function normalizeEmDashPost(entry: {
   id: string;
   data: Record<string, unknown>;
@@ -260,6 +346,7 @@ function normalizeEmDashPost(entry: {
     tags,
     featuredImage,
     imageUrl,
+    galleryImages: sanitizeGalleryImages(data.gallery, slug),
     contentBlocks,
     legacyParagraphs: fallbackBody,
     mediaCoverage: sanitizeMediaCoverage(data.media_coverage),
@@ -301,6 +388,7 @@ function normalizeFallbackPost(raw: (typeof newsList)[number]): ArticleItem {
     tags: [],
     featuredImage: raw.imageUrl || '/og-image.jpg',
     imageUrl: raw.imageUrl || '/og-image.jpg',
+    galleryImages: ARTICLE_GALLERY_BY_SLUG[raw.id] ?? [],
     contentBlocks: null,
     legacyParagraphs,
     mediaCoverage: sanitizeMediaCoverage(raw.mediaCoverage),

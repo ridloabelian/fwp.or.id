@@ -14,9 +14,10 @@ let isPreview = false;
 try {
   const result = await getEmDashEntry('pages', slug);
   if (!result.error && result.entry) {
+    const rawData = (result.entry.data ?? {}) as unknown as Record<string, unknown>;
     pageEntry = {
-      id: String((result.entry.data as Record<string, unknown>)?.id ?? result.entry.id),
-      data: (result.entry.data ?? {}) as Record<string, unknown>,
+      id: String(rawData.id ?? result.entry.id),
+      data: rawData,
     };
     isPreview = result.isPreview;
     if (result.cacheHint?.tags?.length) {

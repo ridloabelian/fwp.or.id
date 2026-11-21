@@ -115,7 +115,7 @@ export const newsList = [
     date: '22 Juli 2026',
     author: 'Panitia WLS 2026',
     category: 'Event & Summit',
-    imageUrl: '/og-image.jpg',
+    imageUrl: '/photos/wls-2026-plenary.jpg',
     excerpt: 'Forum Wakaf Produktif menggelar WLS 2026 di Bandung dengan menghadirkan 53 delegasi untuk memperkuat kolaborasi dan dampak wakaf produktif nasional.',
     content: `
       BANDUNG — Forum Wakaf Produktif (FWP) menggelar Waqf Leaders Summit (WLS) 2026 pada 22–23 Juli 2026 di Holiday Inn Pasteur, Bandung. Forum strategis bertema "Scaling-Up the Impact of Waqf Toward Sustainable Wellbeing" ini mempertemukan pimpinan lembaga nazhir, regulator, akademisi, praktisi, dan mitra industri untuk memperkuat kolaborasi serta memperbesar dampak wakaf produktif di Indonesia.
@@ -140,7 +140,7 @@ export const newsList = [
     date: '19 Juli 2026',
     author: 'Admin FWP',
     category: 'Sinergi & Kemitraan',
-    imageUrl: 'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-14-at-16.55.39.jpeg?w=1032&ssl=1',
+    imageUrl: '/photos/d8-halal-expo-2026.jpg',
     excerpt: 'Forum Wakaf Produktif (FWP) bersama OIC Youth Indonesia menyepakati kolaborasi strategis dalam pengembangan talenta muda dan inovasi keuangan sosial Islam (faith-based finance) pada D-8 Halal Expo Indonesia 2026.',
     content: `
       JAKARTA — Forum Wakaf Produktif (FWP) bersinergi dengan OIC Youth Indonesia untuk mendorong kolaborasi talenta muda, inovasi berkelanjutan, dan pengembangan keuangan sosial Islam berbasis nilai keagamaan (faith-based finance) pada perhelatan D-8 Halal Expo Indonesia 2026. Sinergi taktis ini dirancang sebagai mesin baru pembangunan ekonomi umat sekaligus strategi jitu dalam mengentaskan kemiskinan secara nasional.
@@ -171,7 +171,7 @@ export const newsList = [
     date: '21 Juli 2026',
     author: 'Panitia WLS 2026',
     category: 'Event & Summit',
-    imageUrl: 'https://i0.wp.com/faktanesia.id/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-17-at-10.31.33-1.jpeg?w=1280&ssl=1',
+    imageUrl: '/photos/wls-2026-persiapan.jpg',
     excerpt: 'Pendaftaran Waqf Leaders Summit 2026 resmi ditutup dengan total 53 peserta dari berbagai lembaga nazhir, regulator, dan BSI. Seluruh persiapan teknis dan pembagian kamar delegasi telah rampung.',
     content: `
       BANDUNG — Pendaftaran resmi untuk perhelatan akbar Waqf Leaders Summit (WLS) 2026 secara resmi telah ditutup per hari ini, Selasa, 21 Juli 2026. Panitia mencatat total delegasi yang terdaftar mencapai 53 peserta dari berbagai lembaga nazhir nasional, institusi pemerintah, akademisi, serta 2 perwakilan dari mitra strategis Bank Syariah Indonesia (BSI).

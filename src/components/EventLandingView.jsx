@@ -7,7 +7,7 @@ import {
 import RegistrationForm from './RegistrationForm';
 import {
   summitSpeakers, summitCommittee, rundownDay1, rundownDay2,
-  sponsorshipPackages, miniExpoParticipants
+  sponsorshipPackages, miniExpoParticipants, wlsDocumentationPhotos
 } from '../data/summit';
 
 /* ─── Design tokens ─── */
@@ -443,7 +443,7 @@ export default function EventLandingView() {
         transition: 'box-shadow .3s ease, padding .3s ease',
       }}>
         <a href="#hero" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', flex: 'none' }}>
-          <img src="/logo.png" alt="Forum Wakaf Produktif" style={{ height: 42, width: 'auto' }} />
+          <img src="/logo-sm.png" alt="Forum Wakaf Produktif" style={{ height: 42, width: 'auto' }} />
         </a>
         <div className="wls-navlinks" style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
           {['Tentang', 'Agenda', 'Narasumber', 'Sponsorship', 'Expo'].map(l => (
@@ -928,6 +928,30 @@ export default function EventLandingView() {
                 Hubungi Sekretariat
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ DOKUMENTASI WLS 2026 ═══ */}
+      <section style={{ padding: 'clamp(72px, 9vw, 130px) clamp(20px, 5vw, 64px)', background: '#fff' }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+          <Reveal style={{ textAlign: 'center', marginBottom: 48 }}>
+            <p style={{ margin: '0 0 14px', fontSize: 13, fontWeight: 700, letterSpacing: '.22em', color: C.gold, textTransform: 'uppercase' }}>Dokumentasi</p>
+            <h2 style={{ margin: '0 0 12px', fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4.4vw, 50px)', fontWeight: 700, color: C.navy, letterSpacing: '-.01em' }}>Dokumentasi Pelaksanaan WLS 2026</h2>
+            <p style={{ margin: '0 auto', maxWidth: 620, fontSize: 16, color: C.textLight }}>Potret pleno pimpinan nazhir, Leaders Talk regulasi wakaf, dan penandatanganan MoU FWP–BWI di Bandung.</p>
+          </Reveal>
+
+          <div className="doc-photo-grid">
+            {wlsDocumentationPhotos.map((photo, idx) => (
+              <Reveal key={idx} delay={(idx % 3) + 1} variant="scale">
+                <figure className="doc-photo-card" style={{ height: '100%' }}>
+                  <div className="doc-photo-card__media">
+                    <img src={photo.src} alt={photo.alt} loading="lazy" />
+                  </div>
+                  <figcaption>{photo.caption}</figcaption>
+                </figure>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

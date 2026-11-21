@@ -1343,7 +1343,7 @@ textarea:focus-visible {
   width: 100%;
   height: 290px;
   overflow: hidden;
-  background: var(--surface-mist);
+  background: radial-gradient(circle at 50% 35%, #f4f8f6 0%, var(--surface-mist) 100%);
   margin-bottom: 20px;
 }
 
@@ -1356,8 +1356,7 @@ textarea:focus-visible {
 }
 
 .leader-image img.leader-photo-herri {
-  transform: translateY(-30%) scale(1.85);
-  transform-origin: center top;
+  object-position: center 12%;
 }
 
 .leader-card h3 {
@@ -1409,9 +1408,150 @@ textarea:focus-visible {
   object-fit: cover;
 }
 
-.structure-photo-ketua img { object-position: 47% 22%; transform: scale(0.92); }
-.structure-photo-sekretaris img { object-position: center 24%; transform: scale(0.92); }
-.structure-photo-bendahara img { object-position: center 18%; transform: scale(1.25); }
+.structure-photo-ketua img { object-position: center top; }
+.structure-photo-sekretaris img { object-position: center top; }
+.structure-photo-bendahara img { object-position: center top; }
+
+/* Documentary Galleries, Editorial Media Cards & Illustrations */
+.article-gallery-box {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.article-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.doc-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.doc-photo-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.doc-photo-card {
+  background: var(--surface-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  transition: var(--transition-normal);
+}
+
+.doc-photo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+
+.doc-photo-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-mist);
+  overflow: hidden;
+}
+
+.doc-photo-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.doc-photo-card figcaption {
+  padding: 13px 16px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-secondary);
+}
+
+.card-media-top {
+  position: relative;
+  margin: -28px -28px 20px -28px;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-mist);
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card-media-top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.fwp-card:hover .card-media-top img {
+  transform: scale(1.03);
+}
+
+.illustration-pill {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(12, 34, 48, 0.78);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.case-visual-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--navy-900);
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+}
+
+.case-visual-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--navy-800);
+}
+
+.case-visual-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.case-visual-card__caption {
+  padding: 20px 24px;
+  color: #ffffff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.media-split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: start;
+}
 
 /* Timeline */
 .timeline {
@@ -1692,11 +1832,13 @@ textarea:focus-visible {
     display: inline-flex;
   }
   .home-hero__grid,
-  .editorial-featured {
+  .editorial-featured,
+  .media-split {
     grid-template-columns: 1fr;
   }
   .grid-3,
   .grid-4,
+  .doc-photo-grid,
   .leadership-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1706,6 +1848,9 @@ textarea:focus-visible {
   .grid-2,
   .grid-3,
   .grid-4,
+  .doc-photo-grid,
+  .doc-photo-grid--2,
+  .article-gallery-grid,
   .leadership-grid,
   .divisions-grid,
   .stats-strip,

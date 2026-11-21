@@ -134,6 +134,25 @@ function classifyLegacyParagraph(paragraph: string): 'blockquote' | 'heading' | 
             )}
           </div>
 
+          {article.galleryImages.length > 0 && (
+            <div class="article-gallery-box">
+              <h2 style="font-size: 1.25rem; margin-bottom: 4px;">Dokumentasi Kegiatan</h2>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">
+                Rangkaian foto dokumentasi pelaksanaan kegiatan di lapangan.
+              </p>
+              <div class="article-gallery-grid">
+                {article.galleryImages.map((photo) => (
+                  <figure class="doc-photo-card">
+                    <div class="doc-photo-card__media">
+                      <img src={photo.src} alt={photo.alt} loading="lazy" />
+                    </div>
+                    {photo.caption && <figcaption>{photo.caption}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            </div>
+          )}
+
           {article.tags.length > 0 && (
             <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;">
               {article.tags.map((tag) => (

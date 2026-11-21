@@ -53,25 +53,26 @@ const METRIC_LABELS = [
           );
 
           const visualPanel = (
-            <div class={`showcase-panel ${panelTheme}`}>
-              <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
-                <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green-400);">
-                  Model Terbukti
-                </span>
-                <span style="font-size: 0.78rem; color: rgba(255,255,255,0.75);">
-                  Data {study.lastUpdated}
-                </span>
+            <div class="case-visual-card">
+              <div class="case-visual-card__media">
+                <img src={study.imageUrl} alt={study.imageAlt} loading="lazy" />
+                <span class="illustration-pill">{study.imageLabel || 'Ilustrasi Program'}</span>
               </div>
-              <div>
-                <div style="font-family: var(--font-heading); font-size: clamp(1.45rem, 2.5vw, 2rem); font-weight: 700; color: #ffffff; margin-bottom: 8px;">
-                  {visualMeta.metric}
+              <div class={`case-visual-card__caption ${panelTheme}`}>
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                  <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green-400);">
+                    {visualMeta.metric}
+                  </span>
+                  <span style="font-size: 0.76rem; color: rgba(255,255,255,0.75);">
+                    Data {study.lastUpdated}
+                  </span>
                 </div>
-                <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 0;">
+                <div style="font-family: var(--font-heading); font-size: clamp(1.15rem, 2vw, 1.45rem); font-weight: 700; color: #ffffff;">
                   {visualMeta.caption}
-                </p>
-              </div>
-              <div style="padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.14); font-size: 0.84rem; color: rgba(255,255,255,0.8);">
-                Surplus produktif disalurkan kembali untuk perluasan manfaat mauquf alaih.
+                </div>
+                <div style="padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.14); font-size: 0.82rem; color: rgba(255,255,255,0.8);">
+                  Surplus produktif disalurkan kembali untuk perluasan manfaat mauquf alaih.
+                </div>
               </div>
             </div>
           );
